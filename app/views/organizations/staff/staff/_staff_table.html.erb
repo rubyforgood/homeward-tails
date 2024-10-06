@@ -12,17 +12,17 @@
         </tr>
       </thead>
       <tbody>
-        <% staff_accounts.each do |staff| %>
+        <% staff.each do |staff| %>
           <tr>
             <td>
               <div class="d-flex align-items-center">
                 <div class="position-relative">
-                  <%= render AvatarComponent.new(staff.user) %>
+                  <%= render AvatarComponent.new(staff) %>
                   <a href="#" class="position-absolute mt-5 ms-n4">
                     <span class="status bg-success"></span>
                   </a>
                 </div>
-                <h5 class="mb-0 ms-3"><%= "#{staff.user.full_name}" %></h5>
+                <h5 class="mb-0 ms-3"><%= "#{staff.full_name}" %></h5>
               </div>
             </td>
             <td>

@@ -4,9 +4,9 @@ class Organizations::Staff::StaffController < Organizations::BaseController
   layout "dashboard"
 
   def index
-    authorize! StaffAccount, context: {organization: Current.organization}
+    authorize! User, context: {organization: Current.organization}
 
-    @staff_accounts = authorized_scope(StaffAccount.all)
+    @staff = authorized_scope(User.joins(:roles).where(roles: {name: %i[admin super_admin]}))
   end
 
   def deactivate
