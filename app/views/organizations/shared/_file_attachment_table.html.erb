@@ -24,7 +24,7 @@
                   rails_blob_path(file, disposition: 'attachment'),
                   class: 'btn btn-outline-success' %>
 
-                <% if current_user&.staff_account %>
+                <% if allowed_to?(:purge?, file) %>
                   <%= link_to t('general.delete'),
                       staff_purge_attachment_path(file.id),
                       data: {
