@@ -67,6 +67,7 @@ class User < ApplicationRecord
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
+  # TODO: Remove this association
   has_one :staff_account, dependent: :destroy
 
   # Once we've migrated the existing data to connect a user to a person,
@@ -79,10 +80,8 @@ class User < ApplicationRecord
 
   delegate :latest_form_submission, to: :person
 
-  # get user accounts for staff in a given organization
-  def self.organization_staff(org_id)
-    User.includes(:staff_account)
-      .where(staff_account: {organization_id: org_id})
+  def self.staff
+    joins(:roles).where(roles: {name: %i[admin super_admin]})
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -98,10 +97,12 @@ class User < ApplicationRecord
     errors.where(attribute)
   end
 
+  # TODO: What is this method used for if at all?
   def active_for_authentication?
     super && !staff_account&.deactivated_at
   end
 
+  # TODO: What is this method used for if at all?
   def inactive_message
     staff_account.deactivated_at ? :deactivated : super
   end

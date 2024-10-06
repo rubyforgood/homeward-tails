@@ -6,7 +6,7 @@ class Organizations::Staff::StaffController < Organizations::BaseController
   def index
     authorize! User, context: {organization: Current.organization}
 
-    @staff = authorized_scope(User.joins(:roles).where(roles: {name: %i[admin super_admin]}))
+    @staff = authorized_scope(User.staff)
   end
 
   def update_activation
