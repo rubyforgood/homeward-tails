@@ -75,9 +75,9 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
     end
   end
 
-  context "#activate?" do
+  context "#update_activation?" do
     setup do
-      @action = -> { @policy.call.apply(:activate?) }
+      @action = -> { @policy.call.apply(:update_activation?) }
     end
 
     context "when user is nil" do
@@ -138,18 +138,6 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
           assert_equal false, @action.call
         end
       end
-    end
-  end
-
-  context "#deactivate?" do
-    should "be an alias to :activate?" do
-      assert_alias_rule @policy.call, :deactivate?, :activate?
-    end
-  end
-
-  context "#update_activation?" do
-    should "be an alias to :activate?" do
-      assert_alias_rule @policy.call, :update_activation?, :activate?
     end
   end
 end

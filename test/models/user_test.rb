@@ -58,10 +58,10 @@ class UserTest < ActiveSupport::TestCase
   context ".organization_staff" do
     should "return all users with staff accounts" do
       user = create(:admin)
-      organization = user.staff_account.organization
+      organization = user.organization
       assert_includes User.organization_staff(organization.id), user
 
-      user.staff_account.destroy
+      user.destroy
       assert_not_includes User.organization_staff(organization.id), user
     end
   end
