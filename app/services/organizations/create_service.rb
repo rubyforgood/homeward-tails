@@ -32,8 +32,7 @@ class Organizations::CreateService
         args[:user][:first_name],
         args[:user][:last_name]
       )
-      create_staff_account
-      add_super_admin_role_to_staff_account
+      add_super_admin_role_to_user
       send_email
       create_custom_page
     end
@@ -63,16 +62,7 @@ class Organizations::CreateService
     end
   end
 
-  def create_staff_account
-    ActsAsTenant.with_tenant(@organization) do
-      @staff_account = StaffAccount.create!(
-        organization_id: @organization.id,
-        user_id: @user.id
-      )
-    end
-  end
-
-  def add_super_admin_role_to_staff_account
+  def add_super_admin_role_to_user
     @user.add_role(:super_admin)
 
     if !@user.has_role?(:super_admin)
