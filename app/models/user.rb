@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -130,6 +131,18 @@ class User < ApplicationRecord
 
   def name_initials
     full_name.split.map { |part| part[0] }.join.upcase
+  end
+
+  def deactivate
+    update(deactivated_at: Time.now) unless deactivated_at
+  end
+
+  def activate
+    update(deactivated_at: nil) if deactivated_at
+  end
+
+  def deactivated?
+    !!deactivated_at
   end
 
   private
