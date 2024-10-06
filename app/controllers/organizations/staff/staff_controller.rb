@@ -9,27 +9,16 @@ class Organizations::Staff::StaffController < Organizations::BaseController
     @staff = authorized_scope(User.joins(:roles).where(roles: {name: %i[admin super_admin]}))
   end
 
-  def deactivate
-    @staff_account.deactivate
-    respond_to do |format|
-      format.html { redirect_to staff_staff_index_path, notice: t(".success") }
-      format.turbo_stream { render "organizations/staff/staff/update" }
-    end
-  end
-
-  def activate
-    @staff_account.activate
-    respond_to do |format|
-      format.html { redirect_to staff_staff_index_path, notice: t(".success") }
-      format.turbo_stream { render "organizations/staff/staff/update" }
-    end
-  end
-
   def update_activation
-    if @staff_account.deactivated_at
-      activate
+    if @staff.deactivated_at
+      @staff.activate
     else
-      deactivate
+      @staff.deactivate
+    end
+
+    respond_to do |format|
+      format.html { redirect_to staff_staff_index_path, notice: t(".success") }
+      format.turbo_stream { render "organizations/staff/staff/update" }
     end
   end
 
