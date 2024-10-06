@@ -63,9 +63,9 @@ class Organizations::CreateService
   end
 
   def add_super_admin_role_to_user
-    @user.add_role(:super_admin)
+    @user.add_role(:super_admin, @organization)
 
-    if !@user.has_role?(:super_admin)
+    if !@user.has_role?(:super_admin, @organization)
       raise StandardError, "Failed to add super admin role"
     end
   end
