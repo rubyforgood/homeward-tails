@@ -97,14 +97,12 @@ class User < ApplicationRecord
     errors.where(attribute)
   end
 
-  # TODO: What is this method used for if at all?
   def active_for_authentication?
-    super && !staff_account&.deactivated_at
+    super && !deactivated?
   end
 
-  # TODO: What is this method used for if at all?
   def inactive_message
-    staff_account.deactivated_at ? :deactivated : super
+    deactivated? ? :deactivated : super
   end
 
   def ensure_person_exists

@@ -134,7 +134,7 @@
           <div class='text-center d-flex flex-column align-items-center mt-1'>
             <%# FIXME: I think this should be rewritten as these nested conditionals are confusing to follow. %>
             <%# Not a fan of using unless with logic operators %>
-            <% unless user_signed_in? && current_user.staff_account %>
+            <% unless user_signed_in? && current_user.roles.map(&:name).any? { |role| %i[admin super_admin].include?(role) } %>
               <% if user_signed_in? %>
                 <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, user: current_user}) %>
                   <h4 class="mb-4 mt-3">In love with this pooch?</h4>

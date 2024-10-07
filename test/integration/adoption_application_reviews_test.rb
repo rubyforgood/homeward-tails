@@ -65,7 +65,7 @@ class AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
 
     context "deactivated staff" do
       setup do
-        sign_in create(:staff_account, :deactivated).user
+        sign_in create(:admin, :deactivated)
       end
 
       should_eventually "not see any applications" do
