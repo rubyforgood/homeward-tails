@@ -277,7 +277,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "person_id"
+    t.bigint "person_id", null: false
     t.datetime "deactivated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

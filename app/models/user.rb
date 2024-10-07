@@ -23,7 +23,7 @@
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
 #  organization_id        :bigint
-#  person_id              :bigint
+#  person_id              :bigint           not null
 #
 # Indexes
 #
@@ -67,9 +67,7 @@ class User < ApplicationRecord
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
-  # Once we've migrated the existing data to connect a user to a person,
-  # we should remove the optional: true part
-  belongs_to :person, optional: true
+  belongs_to :person
 
   before_validation :ensure_person_exists, on: :create
 
