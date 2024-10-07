@@ -7,7 +7,6 @@ class UserTest < ActiveSupport::TestCase
   include AvatarableSharedTests
 
   context "associations" do
-    should have_one(:staff_account).dependent(:destroy)
     should belong_to(:person).required(false)
   end
 

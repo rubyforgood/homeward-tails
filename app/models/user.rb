@@ -67,9 +67,6 @@ class User < ApplicationRecord
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
-  # TODO: Remove this association
-  has_one :staff_account, dependent: :destroy
-
   # Once we've migrated the existing data to connect a user to a person,
   # we should remove the optional: true part
   belongs_to :person, optional: true
