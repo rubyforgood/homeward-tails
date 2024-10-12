@@ -1,6 +1,6 @@
 class FeedbackController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_verify_authorized only: %i[new create]
+  skip_verify_authorized only: %i[new create how_to]
   layout :set_layout, only: %i[new create]
 
   def new
@@ -17,7 +17,7 @@ class FeedbackController < ApplicationController
     end
   end
 
-  def show
+  def how_to
   end
 
   private

@@ -8,6 +8,9 @@
   <% end %>
   <div class="row mb-2">
 
+<%= turbo_frame_tag 'feedback' do %>
+<%= link_to 'How to submit a request', feedback_how_to_path %>
+<% end  %>
     <div class="mb-3 form-group">
       <%= f.select :subject, ["General Feedback", "Feature Request", "Bug"] %>
     </div>
