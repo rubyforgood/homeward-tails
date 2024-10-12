@@ -11,7 +11,7 @@ class FeedbackController < ApplicationController
     @contact = Contact.new(contact_params)
     if @contact.valid?
       FeedbackMailer.with(contact_params).send_message.deliver_later
-      redirect_to root_path, notice: I18n.t('contacts.create.success')
+      redirect_to root_path, notice: I18n.t("contacts.create.success")
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,11 +28,11 @@ class FeedbackController < ApplicationController
 
   def set_layout
     if current_user.nil?
-      'application'
+      "application"
     elsif current_user.staff_account
-      'dashboard'
+      "dashboard"
     else
-      'adopter_foster_dashboard'
+      "adopter_foster_dashboard"
     end
   end
 end

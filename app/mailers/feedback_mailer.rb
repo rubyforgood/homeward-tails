@@ -5,6 +5,6 @@ class FeedbackMailer < ApplicationMailer
     @subject = params[:subject]
     @message = params[:message]
 
-    mail to: 'devs@email.com', subject: @subject
+    mail to: "devs@email.com", subject: @subject
   end
 end
