@@ -7,6 +7,10 @@
     </div>
   <% end %>
   <div class="row mb-2">
+
+    <div class="mb-3 form-group">
+      <%= f.select :subject, ["General Feedback", "Feature Request", "Bug"] %>
+    </div>
     <div class="mb-3 form-group">
       <%= f.text_field :name, autofocus: true, 
                               class: 'form-control', 
