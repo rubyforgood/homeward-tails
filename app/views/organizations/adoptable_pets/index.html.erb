@@ -26,15 +26,6 @@
                 <%= f.label :sex_eq, "Sex" %>
                 <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
               </div>
-              <% unless params[:species].present? %>
-                <div class="form-group">
-                  <%= f.label :species_eq, "Species" %>
-                  <%= f.select :species_eq,
-                           Pet.species,
-                           { include_blank: "All" },
-                           class: "form-select" %>
-                </div>
-              <% end %>
               <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>
                 <%= f.select :breed_eq, get_animals, {include_blank: 'All'}, class: "form-select" %>

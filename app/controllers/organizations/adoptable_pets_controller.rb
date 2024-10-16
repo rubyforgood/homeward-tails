@@ -8,21 +8,23 @@ class Organizations::AdoptablePetsController < Organizations::BaseController
   helper_method :get_animals
 
   def index
-    params.compact_blank!
-    species = case params[:species]
-    when "dog"
-      Pet.Dog.unadopted
-    when "cat"
-      Pet.Cat.unadopted
-    else
-      Pet.unadopted
-    end
+    @q = authorized_scope(
+      case params[:species]
+      when "dog"
+        Pet.Dog.unadopted
+      when "cat"
+        Pet.Cat.unadopted
+      else
+        redirect_back_or_to root_path and return
+      end,
+      with: Organizations::AdoptablePetPolicy
+    ).ransack(params[:q])
 
-    @q = authorized_scope(species, with: Organizations::AdoptablePetPolicy).ransack(params[:q])
     @pagy, paginated_adoptable_pets = pagy(
       @q.result.includes(:adopter_applications, :matches, images_attachments: :blob),
       limit: 9
     )
+
     @pets = paginated_adoptable_pets
   end
 
