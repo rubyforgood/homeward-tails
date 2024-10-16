@@ -26,10 +26,15 @@
                 <%= f.label :sex_eq, "Sex" %>
                 <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
               </div>
-              <div class="form-group">
-                <%= f.label :species_eq, "Species" %>
-                <%= f.select :species_eq, Pet.species, {include_blank: 'All'}, class: "form-select" %>
-              </div>              
+              <% unless params[:species].present? %>
+                <div class="form-group">
+                  <%= f.label :species_eq, "Species" %>
+                  <%= f.select :species_eq,
+                           Pet.species,
+                           { include_blank: "All" },
+                           class: "form-select" %>
+                </div>
+              <% end %>
               <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>
                 <%= f.select :breed_eq, get_animals, {include_blank: 'All'}, class: "form-select" %>
@@ -40,8 +45,11 @@
               </div>
             </div>
             <div class='d-flex w-md-auto flex-md-row align-items-end' style="align-self: flex-end;">
+              <%= hidden_field_tag "species", params[:species] %>
               <%= f.submit class: "btn btn-primary" %>
-              <%= link_to "Clear filters", adoptable_pets_path, class: "btn btn-default"%>
+              <%= link_to "Clear filters",
+              adoptable_pets_path(species: params[:species]),
+              class: "btn btn-default" %>
             </div>
           </div>
         <% end %>
