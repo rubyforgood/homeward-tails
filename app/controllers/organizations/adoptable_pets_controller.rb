@@ -47,10 +47,9 @@ class Organizations::AdoptablePetsController < Organizations::BaseController
 
   private
 
-  def get_animals
-    Pet.species.keys.to_h do |s|
-      [s, authorized_scope(Pet.where(species: s).distinct.order(:breed), with: Organizations::AdoptablePetPolicy).pluck(:breed)]
-    end
+  def get_animals(species)
+    authorized_scope(Pet.where(species: species.capitalize).distinct.order(:breed),
+      with: Organizations::AdoptablePetPolicy).pluck(:breed)
   end
 
   def set_likes
