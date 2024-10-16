@@ -28,7 +28,10 @@
               </div>
               <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>
-                <%= f.select :breed_eq, get_animals, {include_blank: 'All'}, class: "form-select" %>
+                <%= f.select :breed_eq,
+                         get_animals(params[:species]),
+                         { include_blank: "All" },
+                         class: "form-select" %>
               </div>
               <div class="form-group">
                 <%= f.label :ransack_birth_date, "Age" %>
