@@ -84,6 +84,7 @@ Rails.application.routes.draw do
   # match "/500", to: "errors#internal_server_error", via: :all
 
   root "root#index"
+  get "/up", to: "root#up" # Health check endpoint to let Kamal know the app is up
   get "/about_us", to: "static_pages#about_us"
   get "/partners", to: "static_pages#partners"
   get "/donate", to: "static_pages#donate"
