@@ -128,11 +128,11 @@ class User < ApplicationRecord
   end
 
   def deactivate
-    update(deactivated_at: Time.now) unless deactivated_at
+    update!(deactivated_at: Time.now) unless deactivated_at
   end
 
   def activate
-    update(deactivated_at: nil) if deactivated_at
+    update!(deactivated_at: nil) if deactivated_at
   end
 
   def deactivated?
