@@ -5,7 +5,20 @@
     <% else %>
       <p><%= t("organizations.adopter_fosterer.form_instructions.index", organization_name: Current.tenant.name) %></p>
     <% end %>
-    <%= link_to 'View pets', adoptable_pets_path, class: "btn btn-primary float-end" %>
+    <div class="d-flex justify-content-end gap-2 pb-2">
+      <% if user_signed_in? %>
+        <%= link_to "View Dogs",
+        adoptable_pets_path(species: "dog"),
+        class: "btn btn-primary" %>
+        <%= link_to "View Cats",
+        adoptable_pets_path(species: "cat"),
+        class: "btn btn-primary" %>
+      <% else %>
+        <%= link_to "Become an Adopter",
+        new_user_registration_path,
+        class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+      <% end %>
+    </div>
   </div>
   <iframe id="external-form"
     src=<%= @form_url%>
