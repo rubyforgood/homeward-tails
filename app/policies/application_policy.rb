@@ -34,9 +34,7 @@ class ApplicationPolicy < ActionPolicy::Base
   end
 
   def verify_active_staff!
-    deny! unless user.roles.map(&:name).any? do |role|
-      role == "admin" || role == "super_admin"
-    end
+    deny! unless user.staff?(organization)
     deny! if user.deactivated?
   end
 
