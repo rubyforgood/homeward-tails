@@ -11,9 +11,32 @@
           </div>
           <div class="d-flex justify-content-center">
             <% if user_signed_in? %>
-              <%= link_to "Browse Pets", adoptable_pets_path, class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+
+              <button
+                class="btn btn-primary dropdown-toggle btn-lg rounded-1 ms-2"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Browse Pets
+              </button>
+              <ul class="dropdown-menu">
+
+                <li>
+                  <%= active_link_to "Dogs",
+                  adoptable_pets_path(species: "dog"),
+                  class: "dropdown-item" %></li>
+
+                <li>
+                  <%= active_link_to "Cats",
+                  adoptable_pets_path(species: "cat"),
+                  class: "dropdown-item" %></li>
+
+              </ul>
             <% else %>
-              <%= link_to "Become an Adopter", new_user_registration_path, class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+              <%= link_to "Become an Adopter",
+              new_user_registration_path,
+              class: "btn btn-primary btn-lg rounded-1 ms-2" %>
             <% end %>
           </div>
         </div>
