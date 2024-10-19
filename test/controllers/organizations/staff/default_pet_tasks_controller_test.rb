@@ -41,6 +41,34 @@ class Organizations::Staff::DefaultPetTasksControllerTest < ActionDispatch::Inte
           post staff_default_pet_tasks_url, params: @params
         end
       end
+
+      should "assign to dog" do
+        assert_authorized_to(
+          :manage?, DefaultPetTask,
+          context: {organization: @organization},
+          with: Organizations::DefaultPetTaskPolicy
+        ) do
+          post staff_default_pet_tasks_url, params: {
+            default_pet_task: {name: "New Dog Task", species: "Dog", due_in_days: 5}
+          }
+          has_dog_species = DefaultPetTask.find_by_name("New Dog Task").Dog?
+          assert_equal true, has_dog_species
+        end
+      end
+
+      should "assign to cat" do
+        assert_authorized_to(
+          :manage?, DefaultPetTask,
+          context: {organization: @organization},
+          with: Organizations::DefaultPetTaskPolicy
+        ) do
+          post staff_default_pet_tasks_url, params: {
+            default_pet_task: {name: "New Cat Task", species: "Cat", due_in_days: 5}
+          }
+          has_cat_species = DefaultPetTask.find_by_name("New Cat Task").Cat?
+          assert_equal true, has_cat_species
+        end
+      end
     end
 
     context "index" do
