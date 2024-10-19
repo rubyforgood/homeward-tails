@@ -2,3 +2,4 @@
   partial: "deactivate_toggle",
   locals: {staff: @staff}
 %>
+<%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>

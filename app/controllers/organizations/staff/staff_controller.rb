@@ -17,8 +17,11 @@ class Organizations::Staff::StaffController < Organizations::BaseController
     end
 
     respond_to do |format|
-      format.html { redirect_to staff_staff_index_path, notice: t(".success") }
-      format.turbo_stream
+      success = @staff.deactivated_at.nil? ?
+        t(".activated", staff: @staff.full_name) :
+        t(".deactivated", staff: @staff.full_name)
+      format.html { redirect_to staff_staff_index_path, notice: success }
+      format.turbo_stream { flash.now[:notice] = success }
     end
   end
 
