@@ -17,13 +17,8 @@ FactoryBot.define do
       end
     end
 
-    trait :with_person do
-      person
-    end
-
     factory :adopter do
-      person
-      after(:build) do |user, _context|
+      after(:create) do |user, _context|
         user.add_role(:adopter, user.organization)
         create(:form_submission, person: user.person)
       end

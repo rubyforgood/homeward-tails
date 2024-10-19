@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resource :organization, only: %i[edit update]
       resource :custom_page, only: %i[edit update]
       resources :profile_reviews, only: [:show]
-      resources :external_form_upload, only: [:index]
+      resources :external_form_upload, only: %i[index create]
 
       resources :pets do
         resources :tasks
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
       resources :adoption_application_reviews, only: %i[index edit update]
       resources :manage_fosters, only: %i[new create index edit update destroy]
-      resources :fosterers, only: %i[index]
+      resources :fosterers, only: %i[index edit update]
       resources :adopters, only: %i[index]
       resources :staff do
         post "deactivate", to: "staff#deactivate"

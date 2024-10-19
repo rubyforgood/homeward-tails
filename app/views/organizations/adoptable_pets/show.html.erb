@@ -63,8 +63,11 @@
         <%= render CardComponent.new(image_options: {default: ""}) do |c| %>
           <%= c.with_header do %>
             <div class="d-flex justify-content-between align-items-center">
-              <div>
+              <div class="d-flex justify-content-between align-items-center gap-3">
                 <h4 class="mb-0"><%= "#{t('general.about')} #{@pet.name}" %></h4>
+                <span class="badge bg-secondary-soft text-secondary">
+                  <%= @pet.species %>
+                </span>
               </div>
 
               <% if allowed_to?(:create?, Like, context: {pet: @pet}) %>
