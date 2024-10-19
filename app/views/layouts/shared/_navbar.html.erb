@@ -41,12 +41,12 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <%= active_link_to t("general.dogs"),
+              <%= link_to t("general.dogs"),
               adoptable_pets_path(species: "dog"),
               class: "dropdown-item" %></li>
 
             <li>
-              <%= active_link_to t("general.cats"),
+              <%= link_to t("general.cats"),
               adoptable_pets_path(species: "cat"),
               class: "dropdown-item" %></li>
           </ul>
