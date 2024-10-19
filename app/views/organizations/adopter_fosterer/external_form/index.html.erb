@@ -3,18 +3,21 @@
     <% if params[:dashboard] %>
       <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard") %></p>
     <% else %>
-      <p><%= t("organizations.adopter_fosterer.form_instructions.index", organization_name: Current.tenant.name) %></p>
+      <p><%= t(
+          "organizations.adopter_fosterer.form_instructions.index",
+          organization_name: Current.tenant.name,
+        ) %></p>
     <% end %>
     <div class="d-flex justify-content-end gap-2 pb-2">
       <% if user_signed_in? %>
-        <%= link_to "View Dogs",
+        <%= link_to " #{t("general.view")} #{t("general.dogs")}",
         adoptable_pets_path(species: "dog"),
         class: "btn btn-primary" %>
-        <%= link_to "View Cats",
+        <%= link_to " #{t("general.view")} #{t("general.cats")}",
         adoptable_pets_path(species: "cat"),
         class: "btn btn-primary" %>
       <% else %>
-        <%= link_to "Become an Adopter",
+        <%= link_to t("general.become_an_adopter"),
         new_user_registration_path,
         class: "btn btn-primary btn-lg rounded-1 ms-2" %>
       <% end %>

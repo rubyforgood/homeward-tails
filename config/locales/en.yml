@@ -54,7 +54,7 @@ en:
     adoption_pending: "(Adoption Pending)"
     adopted: Adopted
     age: "Age"
-    become_an_adopter: "Become an adopter"
+    become_an_adopter: "Become an Adopter"
     breed: "Breed"
     clear_filters: "Clear Filters"
     application: "Application"
@@ -85,6 +85,10 @@ en:
     organization_not_found: "Organization not found."
     files: "Files"
     tasks: "Tasks"
+    dogs: "Dogs"
+    cats: "Cats"
+    browse: "Browse"
+    view: "View"
   dashboard:
     index:
       header_title: Dashboard

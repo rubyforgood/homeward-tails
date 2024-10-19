@@ -12,14 +12,14 @@
           <div class="d-flex justify-content-center">
             <% if user_signed_in? %>
 
-              <%= link_to "Browse Dogs",
+              <%= link_to "#{t("general.browse")} #{t("general.dogs")}",
               adoptable_pets_path(species: "dog"),
               class: "btn btn-primary btn-lg rounded-1 ms-2" %>
-              <%= link_to "Browse Cats",
+              <%= link_to "#{t("general.browse")} #{t("general.cats")}",
               adoptable_pets_path(species: "cat"),
               class: "btn btn-primary btn-lg rounded-1 ms-2" %>
             <% else %>
-              <%= link_to "Become an Adopter",
+              <%= link_to t("general.become_an_adopter"),
               new_user_registration_path,
               class: "btn btn-primary btn-lg rounded-1 ms-2" %>
             <% end %>
