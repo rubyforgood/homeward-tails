@@ -20,8 +20,7 @@ servers:
 proxy: 
   ssl: true
   host: homeward-tails.eastus.cloudapp.azure.com
-  # kamal-proxy connects to your container over port 80, use `app_port` to specify a different port.
-  # app_port: 3000
+  app_port: 3000
 
 # Credentials for your image host.
 registry:
@@ -48,8 +47,6 @@ builder:
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 #
 env:
-  clear:
-    PORT: 80
   secret:
     - RAILS_MASTER_KEY
     - DB_HOST
@@ -66,7 +63,6 @@ env:
 #
 ssh:
   user: deploy
-
   keys: [ "~/.ssh/homeward_tails_rsa.pem" ]
 
 # Use a persistent storage volume.
