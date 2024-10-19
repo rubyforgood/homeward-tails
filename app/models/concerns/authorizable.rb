@@ -9,6 +9,10 @@ module Authorizable
     permissions.include?(name)
   end
 
+  def staff?(organization)
+    has_role?("super_admin", organization) || has_role?("admin", organization)
+  end
+
   ADOPTER_PERMISSIONS = %i[
     view_adopter_foster_dashboard
     create_adopter_applications

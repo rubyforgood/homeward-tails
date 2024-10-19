@@ -139,10 +139,6 @@ class User < ApplicationRecord
     !!deactivated_at
   end
 
-  def staff?(organization)
-    has_role?("super_admin", organization) || has_role?("admin", organization)
-  end
-
   private
 
   def downcase_email
