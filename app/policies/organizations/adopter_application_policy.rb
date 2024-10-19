@@ -7,10 +7,4 @@ class Organizations::AdopterApplicationPolicy < ApplicationPolicy
   def manage?
     permission?(:review_adopter_applications)
   end
-
-  private
-
-  def organization
-    @organization || record.pet.organization
-  end
 end
