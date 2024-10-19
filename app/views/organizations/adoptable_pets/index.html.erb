@@ -66,11 +66,16 @@
             <%= c.with_body do %>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
-                    <h3 class="card-title text-secondary mb-0">
-                      <%= pet.name %>
-                    </h3>
-                  <% end %>
+                  <div class="d-flex align-items-center justify-content-start gap-3">
+                    <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
+                      <h3 class="card-title text-secondary mb-0">
+                        <%= pet.name %>
+                      </h3>
+                    <% end %>
+                    <span class="badge bg-secondary-soft text-secondary">
+                      <%= pet.species %>
+                    </span>
+                  </div>
                   <% if allowed_to?(:create?, Like, context: {pet: pet}) %>
                     <div class='text-end' id="like_button_pet_<%= pet.id %>">
                       <%= render LikeButtonComponent.new(pet: pet, like: @likes_by_id[pet.id]) %>
