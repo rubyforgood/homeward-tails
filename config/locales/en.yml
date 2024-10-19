@@ -287,12 +287,6 @@ en:
               content_type_invalid: "Image must be PNG or JPEG"
               limit_out_of_range: "5 maximum"
               file_size_out_of_range: "Image size must be between 10kb and 1Mb"
-        staff_account:
-          attributes:
-            organization:
-              blank: "Organization must exist"
-            user:
-              blank: "User must exist"
         task:
           attributes:
             pet:
@@ -655,11 +649,6 @@ en:
         success: "Attachment removed"
       purge_avatar:
         success: "Avatar removed"
-  staff_accounts:
-    status:
-      invitation_sent: "Invitation sent"
-      enabled: "Enabled"
-      deactivated: "Deactivated"
   contacts:
     create:
       success: "Message sent!"
