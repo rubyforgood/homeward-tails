@@ -1,12 +1,14 @@
 <!--page heading-->
-<header class="pt-5 pb-5" >
+<header class="pt-5 pb-5">
   <div class="container">
-      <div class="text-center">
-        <h1 class="section-heading text-uppercase underline">
-          <%= t('.header') %>
-        </h1>
-      </div>
-  </div> <!--container-->
+    <div class="text-center">
+      <h1 class="section-heading text-uppercase underline">
+        <%= t("general.#{params[:species].pluralize}") %>
+        <%= t(".header") %>
+      </h1>
+    </div>
+  </div>
+  <!--container-->
 </header>
 
 <!--pet tiles-->
