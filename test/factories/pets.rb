@@ -22,6 +22,10 @@ FactoryBot.define do
       adopter_applications { build_list(:adopter_application, 1, :successful_applicant, pet: instance) }
     end
 
+    trait :fostered do
+      matches { [association(:match, pet: instance, match_type: :foster)] }
+    end
+
     trait :with_image do
       after(:build) do |pet|
         pet.images.attach(

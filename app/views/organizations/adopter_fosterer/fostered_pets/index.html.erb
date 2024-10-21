@@ -3,17 +3,17 @@
   <% c.with_body do %>
     <div data-controller="card">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-        <% @adopted_pets.each_with_index do |adopted_pet, index| %>
+        <% @fostered_pets.each_with_index do |fostered_pet, index| %>
           <div class="col">
-            <%= link_to adopter_fosterer_adopted_pet_files_path(adopted_pet.pet, pet_id: adopted_pet.pet.id), data: { turbo_frame: "pet_files", action: "click->card#selectCard" } do %>
+            <%= link_to adopter_fosterer_fostered_pet_files_path(fostered_pet.pet, pet_id: fostered_pet.pet.id), data: { turbo_frame: "pet_files", action: "click->card#selectCard" } do %>
               <div class="card h-100 bg-white border-0 shadow-sm" data-card-target="card">
                 <div class="card-body d-flex align-items-center">
                   <div class="me-3 flex-shrink-0" style="width: 50px; height: 50px;">
-                    <%= image_tag(adopted_pet.pet.images.attached? ? adopted_pet.pet.images.first : 'coming_soon.jpg', 
+                    <%= image_tag(fostered_pet.pet.images.attached? ? fostered_pet.pet.images.first : 'coming_soon.jpg', 
                                   class: 'rounded-circle', 
                                   style: "width: 100%; height: 100%; object-fit: cover;") %>
                   </div>
-                  <h5 class="card-title mb-0"><%= adopted_pet.pet.name %></h5>
+                  <h5 class="card-title mb-0"><%= fostered_pet.pet.name %></h5>
                 </div>
               </div>
             <% end %>

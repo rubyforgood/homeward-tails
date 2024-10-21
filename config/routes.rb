@@ -65,6 +65,10 @@ Rails.application.routes.draw do
         resources :files, only: [:index], module: :adopted_pets
         resources :tasks, only: [:index], module: :adopted_pets
       end
+      resources :fostered_pets, only: [:index] do
+        resources :files, only: [:index], module: :fostered_pets
+        resources :tasks, only: [:index], module: :fostered_pets
+      end
       resources :external_form, only: %i[index]
     end
   end
