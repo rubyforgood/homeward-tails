@@ -26,6 +26,16 @@ class Organizations::AdoptablePetsControllerTest < ActionDispatch::IntegrationTe
       assert_equal 1, assigns[:pets].count
       assert assigns[:pets].pluck(:id).exclude?(adopted_pet.id)
     end
+
+    should "render information on pets" do
+      get adoptable_pets_url
+
+      assert_select(".card li:nth-of-type(1)", text: /#{@pet.name}\s+#{@pet.species}/)
+      assert_select(".card li:nth-of-type(2)", text: /Age/)
+      assert_select(".card li:nth-of-type(3)", text: "Breed: #{@pet.breed}")
+      assert_select(".card li:nth-of-type(4)", text: "Sex: #{@pet.sex}")
+      assert_select(".card li:nth-of-type(5)", text: "Weight range: #{@pet.weight_from}-#{@pet.weight_to} #{@pet.weight_unit}")
+    end
   end
 
   context "#show" do
