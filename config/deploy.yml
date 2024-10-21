@@ -20,6 +20,7 @@ servers:
 proxy: 
   ssl: true
   host: tails.edwinmak.com
+  app_port: 3000
 
 # Credentials for your image host.
 registry:
