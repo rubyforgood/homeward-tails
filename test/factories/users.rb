@@ -6,6 +6,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     tos_agreement { true }
+    deactivated_at { nil }
 
     trait :with_avatar do
       after(:build) do |user|
@@ -15,6 +16,10 @@ FactoryBot.define do
           content_type: "image/png"
         )
       end
+    end
+
+    trait :deactivated do
+      deactivated_at { DateTime.now }
     end
 
     factory :adopter do
@@ -38,26 +43,12 @@ FactoryBot.define do
     end
 
     factory :admin do
-      staff_account do
-        association :staff_account, user: instance
-      end
-
-      trait :deactivated do
-        staff_account do
-          association :staff_account, :deactivated, user: instance
-        end
-      end
-
       after(:build) do |user, _context|
         user.add_role(:admin, user.organization)
       end
     end
 
     factory :super_admin do
-      staff_account do
-        association :staff_account, user: instance
-      end
-
       after(:build) do |user, _context|
         user.add_role(:super_admin, user.organization)
       end

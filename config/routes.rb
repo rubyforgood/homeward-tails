@@ -37,9 +37,7 @@ Rails.application.routes.draw do
       resources :fosterers, only: %i[index edit update]
       resources :adopters, only: %i[index]
       resources :staff do
-        post "deactivate", to: "staff#deactivate"
-        post "activate", to: "staff#activate"
-        post "update_activation", to: "staff#update_activation"
+        patch "update_activation"
       end
 
       resources :staff_invitations, only: %i[new]

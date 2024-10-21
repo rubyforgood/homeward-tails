@@ -7,7 +7,6 @@ class UserTest < ActiveSupport::TestCase
   include AvatarableSharedTests
 
   context "associations" do
-    should have_one(:staff_account).dependent(:destroy)
     should belong_to(:person).required(false)
   end
 
@@ -55,14 +54,13 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  context ".organization_staff" do
-    should "return all users with staff accounts" do
+  context ".staff" do
+    should "return all admin users" do
       user = create(:admin)
-      organization = user.staff_account.organization
-      assert_includes User.organization_staff(organization.id), user
+      assert_includes User.staff, user
 
-      user.staff_account.destroy
-      assert_not_includes User.organization_staff(organization.id), user
+      user.destroy
+      assert_not_includes User.staff, user
     end
   end
 

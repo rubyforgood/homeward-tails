@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -22,7 +23,7 @@
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
 #  organization_id        :bigint
-#  person_id              :bigint
+#  person_id              :bigint           not null
 #
 # Indexes
 #
@@ -66,11 +67,7 @@ class User < ApplicationRecord
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
-  has_one :staff_account, dependent: :destroy
-
-  # Once we've migrated the existing data to connect a user to a person,
-  # we should remove the optional: true part
-  belongs_to :person, optional: true
+  belongs_to :person
 
   before_validation :ensure_person_exists, on: :create
 
@@ -78,10 +75,8 @@ class User < ApplicationRecord
 
   delegate :latest_form_submission, to: :person
 
-  # get user accounts for staff in a given organization
-  def self.organization_staff(org_id)
-    User.includes(:staff_account)
-      .where(staff_account: {organization_id: org_id})
+  def self.staff
+    joins(:roles).where(roles: {name: %i[admin super_admin]})
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -98,11 +93,11 @@ class User < ApplicationRecord
   end
 
   def active_for_authentication?
-    super && !staff_account&.deactivated_at
+    super && !deactivated?
   end
 
   def inactive_message
-    staff_account.deactivated_at ? :deactivated : super
+    deactivated? ? :deactivated : super
   end
 
   def ensure_person_exists
@@ -130,6 +125,18 @@ class User < ApplicationRecord
 
   def name_initials
     full_name.split.map { |part| part[0] }.join.upcase
+  end
+
+  def deactivate
+    update!(deactivated_at: Time.now) unless deactivated_at
+  end
+
+  def activate
+    update!(deactivated_at: nil) if deactivated_at
+  end
+
+  def deactivated?
+    !!deactivated_at
   end
 
   private

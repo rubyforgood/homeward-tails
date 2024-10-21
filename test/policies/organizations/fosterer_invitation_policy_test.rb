@@ -97,7 +97,7 @@ class Organizations::FostererInvitationPolicyTest < ActiveSupport::TestCase
 
       context "when staff account is deactivated" do
         setup do
-          @user.staff_account.deactivate
+          @user.deactivate
         end
 
         should "return false" do
@@ -197,7 +197,7 @@ class Organizations::FostererInvitationPolicyTest < ActiveSupport::TestCase
 
       context "when staff account is deactivated" do
         setup do
-          @user.staff_account.deactivate
+          @user.deactivate
         end
 
         should "return false" do
@@ -297,7 +297,7 @@ class Organizations::FostererInvitationPolicyTest < ActiveSupport::TestCase
 
       context "when staff account is deactivated" do
         setup do
-          @user.staff_account.deactivate
+          @user.deactivate
         end
 
         should "return false" do

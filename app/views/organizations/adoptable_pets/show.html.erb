@@ -132,46 +132,51 @@
           </div>
 
           <div class='text-center d-flex flex-column align-items-center mt-1'>
-            <%# FIXME: I think this should be rewritten as these nested conditionals are confusing to follow. %>
-            <%# Not a fan of using unless with logic operators %>
-            <% unless user_signed_in? && current_user.staff_account %>
-              <% if user_signed_in? %>
-                <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, user: current_user}) %>
-                  <h4 class="mb-4 mt-3">In love with this pooch?</h4>
-                  <%= form_with model: [:adopter_fosterer, @adoption_application] do |form| %>
-                    <%= form.hidden_field :pet_id, value: @adoption_application.pet_id %>
-                    <%= form.hidden_field :form_submission_id, value: @adoption_application.form_submission_id %>
-                    <%= form.submit t(".apply_to_adopt"),
-                      class: "custom-btn-pink",
-                      data: {turbo: false}
-                    %>
-                  <% end %>
-                <% else %>
-                  <% if AdopterApplication.exists?(form_submission: current_user.latest_form_submission, pet: @pet) %>
-                    <div class='d-flex align-items-center mt-3'>
-                      <h4 class="me-2 mb-0">
-                        <%= "#{t('organizations.adoptable_pets.show.application_status')} #{@adoption_application.human_enum_name(:status) || t('.status.default')}" %>
-                      </h4>
-                      <% if %w[under_review adoption_pending].include?(@adoption_application.status) %>
-                        <%= image_tag('pause.png', height: '21') %>
-                      <% elsif 'withdrawn' == @adoption_application.status %>
-                        <%= image_tag('red_no.png', height: '21') %>
-                      <% else %>
-                        <%= image_tag('green_check.png', height: '21') %>
-                      <% end %>
-                    </div>
-                  <% end %>
+            <% if user_signed_in? %>
+              <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, user: current_user}) %>
+                <h4 class="mb-4 mt-3">In love with this pooch?</h4>
+                <%= form_with model: [:adopter_fosterer, @adoption_application] do |form| %>
+                  <%= form.hidden_field :pet_id, value: @adoption_application.pet_id %>
+                  <%= form.hidden_field :form_submission_id, value: @adoption_application.form_submission_id %>
+                  <%= form.submit t(".apply_to_adopt"),
+                    class: "custom-btn-pink",
+                    data: {turbo: false}
+                  %>
                 <% end %>
+              <% elsif AdopterApplication.exists?(form_submission: current_user.latest_form_submission, pet: @pet) %>
+                <div class='d-flex align-items-center mt-3'>
+                  <h4 class="me-2 mb-0">
+                    <%= "#{t('organizations.adoptable_pets.show.application_status')} #{@adoption_application.human_enum_name(:status) || t('.status.default')}" %>
+                  </h4>
+                  <% if %w[under_review adoption_pending].include?(@adoption_application.status) %>
+                    <%= image_tag('pause.png', height: '21') %>
+                  <% elsif 'withdrawn' == @adoption_application.status %>
+                    <%= image_tag('red_no.png', height: '21') %>
+                  <% else %>
+                    <%= image_tag('green_check.png', height: '21') %>
+                  <% end %>
+                </div>
+              <% elsif allowed_to?(:manage?, @pet) %>
+                <%= link_to "Manage #{@pet.name}", staff_pet_path(@pet) %>
+              <%# FIXME: This section was missed during the remove of AdopterFosterProfile but I think it requires FormSubmission to be ready to refactor %>
+              <%# Once the form_submission CRUD and policy are created, should use conditional like the below  %>
+              <%# elsif allowed_to?(:create?, FormSubmission) %>
               <% else %>
-                <h4 class="mb-4 mt-3">
-                  <%= t('.create_an_account') %>
+                <h4 class='mb-4 mt-3'>
+                  <%= t('.complete_your_profile') %>
                 </h4>
-                <%= link_to t('.adopt'), new_user_registration_path,
-                            class: 'custom-btn-pink mb-2' %>
-                <p>
-                  <%= link_to t('.login'), new_user_session_path %>
-                </p>
+                <%= link_to t('.complete_my_profile'), "#", class: 'custom-btn-pink' %>
+              <%# else %>
               <% end %>
+            <% else %>
+              <h4 class="mb-4 mt-3">
+                <%= t('.create_an_account') %>
+              </h4>
+              <%= link_to t('.adopt'), new_user_registration_path,
+                          class: 'custom-btn-pink mb-2' %>
+              <p>
+                <%= link_to t('.login'), new_user_session_path %>
+              </p>
             <% end %>
           </div>
         </div>

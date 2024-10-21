@@ -24,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def set_layout
-    if current_user&.staff_account
+    if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {organization: Current.organization})
       "dashboard"
     elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
       "adopter_foster_dashboard"

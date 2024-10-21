@@ -1,43 +1,35 @@
 class Organizations::Staff::StaffController < Organizations::BaseController
-  before_action :set_staff_account, only: [:deactivate, :activate, :update_activation]
+  before_action :set_staff, only: [:update_activation]
 
   layout "dashboard"
 
   def index
-    authorize! StaffAccount, context: {organization: Current.organization}
+    authorize! User, context: {organization: Current.organization}
 
-    @staff_accounts = authorized_scope(StaffAccount.all)
-  end
-
-  def deactivate
-    @staff_account.deactivate
-    respond_to do |format|
-      format.html { redirect_to staff_staff_index_path, notice: t(".success") }
-      format.turbo_stream { render "organizations/staff/staff/update" }
-    end
-  end
-
-  def activate
-    @staff_account.activate
-    respond_to do |format|
-      format.html { redirect_to staff_staff_index_path, notice: t(".success") }
-      format.turbo_stream { render "organizations/staff/staff/update" }
-    end
+    @staff = authorized_scope(User.staff)
   end
 
   def update_activation
-    if @staff_account.deactivated_at
-      activate
+    if @staff.deactivated_at
+      @staff.activate
     else
-      deactivate
+      @staff.deactivate
+    end
+
+    respond_to do |format|
+      success = @staff.deactivated_at.nil? ?
+        t(".activated", staff: @staff.full_name) :
+        t(".deactivated", staff: @staff.full_name)
+      format.html { redirect_to staff_staff_index_path, notice: success }
+      format.turbo_stream { flash.now[:notice] = success }
     end
   end
 
   private
 
-  def set_staff_account
-    @staff_account = StaffAccount.find(params[:staff_id])
+  def set_staff
+    @staff = User.find(params[:staff_id])
 
-    authorize! @staff_account
+    authorize! @staff
   end
 end
