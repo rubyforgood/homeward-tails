@@ -6,11 +6,11 @@ module Organizations
     skip_verify_authorized only: %i[index]
     before_action :set_likes, only: %i[index show],
       if: -> { allowed_to?(:index?, Like) }
-    helper_method :get_animals
+    before_action :set_species, only: %i[index]
 
     def index
       @q = authorized_scope(
-        case params[:species]
+        case @species
         when "dog"
           Pet.Dog.unadopted
         when "cat"
@@ -48,14 +48,13 @@ module Organizations
 
     private
 
-    def get_animals(species)
-      authorized_scope(Pet.where(species: species.capitalize).distinct.order(:breed),
-        with: Organizations::AdoptablePetPolicy).pluck(:breed)
-    end
-
     def set_likes
       likes = current_user.person.likes
       @likes_by_id = likes.index_by(&:pet_id)
+    end
+
+    def set_species
+      @species = params[:species]
     end
   end
 end
