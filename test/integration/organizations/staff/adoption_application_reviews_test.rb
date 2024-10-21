@@ -1,17 +1,15 @@
 require "test_helper"
 
-class AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
+class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
   setup do
-    @form_submission = create(:form_submission)
-    @awaiting_review_app = create(:adopter_application, status: :awaiting_review, form_submission: @form_submission)
-    @under_review_app = create(:adopter_application, status: :under_review, form_submission: @form_submission)
-    @adoption_pending_app = create(:adopter_application, :adoption_pending, form_submission: @form_submission)
-    @withdrawn_app = create(:adopter_application, :withdrawn, form_submission: @form_submission)
-    @successful_applicant_app = create(:adopter_application, status: :successful_applicant, form_submission: @form_submission)
-    @adoption_made_app = create(:adopter_application, status: :adoption_made, form_submission: @form_submission)
-    @organization = create(:organization)
-    @custom_page = create(:custom_page, organization: @organization)
-    Current.organization = @organization
+    form_submission = create(:form_submission)
+    @awaiting_review_app = create(:adopter_application, status: :awaiting_review, form_submission: form_submission)
+    @under_review_app = create(:adopter_application, status: :under_review, form_submission: form_submission)
+    create(:adopter_application, :adoption_pending, form_submission: form_submission)
+    create(:adopter_application, :withdrawn, form_submission: form_submission)
+    create(:adopter_application, status: :successful_applicant, form_submission: form_submission)
+    create(:adopter_application, status: :adoption_made, form_submission: form_submission)
+    @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
   end
 
   context "non-staff" do
@@ -65,7 +63,7 @@ class AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
 
     context "deactivated staff" do
       setup do
-        sign_in create(:staff_account, :deactivated).user
+        sign_in create(:admin, :deactivated)
       end
 
       should_eventually "not see any applications" do

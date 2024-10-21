@@ -9,11 +9,11 @@
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
       <!-- Table layout -->
       <div class="d-none d-xl-block">
-        <%= render partial: "staff_table", locals: { staff_accounts: @staff_accounts} %>
+        <%= render partial: "staff_table", locals: { staff: @staff} %>
       </div>
       <!-- Card-based layout -->
       <div class="d-xl-none d-flex flex-wrap">
-        <%= render partial: "staff_cards", collection: @staff_accounts, as: :staff %>
+        <%= render partial: "staff_cards", collection: @staff, as: :staff %>
       </div>
     </div>
   <% end %>

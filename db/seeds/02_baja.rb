@@ -29,11 +29,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # FIXME: Delete this after implementing Person
-  @staff_account_one = StaffAccount.create!(
-    user_id: @user_staff_one.id
-  )
-
   @user_staff_one.add_role(:super_admin, @organization)
 
   @staff_two = Person.create!(
@@ -49,11 +44,6 @@ ActsAsTenant.with_tenant(@organization) do
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
-  )
-
-  # FIXME: Delete this after implementing Person
-  @staff_account_two = StaffAccount.create!(
-    user_id: @user_staff_two.id
   )
 
   @user_staff_two.add_role(:super_admin, @organization)

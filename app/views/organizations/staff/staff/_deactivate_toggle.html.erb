@@ -1,9 +1,18 @@
 <div class=<%= "staff_deactivate_toggle_#{staff.id}" %>>
-  <%= form_with model: staff, url: staff_staff_update_activation_path(staff), method: "post" do |form| %>
+  <%= form_with model: staff, url: staff_staff_update_activation_path(staff) do |form| %>
     <div class='form-group d-flex justify-content-center'>
       <div class="form-check form-switch">
-        <%= form.check_box :deactivated?,{ class: "form-check-input",
-        role: "switch", disabled: staff == current_user.staff_account, id: "flexSwitchCheckChecked", onchange: "this.form.requestSubmit()"}, true, false %>
+        <%= form.check_box :deactivated?,
+          {
+            class: "form-check-input",
+            role: "switch",
+            disabled: staff == current_user,
+            id: "flexSwitchCheckChecked",
+            onchange: "this.form.requestSubmit()"
+          },
+          true,
+          false
+        %>
       </div>
     </div>
   <% end %>
