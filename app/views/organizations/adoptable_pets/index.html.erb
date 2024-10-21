@@ -86,7 +86,7 @@
                 <%= tag.li("Age: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
                 <%= tag.li("Breed: #{pet.breed}", class: li_classes) %>
                 <%= tag.li("Sex: #{pet.sex}", class: li_classes) %>
-                <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} kg", class: li_classes) %>
+                <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}", class: li_classes) %>
               </ul>
             <% end %>
           <% end %>
