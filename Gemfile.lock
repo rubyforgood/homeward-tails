@@ -486,7 +486,7 @@ GEM
     timeout (0.4.1)
     traceroute (0.8.1)
       rails (>= 3.0.0)
-    turbo-rails (2.0.10)
+    turbo-rails (2.0.11)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
     tzinfo (2.0.6)
@@ -510,7 +510,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.18)
+    zeitwerk (2.7.1)
 
 PLATFORMS
   arm64-darwin-21
