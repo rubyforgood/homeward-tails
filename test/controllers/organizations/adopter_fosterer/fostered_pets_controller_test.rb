@@ -30,17 +30,17 @@ module Organizations
             end
           end
 
-          should "return only foster matches for the person" do
+          should "return only current foster matches for the person" do
             ActsAsTenant.with_tenant(@organization) do
-              user_foster_match = create(:match, :foster, person: @fosterer.person, organization: @organization, start_date: Date.current, end_date: Date.current + 10.days)
-              other_account_foster_match = create(:match, :foster, organization: @organization, start_date: Date.current, end_date: Date.current + 10.days)
-              other_org_foster_match = create(:match, :foster, start_date: Date.current, end_date: Date.current + 10.days)
+              completed_foster = create(:pet, :completed_foster)
+              current_foster = create(:pet, :current_foster, foster_person: @fosterer.person)
+              future_foster = create(:pet, :future_foster)
 
               get adopter_fosterer_fostered_pets_url
 
-              assert_includes assigns(:fostered_pets), user_foster_match
-              assert_not_includes assigns(:fostered_pets), other_account_foster_match
-              assert_not_includes assigns(:fostered_pets), other_org_foster_match
+              assert_includes assigns(:fostered_pets), current_foster.matches.first
+              assert_not_includes assigns(:fostered_pets), completed_foster.matches.first
+              assert_not_includes assigns(:fostered_pets), future_foster.matches.first
             end
           end
         end
