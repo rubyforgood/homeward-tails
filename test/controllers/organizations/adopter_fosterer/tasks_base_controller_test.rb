@@ -4,7 +4,7 @@ require "action_policy/test_helper"
 module Organizations
   module AdopterFosterer
     module AdoptedPets
-      class TasksControllerTest < ActionDispatch::IntegrationTest
+      class TasksBaseControllerTest < ActionDispatch::IntegrationTest
         context "authorization" do
           include ActionPolicy::TestHelper
 
@@ -17,12 +17,12 @@ module Organizations
 
           context "#index" do
             should "be authorized" do
-              get adopter_fosterer_adopted_pet_tasks_url(adopted_pet_id: @pet.id)
+              get adopter_fosterer_adopted_pet_tasks_url(@pet, pet_id: @pet.id)
               assert_response :success
             end
 
             should "assign the requested pet" do
-              get adopter_fosterer_adopted_pet_tasks_url(adopted_pet_id: @pet.id)
+              get adopter_fosterer_adopted_pet_tasks_url(@pet, pet_id: @pet.id)
               assert_equal @pet, assigns(:pet)
             end
 
@@ -30,7 +30,7 @@ module Organizations
               incomplete_task = create(:task, pet: @pet, completed: false)
               create(:task, pet: @pet, completed: true)
 
-              get adopter_fosterer_adopted_pet_tasks_url(adopted_pet_id: @pet.id)
+              get adopter_fosterer_adopted_pet_tasks_url(@pet, pet_id: @pet.id)
               assert_includes assigns(:tasks), incomplete_task
               refute_includes assigns(:tasks), Task.where(completed: true)
             end

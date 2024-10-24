@@ -1,6 +1,6 @@
 module Organizations
   module AdopterFosterer
-    module AdoptedPets
+    module FosteredPets
       class FilesController < Organizations::AdopterFosterer::FilesBaseController
       end
     end
