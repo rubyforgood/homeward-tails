@@ -7,7 +7,7 @@ module PetRansackable
     end
 
     def ransackable_associations(auth_object = nil)
-      ["adopter_applications"]
+      ["adopter_applications", "matches"]
     end
 
     def ransackable_scopes(auth_object = nil)

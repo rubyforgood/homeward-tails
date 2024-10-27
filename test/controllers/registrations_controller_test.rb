@@ -22,7 +22,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new with dashboard layout when signed in as staff" do
     user = create(:admin)
-    organization = user.staff_account.organization
+    organization = user.organization
     sign_in user
 
     get edit_user_registration_url(script_name: "/#{organization.slug}")

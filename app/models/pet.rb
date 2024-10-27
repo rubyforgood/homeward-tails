@@ -89,6 +89,12 @@ class Pet < ApplicationRecord
     joins(:adopter_applications).where(adopter_applications: {status: status_filter})
   }
 
+  # Returns an array of all published breeds; Can be filtered by species ('dog')
+  scope :breeds, ->(species = nil) {
+    query = species ? where(species: species.capitalize) : all
+    query.where(published: true).order(:breed).distinct.pluck(:breed)
+  }
+
   attr_writer :toggle
 
   # check if pet has any applications with adoption pending status
@@ -97,11 +103,19 @@ class Pet < ApplicationRecord
   end
 
   def is_adopted?
-    adopter_applications.any? { |app| app.status == "adoption_made" }
+    if matches.loaded?
+      matches.any? { |m| m.match_type == "adoption" }
+    else
+      matches.adoption.any?
+    end
   end
 
   def in_foster?
-    matches.in_foster.exists?
+    if matches.loaded?
+      matches.any? { |m| m.match_type == "foster" && (m.start_date..m.end_date).cover?(Time.now.utc) }
+    else
+      matches.in_foster.any?
+    end
   end
 
   def open?

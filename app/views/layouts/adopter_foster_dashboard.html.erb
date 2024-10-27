@@ -70,6 +70,14 @@
                           <i class="fe fe-star nav-icon"></i> Adopted Pets
                         <% end %>
                       </li>
+                       <!-- Nav item -->
+                      <% if current_user.has_role?(:fosterer, current_user.organization) %> 
+                        <li class="nav-item">
+                          <%= active_link_to adopter_fosterer_fostered_pets_path, class: "nav-link" do %>
+                            <i class="fe fe-file-text nav-icon"></i> Fostered Pets
+                          <% end %>
+                        </li>
+                      <% end %>
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_donations_path, class: "nav-link" do %>

@@ -1,12 +1,14 @@
 <!--page heading-->
-<header class="pt-5 pb-5" >
+<header class="pt-5 pb-5">
   <div class="container">
-      <div class="text-center">
-        <h1 class="section-heading text-uppercase underline">
-          <%= t('.header') %>
-        </h1>
-      </div>
-  </div> <!--container-->
+    <div class="text-center">
+      <h1 class="section-heading text-uppercase underline">
+        <%= t("general.#{@species.pluralize}") %>
+        <%= t(".header") %>
+      </h1>
+    </div>
+  </div>
+  <!--container-->
 </header>
 
 <!--pet tiles-->
@@ -27,12 +29,11 @@
                 <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
               </div>
               <div class="form-group">
-                <%= f.label :species_eq, "Species" %>
-                <%= f.select :species_eq, Pet.species, {include_blank: 'All'}, class: "form-select" %>
-              </div>              
-              <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>
-                <%= f.select :breed_eq, get_animals, {include_blank: 'All'}, class: "form-select" %>
+                <%= f.select :breed_eq,
+                         Pet.breeds(@species),
+                         { include_blank: "All" },
+                         class: "form-select" %>
               </div>
               <div class="form-group">
                 <%= f.label :ransack_birth_date, "Age" %>
@@ -40,8 +41,11 @@
               </div>
             </div>
             <div class='d-flex w-md-auto flex-md-row align-items-end' style="align-self: flex-end;">
+              <%= hidden_field_tag "species", @species %>
               <%= f.submit class: "btn btn-primary" %>
-              <%= link_to "Clear filters", adoptable_pets_path, class: "btn btn-default"%>
+              <%= link_to "Clear filters",
+              adoptable_pets_path(species: @species),
+              class: "btn btn-default" %>
             </div>
           </div>
         <% end %>
@@ -66,11 +70,16 @@
             <%= c.with_body do %>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
-                    <h3 class="card-title text-secondary mb-0">
-                      <%= pet.name %>
-                    </h3>
-                  <% end %>
+                  <div class="d-flex align-items-center justify-content-start gap-3">
+                    <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
+                      <h3 class="card-title text-secondary mb-0">
+                        <%= pet.name %>
+                      </h3>
+                    <% end %>
+                    <span class="badge bg-secondary-soft text-secondary">
+                      <%= pet.species %>
+                    </span>
+                  </div>
                   <% if allowed_to?(:create?, Like, context: {pet: pet}) %>
                     <div class='text-end' id="like_button_pet_<%= pet.id %>">
                       <%= render LikeButtonComponent.new(pet: pet, like: @likes_by_id[pet.id]) %>
@@ -81,7 +90,7 @@
                 <%= tag.li("Age: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
                 <%= tag.li("Breed: #{pet.breed}", class: li_classes) %>
                 <%= tag.li("Sex: #{pet.sex}", class: li_classes) %>
-                <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} kg", class: li_classes) %>
+                <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}", class: li_classes) %>
               </ul>
             <% end %>
           <% end %>
