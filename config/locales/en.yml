@@ -639,6 +639,9 @@ en:
       adopted_pets:
         index:
           header_title: "Adopted pets"
+      fostered_pets:
+        index:
+          header_title: "Fostered pets"
       dashboard:
         index:
           example: Example

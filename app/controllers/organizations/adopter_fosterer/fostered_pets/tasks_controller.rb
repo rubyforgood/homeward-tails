@@ -1,6 +1,6 @@
 module Organizations
   module AdopterFosterer
-    module AdoptedPets
+    module FosteredPets
       class TasksController < Organizations::AdopterFosterer::TasksBaseController
       end
     end
