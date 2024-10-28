@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
-
     namespace :staff do
       resource :organization, only: %i[edit update]
       resource :custom_page, only: %i[edit update]
@@ -88,4 +87,5 @@ Rails.application.routes.draw do
 
   resources :contacts, only: %i[new create]
   resources :dev_contacts, path: "feedback", only: %i[new create]
+  resources :organization_account_requests, only: %i[new create]
 end

@@ -45,6 +45,10 @@ en:
   settings: "Settings"
   invite_fosterer: "Invite Fosterer"
   invite_staff: "Invite Staff"
+  organization_account_requests:
+    new:
+      header: New organization account request
+      description: Fill in your organization's information to make a request.
   general:
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
