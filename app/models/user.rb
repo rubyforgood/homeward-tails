@@ -64,7 +64,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: {scope: :organization_id}, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
-  validate :check_email_change, on: :update
+  validate :prevent_email_change, on: :update
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
@@ -76,7 +76,8 @@ class User < ApplicationRecord
 
   delegate :latest_form_submission, to: :person
 
-  def check_email_change
+  # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
+  def prevent_email_change
       errors.add(:email, "Email cannot be changed") if (email_changed?)
   end
 
