@@ -14,7 +14,7 @@ class NewOrganizationTest < ApplicationSystemTestCase
       fill_in "Your name", with: "Doe Smith"
       fill_in "Organization phone number", with: "12345678"
       fill_in "Organization email", with: "organization@example.com"
-      select 'France', from: "Country"
+      select "France", from: "Country"
       select "Corsica", from: "Province/State"
       fill_in "City/Town", with: "Calvi"
       click_on "Submit"
@@ -23,4 +23,3 @@ class NewOrganizationTest < ApplicationSystemTestCase
     end
   end
 end
-

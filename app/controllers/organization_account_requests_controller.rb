@@ -9,8 +9,10 @@ class OrganizationAccountRequestsController < ApplicationController
   def create
     @organization_acccount_request = Organization.new(organization_params)
 
-    if @organization_acccount_request.save
-      # OrganizationAccountRequestMailer.with(contact_params).send_message.deliver_later
+    if @organization_acccount_request.valid?
+      OrganizationAccountRequestsMailer.with(organization_params)
+        .create_new_organization_account_request.deliver_now
+
       redirect_to root_path, notice: I18n.t("contacts.create.success")
     else
       render :new, status: :unprocessable_entity
@@ -26,8 +28,7 @@ class OrganizationAccountRequestsController < ApplicationController
       :organization_requester_name,
       :phone_number,
       :email,
-      location_attributes: %i[id city_town country province_state]
+      locations_attributes: %i[id city_town country province_state]
     )
   end
 end
-
