@@ -64,6 +64,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: {scope: :organization_id}, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
+  validate :check_email_change, on: :update
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
@@ -74,6 +75,10 @@ class User < ApplicationRecord
   before_save :downcase_email
 
   delegate :latest_form_submission, to: :person
+
+  def check_email_change
+      errors.add(:email, "Email cannot be changed") if (email_changed?)
+  end
 
   def self.staff
     joins(:roles).where(roles: {name: %i[admin super_admin]})
