@@ -547,12 +547,21 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MichaScant",
+      "name": "michascant",
+      "avatar_url": "https://avatars.githubusercontent.com/u/89426143?v=4",
+      "profile": "https://github.com/MichaScant",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "skipCi": true,
   "repoType": "github",
   "repoHost": "https://github.com",
-  "projectName": "pet-rescue",
+  "projectName": "homeward-tails",
   "projectOwner": "rubyforgood"
 }
