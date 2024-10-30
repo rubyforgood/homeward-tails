@@ -78,7 +78,7 @@ class User < ApplicationRecord
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
   def prevent_email_change
-      errors.add(:email, "Email cannot be changed") if (email_changed?)
+    errors.add(:email, "Email cannot be changed") if email_changed?
   end
 
   def self.staff
