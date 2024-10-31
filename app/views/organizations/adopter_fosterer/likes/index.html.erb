@@ -1,5 +1,5 @@
 <%= render DashboardPageComponent.new do |c| %>
-  <% c.with_header_title { t('organizations.adopter_fosterer.likes.index.liked_pets') } %>
+  <% c.with_header_title { t('.header_title') } %>
   <% c.with_body do %>
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
       <div class="row">
@@ -11,8 +11,8 @@
                 image_options: {src: pet.images.first, url: adoptable_pet_path(pet)}
               ) do |c| %>
                 <%= c.with_badge do %>
-                  <%= render BadgeComponent.new("Adoption Pending", class: "badge bg-info", when: pet.has_adoption_pending?) %>
-                  <%= render BadgeComponent.new("Adopted", class: "badge bg-warning", when: pet.is_adopted?) %>
+                  <%= render BadgeComponent.new(t("general.adoption_pending"), class: "badge bg-info", when: pet.has_adoption_pending?) %>
+                  <%= render BadgeComponent.new(t("general.adopted"), class: "badge bg-warning", when: pet.is_adopted?) %>
                 <% end %>
                 <%= c.with_body do %>
                   <ul class="list-group list-group-flush">
@@ -29,10 +29,10 @@
                       <% end %>
                     </li>
                     <% li_classes = %w[list-group-item text-secondary] %>
-                    <%= tag.li("Age: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
-                    <%= tag.li("Breed: #{pet.breed}", class: li_classes) %>
-                    <%= tag.li("Sex: #{pet.sex}", class: li_classes) %>
-                    <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} kg", class: li_classes) %>
+                    <%= tag.li("#{t('general.age')}: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
+                    <%= tag.li("#{t('general.breed')}: #{pet.breed}", class: li_classes) %>
+                    <%= tag.li("#{t('general.sex')}: #{pet.sex}", class: li_classes) %>
+                    <%= tag.li("#{t('general.weight_range')}: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}", class: li_classes) %>
                   </ul>
                 <% end %>
               <% end %>

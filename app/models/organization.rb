@@ -25,8 +25,7 @@ class Organization < ApplicationRecord
   # Rolify resource
   resourcify
 
-  has_many :staff_accounts
-  has_many :users, through: :staff_accounts
+  has_many :users
   has_many :pets
   has_many :default_pet_tasks
   has_many :forms, class_name: "CustomForm::Form", dependent: :destroy

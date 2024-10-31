@@ -25,9 +25,10 @@ class Person < ApplicationRecord
 
   acts_as_tenant(:organization)
 
-  has_one :form_submission, dependent: :destroy
-  has_many :form_answers, through: :form_submission
-  has_many :adopter_applications, through: :form_submission
+  has_one :latest_form_submission, -> { order(created_at: :desc) }, class_name: "FormSubmission"
+  has_many :form_submissions, dependent: :destroy
+  has_many :form_answers, through: :form_submissions
+  has_many :adopter_applications, through: :form_submissions
   has_many :likes, dependent: :destroy
   has_many :liked_pets, through: :likes, source: :pet
   has_many :matches # , dependent: :destroy

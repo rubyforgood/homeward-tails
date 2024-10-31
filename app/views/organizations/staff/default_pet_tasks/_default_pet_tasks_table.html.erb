@@ -30,7 +30,7 @@
               <td>
                 <%= task.recurring? ? t('general.yes') : t('general.no') %>
               </td>
-              <% if current_user.staff_account %>
+              <% if allowed_to?(:manage?, task) %>
                 <td>
                   <div class="text-right">
                     <div class="d-flex align-items-center justify-content-end">

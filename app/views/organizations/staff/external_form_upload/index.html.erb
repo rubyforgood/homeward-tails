@@ -5,7 +5,8 @@
       <div>
         <div>
           <p class="fs-4">If you use a third party form service, like Google Forms, to provide questionnaires to potential adopters, and receive their answers, you can upload the CSV of data here to import the questions and responses to this application. This means the questionnaire data will live in one place, and you will be able to view it for a given adoption application at any time. Note that the adopter must have an account in this application using the same email address they used in the third party form.</p>
-          <%= render "organizations/staff/shared/attachment_form", instance: @external_form, title: 'Files', url: staff_external_form_upload_index_path(@pet), attachment_type: 'files' %>
+          <p class="mb-4">Current form service supported: Google Forms</p>
+          <%= render "organizations/staff/shared/attachment_form", instance: nil, title: 'Files', url: staff_external_form_upload_index_path, multiple: false, attachment_type: 'files' %>
         </div>
       </div>
     </section>

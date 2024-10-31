@@ -70,6 +70,14 @@
                           <i class="fe fe-star nav-icon"></i> Adopted Pets
                         <% end %>
                       </li>
+                       <!-- Nav item -->
+                      <% if current_user.has_role?(:fosterer, current_user.organization) %> 
+                        <li class="nav-item">
+                          <%= active_link_to adopter_fosterer_fostered_pets_path, class: "nav-link" do %>
+                            <i class="fe fe-file-text nav-icon"></i> Fostered Pets
+                          <% end %>
+                        </li>
+                      <% end %>
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_donations_path, class: "nav-link" do %>
@@ -82,6 +90,13 @@
                           <i class="fe fe-help-circle nav-icon"></i> FAQ
                         <% end %>
                       </li>
+                      <% if Current.organization.external_form_url.present? %>
+                        <li class="nav-item">
+                        <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
+                          <i class="fe fe-help-circle nav-icon"></i> My Info
+                        <% end %>
+                      </li>
+                      <% end %>
                       <li class="nav-item">
                         <%= active_link_to new_dev_contact_path, class: "nav-link" do %>
                           <i class="nav-icon fe fe-message-circle me-2"></i> Feedback

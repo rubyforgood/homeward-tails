@@ -23,11 +23,10 @@
         </thead>
         <tbody>
           <% applications.each do |app|%>
-            <%= render 'organizations/staff/pets/tabs/partials/application_info_table', app: app %>
+            <%= render 'organizations/staff/pets/tabs/partials/application_info_table_row', app: app %>
           <% end %>
         </tbody>
     </table>
-    <%# headers %>
   </div>
 </div>
 

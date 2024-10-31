@@ -104,10 +104,6 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
         @pet = create(:pet)
         create(:form_submission, person: create(:person, first_name: "David", last_name: "Attenborough"))
         create(:form_submission, person: create(:person, first_name: "Jane", last_name: "Goodall"))
-        # adopter_foster_account1 = create(:adopter_foster_account,
-        #   user: create(:user, first_name: "David", last_name: "Attenborough"))
-        # adopter_foster_account2 = create(:adopter_foster_account,
-        #   user: create(:user, first_name: "Jane", last_name: "Goodall"))
 
         create(:adopter_application, pet: @pet, form_submission: create(:form_submission))
         create(:adopter_application, pet: @pet, form_submission: create(:form_submission))

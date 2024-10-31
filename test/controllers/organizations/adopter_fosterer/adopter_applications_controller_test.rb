@@ -7,6 +7,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
 
     setup do
       @user = create(:adopter)
+      @form_submission = @user.person.latest_form_submission
       sign_in @user
     end
 
@@ -45,7 +46,6 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
     context "#create" do
       setup do
         @pet = create(:pet)
-        @form_submission = create(:form_submission, person: @user.person)
         @params = {adopter_application: {
           pet_id: @pet.id,
           form_submission_id: @form_submission.id
@@ -65,8 +65,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
 
     context "#update" do
       setup do
-        @form_submission = create(:form_submission)
-        @adopter_application = create(:adopter_application, user: @user, form_submission: @form_submission)
+        @adopter_application = create(:adopter_application, form_submission: @form_submission)
         @params = {adopter_application: {
           status: "withdrawn"
         }}

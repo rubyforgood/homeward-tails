@@ -4,14 +4,14 @@
     <div class="row">
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
         <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { "Example" } %>
+          <% card.with_title { t(".example") } %>
           <% card.with_icon_name { "users" } %>
           <% card.with_value { "5" } %>
         <% end %>
       </div>
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
         <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { "Pets" } %>
+          <% card.with_title { t(".pets") } %>
           <% card.with_icon_name { "heart" } %>
           <% card.with_value { @organization.pets.count.to_s } %>
         <% end %>
@@ -19,7 +19,7 @@
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
          <%= link_to adopter_fosterer_adopter_applications_path, class: "card-link" do %>
           <%= render DataCardComponent.new do |card| %>
-            <% card.with_title { "Applications" } %>
+            <% card.with_title { t(".applications") } %>
             <% card.with_icon_name { "file-text" } %>
             <% card.with_value { @application_count.to_s } %>
           <% end %>
@@ -27,7 +27,7 @@
       </div>
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
         <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { "Rescues" } %>
+          <% card.with_title { t(".rescues") } %>
           <% card.with_icon_name { "star" } %>
           <% card.with_value { "TBD" } %>
         <% end %>

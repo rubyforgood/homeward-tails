@@ -19,9 +19,7 @@
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Description</th>
-              <% if current_user.staff_account %>
-                <th scope="col"></th>
-              <% end %>
+              <th scope="col"></th>
             </tr>
             </thead>
 
@@ -30,7 +28,7 @@
               <tr>
                 <td><%= question.name %></td>
                 <td><%= question.description %></td>
-                <% if current_user.staff_account %>
+                <% if allowed_to?(:manage?, question) %>
                   <td>
                     <div class="text-right">
                       <div class="d-flex align-items-center justify-content-end">

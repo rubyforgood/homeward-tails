@@ -1,0 +1,7 @@
+<%= render DashboardPageComponent.new(crumb: :edit_fosterer, crumb_options: [@fosterer]) do |c| %>
+  <% c.with_header_title { t(".edit_fosterer", fosterer: @fosterer.full_name) } %>
+  <% c.with_body do %>
+    <%= render "form", { fosterer: @fosterer } %>
+  <% end %>
+<% end %>
+

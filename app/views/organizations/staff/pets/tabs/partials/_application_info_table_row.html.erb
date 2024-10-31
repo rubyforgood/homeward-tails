@@ -1,24 +1,23 @@
-<div id="<%= dom_id(app, :table) %>">
-  <!-- applicant -->
+<tr id="<%= dom_id(app, :table_row) %>">
   <td class="w-20 align-middle">
     <%= link_to "PLACEHOLDER FOR FORM ANSWERS", nil,
                                 class: "link-underline link-underline-opacity-0"  %>
   </td>
-  <!-- status -->
+
   <td class="w-20 align-middle" style="min-width: 220px;">
     <%= render 'organizations/staff/pets/tabs/partials/application_status', app: app %>
   </td>
-  <!-- create -->
+
   <% unless app.status == 'adoption_made' %>
-  <td class="w-20 align-middle">
-    <%= render 'organizations/staff/pets/tabs/partials/application_create_button', app: app %>
-  </td>
+    <td class="w-20 align-middle">
+      <%= render 'organizations/staff/pets/tabs/partials/application_create_button', app: app %>
+    </td>
   <% else %>
-  <td class="w-20 align-middle">
-  </td>
+    <td class="w-20 align-middle">
+    </td>
   <% end %>
-  <!-- notes -->
+
   <td class="w-20 align-middle">
     <%= render 'organizations/staff/pets/tabs/partials/application_notes', app: app, modal_id: 'table' %>
   </td>
-</div>
+</tr>

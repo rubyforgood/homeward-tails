@@ -1,11 +1,11 @@
 <%= render DashboardPageComponent.new do |c| %>
-  <% c.with_header_title { "Adopted Pets" } %>
+  <% c.with_header_title { t(".header_title") } %>
   <% c.with_body do %>
     <div data-controller="card">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
         <% @adopted_pets.each_with_index do |adopted_pet, index| %>
           <div class="col">
-            <%= link_to adopter_fosterer_adopted_pet_files_path(adopted_pet.pet), data: { turbo_frame: "pet_files", action: "click->card#selectCard" } do %>
+            <%= link_to adopter_fosterer_adopted_pet_files_path(adopted_pet.pet, pet_id: adopted_pet.pet.id), data: { turbo_frame: "pet_files", action: "click->card#selectCard" } do %>
               <div class="card h-100 bg-white border-0 shadow-sm" data-card-target="card">
                 <div class="card-body d-flex align-items-center">
                   <div class="me-3 flex-shrink-0" style="width: 50px; height: 50px;">
