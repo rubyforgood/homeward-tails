@@ -21,7 +21,6 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
         user_params.merge(password: SecureRandom.hex(8)).except(:roles)
       )
       @user.add_role(user_params[:roles], Current.organization)
-      @user.build_staff_account
 
       if @user.save
         @user.invite!(current_user)

@@ -35,21 +35,21 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
       context "when there are applications that do not belong to user" do
         setup do
           @user_applications = [
-            create(:adopter_application, user: @user, form_submission: @form_submission),
-            create(:adopter_application, user: @user, form_submission: @form_submission)
+            create(:adopter_application, form_submission: @form_submission),
+            create(:adopter_application, form_submission: @form_submission)
           ]
           @other_application = create(:adopter_application, form_submission: create(:form_submission))
         end
 
         should "return only user's applications" do
           expected = @user_applications.map(&:id)
-
           assert_equal(expected, @scope.call)
         end
       end
 
       context "when user has no applications" do
         setup do
+          @form_submission = create(:form_submission, person_id: @user.person_id)
           @other_application = create(:adopter_application, form_submission: create(:form_submission))
         end
 
@@ -258,7 +258,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
         end
       end
 
-      context "when adopter account belongs to user" do
+      context "when form submission belongs to user" do
         setup do
           @user = create(:adopter)
           form_submission = create(:form_submission, person: @user.person)

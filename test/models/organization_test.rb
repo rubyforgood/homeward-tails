@@ -4,8 +4,7 @@ class OrganizationTest < ActiveSupport::TestCase
   context "associations" do
     subject { build(:organization) }
 
-    should have_many(:staff_accounts)
-    should have_many(:users).through(:staff_accounts)
+    should have_many(:users)
     should have_many(:pets)
     should have_many(:faqs)
     should have_many(:form_answers).dependent(:destroy)

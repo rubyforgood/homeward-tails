@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resource :organization, only: %i[edit update]
       resource :custom_page, only: %i[edit update]
       resources :profile_reviews, only: [:show]
-      resources :external_form_upload, only: [:index]
+      resources :external_form_upload, only: %i[index create]
 
       resources :pets do
         resources :tasks
@@ -33,12 +33,10 @@ Rails.application.routes.draw do
 
       resources :adoption_application_reviews, only: %i[index edit update]
       resources :manage_fosters, only: %i[new create index edit update destroy]
-      resources :fosterers, only: %i[index]
+      resources :fosterers, only: %i[index edit update]
       resources :adopters, only: %i[index]
       resources :staff do
-        post "deactivate", to: "staff#deactivate"
-        post "activate", to: "staff#activate"
-        post "update_activation", to: "staff#update_activation"
+        patch "update_activation"
       end
 
       resources :staff_invitations, only: %i[new]
@@ -66,6 +64,11 @@ Rails.application.routes.draw do
         resources :files, only: [:index], module: :adopted_pets
         resources :tasks, only: [:index], module: :adopted_pets
       end
+      resources :fostered_pets, only: [:index] do
+        resources :files, only: [:index], module: :fostered_pets
+        resources :tasks, only: [:index], module: :fostered_pets
+      end
+      resources :external_form, only: %i[index]
     end
   end
 

@@ -9,6 +9,10 @@ module Authorizable
     permissions.include?(name)
   end
 
+  def staff?(organization)
+    has_role?("super_admin", organization) || has_role?("admin", organization)
+  end
+
   ADOPTER_PERMISSIONS = %i[
     view_adopter_foster_dashboard
     create_adopter_applications
@@ -19,6 +23,7 @@ module Authorizable
     manage_likes
     view_adopted_pets
     read_pet_tasks
+    view_external_form
   ].freeze
 
   FOSTERER_PERMISSIONS = %i[
@@ -38,6 +43,7 @@ module Authorizable
     ) + %i[
       review_adopter_applications
       invite_fosterers
+      update_fosterers
       purge_attachments
       manage_default_pet_tasks
       manage_forms

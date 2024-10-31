@@ -11,10 +11,12 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
+  # MARK: only adopters are created through this route. Adopters need both the adoper role and a form submission to attach their applications to
   def create
     super do |resource|
       if resource.persisted?
         resource.add_role(:adopter, Current.organization)
+        resource.person.form_submissions.create
       end
     end
   end
@@ -22,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def set_layout
-    if current_user&.staff_account
+    if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {organization: Current.organization})
       "dashboard"
     elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
       "adopter_foster_dashboard"
@@ -55,8 +57,13 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization}) ?
-      adopter_fosterer_dashboard_index_path : root_path
+    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
+
+    if Current.organization.external_form_url
+      adopter_fosterer_external_form_index_path
+    else
+      adopter_fosterer_dashboard_index_path
+    end
   end
 
   # check for id (i.e., record saved) and send mail

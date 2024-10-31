@@ -1,7 +1,6 @@
 <div class="pt-2 border-bottom border-3" id="<%= dom_id(app, :card) %>">
   <ul class="list-group list-group-flush">
 
-    <!-- applicant -->
     <li class="list-group-item">
       <span><%= t("organizations.staff.pets.applications.applicant")%>:</span>
       <div>
@@ -9,17 +8,14 @@
       </div>
     </li>
 
-    <!-- status -->
     <li class="list-group-item">
       <%= render 'organizations/staff/pets/tabs/partials/application_status', app: app %>
     </li>
 
-    <!-- create -->
     <li class="list-group-item">
       <%= render 'organizations/staff/pets/tabs/partials/application_create_button', app: app %>
     </li>
 
-    <!-- notes -->
     <li class="list-group-item">
       <%= render 'organizations/staff/pets/tabs/partials/application_notes', app: app, modal_id: 'card' %>
     </li>

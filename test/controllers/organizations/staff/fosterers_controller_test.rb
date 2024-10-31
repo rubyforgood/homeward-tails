@@ -5,6 +5,7 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
   setup do
     @organization = ActsAsTenant.current_tenant
     @admin = create(:admin)
+    @fosterer = create(:person)
     sign_in @admin
   end
 
@@ -37,6 +38,29 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
           end
         end
       end
+    end
+  end
+
+  context "#edit" do
+    should "render the edit form" do
+      get edit_staff_fosterer_path(@fosterer)
+
+      assert_response :success
+    end
+  end
+
+  context "#update" do
+    should "update fosterer" do
+      patch staff_fosterer_url(@fosterer), params: {person: {phone: "1234567890"}}
+
+      assert_response :redirect
+      assert_equal "1234567890", @fosterer.reload.phone
+    end
+
+    should "fail update" do
+      patch staff_fosterer_url(@fosterer), params: {person: {first_name: ""}}
+
+      assert_response :unprocessable_entity
     end
   end
 end

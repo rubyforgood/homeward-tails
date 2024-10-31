@@ -32,4 +32,6 @@ class FormSubmission < ApplicationRecord
 
   has_many :adopter_applications
   has_many :form_answers, dependent: :destroy
+
+  delegate :user, to: :person
 end

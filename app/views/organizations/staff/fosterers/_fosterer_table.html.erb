@@ -1,3 +1,4 @@
+<% can_edit_person = allowed_to?(:edit?, Person, context: { organization: Current.organization }, with: Organizations::FostererInvitationPolicy) %>
 
 <div class="card">
   <!-- Table -->
@@ -6,8 +7,11 @@
       <thead>
         <tr>
           <th scope="col"><%= t(:name) %></th>
-          <th scope="col"><%= t(:joined_at) %></th>
-          <th scope="col"><%= t(:action) %></th>
+          <th scope="col"><%= t(:email) %></th>
+          <th scope="col"><%= t(:phone) %></th>
+          <% if can_edit_person %>
+            <th scope="col"><%= t(:action) %></th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -21,26 +25,19 @@
                     <span class="status bg-success"></span>
                   </a>
                 </div>
-                <h5 class="mb-0 ms-3"><%= "#{fosterer.user.full_name}" %></h5>
+                <h5 class="mb-0 ms-3"><%= "#{fosterer.full_name}" %></h5>
               </div>
             </td>
             <td>
-              <%= fosterer.created_at.strftime("%d %B, %Y") %>
+              <%= fosterer.email %>
             </td>
             <td>
-              <div class="hstack gap-4">
-                <a href="#" class="fe fe-mail text-muted" data-bs-toggle="tooltip" data-placement="top" aria-label="Message" data-bs-original-title="Message"></a>
-                <a href="#" class="text-muted" data-bs-toggle="tooltip" data-placement="top" aria-label="Delete" data-bs-original-title="Delete"><i class="fe fe-trash"></i></a>
-                <span class="dropdown dropstart">
-                  <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button" data-bs-toggle="dropdown" data-bs-offset="-20,20" aria-expanded="false">
-                    <i class="fe fe-more-vertical"></i>
-                  </a>
-                  <span class="dropdown-menu">
-                    <span class="dropdown-header"><%= t(:settings) %></span>
-                    <a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i><%= t('general.edit') %></a>
-                  </span>
-                </span>
-              </div>
+              <%= fosterer.phone %>
+            </td>
+            <td>
+              <% if can_edit_person %>
+                <%= link_to 'Edit', edit_staff_fosterer_url(fosterer), class: 'btn btn-warning m-2' %>
+              <% end %>
             </td>
           </tr>
         <% end %>
@@ -48,3 +45,4 @@
     </table>
   </div>
 </div>
+

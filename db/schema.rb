@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2024_10_24_094215) do
+ 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -203,7 +204,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_094215) do
     t.text "description"
     t.string "sex"
     t.string "name"
-    t.boolean "application_paused", default: false
+    t.boolean "application_paused", default: false, null: false
     t.datetime "birth_date", null: false
     t.integer "weight_from", null: false
     t.integer "weight_to", null: false
@@ -242,16 +243,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_094215) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "staff_accounts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "organization_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "deactivated_at"
-    t.index ["organization_id"], name: "index_staff_accounts_on_organization_id"
-    t.index ["user_id"], name: "index_staff_accounts_on_user_id"
-  end
-
   create_table "tasks", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -287,7 +278,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_094215) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "person_id"
+    t.bigint "person_id", null: false
+    t.datetime "deactivated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -328,8 +320,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_094215) do
   add_foreign_key "people", "organizations"
   add_foreign_key "pets", "organizations"
   add_foreign_key "questions", "forms"
-  add_foreign_key "staff_accounts", "organizations"
-  add_foreign_key "staff_accounts", "users"
   add_foreign_key "tasks", "pets"
   add_foreign_key "users", "people"
 end

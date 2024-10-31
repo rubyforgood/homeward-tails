@@ -10,19 +10,19 @@
           <div class="col-xl-12">
             <%= search_form_for @q, url: staff_default_pet_tasks_path do |f| %>
               <div class="row">
-                <div class="form-group mb-3 col-md-4">
+                <div class="form-group mb-3 col-md-3">
                   <%= f.label :name_cont, t('.name') %>
                   <%= f.text_field :name_cont, class: "form-control", placeholder: t('.name_placeholder') %>
                 </div>
-                <div class="form-group mb-3 col-md-4">
+                <div class="form-group mb-3 col-md-3">
                   <%= f.label :species_eq, t('.species') %>
                   <%= f.select :species_eq, Pet.species.keys.map { |type| [type.titleize, type] }, { include_blank: t('.species_placeholder') }, class: "form-select" %>
                 </div>
-                <div class="form-group mb-3 col-md-4">
+                <div class="form-group mb-3 col-md-3">
                   <%= f.label :due_in_days_eq, t('.due_after') %>
                   <%= number_field_tag :due_in_days_eq, params[:due_in_days_eq], class: "form-control", placeholder: t('.due_in_days_placeholder') %>
                 </div>
-                <div class="form-group mb-3 col-md-4">
+                <div class="form-group mb-3 col-md-3">
                   <%= f.label :recurring_eq, t('.recurring') %>
                   <%= f.select :recurring_eq, options_for_select([['Yes', true], ['No', false]]), { include_blank: t('.recurring_placeholder') }, class: "form-select" %>
                 </div>

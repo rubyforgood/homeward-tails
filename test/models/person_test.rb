@@ -13,8 +13,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   context "associations" do
-    should have_one(:form_submission).dependent(:destroy)
-    should have_many(:form_answers).through(:form_submission)
+    should have_many(:form_submissions).dependent(:destroy)
+    should have_many(:form_answers).through(:form_submissions)
   end
 
   context "database validations" do

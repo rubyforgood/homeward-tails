@@ -1,5 +1,5 @@
-<%= turbo_stream.replace "table_adopter_application_#{@application.id}",
-        partial: "organizations/staff/pets/tabs/partials/application_info_table",
+<%= turbo_stream.replace "table_row_adopter_application_#{@application.id}",
+        partial: "organizations/staff/pets/tabs/partials/application_info_table_row",
         locals: {app: @application}%>
 <%= turbo_stream.replace "card_adopter_application_#{@application.id}",
         partial: "organizations/staff/pets/tabs/partials/application_info_card",

@@ -27,7 +27,7 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
 
     assert invited_user.invited_to_sign_up?
     assert invited_user.has_role?(:super_admin, invited_user.organization)
-    assert_not invited_user.staff_account.deactivated?
+    assert_not invited_user.deactivated?
 
     assert_equal 1, ActionMailer::Base.deliveries.count
   end

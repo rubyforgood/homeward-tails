@@ -76,6 +76,42 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
         assert_equal 2, assigns[:pets].count
         assert_equal 2, assigns[:pets].count { |pet| pet.species == "Cat" }
       end
+
+      should "filter by placement_type" do
+        create(:pet, placement_type: "Adoptable")
+        create(:pet, placement_type: "Fosterable")
+        create(:pet, placement_type: "Adoptable and Fosterable")
+
+        get staff_pets_url, params: {q: {placement_type_eq: "0"}}
+        assert_response :success
+
+        assert_equal 1, assigns[:pets].count
+        assert_equal 1, assigns[:pets].count { |pet| pet.placement_type == "Adoptable" }
+      end
+
+      should "filter by application_paused" do
+        create(:pet, application_paused: false)
+        create(:pet, application_paused: true)
+        create(:pet, application_paused: true)
+
+        get staff_pets_url, params: {q: {application_paused_eq: "true"}}
+        assert_response :success
+
+        assert_equal 2, assigns[:pets].count
+        assert_equal 2, assigns[:pets].count { |pet| !!pet.application_paused }
+      end
+
+      should "filter by published" do
+        create(:pet, published: true)
+        create(:pet, published: false)
+        create(:pet, published: false)
+
+        get staff_pets_url, params: {q: {published_eq: "false"}}
+        assert_response :success
+
+        assert_equal 2, assigns[:pets].count
+        assert_equal 2, assigns[:pets].count { |pet| !pet.published }
+      end
     end
 
     context "#new" do

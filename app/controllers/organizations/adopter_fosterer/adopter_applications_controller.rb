@@ -19,7 +19,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsController < Organizati
         notice: t(".success", message: MessagesHelper.affirmations.sample)
 
       # mailer
-      @org_staff = User.organization_staff(@pet.organization_id)
+      @org_staff = User.staff
       StaffApplicationNotificationMailer.with(pet: @pet,
         organization_staff: @org_staff)
         .new_adoption_application.deliver_now
