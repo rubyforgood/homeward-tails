@@ -5,10 +5,11 @@
 #  id                          :bigint           not null, primary key
 #  donation_url                :text
 #  email                       :string           not null
+#  external_form_url           :text
 #  facebook_url                :text
 #  instagram_url               :text
 #  name                        :string           not null
-#  organization_requester_name :string
+#  requester_name :string
 #  phone_number                :string
 #  slug                        :string           not null
 #  created_at                  :datetime         not null

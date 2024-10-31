@@ -14,7 +14,7 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
         organization: {
           name: "Pet lovers",
           slug: "pet-lovers",
-          organization_requester_name: "Pete Smith",
+          requester_name: "Pete Smith",
           phone_number: 1234567890,
           email: "pete@example.com",
           locations: {
@@ -34,7 +34,7 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
       post organization_account_requests_path, params: {
         organization: {
           name: "Pet lovers",
-          organization_requester_name: "Pete Smith",
+          requester_name: "Pete Smith",
           phone_number: 1234567890,
           email: "pete@example.com",
           locations: {

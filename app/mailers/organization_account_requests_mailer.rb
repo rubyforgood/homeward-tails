@@ -1,7 +1,7 @@
 class OrganizationAccountRequestsMailer < ApplicationMailer
   def create_new_organization_account_request
     @organization_name = params[:name]
-    @requester_name = params[:organization_requester_name]
+    @requester_name = params[:requester_name]
     @organization_phone = params[:phone_number]
     @organization_email = params[:email]
     # @country = params[:locations][:country]

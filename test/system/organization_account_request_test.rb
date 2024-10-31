@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class NewOrganizationTest < ApplicationSystemTestCase
+class OrganizationAccountRequestTest < ApplicationSystemTestCase
   setup do
     set_organization(nil)
   end

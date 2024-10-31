@@ -25,7 +25,7 @@ class OrganizationAccountRequestsController < ApplicationController
     params.require(:organization).permit(
       :name,
       :slug,
-      :organization_requester_name,
+      :requester_name,
       :phone_number,
       :email,
       locations_attributes: %i[id city_town country province_state]

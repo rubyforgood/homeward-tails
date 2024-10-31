@@ -179,7 +179,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_094215) do
     t.text "donation_url"
     t.text "facebook_url"
     t.text "instagram_url"
-    t.string "organization_requester_name"
+    t.string "requester_name"
     t.index ["slug"], name: "index_organizations_on_slug", unique: true
   end
 

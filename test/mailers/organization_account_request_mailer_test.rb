@@ -5,7 +5,7 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
     organization_account_request_params = {
       name: "Test Organization",
       slug: "test_organ",
-      organization_requester_name: "John Doe",
+      requester_name: "John Doe",
       phone_number: "123-456-7890",
       email: "test@example.com",
       locations_attributes:
@@ -21,7 +21,7 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
     assert_equal ["default@petrescue.org"], mail.from
 
     assert_match organization_account_request_params[:name], mail.body.encoded
-    assert_match organization_account_request_params[:organization_requester_name], mail.body.encoded
+    assert_match organization_account_request_params[:requester_name], mail.body.encoded
     assert_match organization_account_request_params[:phone_number], mail.body.encoded
     assert_match organization_account_request_params[:email], mail.body.encoded
     # assert_match organization_account_request_params[:locations_attributes][:country], mail.body.encoded
