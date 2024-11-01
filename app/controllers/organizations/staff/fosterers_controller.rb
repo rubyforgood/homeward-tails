@@ -1,12 +1,16 @@
 class Organizations::Staff::FosterersController < Organizations::BaseController
   layout "dashboard"
+  include ::Pagy::Backend
 
   before_action :authorize_user, only: %i[edit update]
 
   def index
     authorize! Person, context: {organization: Current.organization}
 
-    @fosterer_accounts = authorized_scope(Person.fosterers)
+    @pagy, @fosterer_accounts = pagy(
+      authorized_scope(Person.fosterers),
+      limit: 10
+    )
   end
 
   def edit
