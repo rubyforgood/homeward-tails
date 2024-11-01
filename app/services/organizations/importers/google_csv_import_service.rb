@@ -13,19 +13,17 @@ module Organizations
       end
 
       def call
-        row_num = 1
-        CSV.foreach(@file.to_path, headers: true, skip_blanks: true) do |row|
-          row_num += 1
+        CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(1) do |row, index|
           # Using Google Form headers
           email = row["Email"].downcase
           csv_timestamp = Time.parse(row["Timestamp"])
 
           person = Person.find_by(email:, organization: @organization)
-          previous = FormSubmission.where(person:, csv_timestamp:)
+          previously_matched_form_submission = FormSubmission.where(person:, csv_timestamp:)
 
           if person.nil?
-            @no_match << [row_num, email]
-          elsif previous.present?
+            @no_match << [index, email]
+          elsif previously_matched_form_submission.present?
             next
           else
             latest_form_submission = person.latest_form_submission
@@ -35,13 +33,16 @@ module Organizations
                 latest_form_submission.update!(csv_timestamp:)
                 create_form_answers(latest_form_submission, row)
               else
+                # if the person submits a new/updated form,
+                # i.e. an additional row in the csv with the same email / different timestamp,
+                # a new form_submission will be created
                 create_form_answers(FormSubmission.create!(person:, csv_timestamp:), row)
               end
               @count += 1
             end
           end
         rescue => e
-          @errors << [row_num, e]
+          @errors << [index, e]
         end
         Status.new(@errors.empty?, @count, @no_match, @errors)
       end
