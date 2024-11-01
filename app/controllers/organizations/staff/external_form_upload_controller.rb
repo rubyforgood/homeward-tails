@@ -1,6 +1,7 @@
 module Organizations
   module Staff
     class ExternalFormUploadController < Organizations::BaseController
+      include FileUploadLimitable
       layout "dashboard"
 
       def index
