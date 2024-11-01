@@ -3,7 +3,7 @@ class Organizations::Staff::AdoptersController < Organizations::BaseController
   include ::Pagy::Backend
 
   def index
-    authorize! Person, context: {organization:Current.organization}
+    authorize! Person, context: {organization: Current.organization}
 
     @pagy, @adopter_accounts = pagy(
       authorized_scope(Person.adopters),
