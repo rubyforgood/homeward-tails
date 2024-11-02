@@ -1,8 +1,9 @@
 module Organizations
   module Staff
     class ExternalFormUploadController < Organizations::BaseController
-      include FileUploadLimitable
+      include AttachmentManageable
       layout "dashboard"
+      before_action :allow_only_one_attachment, only: [:create]
 
       def index
         authorize! :external_form_upload, context: {organization: Current.organization}

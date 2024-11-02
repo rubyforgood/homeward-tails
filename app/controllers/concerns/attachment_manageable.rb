@@ -1,13 +1,5 @@
-module FileUploadLimitable
-  extend ActiveSupport::Concern
-
-  included do
-    before_action :single_file_upload_limit, only: [:create]
-  end
-
-  private
-
-  def single_file_upload_limit
+module AttachmentManageable
+  def allow_only_one_attachment
     return unless params[:files].is_a?(Array)
 
     flash.now[:alert] = t(".upload_limit_exceed")
