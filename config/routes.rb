@@ -91,5 +91,5 @@ Rails.application.routes.draw do
 
   resources :contacts, only: %i[new create]
   resources :feedback, only: %i[new create]
-  get "feedback/how_to", to: "feedback#how_to", as: "/feedback/how_to"
+  get "feedback", to: "feedback#show"
 end
