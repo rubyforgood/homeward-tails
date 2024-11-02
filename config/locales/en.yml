@@ -609,6 +609,8 @@ en:
         update_activation:
           activated: "%{staff} was activated."
           deactivated: "%{staff} was deactivated."
+      external_form_upload:
+        upload_limit_exceed: "Upload limit exceeded: Only one file allowed." 
     adopter_fosterer:
       adopter_applications:
         create:
