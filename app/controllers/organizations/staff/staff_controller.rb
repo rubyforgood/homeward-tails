@@ -1,12 +1,16 @@
 class Organizations::Staff::StaffController < Organizations::BaseController
   before_action :set_staff, only: [:update_activation]
+  include ::Pagy::Backend
 
   layout "dashboard"
 
   def index
     authorize! User, context: {organization: Current.organization}
 
-    @staff = authorized_scope(User.staff)
+    @pagy, @staff = pagy(
+      authorized_scope(User.staff),
+      limit: 10
+    )
   end
 
   def update_activation
