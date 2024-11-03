@@ -1,5 +1,5 @@
 <% if current_user.nil? %>
-  <%= render "feedback", contact: @contact %>
+  <%= render "feedback" %>
 <% else %>
   <% admin =
     current_user.has_role?(:adopter, ActsAsTenant.current_tenant) ? false : true %>
@@ -12,7 +12,7 @@
             <div
               class="<%= admin ? 'col-md-8 mx-auto card p-5 bigger' : 'col-md-12 mx-auto card p-5' %>"
             >
-              <%= render "form", contact: @contact %>
+              <%= render "form" %>
             </div>
           </div>
         </div>

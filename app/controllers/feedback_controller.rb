@@ -9,13 +9,14 @@ class FeedbackController < ApplicationController
   end
 
   def new
-    @contact = Contact.new
+    @feedback = Feedback.new
   end
 
   def create
-    @contact = Contact.new(contact_params)
-    if @contact.valid?
-      FeedbackMailer.with(contact_params).send_message.deliver_later
+    @feedback = Feedback.new(feedback_params)
+
+    if @feedback.valid?
+      FeedbackMailer.with(feedback_params).send_message.deliver_later
       path = case set_layout
       when "adopter_foster_dashboard"
         adopter_fosterer_dashboard_index_path
@@ -32,8 +33,8 @@ class FeedbackController < ApplicationController
 
   private
 
-  def contact_params
-    params.require(:contact).permit(:name, :email, :message, :subject)
+  def feedback_params
+    params.require(:feedback).permit(:name, :email, :message, :subject)
   end
 
   def set_layout
