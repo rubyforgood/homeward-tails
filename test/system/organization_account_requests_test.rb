@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class OrganizationAccountRequestTest < ApplicationSystemTestCase
+class OrganizationAccountRequestsTest < ApplicationSystemTestCase
   setup do
     set_organization(nil)
   end
@@ -15,7 +15,7 @@ class OrganizationAccountRequestTest < ApplicationSystemTestCase
       fill_in "Organization phone number", with: "12345678"
       fill_in "Organization email", with: "organization@example.com"
       select "France", from: "Country"
-      select "Corsica", from: "Province/State"
+      fill_in "Province/State", with: "Corsica"
       fill_in "City/Town", with: "Calvi"
       click_on "Submit"
 

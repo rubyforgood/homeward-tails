@@ -11,17 +11,14 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
   test "#create" do
     assert_emails 1 do
       post organization_account_requests_path, params: {
-        organization: {
+        organization_account_request: {
           name: "Pet lovers",
-          slug: "pet-lovers",
           requester_name: "Pete Smith",
           phone_number: 1234567890,
           email: "pete@example.com",
-          locations: {
-            country: "United States",
-            province_state: "Colorado",
-            city_town: "Golden"
-          }
+          country: "United States",
+          province_state: "Colorado",
+          city_town: "Golden"
         }
       }
     end
@@ -32,16 +29,13 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
   test "#create fails" do
     assert_no_emails do
       post organization_account_requests_path, params: {
-        organization: {
-          name: "Pet lovers",
+        organization_account_request: {
           requester_name: "Pete Smith",
           phone_number: 1234567890,
           email: "pete@example.com",
-          locations: {
-            country: "United States",
-            province_state: "Colorado",
-            city_town: "Golden"
-          }
+          country: "United States",
+          province_state: "Colorado",
+          city_town: "Golden"
         }
       }
     end

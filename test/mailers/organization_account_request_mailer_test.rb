@@ -8,8 +8,9 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
       requester_name: "John Doe",
       phone_number: "123-456-7890",
       email: "test@example.com",
-      locations_attributes:
-        {country: "Country Name", city_town: "City Name", province_state: "State Name"}
+      country: "Country Name",
+      city_town: "City Name",
+      province_state: "State Name"
     }
 
     mail = OrganizationAccountRequestsMailer.with(
@@ -24,8 +25,8 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
     assert_match organization_account_request_params[:requester_name], mail.body.encoded
     assert_match organization_account_request_params[:phone_number], mail.body.encoded
     assert_match organization_account_request_params[:email], mail.body.encoded
-    # assert_match organization_account_request_params[:locations_attributes][:country], mail.body.encoded
-    # assert_match organization_account_request_params[:locations_attributes][:city_town], mail.body.encoded
-    # assert_match organization_account_request_params[:locations_attributes][:province_state], mail.body.encoded
+    assert_match organization_account_request_params[:country], mail.body.encoded
+    assert_match organization_account_request_params[:city_town], mail.body.encoded
+    assert_match organization_account_request_params[:province_state], mail.body.encoded
   end
 end

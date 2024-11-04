@@ -13,7 +13,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 mx-auto card p-5">
-      <%= bootstrap_form_with model: Organization, :url => organization_account_requests_path do |form| %>
+      <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_requests_path do |form| %>
         <% if @organization_acccount_request.errors.count > 0 %>
           <div class="alert alert-danger mt-1" role="alert">
             <%= t('organizations.staff.organizations.form.please_fix_the_errors') %>
@@ -29,21 +29,15 @@
 
         <div class='card-body'>
           <div class="row mt-3">
-            <div class="col-lg-6" data-controller="slug-from-title">
+            <div class="col-lg-6">
               <form class="mb-3">
 
                 <div class="form-group">
                   <%= form.text_field :name,
                     label: 'Organization name',
                     class: 'form-control',
-                    data: {
-                      slug_from_title_target: 'title',
-                      action: 'keyup->slug-from-title#updateSlug'
-                    } %>
-                </div>
-
-                <div class="form-group">
-                  <%= form.text_field :slug, label: 'Subdomain', class: 'form-control', data: { slug_from_title_target: 'slug' } %>
+                    required: true
+                   %>
                 </div>
 
                 <div class="form-group">
@@ -54,42 +48,32 @@
                                           autofocus: true,
                                           label: 'Organization phone number',
                                           placeholder: "10 digit number",
-                                          class: 'form-control' %>
+                                          class: 'form-control',
+                                          required: true %>
                 </div>
                 <div class="form-group">
-                  <%= form.email_field :email, label: 'Organization email', placeholder: "john@email.com", class: 'form-control' %>
+                  <%= form.email_field :email, label: 'Organization email', placeholder: "john@email.com", class: 'form-control', required: true %>
                 </div>
               </form>
             </div>
 
             <div class="col-lg-6">
 
-              <div class="form-group bigger" data-controller="country-state">
-                <% location = @organization_acccount_request.locations.build %>
-                <%= form.fields_for :locations, location do |location_form| %>
-                  <%= location_form.select :country,
-                                      CS.countries.invert,
-                                      { prompt: "Please select" },
-                                      data: {
-                                        path: country_states_path(:country),
-                                        country_state_target: 'country',
-                                        action: 'change->country-state#updateStates',
-                                        initial_value: location_form.object.country,
-                                      },
+              <div class="form-group bigger">
+                  <%= form.select :country,
+                                  CS.countries.invert,
+                                  { prompt: "Please select" },
+                                  data: {
+                                    path: country_states_path(:country),
+                                  },
+                                  required: true,
+                                  class: 'form-control' %>
+                  <%= form.text_field :province_state,
+                                      label: 'Province/State',
                                       required: true,
                                       class: 'form-control' %>
 
-                  <%= location_form.select :province_state,
-                                      CS.states(location_form.object.country).invert,
-                                      { prompt: "Please select" },
-                                      data: {
-                                        country_state_target: 'state',
-                                      },
-                                      required: true,
-                                      class: 'form-control' %>
-
-                  <%= location_form.text_field :city_town, class: 'form-control' %>
-                <% end %>
+                  <%= form.text_field :city_town, class: 'form-control', label: "City/Town" %>
               </div>
             </div>
 

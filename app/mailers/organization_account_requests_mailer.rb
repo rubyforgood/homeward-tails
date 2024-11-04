@@ -4,9 +4,9 @@ class OrganizationAccountRequestsMailer < ApplicationMailer
     @requester_name = params[:requester_name]
     @organization_phone = params[:phone_number]
     @organization_email = params[:email]
-    # @country = params[:locations][:country]
-    # @city_town = params[:locations][:city_town]
-    # @province_state = params[:locations][:province_state]
+    @country = params[:country]
+    @city_town = params[:city_town]
+    @province_state = params[:province_state]
 
     mail(from: "default@petrescue.org",
       to: "devs@email.com",
