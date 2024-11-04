@@ -59,7 +59,7 @@ module Organizations
         csv << @data
         csv << @data
       end
-      assert_difference "FormSubmission.count" do
+      assert_no_difference "FormSubmission.count" do
         Organizations::Importers::GoogleCsvImportService.new(@file).call
       end
     end
@@ -87,6 +87,28 @@ module Organizations
           Organizations::Importers::GoogleCsvImportService.new(@file).call
         end
       end
+    end
+
+    should "return summary of import when successful" do
+      CSV.open(@file.path, "ab") do |csv|
+        csv << @data
+      end
+      import = Organizations::Importers::GoogleCsvImportService.new(@file).call
+
+      assert import.success?
+      assert_equal 1, import.count
+      assert import.errors.empty?
+    end
+
+    should "return errors" do
+      @data[0] = "2024/13/27 10:24:05 AM AST"
+      CSV.open(@file.path, "ab") do |csv|
+        csv << @data
+      end
+      import = Organizations::Importers::GoogleCsvImportService.new(@file).call
+
+      refute import.success?
+      assert_equal "mon out of range", import.errors[0][1].message
     end
   end
 end

@@ -22,19 +22,19 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12 border-bottom">
-      <!-- Nav tabs -->
-      <% if nav_tabs? %>
-        <ul class="nav nav-lb-tab mt-n3 gap-1">
-          <%# nav_tabs %>
-          <% nav_tabs.each do |tab| %>
-            <%= tab %>
-          <% end %>
-        </ul>
-      <% end %>
+  <% if nav_tabs? %>
+    <!-- Nav tabs -->
+    <div class="row">
+      <div class="col-12 border-bottom">
+          <ul class="nav nav-lb-tab mt-n3 gap-1">
+            <%# nav_tabs %>
+            <% nav_tabs.each do |tab| %>
+              <%= tab %>
+            <% end %>
+          </ul>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class='mt-4'>
     <%= body %>

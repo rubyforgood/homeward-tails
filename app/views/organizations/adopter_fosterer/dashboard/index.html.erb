@@ -1,36 +1,24 @@
 <%= render DashboardPageComponent.new do |c| %>
-  <% c.with_header_title { t("dashboard.index.header_title") } %>
   <% c.with_body do %>
-    <div class="row">
-      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { t(".example") } %>
-          <% card.with_icon_name { "users" } %>
-          <% card.with_value { "5" } %>
-        <% end %>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { t(".pets") } %>
-          <% card.with_icon_name { "heart" } %>
-          <% card.with_value { @organization.pets.count.to_s } %>
-        <% end %>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-         <%= link_to adopter_fosterer_adopter_applications_path, class: "card-link" do %>
-          <%= render DataCardComponent.new do |card| %>
-            <% card.with_title { t(".applications") } %>
-            <% card.with_icon_name { "file-text" } %>
-            <% card.with_value { @application_count.to_s } %>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { t(".rescues") } %>
-          <% card.with_icon_name { "star" } %>
-          <% card.with_value { "TBD" } %>
-        <% end %>
+    <div class="justify-content-md-between">
+      <div class="row d-flex">
+        <div class=" col-xxl-5 col-xl-6 col-lg-6 col-12">
+          <div>
+            <h1 class="fw-bold"><%= t('.header', organization_name: @organization.name) %></h1>
+            <p class="fs-4 mb-4"><%= t('.body_text', organization_name: @organization.name) %></p>
+            <%= link_to "#{t("general.browse")} #{t("general.dogs")}",
+            adoptable_pets_path(species: "dog"),
+            class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+            <%= link_to "#{t("general.browse")} #{t("general.cats")}",
+            adoptable_pets_path(species: "cat"),
+            class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+          </div>
+        </div>
+        <div class="col-xxl-5 offset-xxl-1 col-xl-6 col-lg-6 col-12 d-lg-flex justify-content-end">
+          <div class="mt-12 mt-lg-0 position-relative">
+            <%= image_tag 'dashboard.webp', alt: 'pet_image', class: 'img-fluid rounded-2 w-100 z-1 position-relative' %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>

@@ -613,6 +613,8 @@ en:
         update_activation:
           activated: "%{staff} was activated."
           deactivated: "%{staff} was deactivated."
+      external_form_upload:
+        upload_limit_exceed: "Upload limit exceeded: Only one file allowed." 
     adopter_fosterer:
       adopter_applications:
         create:
@@ -652,6 +654,8 @@ en:
           pets: Pets
           applications: Applications
           rescues: Rescues
+          header: "Welcome to %{organization_name}!"
+          body_text: "At %{organization_name}, we’re dedicated to rescuing, rehabilitating, and rehoming animals in need. Your support helps us provide care, love, and hope to these pets until they find their forever homes."
       form_instructions:
         index: "Please complete this form. %{organization_name} needs this information in order to process your application(s)."
         dashboard: If you need to update your information, you can do so by filling out a new copy of this form. Please only submit a new copy if there has been a change. Unnecessary submissions may delay the processing of your application(s).
