@@ -1,12 +1,12 @@
 require "test_helper"
 
 # See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
-class Organizations::StaffAccountPolicyTest < ActiveSupport::TestCase
+class Organizations::UserPolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   setup do
-    @staff = create(:staff_account)
-    @policy = -> { Organizations::StaffAccountPolicy.new(@staff, user: @user) }
+    @staff = create(:admin)
+    @policy = -> { Organizations::UserPolicy.new(@staff, user: @user) }
   end
 
   context "#index?" do
@@ -59,9 +59,9 @@ class Organizations::StaffAccountPolicyTest < ActiveSupport::TestCase
         @user = create(:super_admin)
       end
 
-      context "when user's staff account is deactivated" do
+      context "when user is deactivated" do
         setup do
-          @user.staff_account.deactivate
+          @user.deactivate
         end
 
         should "return false" do
@@ -75,9 +75,9 @@ class Organizations::StaffAccountPolicyTest < ActiveSupport::TestCase
     end
   end
 
-  context "#activate?" do
+  context "#update_activation?" do
     setup do
-      @action = -> { @policy.call.apply(:activate?) }
+      @action = -> { @policy.call.apply(:update_activation?) }
     end
 
     context "when user is nil" do
@@ -131,25 +131,13 @@ class Organizations::StaffAccountPolicyTest < ActiveSupport::TestCase
 
       context "when staff is self" do
         setup do
-          @staff = @user.staff_account
+          @staff = @user
         end
 
         should "return false" do
           assert_equal false, @action.call
         end
       end
-    end
-  end
-
-  context "#deactivate?" do
-    should "be an alias to :activate?" do
-      assert_alias_rule @policy.call, :deactivate?, :activate?
-    end
-  end
-
-  context "#update_activation?" do
-    should "be an alias to :activate?" do
-      assert_alias_rule @policy.call, :update_activation?, :activate?
     end
   end
 end

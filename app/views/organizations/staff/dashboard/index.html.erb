@@ -1,75 +1,109 @@
 <%= render DashboardPageComponent.new do |c| %>
   <% c.with_header_title { t("dashboard.index.header_title") } %>
   <% c.with_body do %>
-    <div class="row">
+    <div class="row g-4">
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { "Tasks" } %>
-          <% card.with_icon_name { "list" } %>
-          <% card.with_value do %>
-            <div>
-              <div>
-                <%= link_to "#{@not_completed_not_overdue_tasks_count} Incomplete",
-                pets_with_incomplete_tasks_staff_dashboard_index_path,
-                  data: { turbo_frame: "tasks-frame" }
-                %>
+        <div class="task-card">
+          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-primary") do |card| %>
+            <% card.with_title { "Tasks" } %>
+            <% card.with_icon_name { "list" } %>
+            <% card.with_value do %>
+              <div class="fs-4 ms-1">
+                <div>
+                  <%= link_to pets_with_incomplete_tasks_staff_dashboard_index_path, 
+                      data: { turbo_frame: "tasks-frame" }, 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-alert-circle text-primary me-1"></i>
+                    <%= "#{@not_completed_not_overdue_tasks_count} Incomplete" %>
+                  <% end %>
+                </div>
+                <div>
+                  <%= link_to pets_with_overdue_tasks_staff_dashboard_index_path, 
+                      data: { turbo_frame: "tasks-frame" }, 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-clock text-primary me-1"></i>
+                    <%= "#{@not_completed_overdue_tasks_count} Overdue" %>
+                  <% end %>
+                </div>
               </div>
-              <div>
-                <%= link_to "#{@not_completed_overdue_tasks_count} Overdue",
-                pets_with_overdue_tasks_staff_dashboard_index_path,
-                  data: { turbo_frame: "tasks-frame" }
-                %>
-              </div>
-            </div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
+
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { "Applications" } %>
-          <% card.with_icon_name { "file-text" } %>
-          <% card.with_value do %>
-            <div>
-              <div>
-                <%= link_to "#{@awaiting_review_count} Awaiting Review",
-                staff_adoption_application_reviews_path(q: { adopter_applications_status_eq: "awaiting_review" })
-                %>
+        <div class="application-card">
+          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-success") do |card| %>
+            <% card.with_title { "Applications" } %>
+            <% card.with_icon_name { "file-text" } %>
+            <% card.with_value do %>
+              <div class="fs-4 ms-1">
+                <div>
+                  <%= link_to staff_adoption_application_reviews_path(q: { adopter_applications_status_eq: "awaiting_review" }), 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-eye text-success me-1"></i>
+                    <%= "#{@awaiting_review_count} Awaiting Review" %>
+                  <% end %>
+                </div>
+                <div>
+                  <%= link_to staff_adoption_application_reviews_path(q: { adopter_applications_status_eq: "under_review" }), 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-check-circle text-success me-1"></i>
+                    <%= "#{@under_review_count} Under Review" %>
+                  <% end %>
+                </div>
               </div>
-              <div>
-                <%= link_to "#{@under_review_count} Under Review",
-                staff_adoption_application_reviews_path(q: { adopter_applications_status_eq: "under_review" })
-                %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+        <div class="foster-card">
+          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-warning") do |card| %>
+            <% card.with_title { t(:fosters) } %>
+            <% card.with_icon_name { "heart" } %>
+            <% card.with_value do %>
+              <div class="fs-4 ms-1">
+                <div>
+                  <%= link_to staff_manage_fosters_path(q: { status_eq: "current" }), 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-calendar text-warning me-1"></i>
+                    <%= "#{@current_foster_count} Current" %>
+                  <% end %>
+                </div>
+                <div>
+                  <%= link_to staff_manage_fosters_path(q: { status_eq: "upcoming" }), 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-clock text-warning me-1"></i>
+                    <%= "#{@upcoming_foster_count} Upcoming" %>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
+
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { t(:fosters) } %>
-          <% card.with_icon_name { "heart" } %>
-          <% card.with_value do %>
-            <div>
-                <%= link_to "#{@current_foster_count} Current",
-                staff_manage_fosters_path(q: { status_eq: "current" })
-                %>
-            </div>
-            <div>
-                <%= link_to "#{@upcoming_foster_count} Upcoming",
-                staff_manage_fosters_path(q: { status_eq: "upcoming" })
-                %>
-            </div>
+        <div class="rescue-card">
+          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-gray-500") do |card| %>
+            <% card.with_title { t(:rescues) } %>
+            <% card.with_icon_name { "star" } %>
+            <% card.with_value do %>
+              <div class="text-muted text-decoration-none text-gray-500 fw-normal">
+                <div class="fs-4 ms-1">
+                  TBD
+                </div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <%= render DataCardComponent.new do |card| %>
-          <% card.with_title { t(:rescues) } %>
-          <% card.with_icon_name { "star" } %>
-          <% card.with_value { "TBD" } %>
-        <% end %>
+        </div>
       </div>
     </div>
-    <%= render 'pets_with_incomplete_or_overdue_tasks' %>
+
+    <div class="mt-5">
+      <%= render 'pets_with_incomplete_or_overdue_tasks' %>
+    </div>
   <% end %>
 <% end %>

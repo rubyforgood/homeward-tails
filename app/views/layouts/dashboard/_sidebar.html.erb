@@ -56,7 +56,7 @@
           <i class="nav-icon fe fe-users me-2"></i>Adopters
         <% end %>
       </li>
-      <% if allowed_to?(:index?, StaffAccount, namespace: Organizations,context: {organization: Current.organization})%>
+      <% if allowed_to?(:index?, User, namespace: Organizations, context: {organization: Current.organization})%>
         <li class="nav-item">
           <%= active_link_to staff_staff_index_path, class: "nav-link" do %>
             <i class="nav-icon fe fe-users me-2"></i>Staff

@@ -7,44 +7,51 @@
     <!--filter section-->
     <div>
       <div>
-        <%= search_form_for [:staff, @q] do |f| %>
-          <div class='d-flex justify-content-between align-items-center flex-wrap mb-3'>
-            <div class="d-flex gap-3 flex-wrap mb-3">
-              <div class="form-group">
-                <%= f.label :name_i_cont, "Name" %>
-                <%= f.text_field :name_i_cont, class: "form-control", placeholder: "Enter a few characters" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :sex_eq, "Sex" %>
-                <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :species_eq, "Species" %>
-                <%= f.select :species_eq, Pet.species, {include_blank: 'All'}, class: "form-select" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :ransack_adopted, "Adoption Status" %>
-                <%= f.select :ransack_adopted, [['Adopted', 'adopted'], ['Not adopted', 'unadopted']], {include_blank: 'All'}, class: "form-select" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :placement_type_eq, "Placement type" %>
-                <%= f.select :placement_type_eq, Pet.placement_types, {include_blank: 'All'}, class: "form-select" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :application_paused_eq, "Paused" %>
-                <%= f.select :application_paused_eq, [['Yes', true], ['No', false]], {include_blank: 'All'}, class: "form-select" %>
-              </div>
-              <div class="form-group">
-                <%= f.label :published_eq, "Published" %>
-                <%= f.select :published_eq, [['Yes', true], ['No', false]], {include_blank: 'All'}, class: "form-select" %>
-              </div>
-            </div>
-            <div class='d-flex flex-column w-100 w-md-auto flex-md-row gap-2'>
-              <%= f.submit class: "btn btn-primary" %>
-              <%= link_to "Clear filters", staff_pets_path, class: "btn btn-default"%>
+        <section class="pb-5">
+          <div class="mx-1 row p-4 border rounded-5 mb-5 bg-white">
+            <div class="col-xl-12">
+              <%= search_form_for [:staff, @q] do |f| %>
+                <div class="row">
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :name_i_cont, "Name" %>
+                    <%= f.text_field :name_i_cont, class: "form-control", placeholder: "Enter a few characters" %>
+                  </div>
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :sex_eq, "Sex" %>
+                    <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
+                  </div>
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :species_eq, "Species" %>
+                    <%= f.select :species_eq, Pet.species, {include_blank: 'All'}, class: "form-select" %>
+                  </div>
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :ransack_adopted, "Adoption Status" %>
+                    <%= f.select :ransack_adopted, [['Adopted', 'adopted'], ['Not adopted', 'unadopted']], {include_blank: 'All'}, class: "form-select" %>
+                  </div>
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :placement_type_eq, "Placement type" %>
+                    <%= f.select :placement_type_eq, Pet.placement_types, {include_blank: 'All'}, class: "form-select" %>
+                  </div>
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :application_paused_eq, "Paused" %>
+                    <%= f.select :application_paused_eq, [['Yes', true], ['No', false]], {include_blank: 'All'}, class: "form-select" %>
+                  </div>
+                  <div class="form-group mb-3 col-md-3">
+                    <%= f.label :published_eq, "Published" %>
+                    <%= f.select :published_eq, [['Yes', true], ['No', false]], {include_blank: 'All'}, class: "form-select" %>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 text-right">
+                    <%= f.submit class: "btn btn-primary" %>
+                    <%= link_to "Clear filters", staff_pets_path, class: "btn btn-default"%>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </div>
-        <% end %>
+        </section>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-2">

@@ -9,7 +9,7 @@ class Organizations::AdopterFosterer::LikesController < Organizations::BaseContr
 
     likes = current_user.person.likes
     @likes_by_id = likes.index_by(&:pet_id)
-    @pets = current_user.person.liked_pets
+    @pets = current_user.person.liked_pets.includes(:matches, :adopter_applications, images_attachments: :blob)
   end
 
   def create

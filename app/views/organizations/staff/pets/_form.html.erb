@@ -3,7 +3,7 @@
     <%= bootstrap_form_with model: [:staff, pet] do |form| %>
 
       <%= form.hidden_field :organization_id,
-                            value: current_user.staff_account.organization_id %>
+                            value: current_user.organization_id %>
 
       <div class='form-group'>
         <%= form.text_field :name, class: 'form-control' %>

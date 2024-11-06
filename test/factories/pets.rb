@@ -22,6 +22,43 @@ FactoryBot.define do
       adopter_applications { build_list(:adopter_application, 1, :successful_applicant, pet: instance) }
     end
 
+    trait :completed_foster do
+      matches {
+        start = Time.current - rand(6..12).months
+        [association(:match,
+          pet: instance,
+          match_type: :foster,
+          start_date: start,
+          end_date: start + rand(3..6).months)]
+      }
+    end
+
+    trait :current_foster do
+      transient do
+        foster_person { create(:person) }
+      end
+
+      matches {
+        [association(:match,
+          pet: instance,
+          match_type: :foster,
+          person: foster_person,
+          start_date: Time.current - 2.months,
+          end_date: Time.current + 4.months)]
+      }
+    end
+
+    trait :future_foster do
+      matches {
+        start = Time.current + rand(1..3).months
+        [association(:match,
+          pet: instance,
+          match_type: :foster,
+          start_date: start,
+          end_date: start + rand(3..6).months)]
+      }
+    end
+
     trait :with_image do
       after(:build) do |pet|
         pet.images.attach(
