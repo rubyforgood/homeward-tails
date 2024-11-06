@@ -663,7 +663,7 @@ en:
   contacts:
     create:
       success: "Message sent!"
-  dev_contacts:
+  feedback:
     new:
       header: "Feedback"
       description: "Found a bug? Want to request a feature? Contact our dev team with the form below."

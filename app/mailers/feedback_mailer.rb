@@ -1,4 +1,4 @@
-class DevContactsMailer < ApplicationMailer
+class FeedbackMailer < ApplicationMailer
   def send_message
     @name = params[:name]
     @email = params[:email]

@@ -70,6 +70,10 @@ crumb :applications do |foster|
   link "Applications", staff_adoption_application_reviews_path
 end
 
+crumb :new_feedback do |foster|
+  link "New Feedback", feedback_index_path
+end
+
 crumb :edit_fosterer do |fosterer|
   link "Edit Fosterer", edit_staff_fosterer_path(fosterer.id)
   parent :fosterers

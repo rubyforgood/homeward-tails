@@ -1,0 +1,18 @@
+<% if current_user.nil? %>
+  <%= render 'feedback', contact: @contact %>
+<% else %>
+  <%= render DashboardPageComponent.new(crumb: current_user&.staff_account ? :new_feedback : nil) do |c| %>
+    <% c.with_header_title { t('feedback.new.header') } %>
+    <% c.with_body do %>
+      <section class="<%= current_user&.staff_account ? 'container-fluid p-4' : 'pb-5' %>">
+        <div class="<%= current_user&.staff_account ? 'row' : 'container' %>">
+          <div class="row">
+            <div class="<%= current_user&.staff_account ? 'col-md-8 mx-auto card p-5 bigger' : 'col-md-12 mx-auto card p-5' %>">
+              <%= render 'form', contact: @contact %>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  <% end %>
+<% end %>
