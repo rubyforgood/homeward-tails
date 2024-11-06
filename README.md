@@ -1,6 +1,6 @@
 # Homeward Tails Adoption Application
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-61-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-62-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Application](https://github.com/kasugaijin/baja-pet-rescue/tree/main) created by @kasugaijin who wanted to give back to the grassroots organization from where he adopted his dog in Mexico by building them a web application. Homeward Tails is an application that makes it easy to connect shelters with people who are looking to adopt or foster pets.
@@ -320,6 +320,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://corystreiff.com"><img src="https://avatars.githubusercontent.com/u/90390502?v=4?s=100" width="100px;" alt="Cory Streiff"/><br /><sub><b>Cory Streiff</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/pulls?q=is%3Apr+reviewed-by%3Acoalest" title="Reviewed Pull Requests">👀</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://wuletawwonte.com"><img src="https://avatars.githubusercontent.com/u/12524453?v=4?s=100" width="100px;" alt="Wuletaw Wonte"/><br /><sub><b>Wuletaw Wonte</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=wuletawwonte" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/MichaScant"><img src="https://avatars.githubusercontent.com/u/89426143?v=4?s=100" width="100px;" alt="michascant"/><br /><sub><b>michascant</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=MichaScant" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/wiliajc87"><img src="https://avatars.githubusercontent.com/u/8497806?v=4?s=100" width="100px;" alt="Jordy Williams"/><br /><sub><b>Jordy Williams</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=wiliajc87" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
