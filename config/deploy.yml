@@ -7,8 +7,8 @@ image: jmilljr24/homewardtails
 # Deploy to these servers.
 servers:
   web:
-    - 172.203.202.22
-
+    - 172.203.202.22 
+    
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -19,7 +19,7 @@ servers:
 # in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption. 
 proxy: 
   ssl: true
-  host: 172.203.202.22
+  host: maple-map.com 
   app_port: 3000
 
 # Credentials for your image host.
@@ -36,6 +36,8 @@ registry:
 # Configure builder setup.
 builder:
   arch: amd64
+  context: .
+  dockerfile: dockerfile
   # [edwin] - Using a remote builder can be faster especially if you are on a different architecture.
   # For example, I use a Macbook (ARM64) but we want to deploy to Ubuntu (AMD64). This speeds it up
   # but assumes you already setup SSH access to the server
