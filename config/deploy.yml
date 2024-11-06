@@ -1,13 +1,13 @@
 # Name of your application. Used to uniquely configure containers.
-service: homeward-tails
+service: homewardtails
 
 # Name of the container image.
-image: edwinthinks/homeward-tails
+image: jmilljr24/homewardtails
 
 # Deploy to these servers.
 servers:
   web:
-    - homeward.edwinmak.com
+    - 172.203.202.22
 
   # job:
   #   hosts:
@@ -19,7 +19,7 @@ servers:
 # in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption. 
 proxy: 
   ssl: true
-  host: homeward.edwinmak.com
+  host: 172.203.202.22
   app_port: 3000
 
 # Credentials for your image host.
@@ -27,7 +27,7 @@ registry:
   # Specify the registry server, if you're not using Docker Hub
   # server: registry.digitalocean.com / ghcr.io / ...
   #
-  username: edwinthinks
+  username: jmilljr24 
 
   # Always use an access token rather than real password (pulled from .kamal/secrets).
   password:
@@ -59,8 +59,8 @@ env:
 # Use a different ssh user than root
 #
 ssh:
-  user: deploy
-  keys: [ "~/.ssh/homeward_test_rsa.pem" ]
+  user: azureuser 
+  keys: [ "~/.ssh/homewardtails.pem" ]
 
 # Use a persistent storage volume.
 #
