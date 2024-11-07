@@ -61,7 +61,7 @@ env:
 # Use a different ssh user than root
 #
 ssh:
-  user: azureuser 
+  user: deploy 
   keys: [ "~/.ssh/justin_homewardtails.pem" ]
 
 # Use a persistent storage volume.
