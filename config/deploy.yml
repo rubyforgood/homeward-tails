@@ -36,8 +36,6 @@ registry:
 # Configure builder setup.
 builder:
   arch: amd64
-  context: .
-  dockerfile: dockerfile
   # [edwin] - Using a remote builder can be faster especially if you are on a different architecture.
   # For example, I use a Macbook (ARM64) but we want to deploy to Ubuntu (AMD64). This speeds it up
   # but assumes you already setup SSH access to the server
