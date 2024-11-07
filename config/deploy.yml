@@ -60,7 +60,7 @@ env:
 #
 ssh:
   user: deploy 
-  keys: [ "~/.ssh/justin_homewardtails.pem" ]
+  keys: [ "~/.ssh/homewardtails.pem" ]
 
 # Use a persistent storage volume.
 #
