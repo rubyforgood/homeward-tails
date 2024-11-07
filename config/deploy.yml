@@ -2,7 +2,7 @@
 service: homewardtails
 
 # Name of the container image.
-image: jmilljr24/homewardtails
+image: homewardtails/homewardtails
 
 # Deploy to these servers.
 servers:
@@ -14,8 +14,8 @@ servers:
   #   cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt (and allow for multiple apps on one server).
-# If using something like Cloudflare, it is recommended to set encryption mode 
-# in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption. 
+# If using something like Cloudflare, it is recommended to set encryption mode
+# in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption.
 proxy:
   ssl: true
   host: homewardtails.org
@@ -26,7 +26,7 @@ registry:
   # Specify the registry server, if you're not using Docker Hub
   # server: registry.digitalocean.com / ghcr.io / ...
   #
-  username: jmilljr24
+  username: homewardtails
 
   # Always use an access token rather than real password (pulled from .kamal/secrets).
   password:
