@@ -3,7 +3,7 @@
 namespace :credentials do
   desc "Read a specific credential"
   task read: :environment do
-    key_path = ENV['KEY'].to_s.split(',').map(&:to_sym)
+    key_path = ENV["KEY"].to_s.split(",").map(&:to_sym)
     value = Rails.application.credentials.dig(*key_path)
     puts value
   end

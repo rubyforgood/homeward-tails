@@ -11,5 +11,4 @@ class RootController < ApplicationController
   def up
     render plain: "ok"
   end
-
 end
