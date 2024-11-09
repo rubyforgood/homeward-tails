@@ -1,0 +1,25 @@
+<div class="d-flex flex-column align-items-center mb-4">
+  <div class="my-4 mx-8">
+    <% if params[:dashboard] %>
+      <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard") %></p>
+    <% else %>
+      <p><%= t(
+          "organizations.adopter_fosterer.form_instructions.index",
+          organization_name: Current.tenant.name,
+        ) %></p>
+    <% end %>
+    <div class="d-flex justify-content-end gap-2 pb-2">
+      <%= link_to " #{t("general.view")} #{t("general.dogs")}",
+      adoptable_pets_path(species: "dog"),
+      class: "btn btn-primary" %>
+      <%= link_to " #{t("general.view")} #{t("general.cats")}",
+      adoptable_pets_path(species: "cat"),
+      class: "btn btn-primary" %>
+    </div>
+  </div>
+  <iframe id="external-form"
+    src=<%= @form_url%>
+    width="90%" 
+    height="645"
+    >Loading…</iframe>
+</div>

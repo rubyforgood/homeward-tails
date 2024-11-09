@@ -8,8 +8,7 @@ module Organizations
     setup do
       @organization = ActsAsTenant.current_tenant
       @policy = -> {
-        Organizations::OrganizationPolicy.new(Pet, user: @user,
-          organization: @organization)
+        Organizations::OrganizationPolicy.new(@organization, user: @user)
       }
     end
 

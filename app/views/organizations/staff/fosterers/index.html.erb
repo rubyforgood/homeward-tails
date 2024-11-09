@@ -6,6 +6,9 @@
     </div>
   <% end %>
   <% c.with_body do %>
+    <div class="d-flex justify-content-center align-items-center mt-2">
+      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+    </div>
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
       <!-- Table layout -->
       <div class="d-none d-xl-block">
@@ -15,6 +18,9 @@
       <div class="d-xl-none d-flex flex-wrap">
         <%= render partial: "fosterer_cards", collection: @fosterer_accounts, as: :fosterer %>
       </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-2">
+      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
     </div>
   <% end %>
 <% end %>

@@ -2,18 +2,18 @@
   <div class="card-body">
     <div class="d-flex align-items-center justify-content-between mb-3 lh-1">
       <div>
-        <span class="fs-6 text-uppercase fw-semibold ls-md">
+        <span class="<%= title_size_class %> text-uppercase fw-semibold ls-md">
           <%= title %>
         </span>
       </div>
       <div>
         <% if icon_name? %>
-          <span class="<%= feather_classes %> fs-3 text-primary"></span>
+          <span class="<%= feather_classes %> fs-3 <%= icon_color %>"></span>
         <% end %>
       </div>
     </div>
-    <h2 class="fw-bold mb-1">
+    <div>
       <%= value %>
-    </h2>
+    </div>
   </div>
 </div>

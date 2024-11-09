@@ -2,16 +2,17 @@
 #
 # Table name: organizations
 #
-#  id            :bigint           not null, primary key
-#  donation_url  :text
-#  email         :string           not null
-#  facebook_url  :text
-#  instagram_url :text
-#  name          :string           not null
-#  phone_number  :string
-#  slug          :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                :bigint           not null, primary key
+#  donation_url      :text
+#  email             :string           not null
+#  external_form_url :text
+#  facebook_url      :text
+#  instagram_url     :text
+#  name              :string           not null
+#  phone_number      :string
+#  slug              :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 # Indexes
 #
@@ -24,8 +25,7 @@ class Organization < ApplicationRecord
   # Rolify resource
   resourcify
 
-  has_many :staff_accounts
-  has_many :users, through: :staff_accounts
+  has_many :users
   has_many :pets
   has_many :default_pet_tasks
   has_many :forms, class_name: "CustomForm::Form", dependent: :destroy

@@ -1,0 +1,23 @@
+<tr id="<%= dom_id(app, :table_row) %>">
+  <td class="w-20 align-middle">
+    <%= link_to "PLACEHOLDER FOR FORM ANSWERS", nil,
+                                class: "link-underline link-underline-opacity-0"  %>
+  </td>
+
+  <td class="w-20 align-middle" style="min-width: 220px;">
+    <%= render 'organizations/staff/pets/tabs/partials/application_status', app: app %>
+  </td>
+
+  <% unless app.status == 'adoption_made' %>
+    <td class="w-20 align-middle">
+      <%= render 'organizations/staff/pets/tabs/partials/application_create_button', app: app %>
+    </td>
+  <% else %>
+    <td class="w-20 align-middle">
+    </td>
+  <% end %>
+
+  <td class="w-20 align-middle">
+    <%= render 'organizations/staff/pets/tabs/partials/application_notes', app: app, modal_id: 'table' %>
+  </td>
+</tr>

@@ -26,6 +26,8 @@ class ApplicationPolicy < ActionPolicy::Base
   # Define shared methods useful for most policies.
 
   def organization
+    return record if record.is_a?(Organization)
+
     @organization || record.organization
   end
 
@@ -34,8 +36,8 @@ class ApplicationPolicy < ActionPolicy::Base
   end
 
   def verify_active_staff!
-    deny! unless user.staff_account
-    deny! if user.staff_account.deactivated?
+    deny! unless user.staff?(organization)
+    deny! if user.deactivated?
   end
 
   def permission?(name)

@@ -5,7 +5,7 @@
     <%= bootstrap_form_with model: foster,
       url: foster.persisted? ? staff_manage_foster_path(foster) : staff_manage_fosters_path do |form|
     %>
-      <% if foster.errors.any? %>
+       <% if foster.errors.any? %>
         <ul class="list-group mb-3 col-12 col-md-4">
           <% foster.errors.full_messages.each do |message| %>
             <li class="list-group-item list-group-item-danger">

@@ -40,7 +40,8 @@ class AdopterApplication < ApplicationRecord
     :adoption_pending,
     :withdrawn,
     :successful_applicant,
-    :adoption_made]
+    :adoption_made,
+    :awaiting_data]
 
   # remove adoption_made status as not necessary for staff
   def self.app_review_statuses
