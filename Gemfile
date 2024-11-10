@@ -6,8 +6,11 @@ ruby "3.3.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+# Used to deploy to production
+gem "kamal"
+
+# Used for handling asset delivery
+gem "propshaft"
 
 # figaro to handle ENV variables for postgresql
 gem "figaro"
@@ -57,7 +60,6 @@ gem "devise"
 gem "devise_invitable", "~> 2.0.9"
 
 # Use Sass to process CSS
-gem "dartsass-sprockets"
 gem "dartsass-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -108,7 +110,7 @@ gem "rails-controller-testing"
 gem "action_policy", "~> 0.7.1"
 
 # Use ViewComponent for our presenter pattern framework
-gem "view_component", "~> 3.18"
+gem "view_component", "~> 3.20"
 
 # Use dry-types for defining types
 gem "dry-types", "~> 1.7"

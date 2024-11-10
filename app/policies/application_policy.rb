@@ -26,6 +26,8 @@ class ApplicationPolicy < ActionPolicy::Base
   # Define shared methods useful for most policies.
 
   def organization
+    return record if record.is_a?(Organization)
+
     @organization || record.organization
   end
 
