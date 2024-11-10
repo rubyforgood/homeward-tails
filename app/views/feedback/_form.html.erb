@@ -46,9 +46,6 @@
     <div class="form-group">
       <%= f.submit I18n.t("general.submit"), class: "btn btn-primary" %>
     </div>
-
-    <%= turbo_frame_tag "feedback", class: "pt-4" do %>
-      <%= link_to "Click for tips on how to submit a request", feedback_path %>
-    <% end %>
+    <%= render "tips" %>
   </div>
 <% end %>
