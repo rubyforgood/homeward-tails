@@ -1,0 +1,45 @@
+name: Kamal Deployment
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Ruby on Rails CI"]
+    types:
+      - completed
+  push:
+    branches: ["main"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false # Prevents ongoing deployments from being canceled
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Kamal
+        run: gem install kamal
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/homewardtails.pem
+          echo "$RAILS_MASTER_KEY=$RAILS_MASTER_KEY" > .env
+          chmod 600 ~/.ssh/homewardtails.pem
+          ssh-keyscan -H homewardtails.org >> ~/.ssh/known_hosts || echo "failed"
+
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY}}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
+      - name: Kamal Deploy
+        run: kamal deploy
