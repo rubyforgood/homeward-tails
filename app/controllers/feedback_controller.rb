@@ -17,14 +17,6 @@ class FeedbackController < ApplicationController
 
     if @feedback.valid?
       FeedbackMailer.with(feedback_params).send_message.deliver_later
-      path = case set_layout
-      when "adopter_foster_dashboard"
-        adopter_fosterer_dashboard_index_path
-      when "dashboard"
-        staff_dashboard_index_path
-      else
-        root_path
-      end
       redirect_to path, notice: I18n.t("contacts.create.success")
     else
       render :new, status: :unprocessable_entity
@@ -44,6 +36,17 @@ class FeedbackController < ApplicationController
       "adopter_foster_dashboard"
     else
       "dashboard"
+    end
+  end
+
+  def path
+    case set_layout
+    when "adopter_foster_dashboard"
+      adopter_fosterer_dashboard_index_path
+    when "dashboard"
+      staff_dashboard_index_path
+    else
+      root_path
     end
   end
 end
