@@ -37,13 +37,12 @@ class FeedbackController < ApplicationController
   end
 
   def path
-    case set_layout
-    when "adopter_foster_dashboard"
-      adopter_fosterer_dashboard_index_path
-    when "dashboard"
-      staff_dashboard_index_path
-    else
+    if current_user.nil?
       root_path
+    elsif current_user.has_role?(:adopter, ActsAsTenant.current_tenant)
+      adopter_fosterer_dashboard_index_path
+    else
+      staff_dashboard_index_path
     end
   end
 end
