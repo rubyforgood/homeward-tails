@@ -9,14 +9,14 @@ class FeedbackControllerTest < ActionDispatch::IntegrationTest
   end
 
   context "create" do
-    should "create contact mailer if valid params" do
+    should "create feedback mailer if valid params" do
       assert_emails 1 do
-        post feedback_index_url, params: {contact: {name: "test sender", email: "sender@test.com", message: "test message"}}
+        post feedback_index_url, params: {feedback: {name: "test sender", email: "sender@test.com", message: "test message", subject: "Bug"}}
       end
     end
 
     should "return unprocessable entity if invalid params" do
-      post feedback_index_url, params: {contact: {name: "test sender", email: "sender@test.com"}}
+      post feedback_index_url, params: {feedback: {name: "test sender", email: "sender@test.com"}}
       assert_response :unprocessable_entity
     end
   end
