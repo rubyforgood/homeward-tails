@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/homewardtails.pem
-          echo "$RAILS_MASTER_KEY=$RAILS_MASTER_KEY" > .env
+          echo "$RAILS_MASTER_KEY" > config/credentials/production.key
           chmod 600 ~/.ssh/homewardtails.pem
           ssh-keyscan -H homewardtails.org >> ~/.ssh/known_hosts || echo "failed"
 
