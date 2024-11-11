@@ -3,11 +3,13 @@ name: Kamal Deployment
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["Ruby on Rails CI"]
+    workflows: [Ruby on Rails CI]
     types:
       - completed
+
   push:
-    branches: ["main"]
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -16,6 +18,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout repository
@@ -38,7 +41,7 @@ jobs:
           ssh-keyscan -H homewardtails.org >> ~/.ssh/known_hosts || echo "failed"
 
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY}}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
       - name: Kamal Deploy
