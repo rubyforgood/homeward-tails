@@ -8,14 +8,14 @@
             <p class="fs-4 mb-4"><%= t('.body_text', organization_name: @organization.name) %></p>
             <%= link_to "#{t("general.browse")} #{t("general.dogs")}",
             adoptable_pets_path(species: "dog"),
-            class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+            class: "btn btn-primary btn-lg rounded-1 ms-2 mt-sm-2 mt-1" %>
             <%= link_to "#{t("general.browse")} #{t("general.cats")}",
             adoptable_pets_path(species: "cat"),
-            class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+            class: "btn btn-primary btn-lg rounded-1 ms-2 mt-sm-2 mt-1" %>
           </div>
         </div>
         <div class="col-xxl-5 offset-xxl-1 col-xl-6 col-lg-6 col-12 d-lg-flex justify-content-end">
-          <div class="mt-12 mt-lg-0 position-relative">
+          <div class="mt-6 mt-lg-0 position-relative">
             <%= image_tag 'dashboard.webp', alt: 'pet_image', class: 'img-fluid rounded-2 w-100 z-1 position-relative' %>
           </div>
         </div>
