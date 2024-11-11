@@ -27,6 +27,11 @@ If you need to run migrations at all: `docker-compose run --rm app bin/rails db:
 
 Visit `localhost:3000` in your browser.
 
+#### Debugging in Docker
+You need to attach to an interactive shell on the app service `docker attach pet-rescue-app-1`
+
+Place `debugger` in your code and hit it. You should be able to interact in the attached shell.
+
 ## Local Installation
 
 ⚠️  We assume you already have ruby installed with your preferred version manager. This codebase supports [rbenv](
@@ -49,23 +54,6 @@ To run postgresql as a service:
 ```sh
 brew services start postgresql
 ```
-
-#### Installing via docker
-
-A `docker-compose.yml` is provided that will run postgres inside a local docker container without requiring a full OS install.
-
-Before bringing the image up, you'll need to choose a database username and password by exporting the following environment variables.
-
-Using [direnv] is recommended here, to manage environment variables locally.
-
-```
-export DATABASE_USERNAME=[your username]
-export DATABASE_PASSWORD=[a password]
-```
-
-Once your environment has been set, you may launch the postgres database, and any other dependencies, by running `docker compose up -d`
-
-[direnv]: https://direnv.net/
 
 ## Install & Setup
 
