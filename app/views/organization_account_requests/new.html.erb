@@ -13,7 +13,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 mx-auto card p-5">
-      <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_requests_path do |form| %>
+      <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_request_path do |form| %>
         <% if @organization_acccount_request.errors.count > 0 %>
           <div class="alert alert-danger mt-1" role="alert">
             <%= t('organizations.staff.organizations.form.please_fix_the_errors') %>

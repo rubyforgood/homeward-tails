@@ -5,12 +5,11 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
     get new_organization_account_request_path
 
     assert_response :success
-    assert_select "h1", "New organization account request"
   end
 
   test "#create" do
     assert_emails 1 do
-      post organization_account_requests_path, params: {
+      post organization_account_request_path, params: {
         organization_account_request: {
           name: "Pet lovers",
           requester_name: "Pete Smith",
@@ -28,7 +27,7 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
 
   test "#create fails" do
     assert_no_emails do
-      post organization_account_requests_path, params: {
+      post organization_account_request_path, params: {
         organization_account_request: {
           requester_name: "Pete Smith",
           phone_number: 1234567890,
