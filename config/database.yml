@@ -98,6 +98,9 @@ test:
 #
 production:
   <<: *default
-  database: pet_rescue_production
-  username: <%= ENV['database_username'] %>
-  password: <%= ENV['database_password'] %>
+  host: <%= ENV["DB_HOST"] %>
+  pool: 5
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  database: postgres
+  timeout: 5000
