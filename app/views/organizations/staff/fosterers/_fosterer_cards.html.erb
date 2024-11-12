@@ -16,6 +16,10 @@
         <span><%= t(:joined) %></span>
         <span><%= fosterer.created_at.strftime("%d %B, %Y") %></span>
       </div>
+      <div class="d-flex justify-content-between pt-2">
+        <span><%= t(:deactivate) %></span>
+        <%= render "organizations/staff/shared/deactivate_toggle", user: fosterer.user %>
+      </div>
     </div>
   </div>
 </div>

@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
+    resources :activations do
+      patch "update_activation"
+    end
 
     namespace :staff do
       resource :organization, only: %i[edit update]
@@ -36,9 +39,7 @@ Rails.application.routes.draw do
       resources :manage_fosters, only: %i[new create index edit update destroy]
       resources :fosterers, only: %i[index edit update]
       resources :adopters, only: %i[index]
-      resources :staff do
-        patch "update_activation"
-      end
+      resources :staff, only: %i[index]
 
       resources :staff_invitations, only: %i[new]
       resources :fosterer_invitations, only: %i[new]

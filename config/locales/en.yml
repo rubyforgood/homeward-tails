@@ -345,6 +345,10 @@ en:
     authorization_error: "You are not authorized to perform this action."
     try_again: "Error. Please try again."
   organizations:
+    activations:
+      update_activation:
+        activated: "%{staff} was activated."
+        deactivated: "%{staff} was deactivated."
     adoptable_pets:
       index:
         header: "Up for adoption"
@@ -605,10 +609,6 @@ en:
             help_text:
               label: "Label"
               help_text: "help text"
-      staff:
-        update_activation:
-          activated: "%{staff} was activated."
-          deactivated: "%{staff} was deactivated."
       external_form_upload:
         upload_limit_exceed: "Upload limit exceeded: Only one file allowed." 
     adopter_fosterer:
