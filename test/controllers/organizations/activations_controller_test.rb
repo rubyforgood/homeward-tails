@@ -26,8 +26,8 @@ class Organizations::ActivationsControllerTest < ActionDispatch::IntegrationTest
     user = create(:super_admin)
     sign_in user
 
+    debugger
     patch activation_update_activation_url(@staff), as: :turbo_stream
-
     assert_equal Mime[:turbo_stream], response.media_type
     assert_response :success
   end
