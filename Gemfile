@@ -119,7 +119,7 @@ gem "dry-types", "~> 1.7"
 gem "dry-initializer", "~> 3.1"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.0"
+gem "strong_migrations", "~> 2.1"
 
 group :development, :test, :staging do
   gem "faker"
