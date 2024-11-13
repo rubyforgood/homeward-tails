@@ -31,8 +31,8 @@ jobs:
           # Check the conclusion of eash check for pass/fail
           for conclusion in $(echo "$response" | jq -r '.check_runs[].conclusion'); do
             if [ "$conclusion" != "success" ]; then
-            echo "Commit "${{ env.SHA }}" has failed checks."
-            exit 1
+              echo "Commit "${{ env.SHA }}" has failed checks."
+              exit 1
             fi
           done
 
