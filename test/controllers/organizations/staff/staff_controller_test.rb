@@ -14,9 +14,9 @@ class Organizations::Staff::StaffControllerTest < ActionDispatch::IntegrationTes
     context "#update_activation" do
       should "be authorized" do
         assert_authorized_to(
-          :update_activation?, @staff, with: Organizations::UserPolicy
+          :update_activation?, @staff, with: Organizations::ActivationsPolicy
         ) do
-          patch staff_staff_update_activation_url(@staff)
+          patch activation_update_activation_url(@staff)
         end
       end
     end
@@ -53,7 +53,7 @@ class Organizations::Staff::StaffControllerTest < ActionDispatch::IntegrationTes
     user = create(:super_admin)
     sign_in user
 
-    patch staff_staff_update_activation_url(@staff), as: :turbo_stream
+    patch activation_update_activation_url(@staff), as: :turbo_stream
 
     assert_equal Mime[:turbo_stream], response.media_type
     assert_response :success
