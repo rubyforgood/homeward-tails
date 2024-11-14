@@ -10,10 +10,9 @@
         </h4>
       </li>
         <% li_classes = %w[list-group-item text-secondary] %>
-
         <%= tag.li("Description: #{default_pet_tasks.description}", class: li_classes) %>
         <%= tag.li("Species: #{default_pet_tasks.human_enum_name(:species)}", class: li_classes) %>
-        <%= tag.li("Due in: #{default_pet_tasks.due_in_days ? pluralize(task.due_in_days, "day") : "NA"}", class: li_classes) %>
+        <%= tag.li("Due in: #{default_pet_tasks.due_in_days ? pluralize(default_pet_tasks.due_in_days, "day") : ""}", class: li_classes) %>
         <%= tag.li("Reccuring: #{default_pet_tasks.recurring? ? t('general.yes') : t('general.no')}", class: li_classes) %>
         <% if allowed_to?(:manage?, default_pet_tasks) %>
           <td>
