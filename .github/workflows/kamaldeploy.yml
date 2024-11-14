@@ -2,27 +2,58 @@ name: Kamal Deployment
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: [Ruby on Rails CI]
-    types:
-      - completed
-
-  push:
-    branches:
-      - main
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: false # Prevents ongoing deployments from being canceled
+  schedule:
+    - cron: "0 21 * * 2" # runs Tuesdays at 21:00 UTC
 
 jobs:
+  check_latest_commit:
+    runs-on: ubuntu-latest
+
+    outputs:
+      commit_status: ${{ env.commit_status }}
+      commit_sha: ${{ env.SHA }}
+
+    steps:
+      - name: Checkout the latest commit on main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Get the latest commit SHA
+        id: commit_sha
+        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Check commit status (checks for passed tests)
+        id: commit_status
+        run: |
+          COMMIT_SHA="${{ env.SHA }}"
+          echo "Checking status of commit ${COMMIT_SHA}..."
+
+          # Get the status of the latest commit using GitHub API
+          response=$(curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          "https://api.github.com/repos/${{ github.repository }}/commits/${COMMIT_SHA}/status")
+
+          if echo "$response" | grep -q '"state": "success"'; then
+            echo "commit_status=success" >> $GITHUB_ENV
+          else
+            echo "Commit ${COMMIT_SHA} has failed checks."
+            echo "commit_status=failure" >> $GITHUB_ENV
+            exit 1
+          fi
+
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: check_latest_commit
+    if: needs.check_latest_commit.outputs.commit_status == 'success'
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
@@ -42,6 +73,16 @@ jobs:
           echo "$RAILS_MASTER_KEY" > config/credentials/production.key
           chmod 600 ~/.ssh/homewardtails.pem
           ssh-keyscan homewardtails.org >> ~/.ssh/known_hosts || echo "failed"
+
+      - name: Check if latest commit is running in production
+        run: |
+          RUNNING_APP_SHA=$(kamal app version | grep . | tail -n 1)
+
+          # Compare the current running SHA to the latest commit SHA
+          if [ "$RUNNING_APP_SHA" == "${{ needs.check_latest_commit.outputs.commit_sha }}" ]; then
+            echo "Running version is up to date, skipping deployment."
+            exit 0
+          fi
 
       - name: Kamal Deploy
         run: kamal deploy
