@@ -346,7 +346,7 @@ en:
     try_again: "Error. Please try again."
   organizations:
     activations:
-      update_activation:
+      update:
         activated: "%{staff} was activated."
         deactivated: "%{staff} was deactivated."
     adoptable_pets:

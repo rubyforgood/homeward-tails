@@ -1,7 +1,7 @@
 module Organizations
   class ActivationsController < Organizations::BaseController
-    def update_activation
-      @user = User.find(params[:activation_id])
+    def update
+      @user = User.find(params[:user_id])
 
       authorize! @user, with: ActivationsPolicy
 

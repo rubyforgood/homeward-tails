@@ -9,9 +9,7 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
-    resources :activations do
-      patch "update_activation"
-    end
+    resource :activations, only: [:update]
 
     namespace :staff do
       resource :organization, only: %i[edit update]

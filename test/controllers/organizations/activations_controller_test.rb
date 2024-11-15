@@ -13,7 +13,7 @@ class Organizations::ActivationsControllerTest < ActionDispatch::IntegrationTest
     sign_in user
 
     assert_changes -> { User.find(@staff.id).deactivated_at } do
-      patch activation_update_activation_url(@staff), as: :turbo_stream
+      patch activations_url(user_id: @staff.id), as: :turbo_stream
     end
   end
 end

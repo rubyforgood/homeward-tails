@@ -8,9 +8,9 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
     @policy = -> { Organizations::ActivationsPolicy.new(@staff, user: @user) }
   end
 
-  context "#update_activation?" do
+  context "#update?" do
       setup do
-        @action = -> { @policy.call.apply(:update_activation?) }
+        @action = -> { @policy.call.apply(:update?) }
       end
   
       context "when user is nil" do
