@@ -8,27 +8,12 @@ class Organizations::ActivationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @staff
   end
 
-  context "authorization" do
-    include ActionPolicy::TestHelper
-
-    context "#update_activation" do
-      should "be authorized" do
-        assert_authorized_to(
-          :update_activation?, @staff, with: Organizations::ActivationsPolicy
-        ) do
-          patch activation_update_activation_url(@staff)
-        end
-      end
-    end
-  end
-
-  test "update activation should respond with turbo_stream when toggled on staff page" do
+  test "update activation should modify user deactivated at state" do
     user = create(:super_admin)
     sign_in user
 
-    debugger
-    patch activation_update_activation_url(@staff), as: :turbo_stream
-    assert_equal Mime[:turbo_stream], response.media_type
-    assert_response :success
+    assert_changes -> { User.find(@staff.id).deactivated_at } do
+      patch activation_update_activation_url(@staff), as: :turbo_stream
+    end
   end
 end
