@@ -49,6 +49,10 @@ en:
   settings: "Settings"
   invite_fosterer: "Invite Fosterer"
   invite_staff: "Invite Staff"
+  organization_account_requests:
+    new:
+      header: New organization account request
+      description: Fill in your organization's information to make a request.
   general:
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
@@ -105,7 +109,7 @@ en:
       title: "Manage"
       pet: "Pets"
       description: "Bring your operations to the digital age. Handle everything from staffing, foster scheduling, and adoptions, all from one free website."
-      btn_title: "Get started"
+      btn_title: Request an account
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
       free: "Free"
@@ -182,7 +186,7 @@ en:
         title: "Open Pet Rescue"
         sub_title: "A Ruby For Good project"
         dropdown_title: "Rescues"
-        btn_title: "Get started"
+        btn_title: Request an account
   activerecord:
     errors:
       models:
