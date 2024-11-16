@@ -29,7 +29,7 @@ jobs:
           "https://api.github.com/repos/${{ github.repository }}/commits/${{ env.SHA }}/check-runs")
 
           # Check the conclusion of eash check for pass/fail
-          for conclusion in $(echo "$response" | jq -r '.check_runs[].conclusion'); do
+          for conclusion in $(echo "$response" | jq -r '.check_runs[] | select(.name != "deploy" and .name != "check_latest_commit") | .conclusion'); do
             if [ "$conclusion" != "success" ]; then
               echo "Commit "${{ env.SHA }}" has failed checks."
               exit 1
