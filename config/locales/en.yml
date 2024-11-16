@@ -109,11 +109,11 @@ en:
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
       free: "Free"
-      free_description: "Use our app for your organization at no cost."
+      free_description: "Free for pet rescue organizations, forever."
       easy: "Easy"
-      easy_description: "Manage staff profiles, tasks, adoption and foster scheduling in a single app."
-      personalized: "Personalized"
-      personalized_description: "Add default tasks, create your own forms, and more."
+      easy_description: "Get your own customizable website up and running instantly."
+      personalized: "Save Time"
+      personalized_description: "Manage pets, people, fosters, and adoptions on one platform."
       website: 'A website that’s ready to go'
       website_description: 'Have a public facing website up and running in minutes.'
       keep_track: 'Keep track of your pets'
