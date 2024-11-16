@@ -112,8 +112,8 @@ en:
       free_description: "Free for pet rescue organizations, forever."
       easy: "Easy"
       easy_description: "Get your own customizable website up and running instantly."
-      personalized: "Save Time"
-      personalized_description: "Manage pets, people, fosters, and adoptions on one platform."
+      save_time: "Save Time"
+      save_time_description: "Manage pets, people, fosters, and adoptions on one platform."
       website: 'A website that’s ready to go'
       website_description: 'Have a public facing website up and running in minutes.'
       keep_track: 'Keep track of your pets'
