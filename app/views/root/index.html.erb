@@ -14,7 +14,7 @@
               <%= image_tag "hero_2.png", alt: "hero", class: "img-fluid" %>
             </div>
             <div class="text-center text-lg-start">
-              <a href="#!" class="btn btn-primary btn-lg mb-2 px-4 px-sm-5"><%= t('.btn_title') %></a>
+              <%= link_to t('.btn_title'), new_organization_account_request_path, class: 'btn btn-primary btn-lg mb-2 px-4 px-sm-5' %>
               <small class="d-block" style="color: #585858;"><%= t('.btn_subtitle')%></small>
             </div>
           </div>
@@ -305,7 +305,7 @@
                 <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
                     <%= image_tag "layout_graphic_5.png", alt: "screen_4", class: "img-fluid w-100 h-75"%>
                 </div>
-                <a href="#!" class="btn btn-primary btn-lg px-6 my-6"><%= t('.btn_title') %></a>
+                <%= link_to t('.btn_title'), new_organization_account_request_path, class: 'btn btn-primary btn-lg px-6 my-6' %>
             </div>
         </div>
   </div>
