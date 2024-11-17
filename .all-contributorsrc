@@ -574,6 +574,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "palidii",
+      "name": "palidii",
+      "avatar_url": "https://avatars.githubusercontent.com/u/150976749?v=4",
+      "profile": "https://github.com/palidii",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Isaac3924",
+      "name": "Isaac Alter",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17149928?v=4",
+      "profile": "https://github.com/Isaac3924",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "fivefootbot",
+      "name": "Amy McCaughan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/149846643?v=4",
+      "profile": "https://github.com/fivefootbot",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

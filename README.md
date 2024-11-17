@@ -1,6 +1,6 @@
 # Homeward Tails Adoption Application
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-63-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-66-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Application](https://github.com/kasugaijin/baja-pet-rescue/tree/main) created by @kasugaijin who wanted to give back to the grassroots organization from where he adopted his dog in Mexico by building them a web application. Homeward Tails is an application that makes it easy to connect shelters with people who are looking to adopt or foster pets.
@@ -27,6 +27,11 @@ If you need to run migrations at all: `docker-compose run --rm app bin/rails db:
 
 Visit `localhost:3000` in your browser.
 
+#### Debugging in Docker
+You need to attach to an interactive shell on the app service `docker attach pet-rescue-app-1`
+
+Place `debugger` in your code and hit it. You should be able to interact in the attached shell.
+
 ## Local Installation
 
 ⚠️  We assume you already have ruby installed with your preferred version manager. This codebase supports [rbenv](
@@ -49,23 +54,6 @@ To run postgresql as a service:
 ```sh
 brew services start postgresql
 ```
-
-#### Installing via docker
-
-A `docker-compose.yml` is provided that will run postgres inside a local docker container without requiring a full OS install.
-
-Before bringing the image up, you'll need to choose a database username and password by exporting the following environment variables.
-
-Using [direnv] is recommended here, to manage environment variables locally.
-
-```
-export DATABASE_USERNAME=[your username]
-export DATABASE_PASSWORD=[a password]
-```
-
-Once your environment has been set, you may launch the postgres database, and any other dependencies, by running `docker compose up -d`
-
-[direnv]: https://direnv.net/
 
 ## Install & Setup
 
@@ -322,6 +310,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/MichaScant"><img src="https://avatars.githubusercontent.com/u/89426143?v=4?s=100" width="100px;" alt="michascant"/><br /><sub><b>michascant</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=MichaScant" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/wiliajc87"><img src="https://avatars.githubusercontent.com/u/8497806?v=4?s=100" width="100px;" alt="Jordy Williams"/><br /><sub><b>Jordy Williams</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=wiliajc87" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tamirazrab"><img src="https://avatars.githubusercontent.com/u/38686510?v=4?s=100" width="100px;" alt="Tamir"/><br /><sub><b>Tamir</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=tamirazrab" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/palidii"><img src="https://avatars.githubusercontent.com/u/150976749?v=4?s=100" width="100px;" alt="palidii"/><br /><sub><b>palidii</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=palidii" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Isaac3924"><img src="https://avatars.githubusercontent.com/u/17149928?v=4?s=100" width="100px;" alt="Isaac Alter"/><br /><sub><b>Isaac Alter</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=Isaac3924" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fivefootbot"><img src="https://avatars.githubusercontent.com/u/149846643?v=4?s=100" width="100px;" alt="Amy McCaughan"/><br /><sub><b>Amy McCaughan</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=fivefootbot" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

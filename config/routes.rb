@@ -94,5 +94,6 @@ Rails.application.routes.draw do
   get "/cookie_policy", to: "static_pages#cookie_policy"
 
   resources :contacts, only: %i[new create]
+  resource :organization_account_request, only: %i[new create]
   resources :feedback, only: %i[new create]
 end
