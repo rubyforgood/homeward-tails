@@ -93,6 +93,14 @@ en:
     cats: "Cats"
     browse: "Browse"
     view: "View"
+    about_us: "About us"
+    adopt: "Adopt"
+    become_adopter_now: "Become an adopter now!"
+    how_to_apply: "How to apply for adoption"
+    step_1: "1. Create Account"
+    step_2: "2. Complete Questionnaire"
+    step_3: "3. Browse Pets"
+    step_4: "4. Click Apply"
   dashboard:
     index:
       header_title: Dashboard

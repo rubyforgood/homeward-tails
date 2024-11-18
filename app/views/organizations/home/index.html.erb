@@ -37,7 +37,7 @@
     <!--//? section heading -->
     <div class="text-center mb-5">
       <h2 class="section-heading text-uppercase text-xl">
-        Adopt
+        <%= t("general.adopt")%>
       </h2>
     </div>
     <!--//? bootstrap cards -->
@@ -50,7 +50,7 @@
               <div class="card-img-overlay p-0"></div>
               <div class="card-footer">
                 <p class="card-text text-black">
-                  Adopt <%= pet.name %>
+                  <%= t("general.adopt")%> <%= pet.name %>
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 448 512">
                   <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -72,7 +72,7 @@
     <!--//? section header -->
     <div class="d-flex justify-content-start mb-2">
       <h2 class="section-heading text-uppercase text-xl">
-        How to apply for adoption
+        <%= t("general.how_to_apply") %>
       </h2>
     </div>
 
@@ -81,11 +81,11 @@
 
       <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="mb-3">
-          <%= image_tag('paw-account.svg', width: '150', alt: "Create and account") %>
+          <%= image_tag('paw-account.svg', width: '150', alt: "Create an account") %>
         </div>
         <div>
           <p class="text-black">
-            1. Create Account
+            <%= t("general.step_1") %>
           </p>
         </div>
       </div>
@@ -95,7 +95,7 @@
         </div>
         <div>
           <p class="text-black">
-            2. Complete Questionnaire
+            <%= t("general.step_2") %>
           </p>
         </div>
       </div>
@@ -105,7 +105,7 @@
         </div>
         <div>
           <p class="text-black">
-            3. Browse Pets
+            <%= t("general.step_3") %>
           </p>
         </div>
       </div>
@@ -115,7 +115,7 @@
         </div>
         <div>
           <p class="text-black">
-            4. Click Apply
+            <%= t("general.step_4") %>
           </p>
         </div>
       </div>
@@ -130,7 +130,7 @@
   <div class="container mb-md-5 mt-md-5">
     <div class="text-center mb-5">
       <h2 class="section-heading text-uppercase underline">
-        About us
+        <%= t("general.about_us") %>
       </h2>
     </div>
     <div class="row pb-3">
@@ -173,7 +173,7 @@
       <div class="row text-center">
         <div class="col-8 offset-2 border p-5 shadow-sm
                     rounded bg-white">
-          <h3 class='mb-4'>Become an adopter now!</h3>
+          <h3 class='mb-4'><%= t("general.become_adopter_now") %></h3>
           <%= link_to 'Sign Up', new_user_registration_path ,
                       class: 'btn btn-primary' %>
         </div>
