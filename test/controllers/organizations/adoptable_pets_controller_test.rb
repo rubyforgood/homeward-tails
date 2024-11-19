@@ -39,7 +39,7 @@ module Organizations
       end
 
       should "render message if no pets meet search criteria" do
-        get adoptable_pets_url(species: "dog", q: { name_cont: "Guy" })
+        get adoptable_pets_url(species: "dog", q: {name_cont: "Guy"})
 
         assert_redirected_to adoptable_pets_path(species: "dog")
         assert_equal "We don't have any pets matching your search criteria.", flash[:alert]
