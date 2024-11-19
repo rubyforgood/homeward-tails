@@ -7,7 +7,7 @@
             <h1 class="display-2 fw-bold mb-1 text-primary "><%= Current.organization.name %></h1>
           </div>
           <div class="d-flex justify-content-center">
-            <p class="lead mb-4 text-black"><%= Current.organization.custom_page&.hero || "Where every paw finds a home" %></p>
+            <p class="lead mb-4 text-black"><%= Current.organization.custom_page&.hero || t('.every_paw') %></p>
           </div>
           <div class="d-flex justify-content-center">
             <% if user_signed_in? %>
@@ -37,7 +37,7 @@
     <!--//? section heading -->
     <div class="text-center mb-5">
       <h2 class="section-heading text-uppercase text-xl">
-        <%= t("general.adopt")%>
+        <%= t('.adopt')%>
       </h2>
     </div>
     <!--//? bootstrap cards -->
@@ -50,7 +50,7 @@
               <div class="card-img-overlay p-0"></div>
               <div class="card-footer">
                 <p class="card-text text-black">
-                  <%= t("general.adopt")%> <%= pet.name %>
+                  <%= t('.adopt')%> <%= pet.name %>
                 </p>
                 <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 448 512">
                   <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -72,54 +72,64 @@
     <!--//? section header -->
     <div class="d-flex justify-content-start mb-2">
       <h2 class="section-heading text-uppercase text-xl">
-        <%= t("general.how_to_apply") %>
+        <%= t('.how_to_apply') %>
       </h2>
     </div>
 
     <!--//? cards section - info (not bootstrap card)  -->
     <div class="d-flex flex-wrap justify-content-around align-items-center px-4">
 
-      <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="mb-3">
-          <%= image_tag('paw-account.svg', width: '150', alt: "Create an account") %>
+      <ol class="d-flex flex-row justify-content-around align-items-start w-100 gap-4">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="mb-3">
+            <%= image_tag('paw-account.svg', width: '150', alt: "Create an account") %>
+          </div>
+          <div>
+            <p class="text-black">
+              <li>
+                <%= t('.create_account') %>
+              </li>
+            </p>
+          </div>
         </div>
-        <div>
-          <p class="text-black">
-            <%= t("general.step_1") %>
-          </p>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="mb-3">
+            <%= image_tag('paw-profile.svg', width: '150', alt: "Complete questionnaire") %>
+          </div>
+          <div>
+            <p class="text-black">
+              <li>
+                <%= t('.complete_questionaire') %>
+              </li>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="mb-3">
-          <%= image_tag('paw-profile.svg', width: '150', alt: "Complete questionnaire") %>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="mb-3">
+            <%= image_tag('paw-browse.svg', width: '150', alt: "Browse the pets") %>
+          </div>
+          <div>
+            <p class="text-black">
+              <li>
+                <%= t('.browse_pets') %>
+              </li>
+            </p>
+          </div>
         </div>
-        <div>
-          <p class="text-black">
-            <%= t("general.step_2") %>
-          </p>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <div class="mb-3">
+            <%= image_tag('paw-click.svg', width: '150', alt: "Click apply") %>
+          </div>
+          <div>
+            <p class="text-black">
+              <li>
+                <%= t('.click_apply') %>
+              </li>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="mb-3">
-          <%= image_tag('paw-browse.svg', width: '150', alt: "Browse the pets") %>
-        </div>
-        <div>
-          <p class="text-black">
-            <%= t("general.step_3") %>
-          </p>
-        </div>
-      </div>
-      <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="mb-3">
-          <%= image_tag('paw-click.svg', width: '150', alt: "Click apply") %>
-        </div>
-        <div>
-          <p class="text-black">
-            <%= t("general.step_4") %>
-          </p>
-        </div>
-      </div>
 
+      </ol>
     </div>
 
   </div>
@@ -173,7 +183,7 @@
       <div class="row text-center">
         <div class="col-8 offset-2 border p-5 shadow-sm
                     rounded bg-white">
-          <h3 class='mb-4'><%= t("general.become_adopter_now") %></h3>
+          <h3 class='mb-4'><%= t('.become_adopter_now') %></h3>
           <%= link_to 'Sign Up', new_user_registration_path ,
                       class: 'btn btn-primary' %>
         </div>
