@@ -6,7 +6,7 @@ module Organizations
     include ActionPolicy::TestHelper
 
     setup do
-      @pet = create(:pet, species: "Dog")
+      @pet = create(:pet, species: "Dog", name: "Buddy")
     end
 
     context "#index" do
@@ -36,6 +36,13 @@ module Organizations
         assert_select(".card li:nth-of-type(3)", text: "Breed: #{@pet.breed}")
         assert_select(".card li:nth-of-type(4)", text: "Sex: #{@pet.sex}")
         assert_select(".card li:nth-of-type(5)", text: "Weight range: #{@pet.weight_from}-#{@pet.weight_to} #{@pet.weight_unit}")
+      end
+
+      should "render message if no pets meet search criteria" do
+        get adoptable_pets_url(species: "dog", q: { name_cont: "Guy" })
+
+        assert_redirected_to adoptable_pets_path(species: "dog")
+        assert_equal "We don't have any pets matching your search criteria.", flash[:alert]
       end
     end
 

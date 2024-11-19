@@ -27,6 +27,11 @@ module Organizations
       )
 
       @pets = paginated_adoptable_pets
+
+      if @pets.empty?
+        flash[:alert] = "We don't have any pets matching your search criteria."
+        redirect_to adoptable_pets_path(species: @species)
+      end
     end
 
     def show
