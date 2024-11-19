@@ -57,6 +57,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
     t.index ["pet_id"], name: "index_adopter_applications_on_pet_id"
   end
 
+  create_table "adopter_foster_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_adopter_foster_accounts_on_organization_id"
+    t.index ["user_id"], name: "index_adopter_foster_accounts_on_user_id"
+  end
+
   create_table "custom_pages", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "hero"
@@ -240,6 +249,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "staff_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "deactivated_at"
+    t.index ["organization_id"], name: "index_staff_accounts_on_organization_id"
+    t.index ["user_id"], name: "index_staff_accounts_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
