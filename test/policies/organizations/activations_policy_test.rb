@@ -1,17 +1,16 @@
 require "test_helper"
 
-# See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
-class Organizations::UserPolicyTest < ActiveSupport::TestCase
+class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   setup do
     @staff = create(:admin)
-    @policy = -> { Organizations::UserPolicy.new(@staff, user: @user) }
+    @policy = -> { Organizations::ActivationsPolicy.new(@staff, user: @user) }
   end
 
-  context "#index?" do
+  context "#update?" do
     setup do
-      @action = -> { @policy.call.apply(:index?) }
+      @action = -> { @policy.call.apply(:update?) }
     end
 
     context "when user is nil" do
@@ -59,18 +58,18 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
         @user = create(:super_admin)
       end
 
-      context "when user is deactivated" do
+      should "return true" do
+        assert_equal true, @action.call
+      end
+
+      context "when staff is self" do
         setup do
-          @user.deactivate
+          @staff = @user
         end
 
         should "return false" do
           assert_equal false, @action.call
         end
-      end
-
-      should "return true" do
-        assert_equal true, @action.call
       end
     end
   end

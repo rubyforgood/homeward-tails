@@ -55,6 +55,8 @@ module Authorizable
       view_organization_dashboard
       view_people
       manage_faqs
+      activate_adopter
+      activate_foster
     ]
   ).freeze
 
