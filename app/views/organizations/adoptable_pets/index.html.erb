@@ -52,50 +52,62 @@
       </div>
     </div>
 
-    <div class="d-flex justify-content-center align-items-center mt-2">
-      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
-
-    <div class="row">
-      <% @pets.each do |pet| %>
-        <div class="col-lg-4 col-md-6 p-0">
-          <%= render CardComponent.new(
-            card_options: {class: "card card-hover m-4"},
-            image_options: {src: pet.images.first, url: adoptable_pet_path(pet)}
-          ) do |c| %>
-            <%= c.with_badge do %>
-              <%= render BadgeComponent.new("Adoption Pending", class: "badge bg-info", when: pet.has_adoption_pending?) %>
-              <%= render BadgeComponent.new("Adopted", class: "badge bg-warning", when: pet.is_adopted?) %>
-            <% end %>
-            <%= c.with_body do %>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                  <div class="d-flex align-items-center justify-content-start gap-3">
-                    <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
-                      <h3 class="card-title text-secondary mb-0">
-                        <%= pet.name %>
-                      </h3>
-                    <% end %>
-                    <span class="badge bg-secondary-soft text-secondary">
-                      <%= pet.species %>
-                    </span>
-                  </div>
-                  <% if allowed_to?(:create?, Like, context: {pet: pet}) %>
-                    <div class='text-end' id="like_button_pet_<%= pet.id %>">
-                      <%= render LikeButtonComponent.new(pet: pet, like: @likes_by_id[pet.id]) %>
-                    </div>
-                  <% end %>
-                </li>
-                <% li_classes = %w[list-group-item text-secondary] %>
-                <%= tag.li("Age: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
-                <%= tag.li("Breed: #{pet.breed}", class: li_classes) %>
-                <%= tag.li("Sex: #{pet.sex}", class: li_classes) %>
-                <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}", class: li_classes) %>
-              </ul>
-            <% end %>
-          <% end %>
+    <% if @pets.empty? %>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card text-center mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+              <p class="text-danger">We don't have any pets matching your search criteria.</p>
+            </div>
+          </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% else %>
+      <div class="d-flex justify-content-center align-items-center mt-2">
+        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+      </div>
+
+      <div class="row">
+        <% @pets.each do |pet| %>
+          <div class="col-lg-4 col-md-6 p-0">
+            <%= render CardComponent.new(
+              card_options: {class: "card card-hover m-4"},
+              image_options: {src: pet.images.first, url: adoptable_pet_path(pet)}
+            ) do |c| %>
+              <%= c.with_badge do %>
+                <%= render BadgeComponent.new("Adoption Pending", class: "badge bg-info", when: pet.has_adoption_pending?) %>
+                <%= render BadgeComponent.new("Adopted", class: "badge bg-warning", when: pet.is_adopted?) %>
+              <% end %>
+              <%= c.with_body do %>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <div class="d-flex align-items-center justify-content-start gap-3">
+                      <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
+                        <h3 class="card-title text-secondary mb-0">
+                          <%= pet.name %>
+                        </h3>
+                      <% end %>
+                      <span class="badge bg-secondary-soft text-secondary">
+                        <%= pet.species %>
+                      </span>
+                    </div>
+                    <% if allowed_to?(:create?, Like, context: {pet: pet}) %>
+                      <div class='text-end' id="like_button_pet_<%= pet.id %>">
+                        <%= render LikeButtonComponent.new(pet: pet, like: @likes_by_id[pet.id]) %>
+                      </div>
+                    <% end %>
+                  </li>
+                  <% li_classes = %w[list-group-item text-secondary] %>
+                  <%= tag.li("Age: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
+                  <%= tag.li("Breed: #{pet.breed}", class: li_classes) %>
+                  <%= tag.li("Sex: #{pet.sex}", class: li_classes) %>
+                  <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}", class: li_classes) %>
+                </ul>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div> <!--container-->
 </section>
