@@ -159,7 +159,7 @@ group :development do
 
   # better errors and guard gems
   gem "better_errors", "~> 2.9", ">= 2.9.1"
-  gem "guard", "~> 2.18"
+  gem "guard", "~> 2.19"
   gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
 end
 
