@@ -1,5 +1,5 @@
 class Organizations::Staff::AdoptionApplicationReviewsController < Organizations::BaseController
-  before_action :set_adopter_application, only: %i[edit update]
+  before_action :set_adopter_application, only: %i[edit update show]
 
   include ::Pagy::Backend
 
@@ -39,6 +39,10 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
         format.turbo_stream { flash.now[:alert] = t(".error") }
       end
     end
+  end
+
+  def show
+    @form_answers = @application.person.latest_form_submission.form_answers
   end
 
   private
