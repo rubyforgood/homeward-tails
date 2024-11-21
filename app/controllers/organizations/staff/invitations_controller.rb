@@ -56,7 +56,10 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
 
   def user_params
     params.require(:user)
-      .permit(:first_name, :last_name, :email, :roles)
+      .permit(
+        :first_name, :last_name, :email, :roles,
+        person_attributes: [:phone_number]
+      )
   end
 
   def after_accept_path_for(_resource)
