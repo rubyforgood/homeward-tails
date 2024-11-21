@@ -22,6 +22,7 @@
 #
 class Person < ApplicationRecord
   include Avatarable
+  include Phoneable
 
   acts_as_tenant(:organization)
 
