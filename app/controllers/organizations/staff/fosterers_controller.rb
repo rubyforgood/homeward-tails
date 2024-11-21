@@ -32,7 +32,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
 
   def fosterer_params
     params.require(:person)
-      .permit(:first_name, :last_name, :email, :phone)
+      .permit(:first_name, :last_name, :email, :phone_number)
   end
 
   def authorize_user
