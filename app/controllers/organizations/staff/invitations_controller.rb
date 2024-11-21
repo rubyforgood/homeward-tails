@@ -38,6 +38,8 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
       @user.add_role("adopter", Current.organization)
       @user.add_role("fosterer", Current.organization)
 
+      assign_person_attributes(@user)
+
       if @user.save
         @user.invite!(current_user)
         redirect_to staff_fosterers_path, notice: t(".success")
@@ -76,5 +78,13 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
     else
       root_path
     end
+  end
+
+  # TODO: We should consider removing this duplicated logic, so we don't have to do this.
+  def assign_person_attributes(user)
+    person = user.person
+    person.first_name = user.first_name
+    person.last_name = user.last_name
+    person.email = user.email
   end
 end
