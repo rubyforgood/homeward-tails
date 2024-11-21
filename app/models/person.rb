@@ -7,6 +7,7 @@
 #  first_name      :string           not null
 #  last_name       :string           not null
 #  phone           :string
+#  phone_number    :string(15)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null
