@@ -28,6 +28,11 @@ class Organizations::CreateService
         args[:organization][:slug],
         args[:organization][:email]
       )
+      create_location(
+        args[:location][:country],
+        args[:location][:city_town],
+        args[:location][:province_state]
+      )
       create_user(
         args[:user][:email],
         args[:user][:first_name],
@@ -49,6 +54,17 @@ class Organizations::CreateService
       slug: slug,
       email: email
     )
+  end
+
+  def create_location(country, city_town, province_state)
+    ActsAsTenant.with_tenant(@organization) do
+      Location.create!(
+        organization: @organization,
+        country: country,
+        city_town: city_town,
+        province_state: province_state
+      )
+    end
   end
 
   def create_user(email, first_name, last_name)
