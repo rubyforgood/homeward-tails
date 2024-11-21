@@ -51,8 +51,8 @@ en:
   invite_staff: "Invite Staff"
   organization_account_requests:
     new:
-      header: New organization account request
-      description: Fill in your organization's information to make a request.
+      header: Are you a Pet Rescue and want an account on Homeward Tails?
+      description: Submit the form below if you are a pet rescue and would like your own customizable website and management platform on Homeward Tails. We'll follow up with you shortly to finalize your request.
   general:
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
