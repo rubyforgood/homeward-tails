@@ -1,10 +1,12 @@
 # Module to handle phone number normalization before save and formatting
-# Note that we are not handling validation here as different models may have different validation requirements (e.g. presence)
+# Note that we are not handling all validation here as different models may have different validation requirements (e.g. presence)
 module Phoneable
   extend ActiveSupport::Concern
 
   included do
     before_save :normalize_phone
+
+    validate :valid_phone_number_format, if: :phone_number?
 
     def formatted_phone_number
       parsed_phone = Phonelib.parse(phone_number)
@@ -24,6 +26,13 @@ module Phoneable
 
     def normalize_phone
       self.phone_number = Phonelib.parse(phone_number).full_e164.presence
+    end
+
+    def valid_phone_number_format
+      parsed_phone = Phonelib.parse(phone_number)
+      if parsed_phone.invalid?
+        errors.add(:phone_number, "Phone number is invalid")
+      end
     end
   end
 end
