@@ -69,14 +69,13 @@ class User < ApplicationRecord
   #   allow_nil: false, on: :create
 
   belongs_to :person
+  accepts_nested_attributes_for :person
 
   before_validation :ensure_person_exists, on: :create
 
   before_save :downcase_email
 
   delegate :latest_form_submission, to: :person
-
-  accepts_nested_attributes_for :person
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
   def prevent_email_change
