@@ -148,7 +148,7 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
     setup do
       @user = create(:admin)
       sign_in @user
-      
+
       @person = create(:person)
       @form_submission = create(:form_submission, person: @person)
       @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
@@ -158,7 +158,7 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
     context "#show" do
       should "display the application details and form answers" do
         get staff_adoption_application_review_url(@adopter_application)
-        
+
         assert_response :success
         assert_select "div", text: /#{@person.full_name}/
         assert_select "div", text: /#{@form_answers.first.question_snapshot}/

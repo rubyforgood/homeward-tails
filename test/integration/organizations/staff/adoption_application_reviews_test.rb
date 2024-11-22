@@ -104,7 +104,7 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
 
       should "have correct link from index page" do
         get staff_adoption_application_reviews_path
-        
+
         assert_select "tr#table_row_adopter_application_#{@adopter_application.id}" do
           assert_select "a[href=?]", staff_adoption_application_review_path(@adopter_application) do
             assert_select "a.link-underline.link-underline-opacity-0", text: @person.full_name
