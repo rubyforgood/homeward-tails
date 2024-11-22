@@ -6,7 +6,7 @@ module Phoneable
   included do
     before_save :normalize_phone
 
-    validate :valid_phone_number_format, if: :phone_number?
+    validates :phone_number, phone: true, if: :phone_number?
 
     def formatted_phone_number
       parsed_phone = Phonelib.parse(phone_number)
@@ -26,13 +26,6 @@ module Phoneable
 
     def normalize_phone
       self.phone_number = Phonelib.parse(phone_number).full_e164.presence
-    end
-
-    def valid_phone_number_format
-      parsed_phone = Phonelib.parse(phone_number)
-      if parsed_phone.invalid?
-        errors.add(:phone_number, "Phone number is invalid")
-      end
     end
   end
 end
