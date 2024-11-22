@@ -10,7 +10,8 @@
 #   },
 #   organization: {
 #     name: 'Baja Pet Rescue',
-#     slug: 'baja'
+#     slug: 'baja',
+#     email: "lol@test.lol"
 #   },
 #   user: {
 #     email: 'test@test.lol',

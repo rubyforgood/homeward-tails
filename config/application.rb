@@ -28,11 +28,10 @@ module BajaPetRescue
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.assets.paths << Rails.root.join("app", "assets", "builds")
 
-    #
-    # Deactivate the CSS compressor since it conflicts with the
-    # theme CSS
-    #
-    config.assets.css_compressor = nil
+    # Exclude this because we do not need to load this directly to servers, this is used to build
+    # application.css
+    config.assets.excluded_paths << Rails.root.join("vendor", "assets", "stylesheets")
   end
 end

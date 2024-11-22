@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
-
     namespace :staff do
       resource :organization, only: %i[edit update]
       resource :custom_page, only: %i[edit update]
@@ -77,11 +76,16 @@ Rails.application.routes.draw do
     resources :states, only: [:index]
   end
 
-  match "/404", to: "errors#not_found", via: :all
-  match "/422", to: "errors#unprocessable_content", via: :all
-  match "/500", to: "errors#internal_server_error", via: :all
+  #
+  # [edwin] - routes cause failures if you cannot find an asset because it matches
+  # for all 404s, 422s, and 500s
+  #
+  # match "/404", to: "errors#not_found", via: :all
+  # match "/422", to: "errors#unprocessable_content", via: :all
+  # match "/500", to: "errors#internal_server_error", via: :all
 
   root "root#index"
+  get "/up", to: "root#up" # Health check endpoint to let Kamal know the app is up
   get "/about_us", to: "static_pages#about_us"
   get "/partners", to: "static_pages#partners"
   get "/donate", to: "static_pages#donate"
@@ -90,5 +94,6 @@ Rails.application.routes.draw do
   get "/cookie_policy", to: "static_pages#cookie_policy"
 
   resources :contacts, only: %i[new create]
-  resources :dev_contacts, path: "feedback", only: %i[new create]
+  resource :organization_account_request, only: %i[new create]
+  resources :feedback, only: %i[new create]
 end
