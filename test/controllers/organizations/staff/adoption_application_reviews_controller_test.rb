@@ -71,6 +71,17 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
         end
       end
     end
+
+    context "#show" do
+      should "be authorized" do
+        assert_authorized_to(
+          :manage?, @adopter_application,
+          with: Organizations::AdopterApplicationPolicy
+        ) do
+          get staff_adoption_application_review_url(@adopter_application)
+        end
+      end
+    end
   end
 
   context "Filtering adoption applications" do
@@ -129,6 +140,29 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
         assert_response :success
         assert_select "button.bg-dark-info", text: "Under Review"
         assert_select "button.bg-dark-primary", text: "Awaiting Review", count: 0
+      end
+    end
+  end
+
+  context "Viewing application details" do
+    setup do
+      @user = create(:admin)
+      sign_in @user
+      
+      @person = create(:person)
+      @form_submission = create(:form_submission, person: @person)
+      @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
+      @adopter_application = create(:adopter_application, form_submission: @form_submission)
+    end
+
+    context "#show" do
+      should "display the application details and form answers" do
+        get staff_adoption_application_review_url(@adopter_application)
+        
+        assert_response :success
+        assert_select "div", text: /#{@person.full_name}/
+        assert_select "div", text: /#{@form_answers.first.question_snapshot}/
+        assert_select "div", text: /#{@form_answers.first.value}/
       end
     end
   end
