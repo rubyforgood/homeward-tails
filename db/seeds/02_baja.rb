@@ -2,7 +2,7 @@
   name: "Baja",
   slug: "baja",
   email: "baja@email.com",
-  phone_number: "250 816 8212",
+  phone_number: "201 555 8212",
   custom_page: CustomPage.new(hero: "hero text", about: "about us text")
 )
 
