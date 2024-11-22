@@ -60,7 +60,10 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
     params.require(:user)
       .permit(
         :first_name, :last_name, :email, :roles,
-        person_attributes: [:phone_number]
+        person_attributes: [
+          :phone_number,
+          location_attributes: %i[country province_state city_town]
+        ]
       )
   end
 

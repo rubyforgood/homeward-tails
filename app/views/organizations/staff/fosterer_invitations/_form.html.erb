@@ -2,7 +2,6 @@
   <div class="card-body">
     <!-- form -->
     <%= bootstrap_form_with model: user, url: invitation_path(user) do |form| %>
-
       <div class="row gx-3">
         <!-- form group -->
         <div class="mb-3 col-md-6 col-12">
@@ -22,8 +21,8 @@
             <%= form.text_field :email, class: "form-control", required: true %>
           </div>
         </div>
-        <!-- form group -->
         <%= form.fields_for :person do |person_form| %>
+          <!-- form group -->
           <div class="mb-3 col-12">
             <div class="input-group">
               <%= person_form.telephone_field :phone_number,
@@ -32,15 +31,45 @@
               %>
             </div>
           </div>
-        <% end %>
+          <!-- form group -->
+          <div class="mb-3 col-12">
+            <div class="input-group">
+              <!-- Nested Form for Locations Table -->
+              <div class="form-group bigger" data-controller="country-state">
+                <% location = user.person.location || user.person.build_location %>
+                <%= person_form.fields_for :location, location do |location_form| %>
+                  <!-- Country Select -->
+                  <%= location_form.select :country,
+                                      CS.countries.invert,
+                                      { prompt: "Please select" },
+                                      'data-path': country_states_path(:country),
+                                      'data-country-state-target': 'country',
+                                      'data-action': 'change->country-state#updateStates',
+                                      'data-initial-value': location_form.object.country,
+                                      required: true,
+                                      class: 'form-control' %>
 
+                  <!-- Province/State Select -->
+                  <%= location_form.select :province_state,
+                                      CS.states(location_form.object.country).invert,
+                                      { prompt: "Please select" },
+                                      'data-country-state-target': 'state',
+                                      required: true,
+                                      class: 'form-control' %>
+
+                  <!-- City/Town Text Field -->
+                  <%= location_form.text_field :city_town, class: 'form-control' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
         <%= form.hidden_field :roles, value: :fosterer %>
         <!-- button -->
         <div class="col-12 mt-3">
           <%= form.submit t("general.send_invite"), class: "btn btn-primary" %>
         </div>
       </div>
-
     <% end %>
   </div>
 </div>
