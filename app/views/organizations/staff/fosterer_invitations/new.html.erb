@@ -1,8 +1,5 @@
 <%= render DashboardPageComponent.new(crumb: :invite_fosterer) do |c| %>
   <% c.with_header_title { t("invite_fosterer") } %>
-  <% c.with_action do |a| %>
-    <%= link_to t("general.back"), staff_fosterers_path, class: "btn btn-primary" %>
-  <% end %>
   <% c.with_body do |b| %>
     <%= render "organizations/staff/fosterer_invitations/form", user: @user %>
   <% end %>
