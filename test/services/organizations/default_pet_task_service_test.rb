@@ -42,6 +42,7 @@ class Organizations::DefaultPetTaskServiceTest < ActiveSupport::TestCase
   end
 
   test "creates tasks matching pet species" do
+    create(:default_pet_task, name: "General default task")
     create(:default_pet_task, name: "Dog default task", species: "Dog")
     create(:default_pet_task, name: "Cat default task", species: "Cat")
     dog = create(:pet, species: 1)
@@ -51,11 +52,9 @@ class Organizations::DefaultPetTaskServiceTest < ActiveSupport::TestCase
     Organizations::DefaultPetTaskService.new(kitten).create_tasks
 
     assert_equal dog.species, "Dog"
-    assert_equal dog.tasks.first.name, "Dog default task"
-    assert_equal dog.tasks.count, 1
+    assert_equal dog.tasks.pluck(:name).sort, ["Dog default task", "General default task"]
 
     assert_equal kitten.species, "Cat"
-    assert_equal kitten.tasks.first.name, "Cat default task"
-    assert_equal kitten.tasks.count, 1
+    assert_equal kitten.tasks.pluck(:name).sort, ["Cat default task", "General default task"]
   end
 end
