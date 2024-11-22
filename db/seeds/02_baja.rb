@@ -7,7 +7,7 @@
 )
 
 ActsAsTenant.with_tenant(@organization) do
-  @orga_location = Location.create!(
+  @orga_location = @organization.locations.create!(
     country: "US",
     province_state: "NV",
     city_town: "BajaCity",

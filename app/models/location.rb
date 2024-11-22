@@ -20,7 +20,7 @@
 #  fk_rails_...  (organization_id => organizations.id)
 #
 class Location < ApplicationRecord
-  acts_as_tenant(:organization)
+  belongs_to :organization
 
   validates :country, presence: true, length: {maximum: 50, message: "50 characters maximum"}
   validates :city_town, presence: true, length: {maximum: 50, message: "50 characters maximum"}
