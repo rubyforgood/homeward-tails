@@ -40,6 +40,7 @@ class Person < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true,
     uniqueness: {case_sensitive: false, scope: :organization_id}
+  validates :phone_number, phone: true, if: :phone_number?
 
   scope :adopters, -> {
     joins(user: :roles).where(roles: {name: "adopter"})
