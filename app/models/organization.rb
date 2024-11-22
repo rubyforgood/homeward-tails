@@ -36,7 +36,7 @@ class Organization < ApplicationRecord
   has_one :form_submission, dependent: :destroy
   has_one :custom_page, dependent: :destroy
 
-  has_many :locations
+  has_many :locations, as: :locatable
   accepts_nested_attributes_for :locations
 
   validates :phone_number, phone: {possible: true, allow_blank: true}
