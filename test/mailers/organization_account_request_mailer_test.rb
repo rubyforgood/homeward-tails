@@ -6,7 +6,7 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
       name: "Test Organization",
       slug: "test_organ",
       requester_name: "John Doe",
-      phone_number: "123-456-7890",
+      phone_number: "201-555-7890",
       email: "test@example.com",
       country: "Country Name",
       city_town: "City Name",
