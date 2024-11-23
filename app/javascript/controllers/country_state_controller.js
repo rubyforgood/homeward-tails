@@ -15,10 +15,4 @@ export default class extends Controller {
 
     get(`${path}?${params}`, { responseKind: "turbo-stream" });
   }
-
-  connect() {
-    if (this.countryTarget.value) {
-      this.updateStates();
-    }
-  }
 }
