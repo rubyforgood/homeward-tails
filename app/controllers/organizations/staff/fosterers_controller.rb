@@ -32,7 +32,10 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
 
   def fosterer_params
     params.require(:person)
-      .permit(:first_name, :last_name, :email, :phone_number)
+      .permit(
+        :first_name, :last_name, :email, :phone_number,
+        location_attributes: %i[country province_state city_town]
+      )
   end
 
   def authorize_user
