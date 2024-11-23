@@ -54,7 +54,7 @@
               <!-- Country Select -->
               <%= location_form.select :country,
                                    CS.countries.invert,
-                                   { prompt: "Please select" },
+                                   { prompt: "" },
                                    "data-path": country_states_path(:country),
                                    "data-country-state-target": "country",
                                    "data-action": "change->country-state#updateStates",
@@ -63,7 +63,7 @@
               <!-- Province/State Select -->
               <%= location_form.select :province_state,
                                    CS.states(location_form.object.country).invert,
-                                   { prompt: "Please select" },
+                                   { prompt: "" },
                                    "data-country-state-target": "state",
                                    class: "form-control" %>
               <!-- City/Town Text Field -->
