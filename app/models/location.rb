@@ -20,7 +20,6 @@ class Location < ApplicationRecord
   belongs_to :locatable, polymorphic: true
 
   with_options(
-    if: :should_validate_presence?,
     length: {maximum: 50, message: "50 characters maximum"}
   ) do |location|
     location.validates :country, presence: true
@@ -31,11 +30,5 @@ class Location < ApplicationRecord
   # custom error messages for adopter profile validations
   def custom_messages(attribute)
     errors.where(attribute)
-  end
-
-  private
-
-  def should_validate_presence?
-    country.present? || province_state.present? || city_town.present?
   end
 end
