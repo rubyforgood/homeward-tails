@@ -8,5 +8,6 @@ class Organizations::Staff::FostererInvitationsController < Organizations::BaseC
 
     @user = User.new
     @user.build_person
+    @user.person.build_location
   end
 end

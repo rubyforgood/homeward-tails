@@ -36,8 +36,7 @@
             <div class="input-group">
               <!-- Nested Form for Locations Table -->
               <div class="form-group bigger" data-controller="country-state">
-                <% location = user.person.location || user.person.build_location %>
-                <%= person_form.fields_for :location, location do |location_form| %>
+                <%= person_form.fields_for :location, user.person.location do |location_form| %>
                   <!-- Country Select -->
                   <%= location_form.select :country,
                                       CS.countries.invert,
