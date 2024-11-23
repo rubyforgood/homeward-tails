@@ -35,7 +35,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
     params.require(:person)
       .permit(
         :first_name, :last_name, :email, :phone_number,
-        location_attributes: %i[country province_state city_town]
+        location_attributes: %i[country province_state city_town id]
       )
   end
 
