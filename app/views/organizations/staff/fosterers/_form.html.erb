@@ -47,6 +47,33 @@
       </div>
 
       <div class="row">
+        <div class="input-group">
+          <!-- Nested Form for Locations Table -->
+          <div class="form-group bigger" data-controller="country-state">
+            <%= f.fields_for :location, fosterer.location do |location_form| %>
+              <!-- Country Select -->
+              <%= location_form.select :country,
+                                   CS.countries.invert,
+                                   { prompt: "Please select" },
+                                   "data-path": country_states_path(:country),
+                                   "data-country-state-target": "country",
+                                   "data-action": "change->country-state#updateStates",
+                                   "data-initial-value": location_form.object.country,
+                                   class: "form-control" %>
+              <!-- Province/State Select -->
+              <%= location_form.select :province_state,
+                                   CS.states(location_form.object.country).invert,
+                                   { prompt: "Please select" },
+                                   "data-country-state-target": "state",
+                                   class: "form-control" %>
+              <!-- City/Town Text Field -->
+              <%= location_form.text_field :city_town, class: "form-control" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-12">
           <%= f.submit t('general.save'), class: "btn btn-primary" %>
           <%= link_to t('general.cancel'), staff_fosterers_path(page: params[:page]),
