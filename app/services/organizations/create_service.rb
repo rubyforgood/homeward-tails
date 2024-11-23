@@ -59,7 +59,6 @@ class Organizations::CreateService
   def create_location(country, city_town, province_state)
     ActsAsTenant.with_tenant(@organization) do
       Location.create!(
-        organization: @organization,
         country: country,
         city_town: city_town,
         province_state: province_state
