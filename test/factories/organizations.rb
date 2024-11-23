@@ -10,5 +10,11 @@ FactoryBot.define do
         create(:custom_page, organization: organization) unless organization.custom_page
       end
     end
+
+    trait :with_location do
+      after(:create) do |organization|
+        create(:location, locatable: organization)
+      end
+    end
   end
 end

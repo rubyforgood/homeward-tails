@@ -8,5 +8,11 @@ FactoryBot.define do
     trait :with_phone do
       phone_number { Faker::PhoneNumber.phone_number }
     end
+
+    trait :with_location do
+      after(:create) do |person|
+        create(:location, locatable: person)
+      end
+    end
   end
 end
