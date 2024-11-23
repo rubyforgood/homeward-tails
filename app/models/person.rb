@@ -33,7 +33,8 @@ class Person < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_pets, through: :likes, source: :pet
   has_one :location, as: :locatable
-  accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :location,
+    reject_if: ->(attributes) { attributes["city_town"].blank? }
   has_many :matches # , dependent: :destroy
 
   has_one :user, dependent: :destroy
