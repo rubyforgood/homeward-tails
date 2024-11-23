@@ -21,6 +21,6 @@ module ApplicationHelper
   end
 
   def default_country(organization = Current.organization)
-    organization.locations.first&.country
+    organization.locations.first&.country || ""
   end
 end
