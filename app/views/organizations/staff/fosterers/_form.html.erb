@@ -54,7 +54,7 @@
               <!-- Country Select -->
               <%= location_form.select :country,
                                    CS.countries.invert,
-                                   { prompt: "" },
+                                   { prompt: "", selected: "US" },
                                    "data-path": country_states_path(:country),
                                    "data-country-state-target": "country",
                                    "data-action": "change->country-state#updateStates",
