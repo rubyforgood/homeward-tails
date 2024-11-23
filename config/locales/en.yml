@@ -36,7 +36,6 @@ en:
   rescues: "Rescues"
   staff: "Staff"
   action: "Action"
-  hello: "Hello world"
   joined_at: "Joined At"
   joined: "Joined"
   name: "Name"
@@ -53,6 +52,9 @@ en:
     new:
       header: Request an Organization Account
       description: Submit the form below if you are a pet rescue and would like your own customizable website and management platform on Homeward Tails. We'll follow up with you shortly.
+      form:
+        organization_name: Organization name
+        your_name: Your name
   general:
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
