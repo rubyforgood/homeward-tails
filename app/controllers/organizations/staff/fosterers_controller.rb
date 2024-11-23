@@ -15,6 +15,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
 
   def edit
     @fosterer = Person.find(params[:id])
+    @fosterer.location || @fosterer.build_location
   end
 
   def update
