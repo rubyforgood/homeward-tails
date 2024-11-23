@@ -109,35 +109,49 @@ en:
       no_applications: You do not have any adoption applications
   root:
     index:
-      title: "Manage"
+      title: "Homeward Tails"
       pet: "Pets"
-      description: "Bring your operations to the digital age. Handle everything from staffing, foster scheduling, and adoptions, all from one free website."
-      btn_title: Request an account
+      description: "A free-to-use application built for pet rescue organizations that enables you to manage pets, people, adoptions, and fosters with ease. "
+      btn_title: Request a free account
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
       free: "Free"
-      free_description: "Free for pet rescue organizations, forever."
+      free_description: "Free for pet rescue organizations, forever"
       easy: "Easy"
-      easy_description: "Get your own customizable website up and running instantly."
+      easy_description: "Your own customizable website up and running instantly"
       save_time: "Save Time"
-      save_time_description: "Manage pets, people, fosters, and adoptions on one platform."
+      save_time_description: "Manage pets, people, fosters, and adoptions in one place"
       website: 'A website that’s ready to go'
-      website_description: 'Have a public facing website up and running in minutes.'
-      keep_track: 'Keep track of your pets'
-      common_description: 'See your pet applications in one place with rich features to help you stay organized.'
-      easily_set: 'Easily set or change the status of an applicant'
-      add_notes: 'Add notes to each applicant'
-      add_notes_description: 'Your staff has full flexibility to write, edit, and delete notes as needed'
-      filter: 'Filter your applicants by date or name'
-      handle_adoption: 'Handle adoptions with ease'
-      take_complexity: 'Take the complexity out of fostering'
-      see_status: 'See status at a glance'
+      website_description: 'Have a public facing website up and running in minutes'
+      manage_pets: 'Manage pets'
+      manage_pets_description: 'Add new pets up for adoption or foster in minutes'
+      manage_pets_point_1: "Quickly edit and display pet details for potential adopters to see"
+      manage_pets_point_2: "Create tasks with deadlines and recurrence so you never lose track"
+      manage_pets_point_3: "Share tasks and paperwork with fosterers and adopters to facilitate handovers"
+      manage_adoption_applications: 'Review and process adoption applications'
+      manage_adoption_applications_description: "Adopters only need to fill out an application form once"
+      manage_applications_point_1: "Seamlessly review and categorize adoption applications"
+      manage_applications_point_2: "Import adopter response data from your third party form builder"
+      manage_applications_point_3: "Find applications easily by pet or adopter"
+      fostering: "Make fostering simple"
+      fostering_description: "Efficiently manage your fosterers, and your fosters"
+      fostering_point_1: "Invite fosterers to join your organization"
+      fostering_point_2: "Easily create new fosters with start and end dates"
+      fostering_point_3: "Quickly find a foster by pet, fosterer name, or foster status"
+      adopter_foster_dashboard: "Adopter and fosterer dashboard"
+      adopter_foster_dashboard_description: "An intuitive interface for adopters and fosterers"
+      adopter_foster_dashboard_point_1: "Adopters can view liked pets and manage their adopter applications"
+      adopter_foster_dashboard_point_2: "Adopters and fosters can see tasks and files for pets in their care"
+      adopter_foster_dashboard_point_3: "Adopters can update their questionnaire through an embedded version of your third party form"
       easily_edit: 'Easily edit dates'
       quickly_search: 'Quickly search by filters'
       manage_adoster: 'Manage adopter applications'
       manage_adoster_description: 'See your adopter applications in one place with rich features to help you stay organized.'
-      create_account: 'Create accounts and manage staff'
-      create_account_description: 'Manage your staff directly in the app.'
+      manage_people: 'Invite and manage people'
+      manage_people_description: 'Have full control over who can do what in your application'
+      manage_people_point_1: "Invite staff and set their authorization role"
+      manage_people_point_2: "Invite fosters and manage their details"
+      manage_people_point_3: "Have the ability to deactivate any user, including adopters"
       give_ur_furr_ball: 'Give your fur balls what they deserve'
       give_ur_furr_ball_description: 'As a Ruby For Good open source project, this app will always be 100% free and volunteer supported'
       learn_more_about: 'Learn more about Ruby For Good'
