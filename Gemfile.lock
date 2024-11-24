@@ -363,7 +363,7 @@ GEM
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
-    pry (0.14.2)
+    pry (0.15.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
     psych (5.2.0)
@@ -576,7 +576,7 @@ DEPENDENCIES
   pg (~> 1.5)
   phonelib
   propshaft
-  pry (~> 0.14.2)
+  pry (~> 0.15.0)
   puma (~> 6.4.3)
   rails (~> 7.2.1)
   rails-controller-testing
