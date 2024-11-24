@@ -24,15 +24,15 @@ class Organizations::CreateServiceTest < ActiveSupport::TestCase
 
     assert_difference "Organization.count", 1 do
       Organizations::CreateService.new.signal(args)
-  
+
       organization = Organization.last
-  
+
       location = organization.locations.last
       assert_not_nil location, "Location was not created"
       assert_equal "Mexico", location.country
       assert_equal "La Ventana", location.city_town
       assert_equal "Baja", location.province_state
-  
+      
       custom_page = organization.custom_page
       assert_not_nil custom_page, "Custom page was not created"
     end
