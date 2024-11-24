@@ -121,6 +121,9 @@ gem "dry-initializer", "~> 3.1"
 # Catch unsafe migrations
 gem "strong_migrations", "~> 2.1"
 
+# Track errors in prod
+gem "bugsnag", "~> 6.27"
+
 group :development, :test, :staging do
   gem "faker"
 end
