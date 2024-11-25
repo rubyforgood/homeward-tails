@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_user
   around_action :switch_locale
 
+  rescue_from StandardError, with: :log_and_reraise
   rescue_from ActionPolicy::Unauthorized do |ex|
     flash[:alert] = t("errors.authorization_error")
 
@@ -17,5 +18,10 @@ class ApplicationController < ActionController::Base
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale
     I18n.with_locale(locale, &action)
+  end
+
+  def log_and_reraise(error)
+    Bugsnag.notify(error)
+    raise
   end
 end
