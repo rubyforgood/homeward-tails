@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
   def log_and_reraise(error)
     unless KNOWN_ERRORS.include?(error.class)
       Bugsnag.notify(error)
+      error.instance_eval { def skip_bugsnag = true }
     end
     raise
   end
