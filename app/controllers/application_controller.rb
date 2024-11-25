@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_user
   around_action :switch_locale
 
+  KNOWN_ERRORS = [ActionPolicy::Unauthorized]
   rescue_from StandardError, with: :log_and_reraise
   rescue_from ActionPolicy::Unauthorized do |ex|
     flash[:alert] = t("errors.authorization_error")
@@ -21,7 +22,9 @@ class ApplicationController < ActionController::Base
   end
 
   def log_and_reraise(error)
-    Bugsnag.notify(error)
+    unless KNOWN_ERRORS.include?(error.class)
+      Bugsnag.notify(error)
+    end
     raise
   end
 end
