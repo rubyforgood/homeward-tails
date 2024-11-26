@@ -19,4 +19,8 @@ module ApplicationHelper
       Current.tenant.name
     end
   end
+
+  def default_country(organization = Current.organization)
+    organization.locations.first&.country || ""
+  end
 end

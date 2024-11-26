@@ -18,8 +18,5 @@ class DashboardPageComponent < ViewComponent::Base
 
   def before_render
     breadcrumb crumb, *crumb_options if crumb
-    # unless header_title.present?
-    #   raise ArgumentError, "Header title is required"
-    # end
   end
 end

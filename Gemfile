@@ -107,7 +107,7 @@ gem "ransack"
 gem "rails-controller-testing"
 
 # Use Action Policy for authorization framework
-gem "action_policy", "~> 0.7.1"
+gem "action_policy", "~> 0.7.2"
 
 # Use ViewComponent for our presenter pattern framework
 gem "view_component", "~> 3.20"
@@ -128,7 +128,7 @@ end
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "pry", "~> 0.14.2"
+  gem "pry", "~> 0.15.0"
 
   # Add annotation to models to make it easier to navigate in the codebase
   # and the database structure
@@ -159,7 +159,7 @@ group :development do
 
   # better errors and guard gems
   gem "better_errors", "~> 2.9", ">= 2.9.1"
-  gem "guard", "~> 2.18"
+  gem "guard", "~> 2.19"
   gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
 end
 
