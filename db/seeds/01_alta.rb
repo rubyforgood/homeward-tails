@@ -265,8 +265,6 @@ ActsAsTenant.with_tenant(@organization) do
     end
   end
 
-  puts "Created #{FormAnswer.count} form answers"
-
   match_application = AdopterApplication.create!(
     pet_id: Pet.first.id,
     form_submission_id: @adopter_one.form_submissions.first.id,
