@@ -18,7 +18,7 @@ class Organizations::CreateServiceTest < ActiveSupport::TestCase
         first_name: "Jimmy",
         last_name: "Hendrix"
       }
-     }
+    }
 
     Organizations::CreateService.any_instance.stubs(:send_email).returns(true)
 
