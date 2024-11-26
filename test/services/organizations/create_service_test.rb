@@ -18,7 +18,7 @@ class Organizations::CreateServiceTest < ActiveSupport::TestCase
         first_name: "Jimmy",
         last_name: "Hendrix"
       }
-    }
+     }
 
     Organizations::CreateService.any_instance.stubs(:send_email).returns(true)
 
@@ -32,7 +32,7 @@ class Organizations::CreateServiceTest < ActiveSupport::TestCase
       assert_equal "Mexico", location.country
       assert_equal "La Ventana", location.city_town
       assert_equal "Baja", location.province_state
-      
+
       custom_page = organization.custom_page
       assert_not_nil custom_page, "Custom page was not created"
     end
