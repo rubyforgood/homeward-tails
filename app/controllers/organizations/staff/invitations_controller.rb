@@ -38,6 +38,8 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
       @user.add_role("adopter", Current.organization)
       @user.add_role("fosterer", Current.organization)
 
+      assign_person_attributes(@user)
+
       if @user.save
         @user.invite!(current_user)
         redirect_to staff_fosterers_path, notice: t(".success")
@@ -56,7 +58,13 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
 
   def user_params
     params.require(:user)
-      .permit(:first_name, :last_name, :email, :roles)
+      .permit(
+        :first_name, :last_name, :email, :roles,
+        person_attributes: [
+          :phone_number,
+          location_attributes: %i[country province_state city_town]
+        ]
+      )
   end
 
   def after_accept_path_for(_resource)
@@ -73,5 +81,13 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
     else
       root_path
     end
+  end
+
+  # TODO: We should consider removing this duplicated logic, so we don't have to do this.
+  def assign_person_attributes(user)
+    person = user.person || user.build_person
+    person.first_name = user.first_name
+    person.last_name = user.last_name
+    person.email = user.email
   end
 end

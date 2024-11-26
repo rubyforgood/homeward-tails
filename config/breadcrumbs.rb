@@ -83,6 +83,11 @@ crumb :edit_fosterer do |fosterer|
   link "Edit Fosterer", edit_staff_fosterer_path(fosterer.id)
   parent :fosterers
 end
+
+crumb :invite_fosterer do |fosterer|
+  link "Invite Fosterer", new_staff_fosterer_invitation_path
+  parent :fosterers
+end
 # crumb :projects do
 #   link "Projects", projects_path
 # end

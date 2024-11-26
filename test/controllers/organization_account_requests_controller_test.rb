@@ -13,7 +13,7 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
         organization_account_request: {
           name: "Pet lovers",
           requester_name: "Pete Smith",
-          phone_number: 1234567890,
+          phone_number: "2015551234",
           email: "pete@example.com",
           country: "United States",
           province_state: "Colorado",
@@ -30,7 +30,7 @@ class OrganizationAccountRequestControllerTest < ActionDispatch::IntegrationTest
       post organization_account_request_path, params: {
         organization_account_request: {
           requester_name: "Pete Smith",
-          phone_number: 1234567890,
+          phone_number: "2015551234",
           email: "pete@example.com",
           country: "United States",
           province_state: "Colorado",

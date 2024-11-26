@@ -51,10 +51,10 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
 
   context "#update" do
     should "update fosterer" do
-      patch staff_fosterer_url(@fosterer), params: {person: {phone: "1234567890"}}
+      patch staff_fosterer_url(@fosterer), params: {person: {phone_number: "+12015557890"}}
 
       assert_response :redirect
-      assert_equal "1234567890", @fosterer.reload.phone
+      assert_equal "+12015557890", @fosterer.reload.phone_number
     end
 
     should "fail update" do

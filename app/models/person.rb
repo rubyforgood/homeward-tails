@@ -6,7 +6,7 @@
 #  email           :string           not null
 #  first_name      :string           not null
 #  last_name       :string           not null
-#  phone           :string
+#  phone_number    :string(15)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null
@@ -22,6 +22,7 @@
 #
 class Person < ApplicationRecord
   include Avatarable
+  include Phoneable
 
   acts_as_tenant(:organization)
 
@@ -31,6 +32,9 @@ class Person < ApplicationRecord
   has_many :adopter_applications, through: :form_submissions
   has_many :likes, dependent: :destroy
   has_many :liked_pets, through: :likes, source: :pet
+  has_one :location, as: :locatable
+  accepts_nested_attributes_for :location,
+    reject_if: ->(attributes) { attributes["city_town"].blank? }
   has_many :matches # , dependent: :destroy
 
   has_one :user, dependent: :destroy
@@ -39,6 +43,7 @@ class Person < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true,
     uniqueness: {case_sensitive: false, scope: :organization_id}
+  validates :phone_number, phone: true, if: :phone_number?
 
   scope :adopters, -> {
     joins(user: :roles).where(roles: {name: "adopter"})

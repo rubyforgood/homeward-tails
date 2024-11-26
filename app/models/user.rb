@@ -69,6 +69,7 @@ class User < ApplicationRecord
   #   allow_nil: false, on: :create
 
   belongs_to :person
+  accepts_nested_attributes_for :person
 
   before_validation :ensure_person_exists, on: :create
 
