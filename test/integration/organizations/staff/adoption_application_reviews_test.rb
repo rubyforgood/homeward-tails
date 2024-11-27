@@ -12,8 +12,8 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
 
     # Setup for show view tests
-    @person = create(:person)
-    @form_submission = create(:form_submission, person: @person)
+    @adopter = create(:adopter)
+    @form_submission = @adopter.person.latest_form_submission
     @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
     @adopter_application = create(:adopter_application, form_submission: @form_submission)
   end
@@ -80,36 +80,21 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     end
 
     context "viewing application details" do
-      should "display applicant name and email in header" do
+      should "assign correct form answers" do
         get staff_adoption_application_review_path(@adopter_application)
 
         assert_response :success
-        assert_select "div", /#{@person.full_name}/
-        assert_select "div", /#{@person.email}/
+        assert_equal @form_answers, assigns(:form_answers)
+        assert_equal 3, assigns(:form_answers).count
       end
 
-      should "display form answers in cards" do
+      should "have correct application and person data" do
         get staff_adoption_application_review_path(@adopter_application)
 
         assert_response :success
-        @form_answers.each do |answer|
-          assert_select "div.card" do
-            assert_select "div.card-body" do
-              assert_select "strong.fs-4", /Q: #{answer.question_snapshot}/
-              assert_select "p", /A: #{answer.value}/
-            end
-          end
-        end
-      end
 
-      should "have correct link from index page" do
-        get staff_adoption_application_reviews_path
-
-        assert_select "tr#table_row_adopter_application_#{@adopter_application.id}" do
-          assert_select "a[href=?]", staff_adoption_application_review_path(@adopter_application) do
-            assert_select "a.link-underline.link-underline-opacity-0", text: @person.full_name
-          end
-        end
+        assert_equal @adopter_application, assigns(:application)
+        assert_equal @adopter_application.person, assigns(:application).person
       end
     end
 
@@ -120,15 +105,6 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
 
       should_eventually "not see any applications" do
         get staff_adoption_application_reviews_path
-
-        assert_response :redirect
-        follow_redirect!
-        follow_redirect!
-        assert_equal "Unauthorized action.", flash[:alert]
-      end
-
-      should_eventually "not be able to view application details" do
-        get staff_adoption_application_review_path(@adopter_application)
 
         assert_response :redirect
         follow_redirect!

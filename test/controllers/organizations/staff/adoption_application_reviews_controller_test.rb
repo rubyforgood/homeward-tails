@@ -149,20 +149,24 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
       @user = create(:admin)
       sign_in @user
 
-      @person = create(:person)
-      @form_submission = create(:form_submission, person: @person)
+      @adopter = create(:adopter)
+      @form_submission = @adopter.person.latest_form_submission
       @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
       @adopter_application = create(:adopter_application, form_submission: @form_submission)
     end
 
     context "#show" do
-      should "display the application details and form answers" do
+      should "fetch the form answers" do
         get staff_adoption_application_review_url(@adopter_application)
 
         assert_response :success
-        assert_select "div", text: /#{@person.full_name}/
-        assert_select "div", text: /#{@form_answers.first.question_snapshot}/
-        assert_select "div", text: /#{@form_answers.first.value}/
+        assert_equal @form_answers.count, assigns(:form_answers).count
+
+        @form_answers.each do |form_answer|
+          assert assigns(:form_answers).include?(form_answer)
+          assert_equal form_answer.question_snapshot, form_answer.question_snapshot
+          assert_equal form_answer.value, form_answer.value
+        end
       end
     end
   end

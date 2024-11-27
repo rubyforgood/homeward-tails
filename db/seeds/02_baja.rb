@@ -181,34 +181,11 @@ ActsAsTenant.with_tenant(@organization) do
     end
   end
 
-  questions = [
-    {
-      name: "Do you have other pets at home?",
-      value_generator: -> { ["Yes, 2 dogs", "Yes, 1 cat", "No pets currently", "Yes, 1 dog and 1 cat", "Yes, 3 cats"].sample }
-    },
-    {
-      name: "What is your living situation?",
-      value_generator: -> { ["Own house with fenced yard", "Rent apartment - pet friendly", "Own condo with balcony", "Rent house with yard", "Own townhouse"].sample }
-    },
-    {
-      name: "How many hours will the pet be alone during the day?",
-      value_generator: -> { ["2-4 hours (work from home)", "4-6 hours", "6-8 hours (flexible schedule)", "0-2 hours (retired)", "8 hours but can hire dog walker"].sample }
-    },
-    {
-      name: "Do you have experience with pet training?",
-      value_generator: -> { ["Yes, trained previous dogs", "Some basic training experience", "No, but willing to attend classes", "Yes, professional trainer", "Have attended puppy classes before"].sample }
-    },
-    {
-      name: "Are there children in your household?",
-      value_generator: -> { ["No children", "Yes, 2 kids (ages 8 and 10)", "Yes, teenager", "Yes, toddler", "Children visit occasionally"].sample }
-    }
-  ]
-
   FormSubmission.all.each do |submission|
-    questions.each do |question|
+    5.times do
       FormAnswer.create!(
-        value: question[:value_generator].call,
-        question_snapshot: question[:name],
+        value: JSON.dump(Faker::Lorem.sentence),
+        question_snapshot: Faker::Lorem.question,
         form_submission: submission,
         organization: @organization,
         created_at: submission.created_at,
