@@ -18,7 +18,7 @@ servers:
 # in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption.
 proxy:
   ssl: true
-  host: homewardtails.org
+  host: "homewardtails.org,www.homewardtails.org"
   app_port: 3000
 
 # Credentials for your image host.
