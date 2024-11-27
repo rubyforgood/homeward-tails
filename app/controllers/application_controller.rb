@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionPolicy::Unauthorized do |ex|
     flash[:alert] = t("errors.authorization_error")
 
-    redirect_back fallback_location: root_path
+    redirect_back_or_to root_path
   end
 
   def set_current_user
