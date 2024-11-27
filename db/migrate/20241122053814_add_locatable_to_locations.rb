@@ -1,9 +1,7 @@
 class AddLocatableToLocations < ActiveRecord::Migration[7.2]
-  def change
-    safety_assured do
-      remove_reference :locations, :organization, foreign_key: true
+  disable_ddl_transaction!
 
-      add_reference :locations, :locatable, polymorphic: true, null: false, index: true
-    end
+  def change
+    add_reference :locations, :locatable, polymorphic: true, null: true, index: {algorithm: :concurrently}
   end
 end
