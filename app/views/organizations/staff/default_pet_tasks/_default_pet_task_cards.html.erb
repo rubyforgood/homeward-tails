@@ -1,0 +1,27 @@
+<%# Card %>
+<div class="col-lg-5 d-xl-none">
+  <div class="card card-hover m-2 m-sm-4" style='overflow: hidden; max-width: 350px;'>
+
+    <%# Card header %>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item d-flex justify-content-center">
+        <h4 class="card-title text-secondary mb-0">
+          <%=default_pet_tasks.name %>
+        </h4>
+      </li>
+        <% li_classes = %w[list-group-item text-secondary] %>
+        <%= tag.li("Description: #{default_pet_tasks.description}", class: li_classes) %>
+        <%= tag.li("Species: #{default_pet_tasks.human_enum_name(:species)}", class: li_classes) %>
+        <%= tag.li("Due in: #{default_pet_tasks.due_in_days ? pluralize(default_pet_tasks.due_in_days, "day") : ""}", class: li_classes) %>
+        <%= tag.li("Reccuring: #{default_pet_tasks.recurring? ? t('general.yes') : t('general.no')}", class: li_classes) %>
+        <% if allowed_to?(:manage?, default_pet_tasks) %>
+          <td>
+            <div class="d-flex align-items-center justify-content-center">
+              <%= link_to t('general.edit'), edit_staff_default_pet_task_path(default_pet_tasks), class: 'btn btn-warning m-2' %>
+              <%= link_to t('general.delete'), staff_default_pet_task_path(default_pet_tasks), class: 'btn btn-danger m-2', data: { turbo_method: "general.delete", turbo_confirm: t('.are_you_sure_delete') } %>
+            </div>
+          </td>
+        <% end %>
+    </ul>
+  </div>
+</div>

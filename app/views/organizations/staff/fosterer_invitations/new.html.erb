@@ -1,22 +1,6 @@
-<%= render DashboardPageComponent.new do |c| %>
-  <% c.with_header_title { t('invite_fosterer') } %>
-  <% c.with_action do |a| %>
-    <%= link_to t('general.back'), staff_fosterers_path, class: "btn btn-primary" %>
-  <% end %>
+<%= render DashboardPageComponent.new(crumb: :invite_fosterer) do |c| %>
+  <% c.with_header_title { t("invite_fosterer") } %>
   <% c.with_body do |b| %>
-    <section class="container-fluid p-4">
-      <!-- row -->
-      <div class="row">
-        <div class="offset-xl-3 col-xl-6 col-md-12 col-12">
-          <!-- card -->
-          <div class="card">
-            <!-- card body -->
-            <div class="card-body p-lg-6">
-              <%= render "organizations/staff/fosterer_invitations/form", user: @user %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <%= render "organizations/staff/fosterer_invitations/form", user: @user %>
   <% end %>
 <% end %>

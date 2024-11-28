@@ -5,11 +5,5 @@ module Organizations
     def manage?
       permission?(:manage_organization)
     end
-
-    private
-
-    def organization
-      record
-    end
   end
 end

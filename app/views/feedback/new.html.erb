@@ -1,0 +1,22 @@
+<% if current_user.nil? %>
+  <%= render "feedback" %>
+<% else %>
+  <% admin =
+    current_user.has_role?(:adopter, ActsAsTenant.current_tenant) ? false : true %>
+  <%= render DashboardPageComponent.new(crumb: admin ? :new_feedback : nil) do |c| %>
+    <% c.with_header_title { t("feedback.new.header") } %>
+    <% c.with_body do %>
+      <section class="<%= admin ? 'container-fluid p-4' : 'pb-5' %>">
+        <div class="<%= admin ? 'row' : 'container' %>">
+          <div class="row">
+            <div
+              class="<%= admin ? 'col-md-8 mx-auto card p-5 bigger' : 'col-md-12 mx-auto card p-5' %>"
+            >
+              <%= render "form" %>
+            </div>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  <% end %>
+<% end %>

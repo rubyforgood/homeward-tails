@@ -1,0 +1,79 @@
+name: Kamal Deployment
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 21 * * 2" # runs Tuesdays at 21:00 UTC
+
+jobs:
+  check_latest_commit:
+    runs-on: ubuntu-latest
+
+    outputs:
+      commit_sha: ${{ env.SHA }}
+
+    steps:
+      - name: Checkout the latest commit on main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Get the latest commit SHA
+        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Confirm all checks passed
+        run: |
+          # Returns json data on all checks that were run
+          response=$(curl -L \
+          -H "Accept: application/vnd.github+json" \
+          "https://api.github.com/repos/${{ github.repository }}/commits/${{ env.SHA }}/check-runs")
+
+          # Check the conclusion of eash check for pass/fail
+          for conclusion in $(echo "$response" | jq -r '.check_runs[] | select(.name != "deploy" and .name != "check_latest_commit") | .conclusion'); do
+            if [ "$conclusion" != "success" ]; then
+              echo "Commit "${{ env.SHA }}" has failed checks."
+              exit 1
+            fi
+          done
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: check_latest_commit
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Install Kamal
+        run: gem install kamal
+
+      - name: Set up SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/homewardtails.pem
+          echo "$RAILS_MASTER_KEY" > config/credentials/production.key
+          chmod 600 ~/.ssh/homewardtails.pem
+          ssh-keyscan homewardtails.org >> ~/.ssh/known_hosts || echo "failed"
+
+      - name: Check if latest commit is running in production
+        run: |
+          RUNNING_APP_SHA=$(kamal app version | grep . | tail -n 1)
+
+          # Compare the current running SHA to the latest commit SHA
+          if [ "$RUNNING_APP_SHA" == "${{ needs.check_latest_commit.outputs.commit_sha }}" ]; then
+            echo "Running version is up to date, skipping deployment."
+            exit 0
+          fi
+
+      - name: Kamal Deploy
+        run: kamal deploy

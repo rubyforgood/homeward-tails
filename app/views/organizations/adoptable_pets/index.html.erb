@@ -51,10 +51,22 @@
         <% end %>
       </div>
     </div>
-
-    <div class="d-flex justify-content-center align-items-center mt-2">
-      <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-    </div>
+      
+      <% if @pets.empty? %>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="card text-center mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+              <p class="class-text">We don't have any pets matching your search criteria.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="d-flex justify-content-center align-items-center mt-2">
+        <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
+      </div>
+    <% end %>
 
     <div class="row">
       <% @pets.each do |pet| %>

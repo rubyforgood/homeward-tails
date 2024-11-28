@@ -7,7 +7,8 @@ RUN apt-get update -qq && apt-get install -y \
   postgresql-client \
   build-essential \
   libpq-dev \
-  chromium-driver
+  chromium-driver \
+  vim
 
 # Set up working directory
 WORKDIR /petrescue

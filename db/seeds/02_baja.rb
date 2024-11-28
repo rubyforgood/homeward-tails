@@ -2,12 +2,12 @@
   name: "Baja",
   slug: "baja",
   email: "baja@email.com",
-  phone_number: "250 816 8212",
+  phone_number: "201 555 8212",
   custom_page: CustomPage.new(hero: "hero text", about: "about us text")
 )
 
 ActsAsTenant.with_tenant(@organization) do
-  @orga_location = Location.create!(
+  @orga_location = @organization.locations.create!(
     country: "US",
     province_state: "NV",
     city_town: "BajaCity",

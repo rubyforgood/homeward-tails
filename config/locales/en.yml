@@ -36,7 +36,6 @@ en:
   rescues: "Rescues"
   staff: "Staff"
   action: "Action"
-  hello: "Hello world"
   joined_at: "Joined At"
   joined: "Joined"
   name: "Name"
@@ -49,6 +48,13 @@ en:
   settings: "Settings"
   invite_fosterer: "Invite Fosterer"
   invite_staff: "Invite Staff"
+  organization_account_requests:
+    new:
+      header: Request an Organization Account
+      description: Submit the form below if you are a pet rescue and would like your own customizable website and management platform on Homeward Tails. We'll follow up with you shortly.
+      form:
+        organization_name: Organization name
+        your_name: Your name
   general:
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
@@ -89,6 +95,7 @@ en:
     cats: "Cats"
     browse: "Browse"
     view: "View"
+    about_us: "About us"
   dashboard:
     index:
       header_title: Dashboard
@@ -102,35 +109,49 @@ en:
       no_applications: You do not have any adoption applications
   root:
     index:
-      title: "Manage"
+      title: "Homeward Tails"
       pet: "Pets"
-      description: "Bring your operations to the digital age. Handle everything from staffing, foster scheduling, and adoptions, all from one free website."
-      btn_title: "Get started"
+      description: "A free-to-use application built for pet rescue organizations that enables you to manage pets, people, adoptions, and fosters with ease. "
+      btn_title: Request a free account
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
       free: "Free"
-      free_description: "Use our app for your organization at no cost."
+      free_description: "Free for pet rescue organizations, forever"
       easy: "Easy"
-      easy_description: "Manage staff profiles, tasks, adoption and foster scheduling in a single app."
-      personalized: "Personalized"
-      personalized_description: "Add default tasks, create your own forms, and more."
+      easy_description: "Your own customizable website up and running instantly"
+      save_time: "Save Time"
+      save_time_description: "Manage pets, people, fosters, and adoptions in one place"
       website: 'A website that’s ready to go'
-      website_description: 'Have a public facing website up and running in minutes.'
-      keep_track: 'Keep track of your pets'
-      common_description: 'See your pet applications in one place with rich features to help you stay organized.'
-      easily_set: 'Easily set or change the status of an applicant'
-      add_notes: 'Add notes to each applicant'
-      add_notes_description: 'Your staff has full flexibility to write, edit, and delete notes as needed'
-      filter: 'Filter your applicants by date or name'
-      handle_adoption: 'Handle adoptions with ease'
-      take_complexity: 'Take the complexity out of fostering'
-      see_status: 'See status at a glance'
+      website_description: 'Have a public facing website up and running in minutes'
+      manage_pets: 'Manage pets'
+      manage_pets_description: 'Add new pets up for adoption or foster in minutes'
+      manage_pets_point_1: "Quickly edit and display pet details for potential adopters to see"
+      manage_pets_point_2: "Create tasks with deadlines and recurrence so you never lose track"
+      manage_pets_point_3: "Share tasks and paperwork with fosterers and adopters to facilitate handovers"
+      manage_adoption_applications: 'Review and process adoption applications'
+      manage_adoption_applications_description: "Adopters only need to fill out an application form once"
+      manage_applications_point_1: "Seamlessly review and categorize adoption applications"
+      manage_applications_point_2: "Import adopter response data from your third party form builder"
+      manage_applications_point_3: "Find applications easily by pet or adopter"
+      fostering: "Make fostering simple"
+      fostering_description: "Efficiently manage your fosterers, and your fosters"
+      fostering_point_1: "Invite fosterers to join your organization"
+      fostering_point_2: "Easily create new fosters with start and end dates"
+      fostering_point_3: "Quickly find a foster by pet, fosterer name, or foster status"
+      adopter_foster_dashboard: "Adopter and fosterer dashboard"
+      adopter_foster_dashboard_description: "An intuitive interface for adopters and fosterers"
+      adopter_foster_dashboard_point_1: "Adopters can view liked pets and manage their adopter applications"
+      adopter_foster_dashboard_point_2: "Adopters and fosters can see tasks and files for pets in their care"
+      adopter_foster_dashboard_point_3: "Adopters can update their questionnaire through an embedded version of your third party form"
       easily_edit: 'Easily edit dates'
       quickly_search: 'Quickly search by filters'
       manage_adoster: 'Manage adopter applications'
       manage_adoster_description: 'See your adopter applications in one place with rich features to help you stay organized.'
-      create_account: 'Create accounts and manage staff'
-      create_account_description: 'Manage your staff directly in the app.'
+      manage_people: 'Invite and manage people'
+      manage_people_description: 'Have full control over who can do what in your application'
+      manage_people_point_1: "Invite staff and set their authorization role"
+      manage_people_point_2: "Invite fosters and manage their details"
+      manage_people_point_3: "Have the ability to deactivate any user, including adopters"
       give_ur_furr_ball: 'Give your fur balls what they deserve'
       give_ur_furr_ball_description: 'As a Ruby For Good open source project, this app will always be 100% free and volunteer supported'
       learn_more_about: 'Learn more about Ruby For Good'
@@ -182,7 +203,7 @@ en:
         title: "Open Pet Rescue"
         sub_title: "A Ruby For Good project"
         dropdown_title: "Rescues"
-        btn_title: "Get started"
+        btn_title: Request an account
   activerecord:
     errors:
       models:
@@ -345,6 +366,16 @@ en:
     authorization_error: "You are not authorized to perform this action."
     try_again: "Error. Please try again."
   organizations:
+    home:
+      index:
+        every_paw: "Where every paw finds a home"
+        adopt: "Adopt"
+        become_adopter_now: "Become an adopter now!"
+        how_to_apply: "How to apply for adoption"
+        create_account: "Create Account"
+        complete_questionaire: "Complete Questionnaire"
+        browse_pets: "Browse Pets"
+        click_apply: "Click Apply"
     adoptable_pets:
       index:
         header: "Up for adoption"
@@ -437,6 +468,15 @@ en:
           due_after: "Due in"
           recurring: "Recurring"
           recurring_placeholder: "Select Recurring Status"
+          default_pet_tasks: "Default Pet Tasks"
+          create_default_task: "Create Default Task"
+          are_you_sure_delete: "Are you sure you want to delete this default pet task?"
+        default_pet_task_cards:
+          name: "Name"
+          description: "Description"
+          species: "Species"
+          due_after: "Due in"
+          recurring: "Recurring"
           default_pet_tasks: "Default Pet Tasks"
           create_default_task: "Create Default Task"
           are_you_sure_delete: "Are you sure you want to delete this default pet task?"
@@ -653,8 +693,8 @@ en:
           header: "Welcome to %{organization_name}!"
           body_text: "At %{organization_name}, we’re dedicated to rescuing, rehabilitating, and rehoming animals in need. Your support helps us provide care, love, and hope to these pets until they find their forever homes."
       form_instructions:
-        index: "Please complete this form. %{organization_name} needs this information in order to process your application(s)."
-        dashboard: If you need to update your information, you can do so by filling out a new copy of this form. Please only submit a new copy if there has been a change. Unnecessary submissions may delay the processing of your application(s).
+        index: "Please complete this form using the same email address you signed up with. %{organization_name} needs this information in order to process your application(s)."
+        dashboard: If you need to update your information, you can do so by filling out a new copy of this form. Please only submit a new copy if there has been a change. Please ensure the email you use in the form is the same as the email on your account on this website. Unnecessary submissions may delay the processing of your application(s).
     attachments:
       purge:
         success: "Attachment removed"
@@ -663,7 +703,7 @@ en:
   contacts:
     create:
       success: "Message sent!"
-  dev_contacts:
+  feedback:
     new:
       header: "Feedback"
       description: "Found a bug? Want to request a feature? Contact our dev team with the form below."

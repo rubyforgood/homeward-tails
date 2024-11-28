@@ -18,8 +18,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   host: localhost
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
+  password: <%= ENV.fetch('DATABASE_PASSWORD') { 'password' }  %>
   port: <%= ENV.fetch("DATABASE_PORT") do
           begin
             docker_port = `docker compose port postgres 5432 2> /dev/null`.split(":").last
@@ -39,14 +39,8 @@ development:
   #   https://stackoverflow.com/questions/59089991/ruby-2-6-5-and-postgresql-pg-gem-segmentation-fault
   gssencmode: disable
 
-  # The specified database role being used to connect to postgres.
-  # To create additional roles in postgres see `$ createuser --help`.
-  # When left blank, postgres will use the default role. This is
-  # the same name as the operating system user running Rails.
-  #username: pet_rescue
-
-  # The password associated with the postgres role (username).
-  #password:
+  #username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
+  #password: <%= ENV.fetch('DATABASE_PASSWORD') { 'password' }  %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -98,6 +92,9 @@ test:
 #
 production:
   <<: *default
-  database: pet_rescue_production
-  username: <%= ENV['database_username'] %>
-  password: <%= ENV['database_password'] %>
+  host: <%= ENV["DB_HOST"] %>
+  pool: 5
+  username: <%= ENV["DB_USER"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  database: postgres
+  timeout: 5000

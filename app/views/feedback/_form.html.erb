@@ -1,0 +1,51 @@
+<%= bootstrap_form_with url: feedback_index_path, scope: :feedback, method: :post do | f | %>
+
+  <% if @feedback.errors.count > 0 %>
+    <div class="alert alert-danger mt-1" role="alert">
+      <p>
+        <%= I18n.t("general.please_fix") %>
+        <%= @feedback.errors.count %>
+        <%= "error".pluralize(@feedback.errors.count) %>
+        highlighted below.
+      </p>
+    </div>
+  <% end %>
+  <div class="row mb-2">
+
+    <div class="mb-3 form-group">
+      <%= f.select :subject,
+               ["General Feedback", "Feature Request", "Bug"],
+               required: true %>
+    </div>
+    <div class="mb-3 form-group">
+      <%= f.text_field :name, autofocus: true, class: "form-control", required: true %>
+      <% @feedback.errors.full_messages_for(:name).each do |message| %>
+        <div class="alert alert-danger mt-1" role="alert"><%= message %></div>
+      <% end %>
+    </div>
+    <div class="mb-3 form-group">
+      <%= f.email_field :email, class: "form-control", required: true %>
+      <% @feedback.errors.full_messages_for(:email).each do |message| %>
+        <div class="alert alert-danger mt-1" role="alert"><%= message %></div>
+      <% end %>
+    </div>
+    <div class="mb-3 form-group" data-controller='counter'>
+      <%= f.text_area :message,
+                  class: "form-control",
+                  data: {
+                    action: "input->counter#countLarge",
+                    counter_target: "input",
+                  },
+                  placeholder: t("feedback.new.message_placeholder"),
+                  required: true %>
+      <div data-counter-target='output' class='small'></div>
+      <% @feedback.errors.full_messages_for(:message).each do |message| %>
+        <div class="alert alert-danger mt-1" role="alert"><%= message %></div>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.submit I18n.t("general.submit"), class: "btn btn-primary" %>
+    </div>
+    <%= render "tips" %>
+  </div>
+<% end %>

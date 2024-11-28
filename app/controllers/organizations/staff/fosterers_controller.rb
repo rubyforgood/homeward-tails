@@ -15,6 +15,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
 
   def edit
     @fosterer = Person.find(params[:id])
+    @fosterer.location || @fosterer.build_location
   end
 
   def update
@@ -32,7 +33,10 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
 
   def fosterer_params
     params.require(:person)
-      .permit(:first_name, :last_name, :email, :phone)
+      .permit(
+        :first_name, :last_name, :email, :phone_number,
+        location_attributes: %i[country province_state city_town id]
+      )
   end
 
   def authorize_user

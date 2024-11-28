@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_27_052542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -151,8 +151,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "zipcode"
-    t.bigint "organization_id"
-    t.index ["organization_id"], name: "index_locations_on_organization_id"
+    t.string "locatable_type", null: false
+    t.bigint "locatable_id", null: false
+    t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -186,13 +187,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
   create_table "people", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "email", null: false
-    t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "phone_number", limit: 15
     t.index ["email"], name: "index_people_on_email"
     t.index ["organization_id"], name: "index_people_on_organization_id"
+    t.check_constraint "phone_number::text ~ '^[+]?[0-9]*$'::text", name: "phone_number_valid_e164"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -313,7 +315,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
   add_foreign_key "likes", "organizations"
   add_foreign_key "likes", "people"
   add_foreign_key "likes", "pets"
-  add_foreign_key "locations", "organizations"
   add_foreign_key "matches", "people"
   add_foreign_key "matches", "pets"
   add_foreign_key "people", "organizations"

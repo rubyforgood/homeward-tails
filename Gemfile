@@ -6,8 +6,11 @@ ruby "3.3.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+# Used to deploy to production
+gem "kamal"
+
+# Used for handling asset delivery
+gem "propshaft"
 
 # figaro to handle ENV variables for postgresql
 gem "figaro"
@@ -57,7 +60,6 @@ gem "devise"
 gem "devise_invitable", "~> 2.0.9"
 
 # Use Sass to process CSS
-gem "dartsass-sprockets"
 gem "dartsass-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -105,10 +107,10 @@ gem "ransack"
 gem "rails-controller-testing"
 
 # Use Action Policy for authorization framework
-gem "action_policy", "~> 0.7.1"
+gem "action_policy", "~> 0.7.2"
 
 # Use ViewComponent for our presenter pattern framework
-gem "view_component", "~> 3.18"
+gem "view_component", "~> 3.20"
 
 # Use dry-types for defining types
 gem "dry-types", "~> 1.7"
@@ -117,7 +119,7 @@ gem "dry-types", "~> 1.7"
 gem "dry-initializer", "~> 3.1"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.0"
+gem "strong_migrations", "~> 2.1"
 
 group :development, :test, :staging do
   gem "faker"
@@ -126,7 +128,7 @@ end
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "pry", "~> 0.14.2"
+  gem "pry", "~> 0.15.0"
 
   # Add annotation to models to make it easier to navigate in the codebase
   # and the database structure
@@ -157,7 +159,7 @@ group :development do
 
   # better errors and guard gems
   gem "better_errors", "~> 2.9", ">= 2.9.1"
-  gem "guard", "~> 2.18"
+  gem "guard", "~> 2.19"
   gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
 end
 

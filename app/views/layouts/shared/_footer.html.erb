@@ -9,7 +9,7 @@
           <div class="mt-4">
           <p>
               <%= t('.call') %>
-              <%= link_to t('.action'), root_path %>
+              <%= link_to t('.action'), new_organization_account_request_path %>
 
             </p>
           </div>
@@ -82,7 +82,7 @@
         <div class="mb-4">
           <h3 class="fw-bold mb-3"><%= t('.feedback') %></h3>
           <p>
-            <%= link_to t('.action'), new_dev_contact_path %>
+            <%= link_to t('.action'), new_feedback_path %>
             <%= t('.support') %>
           </p>
         </div>
@@ -102,9 +102,9 @@
       <!-- Links -->
       <div class="col-12 col-md-7 col-lg-8 d-md-flex justify-content-end">
         <nav class="nav nav-footer">
-          <a class="nav-link ps-0" href="#"><%= t('.policy') %></a>
-          <a class="nav-link px-2 px-md-3" href="#"><%= t('.cookie') %></a>
-          <a class="nav-link" href="#"><%= t('.terms') %></a>
+          <%= link_to t('.policy'), privacy_policy_path, target: '_blank', class: 'nav-link' %>
+          <%= link_to t('.cookie'), cookie_policy_path, target: '_blank',  class: 'nav-link' %>
+          <%= link_to t('.terms'), terms_and_conditions_path, target: '_blank',  class: "nav-link"%>
         </nav>
       </div>
     </div>

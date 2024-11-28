@@ -9,7 +9,7 @@ class AvatarComponent < ApplicationComponent
 
   def avatar
     if image_url
-      image_tag(url_for(image_url), alt: alt, class: image_classes)
+      image_tag(url(image_url), alt: alt, class: image_classes)
     else
       content_tag(:span, initials, class: initials_classes)
     end

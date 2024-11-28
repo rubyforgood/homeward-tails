@@ -2,6 +2,7 @@ require "test_helper"
 
 class Organizations::CreateServiceTest < ActiveSupport::TestCase
   test "it creates custom_page when organization is created" do
+    skip "Skipping this test until we have dev and test credentials set up"
     args = {
       location: {
         country: "Mexico",

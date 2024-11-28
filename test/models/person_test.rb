@@ -9,7 +9,7 @@ class PersonTest < ActiveSupport::TestCase
     should validate_presence_of(:first_name)
     should validate_presence_of(:last_name)
     should validate_presence_of(:email)
-    should_not validate_presence_of(:phone)
+    should_not validate_presence_of(:phone_number)
   end
 
   context "associations" do

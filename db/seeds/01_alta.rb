@@ -2,13 +2,13 @@
   name: "Alta Pet Rescue",
   slug: "alta",
   email: "alta@email.com",
-  phone_number: "250 816 8212",
+  phone_number: "201 555 8212",
   custom_page: CustomPage.new(hero: "Where every paw finds a home", about: "Alta was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations."),
   external_form_url: "https://docs.google.com/forms/d/e/1FAIpQLSf9bI-kboxyQQB5I1W5pt0R25u9pHoXI7o3jQHKu1P4K-61mA/viewform?embedded=true"
 )
 
 ActsAsTenant.with_tenant(@organization) do
-  @orga_location = Location.create!(
+  @orga_location = @organization.locations.create!(
     country: "US",
     province_state: "NY",
     city_town: "AltaCity",
