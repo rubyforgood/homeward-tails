@@ -181,6 +181,19 @@ ActsAsTenant.with_tenant(@organization) do
     end
   end
 
+  FormSubmission.all.each do |submission|
+    5.times do
+      FormAnswer.create!(
+        value: JSON.dump(Faker::Lorem.sentence),
+        question_snapshot: Faker::Lorem.question,
+        form_submission: submission,
+        organization: @organization,
+        created_at: submission.created_at,
+        updated_at: submission.created_at
+      )
+    end
+  end
+
   match_application = AdopterApplication.create!(
     pet_id: Pet.first.id,
     form_submission_id: @adopter_one.form_submissions.first.id,

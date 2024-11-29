@@ -48,6 +48,7 @@ en:
   settings: "Settings"
   invite_fosterer: "Invite Fosterer"
   invite_staff: "Invite Staff"
+  form_answers: "Form Answers"
   organization_account_requests:
     new:
       header: Request an Organization Account
