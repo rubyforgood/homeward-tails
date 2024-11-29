@@ -70,6 +70,11 @@ crumb :applications do |foster|
   link "Applications", staff_adoption_application_reviews_path
 end
 
+crumb :dashboard_applications do |application|
+  link application.person.full_name, staff_adoption_application_reviews_path(application)
+  parent :applications
+end
+
 crumb :new_feedback do |foster|
   link "New Feedback", feedback_index_path
 end
