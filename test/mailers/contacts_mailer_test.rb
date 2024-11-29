@@ -8,9 +8,6 @@ class ContactsMailerTest < ActionMailer::TestCase
     default_email = "default@email.com"
     contact_email = "contact@email.com"
 
-    MultiTenantService.any_instance.stubs(:default_email).returns(default_email)
-    MultiTenantService.any_instance.stubs(:contact_email).returns(contact_email)
-
     assert_emails 1 do
       @contact_email = ContactsMailer.with(name: sender.first_name,
         email: sender.email,

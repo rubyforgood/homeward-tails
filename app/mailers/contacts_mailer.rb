@@ -5,10 +5,9 @@ class ContactsMailer < ApplicationMailer
     @message = params[:message]
     @url = root_url
     @org_name = tenant_org
-    multi_tenant_service = MultiTenantService.new(tenant_org)
 
-    mail(from: multi_tenant_service.default_email,
-      to: multi_tenant_service.contact_email,
+    mail(from: Rails.application.config.from_email,
+      to: Rails.application.config.from_email,
       subject: "New Message via Website")
   end
 end

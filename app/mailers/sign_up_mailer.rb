@@ -3,7 +3,7 @@ class SignUpMailer < ApplicationMailer
     @user = params[:user]
     @home_url = "https://www.bajapetrescue.com"
     @faq_url = "https://www.bajapetrescue.com/faq"
-    mail(from: MultiTenantService.new(tenant_org).default_email,
+    mail(from: Rails.application.config.from_email,
       to: @user.email,
       subject: "Welcome to Baja Pet Rescue")
   end
@@ -12,7 +12,7 @@ class SignUpMailer < ApplicationMailer
     @user = params[:user]
     @home_url = "https://www.bajapetrescue.com"
     @faq_url = "https://www.bajapetrescue.com/faq"
-    mail(from: MultiTenantService.new(tenant_org).default_email,
+    mail(from: Rails.application.config.from_email,
       to: @user.email,
       subject: "Welcome to Baja Pet Rescue")
   end
@@ -21,7 +21,7 @@ class SignUpMailer < ApplicationMailer
     @home_url = "https://www.bajapetrescue.com"
     @faq_url = "https://www.bajapetrescue.com/faq"
     @user = params[:user]
-    mail(from: MultiTenantService.new(tenant_org).default_email,
+    mail(from: Rails.application.config.from_email,
       to: "wcrwater@gmail.com",
       subject: "New Staff Account")
   end
