@@ -57,13 +57,12 @@ class Organizations::CreateService
   end
 
   def create_location(country, city_town, province_state)
-    ActsAsTenant.with_tenant(@organization) do
-      @organization.locations.create!(
-        country: country,
-        city_town: city_town,
-        province_state: province_state
-      )
-    end
+    Location.create!(
+      country: country,
+      city_town: city_town,
+      province_state: province_state,
+      locatable: @organization
+    )
   end
 
   def create_user(email, first_name, last_name)
