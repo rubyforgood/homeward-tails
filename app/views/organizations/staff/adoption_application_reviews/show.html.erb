@@ -4,8 +4,10 @@
     <div class="mb-3 border-bottom pb-2">
       <div class="d-flex justify-content-between align-items-center">
         <div>
-          <span class="fw-bold me-1"><%= @application.person.full_name %></span>
-          <span class="text-muted">(<%= @application.person.email %>)</span>
+          <span class="fw-bold"><%= @application.person.full_name %></span>
+          <div>
+            <%= mail_to @application.person.email, @application.person.email, class: "link-underline link-underline-opacity-0" %>
+          </div>
         </div>
       </div>
     </div>
