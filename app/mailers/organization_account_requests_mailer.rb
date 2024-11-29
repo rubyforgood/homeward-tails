@@ -8,8 +8,8 @@ class OrganizationAccountRequestsMailer < ApplicationMailer
     @city_town = params[:city_town]
     @province_state = params[:province_state]
 
-    mail(from: "default@petrescue.org",
-      to: "devs@email.com",
+    mail(from: Rails.application.config.from_email,
+      to: Rails.application.config.from_email,
       subject: "New Organization Account Request")
   end
 end
