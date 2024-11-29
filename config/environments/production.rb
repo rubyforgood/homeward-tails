@@ -101,6 +101,4 @@ Rails.application.configure do
     default: {baja: "bajapetrescue@gmail.com"},
     contact: {baja: "bajapetrescue+contact@gmail.com"}
   }
-
-  config.hosts = ["homewardtails.org", "www.homewardtails.org"]
 end
