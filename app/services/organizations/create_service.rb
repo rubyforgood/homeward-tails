@@ -28,6 +28,11 @@ class Organizations::CreateService
         args[:organization][:slug],
         args[:organization][:email]
       )
+      create_location(
+        args[:location][:country],
+        args[:location][:city_town],
+        args[:location][:province_state]
+      )
       create_user(
         args[:user][:email],
         args[:user][:first_name],
@@ -48,6 +53,15 @@ class Organizations::CreateService
       name: name,
       slug: slug,
       email: email
+    )
+  end
+
+  def create_location(country, city_town, province_state)
+    Location.create!(
+      country: country,
+      city_town: city_town,
+      province_state: province_state,
+      locatable: @organization
     )
   end
 
