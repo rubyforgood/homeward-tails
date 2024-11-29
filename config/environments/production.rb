@@ -97,8 +97,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.email_from = {
-    default: {baja: "bajapetrescue@gmail.com"},
-    contact: {baja: "bajapetrescue+contact@gmail.com"}
-  }
+  config.from_email = Rails.application.credentials.homeward_tails_email_address
 end

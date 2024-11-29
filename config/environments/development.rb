@@ -75,10 +75,5 @@ Rails.application.configure do
   # Devise config
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
-  alta_from_domain = "alta.localhost"
-  rubyforgood_from_domain = "rubyforgood.localhost"
-  config.email_from = {
-    default: {alta: "hello@#{alta_from_domain}", rubyforgood: "hello@#{rubyforgood_from_domain}"},
-    contact: {alta: "contact@#{alta_from_domain}", rubyforgood: "contact@#{rubyforgood_from_domain}"}
-  }
+  config.from_email = "test@email.com"
 end
