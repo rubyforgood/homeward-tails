@@ -66,66 +66,56 @@
 </section>
 
 <!--//? how to apply section ?//-->
-<section id="how-to-apply">
-  <div class="container">
-
+<section class="pt-5 pb-5" id="how-to-apply">
+  <div class="container mb-md-5 mt-md-5">
     <!--//? section header -->
-    <div class="d-flex justify-content-start mb-2">
+    <div class="text-center mb-5">
       <h2 class="section-heading text-uppercase text-xl">
         <%= t('.how_to_apply') %>
       </h2>
     </div>
-
     <!--//? cards section - info (not bootstrap card)  -->
-    <div class="d-flex flex-wrap justify-content-around align-items-center px-4">
-
-      <ol class="d-flex flex-row justify-content-around align-items-start w-100 gap-4" style="list-style-position: inside;">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <div class="mb-3">
-            <%= image_tag('paw-account.svg', width: '150', alt: "Create an account") %>
-          </div>
-          <div>
-            <li class="text-black">
-              <%= t('.create_account') %>
-            </li>
-          </div>
+    <div class="row justify-content-center text-center row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4">
+      <div class="col">
+        <div class="h-100 mt-4 mt-lg-0">
+          <%= image_tag('paw-account.svg', class: 'w-50 px-4 px-lg-0',
+          style: "object-fit: cover;", alt: "Create an account") %>
+          <p class="card-text text-black fs-5 mt-2">
+            <%= t('.create_account') %>
+          </p>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <div class="mb-3">
-            <%= image_tag('paw-profile.svg', width: '150', alt: "Complete questionnaire") %>
-          </div>
-          <div>
-            <li class="text-black">
-              <%= t('.complete_questionaire') %>
-            </li>
-          </div>
+      </div>
+      <div class="col">
+        <div class="h-100 mt-4 mt-lg-0">
+          <%= image_tag('paw-profile.svg', class: 'w-50 px-4 px-lg-0',
+          style: "object-fit: cover;", alt: "Complete questionnaire") %>
+          <p class="card-text text-black fs-5 mt-2">
+            <%= t('.complete_questionaire') %>
+          </p>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <div class="mb-3">
-            <%= image_tag('paw-browse.svg', width: '150', alt: "Browse the pets") %>
-          </div>
-          <div>
-            <li class="text-black">
-              <%= t('.browse_pets') %>
-            </li>
-          </div>
+      </div>
+      <div class="col">
+        <div class="h-100 mt-4 mt-lg-0">
+          <%= image_tag('paw-account.svg', class: 'w-50 px-4 px-lg-0',
+          style: "object-fit: cover;", alt: "Browse pets") %>
+          <p class="card-text text-black fs-5 mt-2">
+            <%= t('.browse_pets') %>
+          </p>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <div class="mb-3">
-            <%= image_tag('paw-click.svg', width: '150', alt: "Click apply") %>
-          </div>
-          <div>
-            <li class="text-black">
-              <%= t('.click_apply') %>
-            </li>
-          </div>
+      </div>
+      <div class="col">
+        <div class="h-100 mt-4 mt-lg-0">
+          <%= image_tag('paw-account.svg', class: 'w-50 px-4 px-lg-0',
+          style: "object-fit: cover;", alt: "Click apply") %>
+          <p class="card-text text-black fs-5 mt-2">
+            <%= t('.click_apply') %>
+          </p>
         </div>
-
-      </ol>
+      </div>
     </div>
-
   </div>
 </section>
+
 
 <!-- ABOUT US-->
 <section class="bg-light pt-5 pb-5" id="about_us">
