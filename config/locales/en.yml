@@ -350,6 +350,7 @@ en:
           withdrawn: Withdrawn
           successful_applicant: Successful Applicant
           adoption_made: Adoption Made
+          awaiting_data: Awaiting Data
       default_pet_task:
         species:
           one: "Species"
