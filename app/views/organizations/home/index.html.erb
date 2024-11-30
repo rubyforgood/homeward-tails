@@ -149,7 +149,7 @@
       </div>
       <div class="col-lg-4 px-4 order-last order-lg-0">
         <p class='justify bigger'>
-          <%= Current.organization.custom_page&.about || "#{Current.organization.name} was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations." %>
+          <%= simple_format(Current.organization.custom_page&.about) || "#{Current.organization.name} was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations." %>
         </p>
       </div>
       <div class="col-lg-4 col-md-6 d-none d-md-block mb-4 mb-lg-0">
