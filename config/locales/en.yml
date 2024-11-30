@@ -374,10 +374,10 @@ en:
         adopt: "Adopt"
         become_adopter_now: "Become an adopter now!"
         how_to_apply: "How to apply for adoption"
-        create_account: "Create Account"
-        complete_questionaire: "Complete Questionnaire"
-        browse_pets: "Browse Pets"
-        click_apply: "Click Apply"
+        create_account: "1. Create Account"
+        complete_questionaire: "2. Complete Questionnaire"
+        browse_pets: "3. Browse Pets"
+        click_apply: "4. Click Apply"
     adoptable_pets:
       index:
         header: "Up for adoption"
