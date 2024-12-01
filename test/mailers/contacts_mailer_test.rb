@@ -5,8 +5,8 @@ class ContactsMailerTest < ActionMailer::TestCase
     org_name = ActsAsTenant.current_tenant.slug
     sender = create(:user)
     message = "this is a test message"
-    default_email = "default@email.com"
-    contact_email = "contact@email.com"
+    default_email = "test@email.com"
+    contact_email = "test@email.com"
 
     assert_emails 1 do
       @contact_email = ContactsMailer.with(name: sender.first_name,

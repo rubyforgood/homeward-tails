@@ -1,8 +1,10 @@
 class AdoptionMailer < ApplicationMailer
-  def reminder(match)
+  def new_adoption(match)
     person = match.person
     @pet = match.pet
 
-    mail to: person.email, subject: "#{@pet.name}'s Reminder"
+    mail( from: Rails.application.config.from_email,
+          to: person.email,
+          subject: "#{@pet.name}'s Adoption" )
   end
 end

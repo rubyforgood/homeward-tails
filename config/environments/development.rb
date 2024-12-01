@@ -75,5 +75,5 @@ Rails.application.configure do
   # Devise config
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
-  config.from_email = "test@email.com"
+  config.from_email = "development@email.com"
 end

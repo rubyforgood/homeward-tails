@@ -3,7 +3,7 @@ require "test_helper"
 class AdoptionMailerTest < ActionMailer::TestCase
   test "foster_reminder" do
     foster = create(:match, match_type: :foster, start_date: Date.current, end_date: Date.current + 10.days)
-    email = AdoptionMailer.reminder(foster)
+    email = AdoptionMailer.new_adoption(foster)
 
     assert_emails 1 do
       email.deliver_now
