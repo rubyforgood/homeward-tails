@@ -350,6 +350,7 @@ en:
           withdrawn: Withdrawn
           successful_applicant: Successful Applicant
           adoption_made: Adoption Made
+          awaiting_data: Awaiting Data
       default_pet_task:
         species:
           one: "Species"
@@ -373,10 +374,10 @@ en:
         adopt: "Adopt"
         become_adopter_now: "Become an adopter now!"
         how_to_apply: "How to apply for adoption"
-        create_account: "Create Account"
-        complete_questionaire: "Complete Questionnaire"
-        browse_pets: "Browse Pets"
-        click_apply: "Click Apply"
+        create_account: "1. Create Account"
+        complete_questionaire: "2. Complete Questionnaire"
+        browse_pets: "3. Browse Pets"
+        click_apply: "4. Click Apply"
     adoptable_pets:
       index:
         header: "Up for adoption"
@@ -435,6 +436,8 @@ en:
           success: "Adoption reverted & application set to 'Withdrawn'"
           error: "Failed to revert adoption"
       manage_fosters:
+        create:
+          success: "Foster for %{name} successfully created."
         update:
           success: "Foster for %{name} successfully updated."
         destroy:

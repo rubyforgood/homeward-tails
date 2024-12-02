@@ -17,6 +17,7 @@ class Organizations::Staff::ManageFostersController < Organizations::BaseControl
 
     if @foster.save
       FosterMailer.new_foster(@foster).deliver_now
+      flash[:success] = t(".success", name: @foster.pet.name)
       redirect_to action: :index
     else
       @pets = Pet.fosterable.order(:name)

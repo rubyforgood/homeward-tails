@@ -61,7 +61,7 @@ class PersonTest < ActiveSupport::TestCase
       should "error if the avatar is not an image" do
         file = load_file("blank.pdf")
 
-        subject.avatar.attach(io: file, filename: "test.png")
+        subject.avatar.attach(io: file, filename: "blank.pdf")
 
         refute subject.valid?
         assert_includes subject.errors[:avatar], "must be PNG or JPEG"
