@@ -8,7 +8,7 @@
 
     <p>We are thrilled to inform you that you have been assigned a new foster pet! Thank you for opening your heart and home to <%= @pet.name %>. Your dedication and support make a significant difference in the lives of the animals we care for.</p>
 
-    <p>To view <%= @pet.name %>'s tasks and paperwork, please go to <#LINK TO adopter_fosterer_adopted_pets_URL></p>
+    <p>To view <%= @pet.name %>'s tasks and downloadable files, please go to your <%= link_to "Fostered Pets", adopter_fosterer_fostered_pets_url(script_name: "/#{@organization.slug}"), target: "_blank" %> page.</p>
 
     <p>Have a great day!</p>
   </body>

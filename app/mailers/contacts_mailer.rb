@@ -2,10 +2,11 @@
 
 class ContactsMailer < ApplicationMailer
   def send_message(current_tenant)
+    @organization = current_tenant
     @name = params[:name]
     @email = params[:email]
     @message = params[:message]
 
-    mail(to: current_tenant.email, subject: "New Message via Website")
+    mail(to: @organization.email, subject: "New message via Homeward Tails")
   end
 end

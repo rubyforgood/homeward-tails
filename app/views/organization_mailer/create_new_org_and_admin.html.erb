@@ -7,7 +7,7 @@
     <h1><%= @user.first_name %>, thank you for registering <%= @organization.name %> with Homeward Tails</h1>
     
     <p>
-      You can access your site at URL: <a href="https://www.homewardtails.org/<%= @organization.slug %>">https://www.homewardtails.org/<%= @organization.slug %></a>
+      You can access your site at: <%= link_to "#{@app_root_url}#{@organization.slug}", home_index_url(script_name: "/#{@organization.slug}"), target: "_blank" %>
     </p>
 
     <p>
@@ -19,9 +19,13 @@
     </p>
 
     <p>
-      Please change your password after logging in. 
+      Please change your password after logging in.
     </p>
 
-    <strong>- Homeward Tails Team</strong>
+    <p>
+      <%= link_to "Log-in", new_user_session_url(script_name: "/#{@pet.organization.slug}"), target: "_blank" %>
+    </p>
+
+    <strong>Homeward Tails Team</strong>
   </body>
 </html>

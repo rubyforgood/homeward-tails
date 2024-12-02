@@ -1,8 +1,9 @@
 class AdoptionMailer < ApplicationMailer
   def new_adoption(match)
-    person = match.person
+    @organization = match.organization
+    @person = match.person
     @pet = match.pet
 
-    mail(to: person.email, subject: "#{@pet.name}'s Adoption")
+    mail(to: @person.email, subject: "#{@pet.name}'s Adoption")
   end
 end

@@ -6,8 +6,10 @@
   <body>
     <h1>Congrats on <%= @pet.name %>'s adoption!</h1>
 
-    <p>To view <%= @pet.name %>'s tasks and paperwork, please go to <#LINK TO adopter_fosterer_adopted_pets_URL></p>
+    <p>To view <%= @pet.name %>'s tasks and downloadable files, please go to your <%= link_to "Adopted Pets", adopter_fosterer_adopted_pets_url(script_name: "/#{@organization.slug}"), target: "_blank" %> page.</p>
 
     <p>Have a great day!</p>
+
+    <strong>- <%= @organization.name %> Team</strong>
   </body>
 </html>

@@ -6,7 +6,7 @@ class StaffApplicationNotificationMailer < ApplicationMailer
     if @organization_staff.any?
       emails = @organization_staff.collect(&:email).join(",")
 
-      mail(to: emails, subject: "New Adoption Application")
+      mail(to: emails, subject: "New Adoption Application for #{@pet.name}")
     end
   end
 end
