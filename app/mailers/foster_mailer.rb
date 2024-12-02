@@ -1,5 +1,6 @@
 class FosterMailer < ApplicationMailer
   def new_foster(foster)
+    @organization = foster.organization
     @person = foster.person
     @pet = foster.pet
 
