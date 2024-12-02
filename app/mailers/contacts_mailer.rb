@@ -6,8 +6,6 @@ class ContactsMailer < ApplicationMailer
     @email = params[:email]
     @message = params[:message]
 
-    mail(from: Rails.application.config.from_email,
-      to: current_tenant.email,
-      subject: "New Message via Website")
+    mail(to: current_tenant.email, subject: "New Message via Website")
   end
 end

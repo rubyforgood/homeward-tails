@@ -20,8 +20,8 @@
     <p>Check out the <a href=<%= @faq_url %>>FAQ page</a>.</p>
     <p>Again, thank you for signing up! People like you help these pets live their best life.</p>
 
-    <strong>- Baja Pet Rescue Team</strong>
+    <strong>- <%= @organization.name %> Team</strong>
     <br>
-    <a href='https://www.bajapetrescue.com'>www.homewardtails.org</a>
+    <a href=<% @org_root %>>www.homewardtails.org/<%= @organization.slug %></a>
   </body>
 </html>
