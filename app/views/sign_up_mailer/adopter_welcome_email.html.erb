@@ -23,5 +23,7 @@
     <strong>- <%= @organization.name %> Team</strong>
     <br>
     <a href=<% @org_root %>>www.homewardtails.org/<%= @organization.slug %></a>
+    <br>
+    <strong>Please do not reply directly to this email. You must contact <%= @organization.name %> directly at <a href="mailto:<%= @organization.email %>"><%= @organization.email %></a></strong>
   </body>
 </html>

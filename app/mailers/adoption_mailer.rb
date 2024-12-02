@@ -4,6 +4,6 @@ class AdoptionMailer < ApplicationMailer
     @person = match.person
     @pet = match.pet
 
-    mail(to: @person.email, subject: "#{@pet.name}'s Adoption")
+    mail(to: @person.email, subject: "No reply: #{@pet.name}'s Adoption")
   end
 end
