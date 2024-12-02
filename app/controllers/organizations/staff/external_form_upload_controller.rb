@@ -13,6 +13,7 @@ module Organizations
         authorize! :external_form_upload, context: {organization: Current.organization}
 
         # Only processes single file upload
+        # This throws an error when we try to upload a non-CSV file.
         import = Organizations::Importers::GoogleCsvImportService.new(params[:files]).call
 
         if import.success?
