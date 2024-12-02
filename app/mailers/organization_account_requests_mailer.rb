@@ -11,7 +11,7 @@ class OrganizationAccountRequestsMailer < ApplicationMailer
     @province_state = params[:province_state]
 
     mail(from: Rails.application.config.from_email,
-         to: Rails.application.config.from_email,
-         subject: "New Organization Account Request")
+      to: Rails.application.config.from_email,
+      subject: "New Organization Account Request")
   end
 end

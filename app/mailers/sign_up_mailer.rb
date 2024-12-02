@@ -6,7 +6,7 @@ class SignUpMailer < ApplicationMailer
     @faq_url = "https://www.homewardtails.org/#{@organization.slug}/faq"
 
     mail(from: Rails.application.config.from_email,
-         to: @user.email,
-         subject: "Welcome to #{@organization.name}")
+      to: @user.email,
+      subject: "Welcome to #{@organization.name}")
   end
 end

@@ -7,8 +7,8 @@ class StaffApplicationNotificationMailer < ApplicationMailer
       emails = @organization_staff.collect(&:email).join(",")
 
       mail(from: Rails.application.config.from_email,
-           to: emails,
-           subject: "New Adoption Application")
+        to: emails,
+        subject: "New Adoption Application")
     end
   end
 end

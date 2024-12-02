@@ -8,7 +8,7 @@ class FeedbackMailer < ApplicationMailer
     @message = params[:message]
 
     mail(from: Rails.application.config.from_email,
-         to: Rails.application.config.from_email,
-         subject: @subject)
+      to: Rails.application.config.from_email,
+      subject: @subject)
   end
 end

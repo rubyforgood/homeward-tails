@@ -6,7 +6,7 @@ class OrganizationMailer < ApplicationMailer
     @user = params[:user]
 
     mail(from: Rails.application.config.from_email,
-         to: @user.email,
-         subject: "Welcome to Homeward Tails")
+      to: @user.email,
+      subject: "Welcome to Homeward Tails")
   end
 end

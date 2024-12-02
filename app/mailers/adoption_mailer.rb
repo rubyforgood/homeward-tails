@@ -3,8 +3,8 @@ class AdoptionMailer < ApplicationMailer
     person = match.person
     @pet = match.pet
 
-    mail( from: Rails.application.config.from_email,
-          to: person.email,
-          subject: "#{@pet.name}'s Adoption" )
+    mail(from: Rails.application.config.from_email,
+      to: person.email,
+      subject: "#{@pet.name}'s Adoption")
   end
 end
