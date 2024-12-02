@@ -436,6 +436,8 @@ en:
           success: "Adoption reverted & application set to 'Withdrawn'"
           error: "Failed to revert adoption"
       manage_fosters:
+        create:
+          success: "Foster for %{name} successfully created."
         update:
           success: "Foster for %{name} successfully updated."
         destroy:
