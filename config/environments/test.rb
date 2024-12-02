@@ -66,6 +66,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
   config.from_email = "test@email.com"
+  config.app_url = "http://localhost:3000/"
 
   # Handle ActsAsTenant.test_tenant properly in request specs
   config.middleware.use ActsAsTenant::TestTenantMiddleware

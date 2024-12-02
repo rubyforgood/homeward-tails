@@ -67,8 +67,8 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # devise mailer (e.g. reset password)
-  config.action_mailer.default_url_options = {host: "https://www.bajapetrescue.com/"}
-  config.action_mailer.default_options = {from: "bajapetrescue@gmail.com"}
+  config.action_mailer.default_url_options = {host: "https://www.homewardtails.org/"}
+  config.action_mailer.default_options = {from: "homewardtails@gmail.com"}
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -98,4 +98,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.from_email = Rails.application.credentials.homeward_tails_email_address
+  config.app_url = "https://www.homewardtails.org"
 end
