@@ -1,8 +1,10 @@
 class FosterMailer < ApplicationMailer
-  def reminder(foster)
+  def new_foster(foster)
     person = foster.person
     @pet = foster.pet
 
-    mail to: person.email, subject: "#{@pet.name}'s Reminder"
+    mail(from: Rails.application.config.from_email,
+         to: person.email,
+         subject: "#{@pet.name}'s Foster" )
   end
 end

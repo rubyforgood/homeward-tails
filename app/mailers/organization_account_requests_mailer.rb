@@ -1,5 +1,7 @@
+# Sends mail to app developers when someone submits the organization account request form.
+
 class OrganizationAccountRequestsMailer < ApplicationMailer
-  def create_new_organization_account_request
+  def new_organization_account_request
     @organization_name = params[:name]
     @requester_name = params[:requester_name]
     @organization_phone = params[:phone_number]
@@ -9,7 +11,7 @@ class OrganizationAccountRequestsMailer < ApplicationMailer
     @province_state = params[:province_state]
 
     mail(from: Rails.application.config.from_email,
-      to: Rails.application.config.from_email,
-      subject: "New Organization Account Request")
+         to: Rails.application.config.from_email,
+         subject: "New Organization Account Request")
   end
 end

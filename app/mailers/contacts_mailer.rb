@@ -1,13 +1,13 @@
+# Sends mail to an organization's email address when someone submits the contact form.
+
 class ContactsMailer < ApplicationMailer
-  def send_message(tenant_org)
+  def send_message(current_tenant)
     @name = params[:name]
     @email = params[:email]
     @message = params[:message]
-    @url = root_url
-    @org_name = tenant_org
 
     mail(from: Rails.application.config.from_email,
-      to: Rails.application.config.from_email,
+      to: current_tenant.email,
       subject: "New Message via Website")
   end
 end

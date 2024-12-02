@@ -1,5 +1,7 @@
+# Sends mail to the app developers when someone submits a feedback form.
+
 class FeedbackMailer < ApplicationMailer
-  def send_message
+  def send_feedback
     @name = params[:name]
     @email = params[:email]
     @subject = params[:subject]
