@@ -72,10 +72,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :countries, only: [] do
-    resources :states, only: [:index]
-  end
-
   #
   # [edwin] - routes cause failures if you cannot find an asset because it matches
   # for all 404s, 422s, and 500s
