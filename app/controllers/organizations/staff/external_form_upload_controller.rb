@@ -12,14 +12,15 @@ module Organizations
       def create
         authorize! :external_form_upload, context: {organization: Current.organization}
 
+        # TODO: Handle when we try to upload a non-CSV file.
+
         # Only processes single file upload
-        # This throws an error when we try to upload a non-CSV file.
         import = Organizations::Importers::GoogleCsvImportService.new(params[:files]).call
 
         if import.success?
-          # do something
+          render turbo_stream: turbo_stream.update("success", partial: "organizations/staff/external_form_upload/success_message", locals: { errors: "test" })
         else
-          # import.errors
+          render turbo_stream: turbo_stream.update("errors", partial: "organizations/staff/external_form_upload/error_message", locals: { errors: "test" })
         end
       end
     end
