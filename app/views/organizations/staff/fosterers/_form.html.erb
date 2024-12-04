@@ -53,19 +53,14 @@
             <%= f.fields_for :location, fosterer.location do |location_form| %>
               <!-- Country Select -->
               <%= location_form.select :country,
-                                   CS.countries.invert,
+                                   "",
                                    { prompt: "", selected: default_country },
-                                   "data-path": country_states_path(:country),
-                                   "data-country-state-target": "country",
-                                   "data-action": "change->country-state#updateStates",
-                                   "data-initial-value": location_form.object.country,
                                    required: false,
                                    class: "form-control" %>
               <!-- Province/State Select -->
               <%= location_form.select :province_state,
-                                   CS.states(location_form.object.country).invert,
+                                   "",
                                    { prompt: "" },
-                                   "data-country-state-target": "state",
                                    required: false,
                                    class: "form-control" %>
               <!-- City/Town Text Field -->

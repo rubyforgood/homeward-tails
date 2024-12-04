@@ -67,9 +67,8 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <%= form.select :country,
-                                  CS.countries.invert,
+                                  "",
                                   { prompt: "Please select" },
-                                  data: { path: country_states_path(:country) },
                                   required: true,
                                   class: 'form-control'
                   %>

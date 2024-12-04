@@ -89,9 +89,6 @@ gem "active_link_to"
 # needed for pagination
 gem "pagy"
 
-# Adds location data for cities and states around the world
-gem "city-state", "~> 1.1.0"
-
 # Adds a simple way to fetch with Javascript
 gem "requestjs-rails", "~> 0.0.12"
 
