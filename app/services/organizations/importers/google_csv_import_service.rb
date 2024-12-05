@@ -55,7 +55,10 @@ module Organizations
 
       def validate_file
         raise FileTypeError unless @file.content_type == "text/csv"
-        raise EmailColumnError unless CSV.foreach(@file.to_path).first.include?("Email")
+
+        first_row = CSV.foreach(@file.to_path).first
+        raise EmailColumnError if first_row.nil?
+        raise EmailColumnError unless first_row.include?("Email")
       rescue EmailColumnError, FileTypeError => e
         @errors << e
         throw :halt_import
