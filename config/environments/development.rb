@@ -37,7 +37,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # per letter-opener gem config to set delivery method
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
 
   # Don't care if the mailer can't send.
@@ -75,10 +75,6 @@ Rails.application.configure do
   # Devise config
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
-  alta_from_domain = "alta.localhost"
-  rubyforgood_from_domain = "rubyforgood.localhost"
-  config.email_from = {
-    default: {alta: "hello@#{alta_from_domain}", rubyforgood: "hello@#{rubyforgood_from_domain}"},
-    contact: {alta: "contact@#{alta_from_domain}", rubyforgood: "contact@#{rubyforgood_from_domain}"}
-  }
+  config.from_email = "development@email.com"
+  config.app_url = "http://localhost:3000/"
 end

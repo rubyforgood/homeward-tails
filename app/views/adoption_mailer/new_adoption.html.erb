@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congrats on <%= @pet.name %>'s adoption!</h1>
+
+    <p>To view <%= @pet.name %>'s tasks and downloadable files, please go to your <%= link_to "Adopted Pets", adopter_fosterer_adopted_pets_url(script_name: "/#{@organization.slug}"), target: "_blank" %> page.</p>
+
+    <p>Have a great day!</p>
+
+    <strong>Please do not reply directly to this email. You must contact <%= @organization.name %> directly at <a href="mailto:<%= @organization.email %>"><%= @organization.email %></a></strong>
+  </body>
+</html>

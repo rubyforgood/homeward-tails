@@ -158,7 +158,7 @@ group :development do
   # gem "spring"
 
   # view emails in browser in dev
-  gem "letter_opener", group: :development
+  gem "letter_opener_web", "~> 3.0"
 
   # better errors and guard gems
   gem "better_errors", "~> 2.9", ">= 2.9.1"

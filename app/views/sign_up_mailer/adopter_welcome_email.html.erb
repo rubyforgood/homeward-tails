@@ -4,16 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <h1><%= @user.first_name %>, thank you for signing up with Baja Pet Rescue!</h1>
-    
-    <p>
-      We are a grassroots organization helping to rehome pets from Baja, Mexico to Canada/USA.
-      Now that you have registered as an adopter, getting your adoption application 
-      in is a straightforward process:
-    </p>
+      <h1><%= @user.first_name %>, thank you for signing up with <%= @organization.name %></h1>
+
+      <p>Please complete the following steps if you would like to adopt a pet.</p>
 
     <ol>
-      <li>Complete your profile</li>
+      <li>Complete the adopter questionnaire</li>
       <li>Browse available pets and find one that is a good fit for you</li>
       <li>Click on the 'Apply' button on your favourite pet's page</li>
       <li>Check the Applications page for a summary of your applications</li>
@@ -21,11 +17,13 @@
     </ol>
 
     <strong>Still have questions?</strong>
-    <p>Check out the <a href=<%= @faq_url %>>FAQ page</a>.</p>
+    <p>Check out the <%= link_to "FAQ page", faq_index_url(script_name: "/#{@organization.slug}"), target: "_blank" %>.</p>
     <p>Again, thank you for signing up! People like you help these pets live their best life.</p>
 
-    <strong>- Baja Pet Rescue Team</strong>
+    <strong>- <%= @organization.name %> Team</strong>
     <br>
-    <a href='https://www.bajapetrescue.com'>www.bajapetrescue.com</a>
+    <a href=<% @org_root %>>www.homewardtails.org/<%= @organization.slug %></a>
+    <br>
+    <strong>Please do not reply directly to this email. You must contact <%= @organization.name %> directly at <a href="mailto:<%= @organization.email %>"><%= @organization.email %></a></strong>
   </body>
 </html>

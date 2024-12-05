@@ -1,14 +1,12 @@
+# Sends mail to an organization's email address when someone submits the contact form.
+
 class ContactsMailer < ApplicationMailer
-  def send_message(tenant_org)
+  def send_message(current_tenant)
+    @organization = current_tenant
     @name = params[:name]
     @email = params[:email]
     @message = params[:message]
-    @url = root_url
-    @org_name = tenant_org
-    multi_tenant_service = MultiTenantService.new(tenant_org)
 
-    mail(from: multi_tenant_service.default_email,
-      to: multi_tenant_service.contact_email,
-      subject: "New Message via Website")
+    mail(to: @organization.email, subject: "New message via Homeward Tails")
   end
 end

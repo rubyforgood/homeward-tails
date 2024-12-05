@@ -1,8 +1,9 @@
 class AdoptionMailer < ApplicationMailer
-  def reminder(match)
-    person = match.person
+  def new_adoption(match)
+    @organization = match.organization
+    @person = match.person
     @pet = match.pet
 
-    mail to: person.email, subject: "#{@pet.name}'s Reminder"
+    mail(to: @person.email, subject: "No reply: #{@pet.name}'s Adoption")
   end
 end

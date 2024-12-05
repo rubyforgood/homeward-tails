@@ -101,6 +101,9 @@ Staff
 - email: `staff@alta.com`
 - password: `123456`
 
+### Viewing Mail
+Go to `http://localhost:3000/letters` to view mail in development.
+
 
 # 🧪 Running Tests
 

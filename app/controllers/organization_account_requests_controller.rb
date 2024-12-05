@@ -11,7 +11,7 @@ class OrganizationAccountRequestsController < ApplicationController
 
     if @organization_account_request.valid?
       OrganizationAccountRequestsMailer.with(organization_account_request_params)
-        .create_new_organization_account_request.deliver_now
+        .new_organization_account_request.deliver_now
 
       redirect_to root_path, notice: I18n.t("contacts.create.success")
     else
