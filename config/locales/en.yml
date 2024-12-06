@@ -464,7 +464,7 @@ en:
           help_due_in_days: "The task will be due this number of days after the pet is created."
         index:
           name: "Name"
-          name_placeholder: "Enter Pet Name"
+          name_placeholder: "Enter task name"
           description: "Description"
           species: "Species"
           species_placeholder: "Select Species"
