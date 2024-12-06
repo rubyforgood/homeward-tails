@@ -18,7 +18,6 @@ module Organizations
 
           CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(1) do |row, index|
             # Using Google Form headers
-            debugger
             email = row[@email_header].downcase
             csv_timestamp = Time.parse(row["Timestamp"])
 
