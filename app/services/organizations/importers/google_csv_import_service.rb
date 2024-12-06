@@ -18,7 +18,8 @@ module Organizations
 
           CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(1) do |row, index|
             # Using Google Form headers
-            email = row["Email"].downcase
+            debugger
+            email = row[@email_header].downcase
             csv_timestamp = Time.parse(row["Timestamp"])
 
             person = Person.find_by(email:, organization: @organization)
@@ -55,10 +56,15 @@ module Organizations
 
       def validate_file
         raise FileTypeError unless @file.content_type == "text/csv"
-        first_row = CSV.foreach(@file.to_path).first
 
+        first_row = CSV.foreach(@file.to_path).first
         raise FileEmptyError if first_row.nil?
-        raise EmailColumnError unless first_row.include?("Email")
+
+        email_headers = ["Email", "email", "Email Address", "email address"]
+        email_headers.each do |e|
+          @email_header = e if first_row.include?(e)
+        end
+        raise EmailColumnError unless @email_header
       rescue EmailColumnError, FileTypeError, FileEmptyError => e
         @errors << e
         throw :halt_import

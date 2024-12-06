@@ -121,18 +121,18 @@ module Organizations
       assert_equal "Invalid File Type: File type must be CSV", import.errors.first.message
     end
 
-    should "validate empty header" do
+    should "validate empty file" do
       file = Tempfile.new(["test", ".csv"])
       file.stubs(:content_type).returns("text/csv")
       import = Organizations::Importers::GoogleCsvImportService.new(file).call
 
-      assert_equal 'The column header "Email" was not found in the attached csv', import.errors.first.message
+      assert_equal "File is empty", import.errors.first.message
     end
 
     should "validate email header" do
       file = Tempfile.new(["test", ".csv"])
       headers = ["Timestamp", "First name", "Last name", "Address", "Phone number", *Faker::Lorem.questions]
-      CSV.open(@file.path, "wb") do |csv|
+      CSV.open(file.path, "wb") do |csv|
         csv << headers
       end
       file.stubs(:content_type).returns("text/csv")
