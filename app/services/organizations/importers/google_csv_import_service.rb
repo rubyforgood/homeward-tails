@@ -59,12 +59,14 @@ module Organizations
         first_row = CSV.foreach(@file.to_path).first
         raise FileEmptyError if first_row.nil?
 
+        raise TimestampColumnError unless first_row.include?("Timestamp")
+
         email_headers = ["Email", "email", "Email Address", "email address"]
         email_headers.each do |e|
           @email_header = e if first_row.include?(e)
         end
         raise EmailColumnError unless @email_header
-      rescue EmailColumnError, FileTypeError, FileEmptyError => e
+      rescue FileTypeError, FileEmptyError, TimestampColumnError, EmailColumnError => e
         @errors << e
         throw :halt_import
       end
@@ -85,6 +87,12 @@ module Organizations
       class EmailColumnError < StandardError
         def message
           'The column header "Email" was not found in the attached csv'
+        end
+      end
+
+      class TimestampColumnError < StandardError
+        def message
+          'The column header "Timestamp" was not found in the attached csv'
         end
       end
 

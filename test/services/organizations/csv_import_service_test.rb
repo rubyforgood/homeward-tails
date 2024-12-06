@@ -140,5 +140,17 @@ module Organizations
 
       assert_equal 'The column header "Email" was not found in the attached csv', import.errors.first.message
     end
+
+    should "validate Timestamp header" do
+      file = Tempfile.new(["test", ".csv"])
+      headers = ["Email", "First name", "Last name", "Address", "Phone number", *Faker::Lorem.questions]
+      CSV.open(file.path, "wb") do |csv|
+        csv << headers
+      end
+      file.stubs(:content_type).returns("text/csv")
+      import = Organizations::Importers::GoogleCsvImportService.new(file).call
+
+      assert_equal 'The column header "Timestamp" was not found in the attached csv', import.errors.first.message
+    end
   end
 end
