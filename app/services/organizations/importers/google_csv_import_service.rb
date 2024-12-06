@@ -13,6 +13,7 @@ module Organizations
       end
 
       def call
+        # Validate that file is in CSV format before we read from it.
         CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(1) do |row, index|
           # Using Google Form headers
           email = row["Email"].downcase
