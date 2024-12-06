@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Congrats on becoming <%= @pet.name %>'s foster parent!</h1>
+
+    <p>We are thrilled to inform you that you have been assigned a new foster pet! Thank you for opening your heart and home to <%= @pet.name %>. Your dedication and support make a significant difference in the lives of the animals we care for.</p>
+
+    <h4>Foster Start Date: <%= @foster.start_date.strftime("%Y-%m-%d") %></h4>
+    <h4>Foster End Date: <%= @foster.end_date.strftime("%Y-%m-%d") %></h4>
+
+    <p>To view <%= @pet.name %>'s tasks and downloadable files, please go to your <%= link_to "Fostered Pets", adopter_fosterer_fostered_pets_url(script_name: "/#{@organization.slug}"), target: "_blank" %> page.</p>
+
+    <strong>Please do not reply directly to this email. You must contact <%= @organization.name %> directly at <a href="mailto:<%= @organization.email %>"><%= @organization.email %></a></strong>
+  </body>
+</html>

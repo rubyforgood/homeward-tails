@@ -4,10 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @user.first_name %>, thank you for registering <%= @organization.name %> with Pet Rescue</h1>
+    <h1><%= @user.first_name %>, thank you for registering <%= @organization.name %> with Homeward Tails</h1>
     
     <p>
-      URL: <a href="https://www.petrescue.org/<%= @organization.slug %>">https://www.petrescue.org/<%= @organization.slug %></a>
+      You can access your site at: <%= link_to "#{root_url}#{@organization.slug}", home_index_url(script_name: "/#{@organization.slug}"), target: "_blank" %>
     </p>
 
     <p>
@@ -19,11 +19,13 @@
     </p>
 
     <p>
-      Please change your password after logging in. 
+      Please change your password after logging in.
     </p>
 
-    <p>People like you help these pets live their best life <\3</p>
+    <p>
+      <%= link_to "Log-in", new_user_session_url(script_name: "/#{@organization.slug}"), target: "_blank" %>
+    </p>
 
-    <strong>- Pet Rescue Team</strong>
+    <strong>Homeward Tails Team</strong>
   </body>
 </html>
