@@ -17,7 +17,7 @@
     </ol>
 
     <strong>Still have questions?</strong>
-    <p>Check out the <%= link_to "FAQ page", faq_index_url(script_name: "/#{@organization.slug}"), target: "_blank" %>.</p>
+    <p>Check out the <%= link_to "FAQ page", faq_index_url(script_name: "#{@organization.slug}"), target: "_blank" %>.</p>
     <p>Again, thank you for signing up! People like you help these pets live their best life.</p>
 
     <strong>- <%= @organization.name %> Team</strong>
