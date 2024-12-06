@@ -55,11 +55,11 @@ module Organizations
 
       def validate_file
         raise FileTypeError unless @file.content_type == "text/csv"
-
         first_row = CSV.foreach(@file.to_path).first
-        raise EmailColumnError if first_row.nil?
+
+        raise FileEmptyError if first_row.nil?
         raise EmailColumnError unless first_row.include?("Email")
-      rescue EmailColumnError, FileTypeError => e
+      rescue EmailColumnError, FileTypeError, FileEmptyError => e
         @errors << e
         throw :halt_import
       end
@@ -86,6 +86,12 @@ module Organizations
       class FileTypeError < StandardError
         def message
           "Invalid File Type: File type must be CSV"
+        end
+      end
+
+      class FileEmptyError < StandardError
+        def message
+          "File is empty"
         end
       end
     end
