@@ -48,7 +48,9 @@ class TasksTest < ApplicationSystemTestCase
       check "task_completed"
     end
 
-    assert_text("recurring task", count: 1)
+    find("input#flexSwitchCheckChecked").click # Toggle to show completed tasks.
+
+    assert_text("recurring task", count: 2)
     assert has_current_path?(staff_pet_path(@pet, active_tab: "tasks"))
   end
 
@@ -62,7 +64,9 @@ class TasksTest < ApplicationSystemTestCase
       check "task_completed"
     end
 
-    assert_text("recurring task with due date", count: 1)
+    find("input#flexSwitchCheckChecked").click # Toggle to show completed tasks.
+
+    assert_text("recurring task with due date", count: 2)
     assert has_current_path?(staff_pet_path(@pet, active_tab: "tasks"))
   end
 
