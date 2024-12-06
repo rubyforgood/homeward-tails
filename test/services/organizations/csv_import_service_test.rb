@@ -8,6 +8,8 @@ module Organizations
       Current.organization = adopter.organization
 
       @file = Tempfile.new(["test", ".csv"])
+      @file.stubs(:content_type).returns("text/csv")
+
       headers = ["Timestamp", "First name", "Last name", "Email", "Address", "Phone number", *Faker::Lorem.questions]
 
       @data = [
@@ -109,6 +111,46 @@ module Organizations
 
       refute import.success?
       assert_equal "mon out of range", import.errors[0][1].message
+    end
+
+    should "validate file type" do
+      file = Tempfile.new(["test", ".png"])
+      file.stubs(:content_type).returns("image/png")
+      import = Organizations::Importers::GoogleCsvImportService.new(file).call
+
+      assert_equal "Invalid File Type: File type must be CSV", import.errors.first.message
+    end
+
+    should "validate empty file" do
+      file = Tempfile.new(["test", ".csv"])
+      file.stubs(:content_type).returns("text/csv")
+      import = Organizations::Importers::GoogleCsvImportService.new(file).call
+
+      assert_equal "File is empty", import.errors.first.message
+    end
+
+    should "validate email header" do
+      file = Tempfile.new(["test", ".csv"])
+      headers = ["Timestamp", "First name", "Last name", "Address", "Phone number", *Faker::Lorem.questions]
+      CSV.open(file.path, "wb") do |csv|
+        csv << headers
+      end
+      file.stubs(:content_type).returns("text/csv")
+      import = Organizations::Importers::GoogleCsvImportService.new(file).call
+
+      assert_equal 'The column header "Email" was not found in the attached csv', import.errors.first.message
+    end
+
+    should "validate Timestamp header" do
+      file = Tempfile.new(["test", ".csv"])
+      headers = ["Email", "First name", "Last name", "Address", "Phone number", *Faker::Lorem.questions]
+      CSV.open(file.path, "wb") do |csv|
+        csv << headers
+      end
+      file.stubs(:content_type).returns("text/csv")
+      import = Organizations::Importers::GoogleCsvImportService.new(file).call
+
+      assert_equal 'The column header "Timestamp" was not found in the attached csv', import.errors.first.message
     end
   end
 end
