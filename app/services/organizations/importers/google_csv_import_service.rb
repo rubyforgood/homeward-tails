@@ -73,7 +73,7 @@ module Organizations
 
       def create_form_answers(form_submission, row)
         row.each do |col|
-          next if col[0] == "Email" || col[0] == "Timestamp"
+          next if col[0] == @email_header || col[0] == "Timestamp"
 
           answer = col[1].nil? ? "" : col[1]
           FormAnswer.create!(
