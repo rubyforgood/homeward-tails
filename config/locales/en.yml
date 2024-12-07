@@ -464,7 +464,7 @@ en:
           help_due_in_days: "The task will be due this number of days after the pet is created."
         index:
           name: "Name"
-          name_placeholder: "Enter Pet Name"
+          name_placeholder: "Enter task name"
           description: "Description"
           species: "Species"
           species_placeholder: "Select Species"
@@ -654,7 +654,10 @@ en:
           activated: "%{staff} was activated."
           deactivated: "%{staff} was deactivated."
       external_form_upload:
-        upload_limit_exceed: "Upload limit exceeded: Only one file allowed." 
+        index:
+          description: "If you collect information from adopters from a third party service, like Google Forms, you can export a CSV file from Google Forms and upload it here. We will import the questions and answers for any adopters who have an account on your Homeward Tails website, providing they use the same email address. Then you will be able to see the information for each adopter when reviewing applications."
+          header: "Upload CSV File"
+          csv_header_requirements: "Your CSV file must have column headers of 'Email' and 'Timestamp' for the import to work."
     adopter_fosterer:
       adopter_applications:
         create:
@@ -725,3 +728,5 @@ en:
       faq: "Faq"
       header: "Frequently Asked Questions"
       more_questions: "More Questions? Contact us"
+  attachment_manageable:
+    upload_limit_exceeded: "Upload limit exceeded: Only one file allowed."
