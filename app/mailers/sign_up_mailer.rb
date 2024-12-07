@@ -3,6 +3,6 @@ class SignUpMailer < ApplicationMailer
     @organization = current_tenant
     @user = params[:user]
 
-    mail(to: @user.email, subject: "Welcome to #{@organization.name}")
+    mail(to: @user.email, subject: "No Reply: Welcome to #{@organization.name}")
   end
 end
