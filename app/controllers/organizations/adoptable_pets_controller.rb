@@ -3,10 +3,11 @@ module Organizations
     include ::Pagy::Backend
 
     skip_before_action :authenticate_user!
-    skip_verify_authorized only: %i[index]
+    skip_verify_authorized only: %i[index show]
     before_action :set_likes, only: %i[index show],
       if: -> { allowed_to?(:index?, Like) }
     before_action :set_species, only: %i[index]
+    before_action :set_pet, only: %i[show]
 
     def index
       @q =
@@ -28,7 +29,6 @@ module Organizations
 
     def show
       @adoptable_pet_info = CustomPage.first&.adoptable_pet_info
-      @pet = Pet.find(params[:id])
 
       if current_user&.latest_form_submission
         @adoption_application =
@@ -53,6 +53,12 @@ module Organizations
       @species = params[:species]
 
       redirect_back_or_to root_path if @species.nil?
+    end
+
+    def set_pet
+      @pet = Pet.find(params[:id])
+
+      redirect_back_or_to root_path if @pet.is_adopted? || !@pet.published?
     end
   end
 end
