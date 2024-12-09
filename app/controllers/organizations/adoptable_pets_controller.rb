@@ -16,7 +16,7 @@ module Organizations
         when "cat"
           Pet.Cat.unadopted.published
         end
-      .ransack(params[:q])
+          .ransack(params[:q])
 
       @pagy, paginated_adoptable_pets = pagy(
         @q.result.includes(:adopter_applications, :matches, images_attachments: :blob),

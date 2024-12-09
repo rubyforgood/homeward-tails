@@ -10,7 +10,6 @@ module Organizations
     end
 
     context "#index" do
-
       should "assign only unadopted pets" do
         adopted_pet = create(:pet, :adopted, species: "Dog")
 
@@ -31,6 +30,5 @@ module Organizations
         assert_select(".card li:nth-of-type(5)", text: "Weight range: #{@pet.weight_from}-#{@pet.weight_to} #{@pet.weight_unit}")
       end
     end
-
   end
 end
