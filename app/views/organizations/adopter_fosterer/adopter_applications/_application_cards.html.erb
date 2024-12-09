@@ -2,11 +2,11 @@
 
 <% pet = application.pet %>
 <div class="card card-hover mx-1 my-4 col-sm-5" style='"overflow: hidden'>
-  <%= link_to image_tag(pet.images.attached? ? pet.images.first : 'coming_soon.jpg', class: 'card-img-top pet-card'), adoptable_pet_path(pet) %>
+  <%= link_to_if(link_to_application?(application, current_user), image_tag(pet.images.attached? ? pet.images.first : 'coming_soon.jpg', class: 'card-img-top pet-card'), adoptable_pet_path(pet)) %>
   <ul class="list-group list-group-flush">
     <li class="list-group-item d-flex justify-content-between">
       <h5 class="card-title mb-0 fs-3">
-        <%= link_to pet.name, adoptable_pet_path(pet) %>
+        <%= link_to_if(link_to_application?(application, current_user), pet.name, adoptable_pet_path(pet)) %> 
       </h5>
     </li>
     <% li_classes = %w[list-group-item text-secondary] %>
