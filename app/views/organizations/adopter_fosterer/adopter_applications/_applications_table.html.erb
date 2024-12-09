@@ -24,7 +24,7 @@
               'coming_soon.jpg', class: 'rounded-3', style: "height: 50px; width: 50px; object-fit: cover;") %>
               <div class="ms-3">
                 <h4 class="mb-0">
-                  <%= link_to pet.name, adoptable_pet_path(pet) %>
+                  <%= link_to_if(link_to_application?(app, current_user), pet.name, adoptable_pet_path(pet)) %> 
                 </h4>
               </div>
             </div>
