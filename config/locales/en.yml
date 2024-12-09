@@ -395,8 +395,8 @@ en:
           adoption_made: Adoption Made
           default: "Application submitted"
         apply_to_adopt: "Apply to Adopt"
-        complete_your_profile: "Complete your profile to apply for this pet"
-        complete_my_profile: "Complete my profile"
+        in_love: "In love with this furball?"
+        application_paused: "We are not currently accepting applications for %{pet_name}"
         adopt: "Adopt"
         login: "Log in"
         important_info: "Important Information"

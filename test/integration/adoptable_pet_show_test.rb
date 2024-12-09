@@ -6,6 +6,7 @@ class AdoptablePetShowTest < ActionDispatch::IntegrationTest
     set_organization(@available_pet.organization)
     @pet_in_draft = create(:pet, published: false)
     @pet_pending_adoption = create(:pet, :adoption_pending)
+    @pet_current_foster = create(:pet, :current_foster)
     @adopted_pet = create(:pet, :adopted)
   end
 
@@ -24,6 +25,12 @@ class AdoptablePetShowTest < ActionDispatch::IntegrationTest
 
     should "see a pet with a pending adoption" do
       get adoptable_pet_path(@pet_pending_adoption)
+
+      assert_response :success
+    end
+
+    should "see a pet with a current foster" do
+      get adoptable_pet_path(@pet_current_foster)
 
       assert_response :success
     end
@@ -59,16 +66,16 @@ class AdoptablePetShowTest < ActionDispatch::IntegrationTest
       assert_select "input[type='submit']", value: "Apply to Adopt", count: 0
     end
 
-    should "see an unpublished pet" do
+    should "not see an unpublished pet" do
       get adoptable_pet_path(@pet_in_draft)
 
-      assert_response :success
+      assert_response :redirect
     end
 
-    should "see an adopted pet" do
+    should "not see an adopted pet" do
       get adoptable_pet_path(@adopted_pet)
 
-      assert_response :success
+      assert_response :redirect
     end
 
     context "an adopter with form submission" do
