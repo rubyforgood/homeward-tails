@@ -3,23 +3,21 @@ module Organizations
     include ::Pagy::Backend
 
     skip_before_action :authenticate_user!
-    skip_verify_authorized only: %i[index]
+    skip_verify_authorized only: %i[index show]
     before_action :set_likes, only: %i[index show],
       if: -> { allowed_to?(:index?, Like) }
     before_action :set_species, only: %i[index]
+    before_action :set_pet, only: %i[show]
 
     def index
-      @q = authorized_scope(
+      @q =
         case @species
         when "dog"
-          Pet.Dog.unadopted
+          Pet.Dog.unadopted.published
         when "cat"
-          Pet.Cat.unadopted
-        else
-          redirect_back_or_to root_path and return
-        end,
-        with: Organizations::AdoptablePetPolicy
-      ).ransack(params[:q])
+          Pet.Cat.unadopted.published
+        end
+          .ransack(params[:q])
 
       @pagy, paginated_adoptable_pets = pagy(
         @q.result.includes(:adopter_applications, :matches, images_attachments: :blob),
@@ -31,8 +29,6 @@ module Organizations
 
     def show
       @adoptable_pet_info = CustomPage.first&.adoptable_pet_info
-      @pet = Pet.find(params[:id])
-      authorize! @pet, with: Organizations::AdoptablePetPolicy
 
       if current_user&.latest_form_submission
         @adoption_application =
@@ -55,6 +51,14 @@ module Organizations
 
     def set_species
       @species = params[:species]
+
+      redirect_back_or_to root_path if @species.nil?
+    end
+
+    def set_pet
+      @pet = Pet.find(params[:id])
+
+      redirect_back_or_to root_path if @pet.is_adopted? || !@pet.published?
     end
   end
 end
