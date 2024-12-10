@@ -720,12 +720,10 @@ en:
   static_pages:
     about_us:
       about_us: "About"
-      headline: "Homeward Tails was created by more than 100 developers and designers (and pet lovers) from around the world"
+      headline: "Homeward Tails was created by 100+ developers, designers, and pet lovers from around the globe"
       description: "Understanding that many small animal rescue organizations lack the resources to invest in custom-built websites, we wanted to build a platform to bridge this gap. Homeward Tails is a free application designed to empower organizations with the tools to efficiently manage people, pets, fosters, and adoptions all in one place."
-      our_goals: "Our goals:"
-      goal_one: "1. Let technology be a helping hand for people doing incredible work"
-      goal_two: "2. Save pet rescue volunteers time and money so they can focus on what matters"
-      goal_three: "3. Help rescue furballs :)"
+      mission: "To empower small, underfunded animal rescue organizations worldwide by providing a free, open-source platform to streamline pet, foster, adoption, and people management while offering them a professional online presence, created collaboratively by passionate developers united by a love for code and animals."
+      vision: "A world where technology bridges the gap for animal rescue organizations, enabling them to save more lives and connect pets with loving homes, regardless of their budget or resources, driven by a global community of developers dedicated to making a meaningful impact."
     partners:
       heading: "Partners"
     donate:
