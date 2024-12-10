@@ -11,6 +11,8 @@ Rails.application.configure do
 
   # Turn false under Spring and add config.action_view.cache_template_loading = true.
   config.cache_classes = true
+  # While tests run files are not watched, reloading is not necessary.
+  config.enable_reloading = false
 
   # Eager loading loads your whole application. When running a single test locally,
   # this probably isn't necessary. It's a good idea to do in a continuous integration
@@ -18,19 +20,16 @@ Rails.application.configure do
   # load SimpleCov gem if running $ COVERAGE=true rails test
   config.eager_load = ENV["CI"].present? || ENV["COVERAGE"].present?
 
-  # Configure public file server for tests with Cache-Control for performance.
-  config.public_file_server.enabled = true
-  config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
-  }
+  # Configure public file server for tests with cache-control for performance.
+  config.public_file_server.headers = { "cache-control" => "public, max-age=3600" }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
-  # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = :none
+  # Render exception templates for rescuable exceptions and raise for other exceptions.
+  config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -47,6 +46,8 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Set host to be used by links generated in mailer templates.
+  config.action_mailer.default_url_options = { host: "example.com" }
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -75,4 +76,6 @@ Rails.application.configure do
   # This fixes hanging
   # https://github.com/rails/rails/issues/48468
   config.active_job.queue_adapter = :test
+  # Raise error when a before_action's only/except options reference missing actions.
+  config.action_controller.raise_on_missing_callback_actions = true
 end
