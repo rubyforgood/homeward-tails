@@ -111,6 +111,8 @@ en:
   root:
     index:
       title: "Homeward Tails"
+      about: "About"
+      partners: "Partners"
       pet: "Pets"
       description: "A free-to-use application built for pet rescue organizations that enables you to manage pets, people, adoptions, and fosters with ease. "
       btn_title: Request a free account
@@ -201,7 +203,7 @@ en:
         cookie: "Cookie Notice"
         terms: "Terms of Use"
       no_tenant_navbar:
-        title: "Open Pet Rescue"
+        title: "Homeward Tails"
         sub_title: "A Ruby For Good project"
         dropdown_title: "Rescues"
         btn_title: Request an account
@@ -716,6 +718,16 @@ en:
       description: "Found a bug? Want to request a feature? Contact our dev team with the form below."
       message_placeholder: "Enter your message..."
   static_pages:
+    about_us:
+      about_us: "About"
+      headline: "Homeward Tails was created by more than 100 developers and designers (and pet lovers) from around the world"
+      description: "Understanding that many small animal rescue organizations lack the resources to invest in custom-built websites, we wanted to build a platform to bridge this gap. Homeward Tails is a free application designed to empower organizations with the tools to efficiently manage people, pets, fosters, and adoptions all in one place."
+      our_goals: "Our goals:"
+      goal_one: "1. Let technology be a helping hand for people doing incredible work"
+      goal_two: "2. Save pet rescue volunteers time and money so they can focus on what matters"
+      goal_three: "3. Help rescue furballs :)"
+    partners:
+      heading: "Partners"
     donate:
       give: "Give"
       give_sentence: "them a chance to be loved"

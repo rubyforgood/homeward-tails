@@ -1,19 +1,21 @@
-<!DOCTYPE html>
-<html>
+<html class="h-100">
   <%= render "layouts/shared/head" %>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <%= render "layouts/shared/flash_messages" %>
+
     <% if Current.tenant.present? %>
       <%= render partial: "layouts/shared/navbar" %>
     <% else %>
       <%= render partial: "layouts/shared/no_tenant_navbar" %>
     <% end %>
 
-    <main>
+    <!-- Main content area -->
+    <main class="flex-grow-1">
       <%= yield %>
     </main>
 
+    <!-- Footer -->
     <% if Current.tenant.present? %>
       <%= render partial: "layouts/shared/footer" unless @hide_footer %>
     <% else %>

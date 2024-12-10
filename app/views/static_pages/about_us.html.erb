@@ -1,47 +1,24 @@
 <section class="pt-5 pb-5" id="about_us">
-  <div class="container mb-md-5 mt-md-5">
+  <div class="container mb-md-5 mt-md-5 px-6 text-dark">
 
-    <!--page heading-->
     <div class="text-center mb-5">
-      <h1 class="section-heading text-uppercase underline">
-        About us
+      <h1 class="section-heading text-uppercase">
+        <%= t('.about_us') %>
       </h1>
     </div>
 
-    <!--main section-->
-    <div class="row pb-md-5">
-      <div class="col-md-6 mb-4 mb-lg-0">
-        <%= link_to image_tag('about2.png', alt: 'Pet in Mexico', class: 'card-img-top rounded'),
-            'https://www.google.com/maps/place/La+Ventana,+BCS,+Mexico/@24.0474038,-109.9963759,15z/data=!3m1!4b1!4m5!3m4!1s0x86afc23a777d9521:0x30234a437e68581!8m2!3d24.0464756!4d-109.9943469',
-            target: "_blank" %>
-      </div>
-      <div class="col-md-6 ps-md-4">
-        <p class='bigger justify'>
-          Baja Pet Rescue was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations. In January 2021 Baja Pet Rescue decided to refocus its efforts as a rescue organization only, while the spay/neuter effort is run by a different organization. Baja Pet Rescue is currently being run by founder Danielle Gee and a group of wonderful volunteers.
-        </p>
-        <br>
-        <p class='bigger justify'>
-          We are located in La Ventana, a small fishing village on the shore of La Ventana Bay south of La Paz on the eastern side of the Baja California peninsula. Founded in the early 1940s by the La Paz pearl diver Salome Leon, La Ventana has become a popular destination for tourists and kite surfers. Despite its relatively small size, there are many stray pets in the surrounding area that need a home.
-        </p>
-      </div>
-    </div> <!--row-->
+    <div class="d-flex flex-column">
+      <h3 class="font-weight-bold mb-4 text-center text-muted"><%= t('.headline') %></h3>
 
-    <div class="row pb-md-5">
-      <div class="col-md-6 pe-md-4 pt-4 pt-md-0">
-        <p class='bigger justify'>
-          Are you ready to add a 4-legged friend to your home? We adopt pets to people all over western Canada and the US, as well as the Baja Peninsula in Mexico. While we are always open to adopting pets to the central and eastern parts of Canada and the US, due to the difficulty of transport, we require the adopter to coordinate transport in order to finalize an adoption.
-        </p>
-        <br>
-        <div class='d-flex flex-column align-items-center'>
-          <h3 class='mb-4 mt-3'>Become an adopter now!</h3>
-          <%= link_to 'Adopt', new_user_registration_path ,
-                      class: 'custom-btn-pink text-center' %>
-        </div>
-      </div>
-      <div class="col-md-6 d-none d-md-block">
-        <%= image_tag('about2.jpg', alt: 'Pet in Mexico', class: 'card-img-top rounded') %>
-      </div>
-    </div> <!--row-->
+      <p class="lead mb-4"><%= t('.description') %></p>
 
-  </div> <!--container-->
+      <p class="font-weight-bold mb-2 lead"><%= t('.our_goals') %></p>
+
+      <ul class="list-unstyled lead">
+        <li><i class="bi bi-check-circle-fill"></i><%= t('.goal_one') %></li>
+        <li><i class="bi bi-check-circle-fill"></i><%= t('.goal_two') %></li>
+        <li><i class="bi bi-check-circle-fill"></i><%= t('.goal_three') %></li>
+      </ul>
+    </div>
+  </div>
 </section>
