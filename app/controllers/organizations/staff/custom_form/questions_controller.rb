@@ -12,6 +12,9 @@ module Organizations
           @questions = authorized_scope(@form.questions)
         end
 
+        def show
+        end
+
         def new
           @question = @form.questions.new
         end
