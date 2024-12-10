@@ -8,6 +8,7 @@
   </div>
   <div class="card-body">
     <%= bootstrap_form_with(model: instance, url: url, method: :post) do |form| %>
+    <%= bootstrap_form_with(model: instance || false, url: url, method: :post) do |form| %>
       <div class='form-group mt-2 d-flex'>
         <div class="flex-grow-1">
           <%= form.file_field attachment_type.to_sym, multiple: multiple, direct_upload: true,
