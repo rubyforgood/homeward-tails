@@ -21,7 +21,7 @@ Rails.application.configure do
   config.eager_load = ENV["CI"].present? || ENV["COVERAGE"].present?
 
   # Configure public file server for tests with cache-control for performance.
-  config.public_file_server.headers = { "cache-control" => "public, max-age=3600" }
+  config.public_file_server.headers = {"cache-control" => "public, max-age=3600"}
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
@@ -47,7 +47,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = {host: "example.com"}
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
