@@ -36,6 +36,6 @@ module HomewardTails
 
     # Exclude this because we do not need to load this directly to servers, this is used to build
     # application.css
-    # config.assets.excluded_paths << Rails.root.join("vendor", "assets", "stylesheets")
+    config.assets.excluded_paths << Rails.root.join("vendor", "assets", "stylesheets")
   end
 end
