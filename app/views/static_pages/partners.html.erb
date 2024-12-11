@@ -1,24 +1,27 @@
 <section class="pt-5 pb-5" id="partners">
   <div class="container mb-md-5 mt-md-5">
 
-    <!-- page heading-->
     <div class="mb-5">
-      <h1 class="section-heading text-uppercase underline text-center">
-        Partners
-      </h1>
-      <div class='bigger'>
-        <p>
-          Our partners are organizations and businesses who work alongside us to improve the living conditions of our four legged friends and their owners here in La Ventana and surrounding communities. 
-        </p>
-        <br>
-        <p>
-          We would like to give a special thank-you to Cristhain Pozo, our veterinarian here in La Ventana who works tirelessly to help the community. As well as the team at Crovet in La Paz who are always there when we have a tough case or a pet needing hospitalization.
-        </p>
-        <br>
-        <p>
-          Another special partner is our friend Taya Wyss, who has spent the last few years working tirelessly to provide free spay, neuter and vaccines for the community's pets. Her work is invaluable in keeping the number of unwanted puppies low compared to previous years. 
-        </p>
+      <h1 class="section-heading text-uppercase text-center"><%= t('.heading') %></h1>
+      <div class="row p-6">
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+          <%= link_to "https://www.rubyforgood.org", target: "_blank" do %>
+            <%= image_tag 'rfg.png', alt: 'Ruby for Good logo', class: "rounded", width: "170" %>
+          <% end %>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-center">
+          <%= link_to "https://www.microsoft.com/en-us/nonprofits/azure", target: "_blank" do %>
+            <%= image_tag 'azure.png', alt: 'Azure  logo', width: "200" %>
+          <% end %>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+          <%= link_to "https://www.bugsnag.com", target: "_blank" do %>
+            <%= image_tag 'bugsnag.png', alt: 'Bugsnag logo', class: "rounded", width: "170" %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div> <!--container-->
+  </div>
 </section>

@@ -54,7 +54,7 @@ class StaticPagesTest < ActionDispatch::IntegrationTest
     should "render the about us page" do
       get "/about_us"
       assert_response :success
-      assert_select "h1", "About us"
+      assert_select "h1", "About"
     end
 
     should "render the partners page" do
