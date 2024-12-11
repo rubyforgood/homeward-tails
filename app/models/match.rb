@@ -115,7 +115,7 @@ class Match < ApplicationRecord
   end
 
   def adopter_application
-    AdopterApplication.includes(:form_submission).find_by(pet:, form_submission: {person:})
+    AdopterApplication.find_by(pet: pet, person: person)
   end
 
   ransacker :status do

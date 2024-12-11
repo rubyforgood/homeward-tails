@@ -1,5 +1,3 @@
-<%= turbo_refreshes_with method: :morph, scroll: :preserve  %>
-
 <!-- table -->
 <div class="card">
   <table class="table mb-0 text-nowrap table-hover table-centered">
@@ -15,7 +13,6 @@
     <% if applications.present? %>
 
       <% applications.each do |app| %>
-        <%= turbo_stream_from app %>
         <% pet = app.pet %>
         <tr>
           <td>
@@ -57,7 +54,7 @@
           <%= t("dashboard.applications.no_applications")%>
         </td>
       </tr>
-    <%end%>
+    <% end %>
     </tbody>
   </table>
 </div>
