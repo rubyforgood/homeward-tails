@@ -25,18 +25,18 @@ class Organization < ApplicationRecord
   # Rolify resource
   resourcify
 
-  has_many :users
-  has_many :pets
-  has_many :default_pet_tasks
+  has_many :users, dependent: :destroy
+  has_many :pets, dependent: :destroy
+  has_many :default_pet_tasks, dependent: :destroy
   has_many :forms, class_name: "CustomForm::Form", dependent: :destroy
-  has_many :faqs
+  has_many :faqs, dependent: :destroy
 
   has_many :form_answers, dependent: :destroy
-  has_many :people
+  has_many :people, dependent: :destroy
   has_one :form_submission, dependent: :destroy
   has_one :custom_page, dependent: :destroy
 
-  has_many :locations, as: :locatable
+  has_many :locations, as: :locatable, dependent: :destroy
   accepts_nested_attributes_for :locations
 
   validates :phone_number, phone: {possible: true, allow_blank: true}

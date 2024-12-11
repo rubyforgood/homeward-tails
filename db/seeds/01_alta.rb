@@ -229,6 +229,11 @@ ActsAsTenant.with_tenant(@organization) do
     end
   end
 
+  FormSubmission.create(
+    person: @adopter_one,
+    organization: @organization
+  )
+
   FormSubmission.all.each do |submission|
     5.times do
       FormAnswer.create!(
@@ -244,7 +249,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   match_application = AdopterApplication.create!(
     pet_id: Pet.first.id,
-    form_submission_id: @adopter_one.form_submissions.first.id,
+    person_id: @adopter_one.id,
     status: :successful_applicant
   )
 
@@ -312,13 +317,13 @@ ActsAsTenant.with_tenant(@organization) do
       profile_show: true,
       status: rand(0..4),
       pet: Pet.all.sample,
-      form_submission: FormSubmission.all.sample
+      person: [@adopter_one, @adopter_two, @adopter_three].sample
     )
 
     # Prevent duplicate adopter applications.
     redo if AdopterApplication.where(
       pet_id: adopter_application.pet_id,
-      form_submission_id: adopter_application.form_submission_id
+      person_id: adopter_application.person_id
     ).exists?
 
     if adopter_application.valid?

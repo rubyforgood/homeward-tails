@@ -7,7 +7,6 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
 
     setup do
       @user = create(:adopter)
-      @form_submission = @user.person.latest_form_submission
       sign_in @user
     end
 
@@ -29,8 +28,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
       end
 
       should "count the total number of applications" do
-        form_submission = create(:form_submission, person: @user.person)
-        create_list(:adopter_application, 2, form_submission: form_submission)
+        create_list(:adopter_application, 2, person: @user.person)
 
         get adopter_fosterer_dashboard_index_path
 
@@ -48,7 +46,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
         @pet = create(:pet)
         @params = {adopter_application: {
           pet_id: @pet.id,
-          form_submission_id: @form_submission.id
+          person_id: @user.person.id
         }}
       end
 
@@ -65,7 +63,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
 
     context "#update" do
       setup do
-        @adopter_application = create(:adopter_application, form_submission: @form_submission)
+        @adopter_application = create(:adopter_application, person: @user.person)
         @params = {adopter_application: {
           status: "withdrawn"
         }}

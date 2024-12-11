@@ -113,8 +113,8 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
   context "existing record action" do
     setup do
-      @form_submission = create(:form_submission)
-      @adopter_application = create(:adopter_application, form_submission: @form_submission)
+      @user = create(:adopter)
+      @adopter_application = create(:adopter_application, person: @user.person)
       @policy = -> {
         Organizations::AdopterApplicationPolicy.new(
           @adopter_application, user: @user
@@ -166,7 +166,8 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
               @form_submission = create(:form_submission)
-              @adopter_application = create(:adopter_application, form_submission: @form_submission)
+              @adopter = create(:adopter)
+              @adopter_application = create(:adopter_application, person: @adopter.person)
             end
           end
 
@@ -201,7 +202,8 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
               @form_submission = create(:form_submission)
-              @adopter_application = create(:adopter_application, form_submission: @form_submission)
+              @adopter = create(:adopter)
+              @adopter_application = create(:adopter_application, person: @adopter.person)
             end
           end
 
