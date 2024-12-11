@@ -32,10 +32,10 @@ module HomewardTails
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.assets.paths << Rails.root.join("app", "assets", "builds")
+    # config.assets.paths << Rails.root.join("app", "assets", "builds")
 
     # Exclude this because we do not need to load this directly to servers, this is used to build
     # application.css
-    config.assets.excluded_paths << Rails.root.join("vendor", "assets", "stylesheets")
+    # config.assets.excluded_paths << Rails.root.join("vendor", "assets", "stylesheets")
   end
 end
