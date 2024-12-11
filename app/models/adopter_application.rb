@@ -2,34 +2,31 @@
 #
 # Table name: adopter_applications
 #
-#  id                 :bigint           not null, primary key
-#  notes              :text
-#  profile_show       :boolean          default(TRUE)
-#  status             :integer          default("awaiting_review")
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  form_submission_id :bigint           not null
-#  organization_id    :bigint           not null
-#  pet_id             :bigint           not null
+#  id              :bigint           not null, primary key
+#  notes           :text
+#  profile_show    :boolean          default(TRUE)
+#  status          :integer          default("awaiting_review")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :bigint           not null
+#  person_id       :bigint           not null
+#  pet_id          :bigint           not null
 #
 # Indexes
 #
-#  index_adopter_applications_on_form_submission_id             (form_submission_id)
-#  index_adopter_applications_on_organization_id                (organization_id)
-#  index_adopter_applications_on_pet_id                         (pet_id)
-#  index_adopter_applications_on_pet_id_and_form_submission_id  (pet_id,form_submission_id) UNIQUE
+#  index_adopter_applications_on_organization_id  (organization_id)
+#  index_adopter_applications_on_person_id        (person_id)
+#  index_adopter_applications_on_pet_id           (pet_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (form_submission_id => form_submissions.id)
+#  fk_rails_...  (person_id => people.id)
 #  fk_rails_...  (pet_id => pets.id)
 #
 class AdopterApplication < ApplicationRecord
   acts_as_tenant(:organization)
   belongs_to :pet, touch: true
-  belongs_to :form_submission
-
-  has_one :person, through: :form_submission
+  belongs_to :person
 
   validates :pet_id, uniqueness: {scope: :form_submission_id}
   
