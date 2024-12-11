@@ -28,7 +28,7 @@ class AdopterApplication < ApplicationRecord
   belongs_to :pet, touch: true
   belongs_to :person
 
-  validates :pet_id, uniqueness: {scope: :form_submission_id}
+  validates :pet_id, uniqueness: {scope: :person_id}
   
   enum :status, [:awaiting_review,
     :under_review,
@@ -54,7 +54,7 @@ class AdopterApplication < ApplicationRecord
   end
 
   def applicant_name
-    form_submission.person.full_name.to_s
+    person.full_name.to_s
   end
 
   def withdraw
