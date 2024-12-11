@@ -32,9 +32,7 @@ class AdopterApplication < ApplicationRecord
   has_one :person, through: :form_submission
 
   validates :pet_id, uniqueness: {scope: :form_submission_id}
-
-  broadcasts_refreshes
-
+  
   enum :status, [:awaiting_review,
     :under_review,
     :adoption_pending,
