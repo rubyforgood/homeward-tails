@@ -15,10 +15,10 @@
       <% if @form_submissions.present? %>
         <%= render partial: "form_submissions_table", locals: { form_submissions: @form_submissions }  %>
       <% else %>
-        <% message = "#{@person.full_name} does not have any imported form data. If they have completed a third party form, please upload the data #{link_to 'here', staff_external_form_upload_index_path}.".html_safe %>
-
-        <div class="px-10">
-          <%= render partial: "shared/empty_state", locals: { message: message } %>
+        <div class="card text-center mx-auto">
+          <div class="card-body">
+            <p class="mb-0"><%= @person.full_name %> does not have any imported form data. If they have completed a third party form, please upload the data <%= link_to 'here', staff_external_form_upload_index_path %>.</p>
+          </div>
         </div>
       <% end %>
     </section>
