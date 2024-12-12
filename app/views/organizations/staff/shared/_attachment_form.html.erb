@@ -2,7 +2,7 @@
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
       <div>
-        <h4 class="mb-0">Upload <%= attachment_type %></h4>
+        <h2 class="mb-0">Upload <%= attachment_type %></h2>
       </div>
     </div>
   </div>
@@ -19,5 +19,6 @@
         </div>
       </div>
     <% end %>
+    <%= turbo_frame_tag "results" %>
   </div>
 </div>
