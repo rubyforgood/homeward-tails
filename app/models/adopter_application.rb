@@ -29,7 +29,7 @@ class AdopterApplication < ApplicationRecord
   belongs_to :person
 
   validates :pet_id, uniqueness: {scope: :person_id}
-  
+
   enum :status, [:awaiting_review,
     :under_review,
     :adoption_pending,

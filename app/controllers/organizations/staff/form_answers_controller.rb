@@ -16,8 +16,8 @@ module Organizations
 
       def context_authorize!
         authorize! FormAnswer,
-                   context: {organization: Current.organization},
-                   with: Organizations::FormSubmissionPolicy
+          context: {organization: Current.organization},
+          with: Organizations::FormSubmissionPolicy
       end
     end
   end

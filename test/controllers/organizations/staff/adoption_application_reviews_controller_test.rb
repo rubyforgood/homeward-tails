@@ -12,7 +12,6 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
       @form_submission = create(:form_submission)
       @adopter_application = create(:adopter_application, person: @adopter.person)
 
-
       sign_in @user
     end
 
