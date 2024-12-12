@@ -2,7 +2,7 @@ require "csv"
 
 module Organizations
   module Importers
-    class GoogleCsvImportService
+    class CsvImportService
       Status = Data.define(:success?, :count, :no_match, :errors)
       def initialize(file)
         @file = file
@@ -17,8 +17,9 @@ module Organizations
           validate_file
 
           CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(1) do |row, index|
-            # Using Google Form headers
+            # Header may be different depending on which form applicaiton was used(e.g. google forms) or how it was created(User creates form with "Email Address")
             email = row[@email_header].downcase
+            # Google forms uses "Timestamp", other services may use a different header
             csv_timestamp = Time.parse(row["Timestamp"])
 
             person = Person.find_by(email:, organization: @organization)
@@ -29,18 +30,8 @@ module Organizations
             elsif previously_matched_form_submission.present?
               next
             else
-              latest_form_submission = person.latest_form_submission
               ActiveRecord::Base.transaction do
-                # This checks for the empty form submission that is added when a person is created
-                if latest_form_submission.csv_timestamp.nil? && latest_form_submission.form_answers.empty?
-                  latest_form_submission.update!(csv_timestamp:)
-                  create_form_answers(latest_form_submission, row)
-                else
-                  # if the person submits a new/updated form,
-                  # i.e. an additional row in the csv with the same email / different timestamp,
-                  # a new form_submission will be created
-                  create_form_answers(FormSubmission.create!(person:, csv_timestamp:), row)
-                end
+                create_form_answers(FormSubmission.create!(person:, csv_timestamp:), row)
                 @count += 1
               end
             end
