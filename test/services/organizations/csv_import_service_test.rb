@@ -38,7 +38,7 @@ module Organizations
         csv << @data
       end
 
-      assert_no_difference "FormSubmission.count" do
+      assert_difference "FormSubmission.count" do
         assert_difference("FormAnswer.count", + 7) do
           Organizations::Importers::CsvImportService.new(@file).call
         end
@@ -61,35 +61,10 @@ module Organizations
         csv << @data
         csv << @data
       end
-      assert_no_difference "FormSubmission.count" do
+      assert_difference "FormSubmission.count", 1 do
         Organizations::Importers::CsvImportService.new(@file).call
       end
     end
-
-    # should "skip if the user exists and the timestamp matches that on the FormSubmisson" do
-    #   CSV.open(@file.path, "ab") do |csv|
-    #     csv << @data
-    #   end
-    #   @adopter.latest_form_submission.update(csv_timestamp: @data[0])
-    #
-    #   assert_no_difference -> { @adopter.latest_form_submission.form_answers.count } do
-    #     Organizations::Importers::CsvImportService.new(@file).call
-    #   end
-    # end
-    #
-    # should "creates a new form submission and adds the form answers if there is no 'empty' form submission and the timestamp is different" do
-    #   CSV.open(@file.path, "ab") do |csv|
-    #     csv << @data
-    #   end
-    #   Organizations::Importers::CsvImportService.new(@file).call
-    #   @adopter.latest_form_submission.update(csv_timestamp: "2024-10-03 12:45:37.000000000 +0000")
-    #
-    #   assert_difference -> { @adopter.person.form_submissions.count } do
-    #     assert_difference -> { @adopter.person.form_answers.count }, 7 do
-    #       Organizations::Importers::CsvImportService.new(@file).call
-    #     end
-    #   end
-    # end
 
     should "return summary of import when successful" do
       CSV.open(@file.path, "ab") do |csv|
