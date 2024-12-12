@@ -41,13 +41,6 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
     end
   end
 
-  def show
-    authorize! AdopterApplication,
-      context: {organization: Current.organization}
-
-    @form_answers = @application.person.latest_form_submission.form_answers
-  end
-
   private
 
   def application_params

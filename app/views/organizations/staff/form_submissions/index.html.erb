@@ -1,0 +1,30 @@
+<%= render DashboardPageComponent.new(crumb: :form_submissions, crumb_options: [@person]) do |c| %>
+  <% c.with_header_title { t('.header') } %>
+  <% c.with_body do %>
+    <div class="mb-3 border-bottom pb-2">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h3 class="fw-bold"><%= @person.full_name %></h3>
+          <div>
+            <%= mail_to @person.email, @person.email, class: "link-underline link-underline-opacity-0" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="pb-5 ">
+      <% if @form_submissions.present? %>
+        <%= render partial: "form_submissions_table", locals: { form_submissions: @form_submissions }  %>
+      <% else %>
+        <% message = "#{@person.full_name} does not have any imported form data. If they have completed a third party form, please upload the data #{link_to 'here', staff_external_form_upload_index_path}.".html_safe %>
+
+        <div class="px-10">
+          <%= render partial: "shared/empty_state", locals: { message: message } %>
+        </div>
+      <% end %>
+    </section>
+
+    <%= turbo_frame_tag :form_answers do %>
+      <%# Form answers will be loaded here via turbo frame %>
+    <% end %>
+  <% end %>
+<% end %>

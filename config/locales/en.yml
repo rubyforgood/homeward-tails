@@ -403,6 +403,9 @@ en:
         login: "Log in"
         important_info: "Important Information"
     staff:
+      form_submissions:
+        index:
+          header: "Form Submissions"
       fosterers:
         update:
           success: Fosterer was susccessfully updated

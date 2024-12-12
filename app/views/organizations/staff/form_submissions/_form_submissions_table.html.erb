@@ -1,0 +1,26 @@
+<div class="card">
+  <!-- table -->
+  <div class="table-responsive overflow-y-hidden">
+    <table class="table mb-2 text-nowrap table-hover table-centered">
+      <thead>
+      <tr>
+        <th scope="col">Submitted</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        <% form_submissions.each do |form_submission| %>
+          <tr>
+            <td>
+             <p class="mb-0"><%= form_submission.created_at.strftime("%Y-%m-%d") %></p>
+            </td>
+            <td>
+              <%= link_to "View Submission", staff_form_submission_form_answers_path(form_submission), data: { turbo_frame: "form_answers" } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
