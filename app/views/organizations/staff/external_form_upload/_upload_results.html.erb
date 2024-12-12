@@ -1,0 +1,16 @@
+<turbo-frame id="results">
+    <% if import.success? %>
+        <h3 role="status">File successsfully scanned: %= import.count %> new form submissions were added.</h3>
+    <% else %>
+        <h3 role="alert">File scanned: <%= import.errors.count %> error(s) present</h3>
+         <p><%= import.count %> new form submissions were added.</p>
+         Review the following error(s) to ensure all form submissions are added:
+         <ul>
+             <% import.errors.each do |error| %>
+             <li>
+                 <%= "Row #{error[0]} - #{error[1].message}" %>
+             </li>
+             <% end %>
+         </ul>
+    <% end %>
+</turbo-frame>
