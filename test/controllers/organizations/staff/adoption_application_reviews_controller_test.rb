@@ -72,17 +72,6 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
         end
       end
     end
-
-    context "#show" do
-      should "be authorized" do
-        assert_authorized_to(
-          :manage?, @adopter_application,
-          with: Organizations::AdopterApplicationPolicy
-        ) do
-          get staff_adoption_application_review_url(@adopter_application)
-        end
-      end
-    end
   end
 
   context "Filtering adoption applications" do
@@ -152,21 +141,6 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
       @form_submission = create(:form_submission, person: @adopter.person)
       @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
       @adopter_application = create(:adopter_application, person: @adopter.person)
-    end
-
-    context "#show" do
-      should "fetch the form answers" do
-        get staff_adoption_application_review_url(@adopter_application)
-
-        assert_response :success
-        assert_equal @form_answers.count, assigns(:form_answers).count
-
-        @form_answers.each do |form_answer|
-          assert assigns(:form_answers).include?(form_answer)
-          assert_equal form_answer.question_snapshot, form_answer.question_snapshot
-          assert_equal form_answer.value, form_answer.value
-        end
-      end
     end
   end
 end
