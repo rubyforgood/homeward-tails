@@ -12,7 +12,7 @@
       </div>
     </div>
     <section class="pb-5 ">
-      <% if false %>
+      <% if @form_submissions.present? %>
         <%= render partial: "form_submissions_table", locals: { form_submissions: @form_submissions }  %>
       <% else %>
         <div class="card text-center mx-auto">
