@@ -10,7 +10,7 @@ module Organizations
         @organization = ActsAsTenant.current_tenant
         @policy = -> {
           Organizations::FormSubmissionPolicy.new(FormSubmission, user: @user,
-                                       organization: @organization)
+            organization: @organization)
         }
       end
 
