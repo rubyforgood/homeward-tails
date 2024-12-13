@@ -12,12 +12,12 @@
       </div>
     </div>
     <section class="pb-5 ">
-      <% if @form_submissions.present? %>
+      <% if false %>
         <%= render partial: "form_submissions_table", locals: { form_submissions: @form_submissions }  %>
       <% else %>
         <div class="card text-center mx-auto">
           <div class="card-body">
-            <p class="mb-0"><%= @person.full_name %> does not have any imported form data. If they have completed a third party form, please upload the data <%= link_to 'here', staff_external_form_upload_index_path %>.</p>
+            <p class="mb-0"><%= t('.empty_state', person_name: @person.full_name) %> <%= link_to t('general.here'), staff_external_form_upload_index_path %>.</p>
           </div>
         </div>
       <% end %>
