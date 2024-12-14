@@ -12,14 +12,14 @@ module Organizations
         sign_in admin
       end
 
-      test "Creates form answers for adopter in its latest form submission" do
-        assert_changes -> { @adopter.latest_form_submission.form_answers.count } do
+      test "Creates new form submission" do
+        assert_difference "@adopter.person.form_submissions.count" do
           post staff_external_form_upload_index_path, params: @params
         end
       end
 
       test "It does not create form answers for adopter2" do
-        assert_no_difference -> { @adopter2.latest_form_submission.form_answers.count } do
+        assert_no_difference "@adopter2.person.form_submissions.count" do
           post staff_external_form_upload_index_path, params: @params
         end
       end
