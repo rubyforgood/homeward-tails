@@ -4,15 +4,12 @@ module Organizations
       class QuestionsController < ApplicationController
         before_action :context_authorize!
         before_action :set_form
-        before_action :set_question, only: %i[show edit update destroy]
+        before_action :set_question, only: %i[edit update destroy]
 
         layout "dashboard"
 
         def index
           @questions = authorized_scope(@form.questions)
-        end
-
-        def show
         end
 
         def new
