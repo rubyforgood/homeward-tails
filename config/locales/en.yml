@@ -677,6 +677,10 @@ en:
           withdrew_by_accident_html: "If you withdrew by accident, <a href='/contact'>contact us</a>"
           remove: "Remove"
           withdraw: "Withdraw"
+      form_answers:
+        index:
+          header: "Form Responses"
+          description: "These are the latest responses you made for the questionnaire. Please review this data for accuracy. If updates are required, please fill out the form"
       likes:
         index:
           header_title: 'Liked Pets'

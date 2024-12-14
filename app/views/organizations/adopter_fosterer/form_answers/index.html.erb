@@ -1,0 +1,18 @@
+<%= render DashboardPageComponent.new do |c| %>
+  <% c.with_header_title { t('.header') } %>
+  <% c.with_body do %>
+
+    <p><%= t('.description') %></p>
+
+    <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
+      <div class="row">
+        <% if @form_answers.present? %>
+
+        <% else %>
+
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+

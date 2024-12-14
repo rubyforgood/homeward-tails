@@ -93,8 +93,13 @@
                       <% if Current.organization.external_form_url.present? %>
                         <li class="nav-item">
                         <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
-                          <i class="fe fe-help-circle nav-icon"></i> My Info
+                          <i class="fe fe-help-circle nav-icon"></i> Form
                         <% end %>
+                        <li class="nav-item">
+                          <%= active_link_to adopter_fosterer_form_answers_path, class: "nav-link" do %>
+                            <i class="fe fe-help-circle nav-icon"></i> Form Responses
+                          <% end %>
+                        </li>
                       </li>
                       <% end %>
                       <li class="nav-item">
