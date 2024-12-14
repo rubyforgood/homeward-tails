@@ -133,10 +133,6 @@ group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "pry", "~> 0.15.0"
 
-  # Add annotation to models to make it easier to navigate in the codebase
-  # and the database structure
-  gem "annotate"
-
   # Linting
   gem "standard"
 
@@ -164,6 +160,10 @@ group :development do
   gem "better_errors", "~> 2.9", ">= 2.9.1"
   gem "guard", "~> 2.19"
   gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
+
+  # Add annotation to models to make it easier to navigate in the codebase
+  # and the database structure
+  gem "annotaterb"
 end
 
 group :test do
