@@ -2,17 +2,29 @@
   <% c.with_header_title { t('.header') } %>
   <% c.with_body do %>
 
-    <p><%= t('.description') %></p>
+    <p><%= t('.description') %> <%= link_to t("general.here"), adopter_fosterer_external_form_index_path(dashboard: true) %>.</p>
 
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
       <div class="row">
         <% if @form_answers.present? %>
+          <h4><%= t(".submitted_on", date: @latest_form_submission.csv_timestamp.strftime("%Y-%m-%d"), time: @latest_form_submission.csv_timestamp.strftime("%H:%M")) %></h4>
 
-        <% else %>
-
+          <% @form_answers.each do |form_answer| %>
+            <div class="justify-content-md-between mb-2 gx-3">
+              <div class="card">
+                <div id="<%= dom_id form_answer %>"class="card-body d-flex flex-sm-row flex-column justify-content-between border-bottom">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <strong class="fs-4" >Q: <%= form_answer.question_snapshot %></strong>
+                      <p class="mb-0">A: <%= form_answer.value %> </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
   <% end %>
 <% end %>
-

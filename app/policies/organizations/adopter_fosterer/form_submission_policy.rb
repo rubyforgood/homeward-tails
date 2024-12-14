@@ -4,9 +4,13 @@ module Organizations
       pre_check :verify_organization!
 
       def index?
-        return true if record.nil?
+        permission?(:view_latest_form_submission) && form_submission_belongs_to_user
+      end
 
-        permission?(:view_latest_form_submission) && latest_form_submission.person_id == user.id
+      private
+
+      def form_submission_belongs_to_user
+        latest_form_submission.person_id == user.person_id
       end
     end
   end

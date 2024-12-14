@@ -57,6 +57,7 @@ en:
         organization_name: Organization name
         your_name: Your name
   general:
+    here: "here"
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
     adopted: Adopted
@@ -680,7 +681,8 @@ en:
       form_answers:
         index:
           header: "Form Responses"
-          description: "These are the latest responses you made for the questionnaire. Please review this data for accuracy. If updates are required, please fill out the form"
+          description: "These are the responses from the last time you completed the questionnaire. Please review for accuracy and, if changes are required, fill out the form"
+          submitted_on: "Submitted on %{date} at %{time}"
       likes:
         index:
           header_title: 'Liked Pets'
