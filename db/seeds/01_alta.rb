@@ -231,7 +231,8 @@ ActsAsTenant.with_tenant(@organization) do
 
   FormSubmission.create(
     person: @adopter_one,
-    organization: @organization
+    organization: @organization,
+    csv_timestamp: Time.current
   )
 
   FormSubmission.all.each do |submission|
