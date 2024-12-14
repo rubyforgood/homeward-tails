@@ -98,7 +98,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   @user_adopter_three.add_role(:adopter, @organization)
-  
+
   @fosterer_one = Person.create!(
     email: "fosterer1@baja.com",
     first_name: "Simon",
