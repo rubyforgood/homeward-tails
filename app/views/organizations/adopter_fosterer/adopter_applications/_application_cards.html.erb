@@ -4,7 +4,7 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item d-flex justify-content-between">
       <h5 class="card-title mb-0 fs-3">
-        <%= link_to pet.name, adoptable_pet_path(pet) %>
+        <%= link_to_unless pet.is_adopted?, pet.name, adoptable_pet_path(pet) %>
       </h5>
     </li>
     <% li_classes = %w[list-group-item text-secondary] %>
