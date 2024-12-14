@@ -12,8 +12,6 @@
       </tr>
     </thead>
     <tbody>
-    <% if applications.present? %>
-
       <% applications.each do |app| %>
         <%= turbo_stream_from app %>
         <% pet = app.pet %>
@@ -51,13 +49,6 @@
           </td>
         </tr>
       <% end %>
-    <% else %>
-      <tr>
-        <td colspan="4" class="text-center">
-          <%= t("dashboard.applications.no_applications")%>
-        </td>
-      </tr>
-    <%end%>
     </tbody>
   </table>
 </div>

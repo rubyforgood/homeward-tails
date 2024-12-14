@@ -107,7 +107,6 @@ en:
       status: Status
       withdraw_application: Withdraw Application
       confirm_withdraw: Withdraw your application
-      no_applications: You do not have any adoption applications
   root:
     index:
       title: "Homeward Tails"
@@ -678,10 +677,11 @@ en:
           withdrew_by_accident_html: "If you withdrew by accident, <a href='/contact'>contact us</a>"
           remove: "Remove"
           withdraw: "Withdraw"
+          no_applications: You do not have any adoption applications
       likes:
         index:
           header_title: 'Liked Pets'
-          no_pets: 'You do not have any liked pets'
+          no_liked_pets: 'You do not have any liked pets'
         create:
           success: "%{name} added to your liked pets."
           failed: "Error, %{name} not added to your liked pets."
@@ -691,9 +691,11 @@ en:
       adopted_pets:
         index:
           header_title: "Adopted pets"
+          no_adopted_pets: "You do not have any adopted pets"
       fostered_pets:
         index:
           header_title: "Fostered pets"
+          no_fostered_pets: "You do not have any fostered pets"
       dashboard:
         index:
           example: Example
