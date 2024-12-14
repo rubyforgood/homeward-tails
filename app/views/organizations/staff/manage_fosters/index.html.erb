@@ -52,14 +52,18 @@
           <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
         </div>
         <!-- Search Results -->
-        <%# Table layout %>
-        <div class="d-flex flex-wrap justify-content-center">
-          <%= render "foster_table", foster_pets: @foster_pets %>
-        </div>
-        <%# Cards layout %>
-        <div class="d-xl-none d-flex flex-wrap">
-          <%= render "foster_cards", foster_pets: @foster_pets %>
-        </div>
+        <% if @foster_pets.present? %>
+          <%# Table layout %>
+          <div class="d-flex flex-wrap justify-content-center">
+            <%= render "foster_table", foster_pets: @foster_pets %>
+          </div>
+          <%# Cards layout %>
+          <div class="d-xl-none d-flex flex-wrap">
+            <%= render "foster_cards", foster_pets: @foster_pets %>
+          </div>
+        <% else %>
+          <%= render partial: "shared/empty_state", locals: {text: t(".no_foster_pets")} %>
+        <% end %>
     </section>
     <div class="d-flex justify-content-center align-items-center mt-2">
       <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
