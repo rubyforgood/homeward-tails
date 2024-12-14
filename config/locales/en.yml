@@ -383,6 +383,7 @@ en:
     adoptable_pets:
       index:
         header: "Up for adoption"
+        no_pets: "We don't have any pets matching your search criteria"
       show:
         application_status: "Application status:"
         adoption_process: "Adoption Process"
