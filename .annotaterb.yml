@@ -9,13 +9,13 @@
 :position_in_test: before
 :classified_sort: true
 :exclude_controllers: true
-:exclude_factories: false
-:exclude_fixtures: false
+:exclude_factories: true 
+:exclude_fixtures: true 
 :exclude_helpers: true
 :exclude_scaffolds: true
 :exclude_serializers: false
 :exclude_sti_subclasses: false
-:exclude_tests: false
+:exclude_tests: true 
 :force: false
 :format_markdown: false
 :format_rdoc: false
