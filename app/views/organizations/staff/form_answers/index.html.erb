@@ -1,5 +1,5 @@
 <%= turbo_frame_tag :form_answers do %>
-  <h4>Form Answers (<%= @form_submission.created_at.strftime("%Y-%m-%d") %>)</h4>
+  <h4>Form Answers (<%= @form_submission.csv_timestamp.strftime("%Y-%m-%d") %> at <%= @form_submission.csv_timestamp.strftime("%H:%M") %>)</h4>
 
   <% @form_answers.each do |form_answer| %>
     <div class="justify-content-md-between mb-2 gx-3">
