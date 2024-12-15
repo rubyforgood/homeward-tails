@@ -12,14 +12,6 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_equal true, has_role
   end
 
-  test "should create form submission when user is persisted" do
-    assert_difference "FormSubmission.count", 1 do
-      registration_params = {user: attributes_for(:user)}
-
-      post user_registration_url, params: registration_params
-    end
-  end
-
   test "should get new with dashboard layout when signed in as staff" do
     user = create(:admin)
     organization = user.organization

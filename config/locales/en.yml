@@ -57,6 +57,7 @@ en:
         organization_name: Organization name
         your_name: Your name
   general:
+    here: "here"
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
     adopted: Adopted
@@ -403,6 +404,14 @@ en:
         login: "Log in"
         important_info: "Important Information"
     staff:
+      form_submissions:
+        action: "Action"
+        form_submitted: "Form Submitted"
+        import_date: "Import Date"
+        view_submission: "View Submission"
+        index:
+          header: "Form Submissions"
+          empty_state: "%{person_name} does not have any imported form data. If they have completed a third party form, please upload the data"
       fosterers:
         update:
           success: Fosterer was susccessfully updated
