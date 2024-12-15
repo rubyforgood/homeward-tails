@@ -1,8 +1,8 @@
 <turbo-frame id="results">
     <% if import.success? %>
-        <h3 role="status">File successsfully scanned: %= import.count %> new form submissions were added.</h3>
+        <h5 role="alert">File successsfully scanned: <%= import.count %> new form submissions were added.</h5>
     <% else %>
-        <h3 role="alert">File scanned: <%= import.errors.count %> error(s) present</h3>
+        <h5 role="alert">File scanned: <%= import.errors.count %> error(s) present</h5>
          <p><%= import.count %> new form submissions were added.</p>
          Review the following error(s) to ensure all form submissions are added:
          <ul>
