@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   # Organization Scope
   scope module: :organizations do
+
     # Public Routes
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
@@ -68,6 +69,18 @@ Rails.application.routes.draw do
         resources :form_submissions, only: [:index]
       end
 
+      resources :people do
+        resources :form_submissions, only: [:index]
+      end
+
+      resources :form_submissions do
+        resources :form_answers, only: [:index]
+      end
+
+      resources :adoption_application_reviews, only: %i[index edit update]
+      resources :manage_fosters, only: %i[new create index edit update destroy]
+      resources :fosterers, only: %i[index edit update]
+      resources :adopters, only: %i[index]
       resources :form_submissions do
         resources :form_answers, only: [:index]
       end
@@ -82,7 +95,7 @@ Rails.application.routes.draw do
         end
       end
     end
-
+    
     # Adopter and Fosterer Routes
     namespace :adopter_fosterer do
       resources :faq, only: [:index]

@@ -30,14 +30,14 @@ module Organizations
     def show
       @adoptable_pet_info = CustomPage.first&.adoptable_pet_info
 
-      if current_user&.latest_form_submission
+      if current_user
         @adoption_application =
           AdopterApplication.find_by(
             pet_id: @pet.id,
-            form_submission_id: current_user.latest_form_submission.id
+            person_id: current_user.person.id
           ) ||
           @pet.adopter_applications.build(
-            form_submission: current_user.latest_form_submission
+            person: current_user.person
           )
       end
     end

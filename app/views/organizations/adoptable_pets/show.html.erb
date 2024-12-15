@@ -137,13 +137,13 @@
                 <h4 class="mb-4 mt-3"><%= t('.in_love') %></h4>
                 <%= form_with model: [:adopter_fosterer, @adoption_application] do |form| %>
                   <%= form.hidden_field :pet_id, value: @adoption_application.pet_id %>
-                  <%= form.hidden_field :form_submission_id, value: @adoption_application.form_submission_id %>
+                  <%= form.hidden_field :person_id, value: @adoption_application.person_id %>
                   <%= form.submit t(".apply_to_adopt"),
                     class: "btn btn-primary",
                     data: {turbo: false}
                   %>
                 <% end %>
-              <% elsif AdopterApplication.exists?(form_submission: current_user.latest_form_submission, pet: @pet) %>
+              <% elsif AdopterApplication.exists?(person: current_user.person, pet: @pet) %>
                 <div class='d-flex align-items-center mt-3'>
                   <h4 class="me-2 mb-0">
                     <%= "#{t('organizations.adoptable_pets.show.application_status')} #{@adoption_application.human_enum_name(:status) || t('.status.default')}" %>

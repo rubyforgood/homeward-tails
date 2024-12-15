@@ -55,6 +55,7 @@ module Authorizable
       manage_tasks
       view_organization_dashboard
       view_people
+      view_form_submissions
       manage_faqs
     ]
   ).freeze
