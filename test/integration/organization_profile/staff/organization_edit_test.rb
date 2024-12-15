@@ -36,8 +36,8 @@ class Organization::EditTest < ActionDispatch::IntegrationTest
         phone_number: "3038947563",
         locations_attributes: {
           "0" => {
-            country: "United States",
-            province_state: "Colorado",
+            country: "US",
+            province_state: "CO",
             city_town: "Golden"
           }
         },
@@ -55,8 +55,8 @@ class Organization::EditTest < ActionDispatch::IntegrationTest
 
     assert_equal "happy_paws_rescue@gmail.com", @org.email
     assert_equal "+13038947563", @org.phone_number
-    assert_equal "United States", @org.locations.last.country
-    assert_equal "Colorado", @org.locations.last.province_state
+    assert_equal "US", @org.locations.last.country
+    assert_equal "CO", @org.locations.last.province_state
     assert_equal "Golden", @org.locations.last.city_town
     assert_equal "logo.png", @org.avatar.filename.sanitized
     assert_equal "https://example.com", @org.facebook_url

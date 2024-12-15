@@ -57,8 +57,7 @@
             <!-- state Select Field -->
             <%= location_form.select :province_state,
                 location_form.object.country.present? ? 
-                CS.dig(location_form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : 
-                [],
+                CS.dig(location_form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
                 { prompt: "Please select" },
                 {
                   'data-country-state-target': 'state',
