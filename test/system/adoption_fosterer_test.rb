@@ -5,7 +5,7 @@ class AdoptionFostererTest < ApplicationSystemTestCase
     @user = create(:adopter_fosterer)
 
     @pet = create(:pet)
-    create(:adopter_application, pet: @pet, form_submission: @user.person.form_submissions.create)
+    create(:adopter_application, pet: @pet, person: @user.person)
 
     sign_in @user
   end

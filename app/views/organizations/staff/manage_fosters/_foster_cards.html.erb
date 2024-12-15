@@ -25,10 +25,7 @@
               <li class="list-group-item">
                 <span>Fosterer:</span>
                 <div>
-                  <%= link_to "PLACEHOLDER FOR FORM ANSWERS",
-                              nil,
-                              class: "link-underline link-underline-opacity-0"
-                  %>
+                  <%= link_to foster.person.full_name, staff_person_form_submissions_path(foster.person)%>
                 </div>
               </li>
               <li class="list-group-item">
