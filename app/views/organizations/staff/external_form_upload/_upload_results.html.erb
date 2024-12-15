@@ -1,15 +1,15 @@
 <turbo-frame id="results">
     <% if import.success? %>
-        <h5 role="alert">File successsfully scanned: <%= import.count %> new form submissions were added.</h5>
+        <h5 role="alert"><%= t('.success_heading', count: import.count) %></h5>
     <% else %>
-        <h5 role="alert">File scanned: <%= import.errors.count %> error(s) present</h5>
-         <p><%= import.count %> new form submissions were added.</p>
-         Review the following error(s) to ensure all form submissions are added:
+        <h5 role="alert"><%= t('.error_heading', count: import.errors.count) %></h5>
+         <p><%= t('.submissions_added', count: import.count) %></p>
+         <%= t('.review_errors', count: import.count) %>
          <ul>
              <% import.errors.each do |error| %>
-             <li>
-                 <%= "Row #{error[0]} - #{error[1].message}" %>
-             </li>
+                <li>
+                    <%= t('.row', number: error[0], message: error[1].message) %>
+                </li>
              <% end %>
          </ul>
     <% end %>
