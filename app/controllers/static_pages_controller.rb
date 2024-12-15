@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_verify_authorized only: %i[about_us cookie_policy donate faq partners
+  skip_verify_authorized only: %i[about_us cookie_policy donate partners
     privacy_policy terms_and_conditions]
 
   before_action :require_no_tenant, only: [:about_us, :partners]

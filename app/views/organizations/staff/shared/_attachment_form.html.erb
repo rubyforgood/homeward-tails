@@ -2,21 +2,24 @@
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
       <div>
-        <h4 class="mb-0">Upload <%= attachment_type %></h4>
+        <h4 class="mb-0">Upload
+          <%= attachment_type %></h4>
       </div>
     </div>
   </div>
   <div class="card-body">
-    <%= bootstrap_form_with(model: instance, url: url, method: :post) do |form| %>
+    <%= bootstrap_form_with(model: instance || false, url: url, method: :post) do |form| %>
       <div class='form-group mt-2 d-flex'>
         <div class="flex-grow-1">
-          <%= form.file_field attachment_type.to_sym, multiple: multiple, direct_upload: true,
-                              class: "custom-attachments",
-                              hide_label: true %>
+          <%= form.file_field attachment_type.to_sym,
+                          multiple: multiple,
+                          direct_upload: true,
+                          class: "custom-attachments",
+                          hide_label: true %>
           <small class="form-text text-muted"> Files must be .pdf, .png, or .jpeg under 2MB </small>
         </div>
         <div class="ps-2">
-          <%= form.submit t('general.attach'), class: 'btn btn-outline-success' %>
+          <%= form.submit t("general.attach"), class: "btn btn-outline-success" %>
         </div>
       </div>
     <% end %>
