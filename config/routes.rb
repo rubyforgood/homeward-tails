@@ -29,7 +29,6 @@ Rails.application.routes.draw do
 
   # Organization Scope
   scope module: :organizations do
-
     # Public Routes
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
