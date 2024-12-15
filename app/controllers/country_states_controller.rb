@@ -6,7 +6,7 @@ class CountryStatesController < ApplicationController
     @target = params[:target]
     @name = params[:name]
     @selected_state = params[:province_state]
-  
+
     @states = CS[country.to_sym][:states].invert
 
     respond_to do |format|
