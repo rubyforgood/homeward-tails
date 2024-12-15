@@ -3,7 +3,6 @@ require "test_helper"
 module Organizations
   module AdopterFosterer
     class FormAnswerPolicyTest < ActiveSupport::TestCase
-
       include PetRescue::PolicyAssertions
 
       setup do
@@ -61,7 +60,7 @@ module Organizations
             setup { @user = create(:admin) }
 
             should "return false" do
-              assert_equal true , @action.call
+              assert_equal true, @action.call
             end
           end
         end
