@@ -1,18 +1,5 @@
 <%= turbo_frame_tag :form_answers do %>
   <h4>Form Answers (<%= @form_submission.csv_timestamp.strftime("%Y-%m-%d") %> at <%= @form_submission.csv_timestamp.strftime("%H:%M") %>)</h4>
 
-  <% @form_answers.each do |form_answer| %>
-    <div class="justify-content-md-between mb-2 gx-3">
-      <div class="card">
-        <div id="<%= dom_id form_answer %>"class="card-body d-flex flex-sm-row flex-column justify-content-between border-bottom">
-          <div class="d-flex align-items-center">
-            <div>
-              <strong class="fs-4" >Q: <%= form_answer.question_snapshot %></strong>
-              <p class="mb-0">A: <%= form_answer.value %> </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "organizations/shared/form_answers", collection: @form_answers, as: :form_answer %>
 <% end %>
