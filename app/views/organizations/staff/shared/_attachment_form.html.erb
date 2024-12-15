@@ -16,7 +16,13 @@
                           direct_upload: true,
                           class: "custom-attachments",
                           hide_label: true %>
-          <small class="form-text text-muted"> Files must be .pdf, .png, or .jpeg under 2MB </small>
+          <small class="form-text text-muted"> 
+            <% if attachment_type == 'files' %>
+              Files must be .pdf, .png, or .jpeg under 2MB.
+            <% elsif attachment_type == 'images' %>
+              Images must be .jpg or .png under 1MB. 
+            <%end%>
+          </small>
         </div>
         <div class="ps-2">
           <%= form.submit t("general.attach"), class: "btn btn-outline-success" %>
