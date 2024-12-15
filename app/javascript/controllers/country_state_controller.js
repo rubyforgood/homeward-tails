@@ -6,11 +6,11 @@ export default class extends Controller {
 
   updateStates() {
     const path = this.countryTarget.dataset.path;
-
     const params = new URLSearchParams({
       country: this.countryTarget.value,
       target: this.stateTarget.id,
       name: this.stateTarget.name,
+      province_state: this.stateTarget.value
     });
 
     get(`${path}?${params}`, { responseKind: "turbo-stream" });
