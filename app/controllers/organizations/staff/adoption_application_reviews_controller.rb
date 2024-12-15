@@ -10,7 +10,7 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
       context: {organization: Current.organization}
 
     @q = authorized_scope(
-      Pet.includes(adopter_applications: [form_submission: [:person]])
+      Pet.includes(adopter_applications: [:person])
       .where.not(adopter_applications: {id: nil}).references(:person)
     ).ransack(params[:q])
     @pets_with_applications = @q.result.includes(:adopter_applications)
@@ -39,13 +39,6 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
         format.turbo_stream { flash.now[:alert] = t(".error") }
       end
     end
-  end
-
-  def show
-    authorize! AdopterApplication,
-      context: {organization: Current.organization}
-
-    @form_answers = @application.person.latest_form_submission.form_answers
   end
 
   private

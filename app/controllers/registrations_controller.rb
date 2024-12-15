@@ -16,7 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
     super do |resource|
       if resource.persisted?
         resource.add_role(:adopter, Current.organization)
-        resource.person.form_submissions.create
       end
     end
   end
