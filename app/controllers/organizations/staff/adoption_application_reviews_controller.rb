@@ -1,5 +1,5 @@
 class Organizations::Staff::AdoptionApplicationReviewsController < Organizations::BaseController
-  before_action :set_adopter_application, only: %i[edit update show]
+  before_action :set_adopter_application, only: %i[edit update]
 
   include ::Pagy::Backend
 
