@@ -30,8 +30,9 @@ class FormSubmission < ApplicationRecord
   acts_as_tenant(:organization)
   belongs_to :person
 
-  has_many :adopter_applications
   has_many :form_answers, dependent: :destroy
 
   delegate :user, to: :person
+
+  validates :csv_timestamp, presence: true
 end

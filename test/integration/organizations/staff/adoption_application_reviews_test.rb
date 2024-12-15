@@ -2,20 +2,19 @@ require "test_helper"
 
 class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
   setup do
-    form_submission = create(:form_submission)
-    @awaiting_review_app = create(:adopter_application, status: :awaiting_review, form_submission: form_submission)
-    @under_review_app = create(:adopter_application, status: :under_review, form_submission: form_submission)
-    create(:adopter_application, :adoption_pending, form_submission: form_submission)
-    create(:adopter_application, :withdrawn, form_submission: form_submission)
-    create(:adopter_application, status: :successful_applicant, form_submission: form_submission)
-    create(:adopter_application, status: :adoption_made, form_submission: form_submission)
+    @adopter = create(:adopter)
+    @awaiting_review_app = create(:adopter_application, status: :awaiting_review)
+    @under_review_app = create(:adopter_application, status: :under_review)
+    create(:adopter_application, :adoption_pending)
+    create(:adopter_application, :withdrawn)
+    create(:adopter_application, status: :successful_applicant)
+    create(:adopter_application, status: :adoption_made)
     @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
 
     # Setup for show view tests
-    @adopter = create(:adopter)
-    @form_submission = @adopter.person.latest_form_submission
+    @form_submission = create(:form_submission, person: @adopter.person)
     @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
-    @adopter_application = create(:adopter_application, form_submission: @form_submission)
+    @adopter_application = create(:adopter_application, person: @adopter.person)
   end
 
   context "non-staff" do
@@ -24,18 +23,6 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
       sign_in @user
 
       get staff_adoption_application_reviews_path
-
-      assert_response :redirect
-      follow_redirect!
-      follow_redirect!
-      assert_equal I18n.t("errors.authorization_error"), flash[:alert]
-    end
-
-    should "not be able to view application details" do
-      @user = create(:user)
-      sign_in @user
-
-      get staff_adoption_application_review_path(@adopter_application)
 
       assert_response :redirect
       follow_redirect!
@@ -77,25 +64,6 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
 
       @under_review_app.reload
       assert_equal("some notes", @under_review_app.notes)
-    end
-
-    context "viewing application details" do
-      should "assign correct form answers" do
-        get staff_adoption_application_review_path(@adopter_application)
-
-        assert_response :success
-        assert_equal @form_answers, assigns(:form_answers)
-        assert_equal 3, assigns(:form_answers).count
-      end
-
-      should "have correct application and person data" do
-        get staff_adoption_application_review_path(@adopter_application)
-
-        assert_response :success
-
-        assert_equal @adopter_application, assigns(:application)
-        assert_equal @adopter_application.person, assigns(:application).person
-      end
     end
 
     context "deactivated staff" do
