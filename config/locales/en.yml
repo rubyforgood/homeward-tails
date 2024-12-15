@@ -661,7 +661,7 @@ en:
           header: "Upload CSV File"
           csv_header_requirements: "Your CSV file must have column headers of 'Email' and 'Timestamp' for the import to work."
         upload_results:
-          success_heading: "File successsfully scanned: %{count} new form submissions were added."
+          success_heading: "File successsfully scanned"
           error_heading: "File scanned: %{count} error(s) present"
           submissions_added: "%{count} new form submissions were added."
           review_errors: "Review the following error(s) to ensure all form submissions are added:"
