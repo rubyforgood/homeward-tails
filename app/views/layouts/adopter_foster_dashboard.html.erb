@@ -93,13 +93,13 @@
                       <% if Current.organization.external_form_url.present? %>
                         <li class="nav-item">
                         <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
-                          <i class="fe fe-help-circle nav-icon"></i> Form
+                          <i class="fe fe-clipboard nav-icon"></i> Form
                         <% end %>
 
                         <% if current_user.person.latest_form_submission.present? %>
                           <li class="nav-item">
                             <%= active_link_to adopter_fosterer_form_answers_path, class: "nav-link" do %>
-                              <i class="fe fe-help-circle nav-icon"></i> Form Responses
+                              <i class="fe fe-clipboard nav-icon"></i> Form Responses
                             <% end %>
                           </li>
                         <% end %>
