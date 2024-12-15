@@ -3,8 +3,9 @@ require "application_system_test_case"
 class AdoptionCreationTest < ApplicationSystemTestCase
   setup do
     user = create(:admin)
+    adopter = create(:adopter)
     @pet = create(:pet)
-    create(:adopter_application, :successful_applicant, pet_id: @pet.id, form_submission: create(:form_submission))
+    create(:adopter_application, :successful_applicant, pet_id: @pet.id, person: adopter.person)
 
     sign_in user
   end

@@ -3,13 +3,12 @@ FactoryBot.define do
     notes { Faker::Lorem.paragraph }
     profile_show { true }
     status { 1 }
+    association :person
+    association :pet
 
     transient do
       user { nil }
     end
-
-    pet
-    form_submission
 
     trait :adoption_pending do
       status { 2 }
