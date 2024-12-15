@@ -95,10 +95,7 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    delete "staff/attachments/:id/purge", to: "attachments#purge", as: "staff_purge_attachment"
-    delete "attachments/:id/purge_avatar", to: "attachments#purge_avatar", as: "purge_avatar"
-
+    
     # Adopter and Fosterer Routes
     namespace :adopter_fosterer do
       resources :faq, only: [:index]
