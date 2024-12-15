@@ -3,7 +3,7 @@
     <% if params[:dashboard] %>
 
       <% if current_user.person.latest_form_submission.present? %>
-        <p class="fw-bold"><%= t('organizations.adopter_fosterer.form_instructions.previous_answers') %> <%= link_to t('general.here'), adopter_fosterer_form_answers_path %>.</p>
+        <p class="fw-bold mb-0"><%= t('organizations.adopter_fosterer.form_instructions.previous_answers') %> <%= link_to t('general.here'), adopter_fosterer_form_answers_path %>.</p>
         <p><%= t('organizations.adopter_fosterer.form_instructions.update_form_answers') %></p>
       <% else %>
         <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard", user_email: current_user.email) %></p>
