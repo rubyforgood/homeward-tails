@@ -619,6 +619,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jasonwang7517",
+      "name": "Jason Wang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39580712?v=4",
+      "profile": "https://www.linkedin.com/in/jasonwang7517/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

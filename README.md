@@ -1,6 +1,6 @@
 # Homeward Tails Adoption Application
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-68-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-69-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Application](https://github.com/kasugaijin/baja-pet-rescue/tree/main) created by @kasugaijin who wanted to give back to the grassroots organization from where he adopted his dog in Mexico by building them a web application. Homeward Tails is an application that makes it easy to connect shelters with people who are looking to adopt or foster pets.
@@ -320,6 +320,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/fivefootbot"><img src="https://avatars.githubusercontent.com/u/149846643?v=4?s=100" width="100px;" alt="Amy McCaughan"/><br /><sub><b>Amy McCaughan</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=fivefootbot" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jrussell416"><img src="https://avatars.githubusercontent.com/u/58918229?v=4?s=100" width="100px;" alt="jrussell416"/><br /><sub><b>jrussell416</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=jrussell416" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/caitlynl22"><img src="https://avatars.githubusercontent.com/u/8726946?v=4?s=100" width="100px;" alt="Caitlyn Landry"/><br /><sub><b>Caitlyn Landry</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=caitlynl22" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/jasonwang7517/"><img src="https://avatars.githubusercontent.com/u/39580712?v=4?s=100" width="100px;" alt="Jason Wang"/><br /><sub><b>Jason Wang</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=jasonwang7517" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
