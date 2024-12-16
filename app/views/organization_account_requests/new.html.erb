@@ -67,7 +67,7 @@
               <div class="col-lg-6">
                 <div class="form-group">
                   <%= form.select :country,
-                                  "",
+                                  CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
                                   { prompt: "Please select" },
                                   required: true,
                                   class: 'form-control'

@@ -39,17 +39,26 @@
                 <%= person_form.fields_for :location, user.person.location do |location_form| %>
                   <!-- Country Select -->
                   <%= location_form.select :country,
-                                      "",
-                                      { prompt: "", selected: default_country },
-                                      required: false,
-                                      class: 'form-control' %>
+                                      CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
+                                      { prompt: "Please select" },
+                                      {
+                                        'data-path': country_states_path,
+                                        'data-country-state-target': 'country',
+                                        'data-action': 'change->country-state#updateStates',
+                                        required: true,
+                                        class: 'form-control'
+                                      }  %>
 
                   <!-- Province/State Select -->
                   <%= location_form.select :province_state,
-                                      "",
-                                      { prompt: "" },
-                                      required: false,
-                                      class: 'form-control' %>
+                                      location_form.object.country.present? ? 
+                                      CS.dig(location_form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
+                                      { prompt: "Please select" },
+                                      {
+                                        'data-country-state-target': 'state',
+                                        required: true,
+                                        class: 'form-control'
+                                      }  %>
 
                   <!-- City/Town Text Field -->
                   <%= location_form.text_field :city_town,
