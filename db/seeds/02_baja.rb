@@ -3,7 +3,9 @@
   slug: "baja",
   email: "baja@email.com",
   phone_number: "201 555 8212",
-  custom_page: CustomPage.new(hero: "hero text", about: "about us text")
+  custom_page: CustomPage.new(hero: "hero text", about: "about us text"),
+  external_form_url: "https://docs.google.com/forms/d/e/1FAIpQLSf9bI-kboxyQQB5I1W5pt0R25u9pHoXI7o3jQHKu1P4K-61mA/viewform?embedded=true",
+  donation_url: "https://wwww.example.com/"
 )
 
 ActsAsTenant.with_tenant(@organization) do

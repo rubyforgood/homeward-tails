@@ -692,6 +692,11 @@ en:
           withdrew_by_accident_html: "If you withdrew by accident, <a href='/contact'>contact us</a>"
           remove: "Remove"
           withdraw: "Withdraw"
+      form_answers:
+        index:
+          header: "Form Responses"
+          description: "These are the responses from the last time you completed the questionnaire. Please review for accuracy. If changes are required, please fill out a new form"
+          submitted_on: "Submitted on %{date} at %{time}"
       likes:
         index:
           header_title: 'Liked Pets'
@@ -718,7 +723,9 @@ en:
           body_text: "At %{organization_name}, we’re dedicated to rescuing, rehabilitating, and rehoming animals in need. Your support helps us provide care, love, and hope to these pets until they find their forever homes."
       form_instructions:
         index: "Please complete this form using the same email address you signed up with. %{organization_name} needs this information in order to process your application(s)."
-        dashboard: If you need to update your information, you can do so by filling out a new copy of this form. Please only submit a new copy if there has been a change. Please ensure the email you use in the form is the same as the email on your account on this website. Unnecessary submissions may delay the processing of your application(s).
+        previous_answers: "You have already completed this form. View your responses"
+        update_form_answers: "Please only submit this form again if your details have changed and need updating."
+        dashboard: "Please complete this form so we have sufficient information to begin processing your adoption applications. Please ensure to use the same email address in the form as you did to register on this website (%{user_email})."
     attachments:
       purge:
         success: "Attachment removed"
