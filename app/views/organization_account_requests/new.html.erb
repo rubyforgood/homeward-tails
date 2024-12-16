@@ -13,7 +13,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6 mx-auto card p-5">
+      <div class="col-md-6 mx-auto card p-5" data-controller="country-state">
         <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_request_path do |form| %>
           <% if @organization_account_request.errors.any? %>
             <div class="alert alert-danger mt-1" role="alert">
@@ -66,20 +66,28 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <%= form.select :country,
+                 <%= form.select :country,
                                   CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
                                   { prompt: "Please select" },
-                                  required: true,
-                                  class: 'form-control'
-                  %>
+                                  {
+                                    'data-path': country_states_path,
+                                    'data-country-state-target': 'country',
+                                    'data-action': 'change->country-state#updateStates',
+                                    required: true,
+                                    class: 'form-control'
+                                  }  %>
                 </div>
-
+                <%= form.object.country %>
                 <div class="form-group">
-                  <%= form.text_field :province_state,
-                                      label: t('activerecord.attributes.location.province_state'),
-                                      required: true,
-                                      class: 'form-control'
-                  %>
+                  <%= form.select :province_state,
+                                  form.object.country.present? ? 
+                                  CS.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
+                                  { prompt: "Please select" },
+                                  {
+                                    'data-country-state-target': 'state',
+                                    required: true,
+                                    class: 'form-control'
+                                  }  %>
                 </div>
 
                 <div class="form-group">
