@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   }
 
   # Application Scope
-    resources :country_states, only: [:index]
+  resources :country_states, only: [:index]
 
   root "root#index"
   get "/up", to: "root#up" # Health check endpoint to let Kamal know the app is up
