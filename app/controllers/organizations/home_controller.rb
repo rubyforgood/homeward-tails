@@ -4,8 +4,8 @@ class Organizations::HomeController < Organizations::BaseController
 
   def index
     @pets = Pet.with_photo
-               .unadopted
-               .includes(images_attachments: :blob)
-               .sample(4)
+      .unadopted
+      .includes(images_attachments: :blob)
+      .sample(4)
   end
 end
