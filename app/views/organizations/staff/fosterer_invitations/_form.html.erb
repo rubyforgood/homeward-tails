@@ -37,7 +37,7 @@
               <!-- Nested Form for Locations Table -->
               <div class="form-group bigger" data-controller="country-state">
                 <%= person_form.fields_for :location, user.person.location do |location_form| %>
-                  <%= render 'shared/country_province_state_city', form: location_form %>
+                  <%= render 'shared/location_fields', form: location_form %>
                 <% end %>
               </div>
             </div>

@@ -42,7 +42,7 @@
         <div class="form-group bigger" data-controller="country-state">
           <% location = organization.locations.last || organization.locations.build %>
           <%= form.fields_for :locations, location do |location_form| %>
-            <%= render 'shared/country_province_state_city', form: location_form %>
+            <%= render 'shared/location_fields', form: location_form %>
           <% end %>
         </div>
       </div>
