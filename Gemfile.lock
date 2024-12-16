@@ -490,6 +490,11 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.13.1)
     simplecov_json_formatter (0.1.4)
+    solid_cable (3.0.4)
+      actioncable (>= 7.2)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -603,6 +608,7 @@ DEPENDENCIES
   shoulda (~> 4.0)
   shoulda-matchers
   simplecov
+  solid_cable (~> 3.0)
   standard
   stimulus-rails
   strong_migrations (~> 2.1)

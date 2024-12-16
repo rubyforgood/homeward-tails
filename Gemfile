@@ -186,3 +186,5 @@ group :test do
   # Adds ability to stub out methods in tests easier
   gem "mocha"
 end
+
+gem "solid_cable", "~> 3.0"
