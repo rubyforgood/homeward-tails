@@ -366,7 +366,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
-    phonelib (0.10.1)
+    phonelib (0.10.2)
     popper_js (2.11.8)
     propshaft (1.1.0)
       actionpack (>= 7.0.0)
