@@ -42,31 +42,7 @@
         <div class="form-group bigger" data-controller="country-state">
           <% location = organization.locations.last || organization.locations.build %>
           <%= form.fields_for :locations, location do |location_form| %>
-            <!-- country Select Field -->
-            <%= location_form.select :country,
-              CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
-              { prompt: "Please select" },
-              {
-                'data-path': country_states_path,
-                'data-country-state-target': 'country',
-                'data-action': 'change->country-state#updateStates',
-                required: true,
-                class: 'form-control'
-              } 
-            %>
-            <!-- state Select Field -->
-            <%= location_form.select :province_state,
-                location_form.object.country.present? ? 
-                CS.dig(location_form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
-                { prompt: "Please select" },
-                {
-                  'data-country-state-target': 'state',
-                  required: true,
-                  class: 'form-control'
-                } 
-            %>
-            <!-- City/Town Text Field -->
-            <%= location_form.text_field :city_town, class: 'form-control' %>
+            <%= render 'shared/country_province_state_city', form: location_form %>
           <% end %>
         </div>
       </div>

@@ -65,36 +65,8 @@
               </div>
 
               <div class="col-lg-6">
-                <div class="form-group">
-                 <%= form.select :country,
-                                  CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
-                                  { prompt: "Please select" },
-                                  {
-                                    'data-path': country_states_path,
-                                    'data-country-state-target': 'country',
-                                    'data-action': 'change->country-state#updateStates',
-                                    required: true,
-                                    class: 'form-control'
-                                  }  %>
-                </div>
-                <%= form.object.country %>
-                <div class="form-group">
-                  <%= form.select :province_state,
-                                  form.object.country.present? ? 
-                                  CS.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
-                                  { prompt: "Please select" },
-                                  {
-                                    'data-country-state-target': 'state',
-                                    required: true,
-                                    class: 'form-control'
-                                  }  %>
-                </div>
-
-                <div class="form-group">
-                  <%= form.text_field :city_town,
-                                      label: t('activerecord.attributes.location.city_town'),
-                                      class: 'form-control'
-                  %>
+                <div class="input-group">
+                  <%= render 'shared/country_province_state_city', form: form %>
                 </div>
               </div>
             </div>
