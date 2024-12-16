@@ -16,11 +16,11 @@ module Organizations
         catch(:halt_import) do
           validate_file
 
-          CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(1) do |row, index|
+          CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(2) do |row, index|
             # Header may be different depending on which form applicaiton was used(e.g. google forms) or how it was created(User creates form with "Email Address")
             email = row[@email_header].downcase
             # Google forms uses "Timestamp", other services may use a different header
-            csv_timestamp = Time.parse(row["Timestamp"])
+            csv_timestamp = Time.parse(row["Timestamp"]) if row["Timestamp"].present?
 
             person = Person.find_by(email:, organization: @organization)
             previously_matched_form_submission = FormSubmission.where(person:, csv_timestamp:)
