@@ -1,7 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: Rails.application.config.from_email
   layout "mailer"
-
   around_action :with_organization_path, if: -> { Current.organization }
 
   private

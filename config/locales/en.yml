@@ -57,6 +57,7 @@ en:
         organization_name: Organization name
         your_name: Your name
   general:
+    here: "here"
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
     adopted: Adopted
@@ -111,13 +112,15 @@ en:
   root:
     index:
       title: "Homeward Tails"
+      about: "About"
+      partners: "Partners"
       pet: "Pets"
       description: "A free-to-use application built for pet rescue organizations that enables you to manage pets, people, adoptions, and fosters with ease. "
       btn_title: Request a free account
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
       free: "Free"
-      free_description: "Free for pet rescue organizations, forever"
+      free_description: "All pet rescue organizations can use this application for free"
       easy: "Easy"
       easy_description: "Your own customizable website up and running instantly"
       save_time: "Save Time"
@@ -201,7 +204,7 @@ en:
         cookie: "Cookie Notice"
         terms: "Terms of Use"
       no_tenant_navbar:
-        title: "Open Pet Rescue"
+        title: "Homeward Tails"
         sub_title: "A Ruby For Good project"
         dropdown_title: "Rescues"
         btn_title: Request an account
@@ -395,12 +398,20 @@ en:
           adoption_made: Adoption Made
           default: "Application submitted"
         apply_to_adopt: "Apply to Adopt"
-        complete_your_profile: "Complete your profile to apply for this pet"
-        complete_my_profile: "Complete my profile"
+        in_love: "In love with this furball?"
+        application_paused: "We are not currently accepting applications for %{pet_name}"
         adopt: "Adopt"
         login: "Log in"
         important_info: "Important Information"
     staff:
+      form_submissions:
+        action: "Action"
+        form_submitted: "Form Submitted"
+        import_date: "Import Date"
+        view_submission: "View Submission"
+        index:
+          header: "Form Submissions"
+          empty_state: "%{person_name} does not have any imported form data. If they have completed a third party form, please upload the data"
       fosterers:
         update:
           success: Fosterer was susccessfully updated
@@ -464,7 +475,7 @@ en:
           help_due_in_days: "The task will be due this number of days after the pet is created."
         index:
           name: "Name"
-          name_placeholder: "Enter Pet Name"
+          name_placeholder: "Enter task name"
           description: "Description"
           species: "Species"
           species_placeholder: "Select Species"
@@ -654,7 +665,10 @@ en:
           activated: "%{staff} was activated."
           deactivated: "%{staff} was deactivated."
       external_form_upload:
-        upload_limit_exceed: "Upload limit exceeded: Only one file allowed." 
+        index:
+          description: "If you collect information from adopters from a third party service, like Google Forms, you can export a CSV file from Google Forms and upload it here. We will import the questions and answers for any adopters who have an account on your Homeward Tails website, providing they use the same email address. Then you will be able to see the information for each adopter when reviewing applications."
+          header: "Upload CSV File"
+          csv_header_requirements: "Your CSV file must have column headers of 'Email' and 'Timestamp' for the import to work."
     adopter_fosterer:
       adopter_applications:
         create:
@@ -713,6 +727,14 @@ en:
       description: "Found a bug? Want to request a feature? Contact our dev team with the form below."
       message_placeholder: "Enter your message..."
   static_pages:
+    about_us:
+      about_us: "About"
+      headline: "Homeward Tails was created by 100+ developers, designers, and pet lovers from around the globe"
+      description: "Understanding that many small animal rescue organizations lack the resources to invest in custom-built websites, we wanted to build a platform to bridge this gap. Homeward Tails is a free application designed to empower organizations with the tools to efficiently manage people, pets, fosters, and adoptions all in one place."
+      mission: "To empower small, underfunded animal rescue organizations worldwide by providing a free, open-source platform to streamline pet, foster, adoption, and people management while offering them a professional online presence, created collaboratively by passionate developers united by a love for code and animals."
+      vision: "A world where technology bridges the gap for animal rescue organizations, enabling them to save more lives and connect pets with loving homes, regardless of their budget or resources, driven by a global community of developers dedicated to making a meaningful impact."
+    partners:
+      heading: "Partners"
     donate:
       give: "Give"
       give_sentence: "them a chance to be loved"
@@ -725,3 +747,5 @@ en:
       faq: "Faq"
       header: "Frequently Asked Questions"
       more_questions: "More Questions? Contact us"
+  attachment_manageable:
+    upload_limit_exceeded: "Upload limit exceeded: Only one file allowed."

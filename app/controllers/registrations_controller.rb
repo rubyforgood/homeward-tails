@@ -16,7 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
     super do |resource|
       if resource.persisted?
         resource.add_role(:adopter, Current.organization)
-        resource.person.form_submissions.create
       end
     end
   end
@@ -70,7 +69,7 @@ class RegistrationsController < Devise::RegistrationsController
   def send_email
     return unless resource.id
 
-    SignUpMailer.with(user: resource).adopter_welcome_email(current_tenant.slug).deliver_now
+    SignUpMailer.with(user: resource).adopter_welcome_email(current_tenant).deliver_now
   end
 end
 

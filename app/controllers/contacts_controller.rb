@@ -11,7 +11,7 @@ class ContactsController < ApplicationController
 
     if @contact.valid?
       ContactsMailer.with(contacts_params)
-        .send_message(Current.organization.slug).deliver_now
+        .send_message(Current.organization).deliver_now
       redirect_to root_path, notice: t(".success")
     else
       render :new, status: :unprocessable_entity

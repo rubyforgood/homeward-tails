@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letters" if Rails.env.development?
+
   devise_for :users, controllers: {
     registrations: "registrations",
     sessions: "users/sessions",
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
+
     namespace :staff do
       resource :organization, only: %i[edit update]
       resource :custom_page, only: %i[edit update]
@@ -31,7 +34,15 @@ Rails.application.routes.draw do
       end
       resources :matches, only: %i[create destroy]
 
-      resources :adoption_application_reviews, only: %i[index edit update show]
+      resources :people do
+        resources :form_submissions, only: [:index]
+      end
+
+      resources :form_submissions do
+        resources :form_answers, only: [:index]
+      end
+
+      resources :adoption_application_reviews, only: %i[index edit update]
       resources :manage_fosters, only: %i[new create index edit update destroy]
       resources :fosterers, only: %i[index edit update]
       resources :adopters, only: %i[index]
@@ -50,6 +61,7 @@ Rails.application.routes.draw do
       post "user_roles/:id/to_admin", to: "user_roles#to_admin", as: "user_to_admin"
       post "user_roles/:id/to_super_admin", to: "user_roles#to_super_admin", as: "user_to_super_admin"
     end
+
     delete "staff/attachments/:id/purge", to: "attachments#purge", as: "staff_purge_attachment"
     delete "attachments/:id/purge_avatar", to: "attachments#purge_avatar", as: "purge_avatar"
 
