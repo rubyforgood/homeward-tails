@@ -1,90 +1,106 @@
 <section class="pt-5 pb-5">
-  <div class="container mb-md-5 mt-md-5 ">
-    <div class="container mb-md-5 mt-md-5">
-      <div class="text-center mb-5">
-        <h1 class="section-heading text-capitalize underline">
-          <%= t('.header') %>
-        </h1>
+  <div class="container mb-md-5 mt-md-5">
+    <div class="text-center mb-5">
+      <h1 class="section-heading underline">
+        <%= t('.header') %>
+      </h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3 text-center bigger mx-auto">
+        <%= t('.description') %>
       </div>
     </div>
 
-    <div class='mb-3 text-center bigger'>
-      <%= t('.description') %>
-    </div>
     <div class="row">
       <div class="col-md-6 mx-auto card p-5">
-      <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_request_path do |form| %>
-        <% if @organization_acccount_request.errors.count > 0 %>
-          <div class="alert alert-danger mt-1" role="alert">
-            <%= t('organizations.staff.organizations.form.please_fix_the_errors') %>
-          </div>
-          <ul>
-            <% @organization_acccount_request.errors.full_messages.each do |message| %>
-              <div class="alert alert-danger mt-1" role="alert">
-                <%= message %>
-              </div>
-            <% end %>
-          </ul>
-        <% end %>
+        <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_request_path do |form| %>
+          <% if @organization_account_request.errors.any? %>
+            <div class="alert alert-danger mt-1" role="alert">
+              <%= t('organizations.staff.organizations.form.please_fix_the_errors') %>
+            </div>
+            <ul>
+              <% @organization_account_request.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
 
-        <div class='card-body'>
-          <div class="row mt-3">
-            <div class="col-lg-6">
-              <form class="mb-3">
-
+          <div class="card-body pt-0">
+            <div class="row mt-3">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <%= form.text_field :name,
-                    label: 'Organization name',
-                    class: 'form-control',
-                    required: true
-                   %>
+                                      label: t('.form.organization_name'),
+                                      class: 'form-control',
+                                      required: true
+                  %>
                 </div>
 
                 <div class="form-group">
-                  <%= form.text_field :requester_name, label: 'Your name', class: 'form-control' %>
+                  <%= form.text_field :requester_name,
+                                      label: t('.form.your_name'),
+                                      class: 'form-control'
+                  %>
                 </div>
+
                 <div class="form-group">
                   <%= form.telephone_field :phone_number,
-                                          autofocus: true,
-                                          label: 'Organization phone number',
-                                          placeholder: "10 digit number",
-                                          class: 'form-control',
-                                          required: true %>
+                                           autofocus: true,
+                                           label: t('phone'),
+                                           placeholder: "10 digit number",
+                                           class: 'form-control',
+                                           required: true
+                  %>
                 </div>
+
                 <div class="form-group">
-                  <%= form.email_field :email, label: 'Organization email', placeholder: "john@email.com", class: 'form-control', required: true %>
+                  <%= form.email_field :email,
+                                       label: t('email'),
+                                       placeholder: "john@email.com",
+                                       class: 'form-control',
+                                       required: true
+                  %>
                 </div>
-              </form>
-            </div>
+              </div>
 
-            <div class="col-lg-6">
-
-              <div class="form-group bigger">
+              <div class="col-lg-6">
+                <div class="form-group">
                   <%= form.select :country,
                                   CS.countries.invert,
                                   { prompt: "Please select" },
-                                  data: {
-                                    path: country_states_path(:country),
-                                  },
+                                  data: { path: country_states_path(:country) },
                                   required: true,
-                                  class: 'form-control' %>
-                  <%= form.text_field :province_state,
-                                      label: 'Province/State',
-                                      required: true,
-                                      class: 'form-control' %>
+                                  class: 'form-control'
+                  %>
+                </div>
 
-                  <%= form.text_field :city_town, class: 'form-control', label: "City/Town" %>
+                <div class="form-group">
+                  <%= form.text_field :province_state,
+                                      label: t('activerecord.attributes.location.province_state'),
+                                      required: true,
+                                      class: 'form-control'
+                  %>
+                </div>
+
+                <div class="form-group">
+                  <%= form.text_field :city_town,
+                                      label: t('activerecord.attributes.location.city_town'),
+                                      class: 'form-control'
+                  %>
+                </div>
               </div>
             </div>
 
-          <div class="row mt-3">
-            <div class="col-lg-12">
-              <%= form.submit t('general.submit'), class: 'btn btn-primary' %>
-              <%= link_to t('general.cancel'), :back, class: 'btn btn-outline-secondary' %>
+            <div class="row mt-3">
+              <div class="col-lg-12">
+                <%= form.submit t('general.submit'), class: 'btn btn-primary' %>
+                <%= link_to t('general.cancel'), :back, class: 'btn btn-outline-secondary' %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </section>
-

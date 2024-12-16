@@ -2,14 +2,19 @@ require "test_helper"
 
 class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
   setup do
-    form_submission = create(:form_submission)
-    @awaiting_review_app = create(:adopter_application, status: :awaiting_review, form_submission: form_submission)
-    @under_review_app = create(:adopter_application, status: :under_review, form_submission: form_submission)
-    create(:adopter_application, :adoption_pending, form_submission: form_submission)
-    create(:adopter_application, :withdrawn, form_submission: form_submission)
-    create(:adopter_application, status: :successful_applicant, form_submission: form_submission)
-    create(:adopter_application, status: :adoption_made, form_submission: form_submission)
+    @adopter = create(:adopter)
+    @awaiting_review_app = create(:adopter_application, status: :awaiting_review)
+    @under_review_app = create(:adopter_application, status: :under_review)
+    create(:adopter_application, :adoption_pending)
+    create(:adopter_application, :withdrawn)
+    create(:adopter_application, status: :successful_applicant)
+    create(:adopter_application, status: :adoption_made)
     @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
+
+    # Setup for show view tests
+    @form_submission = create(:form_submission, person: @adopter.person)
+    @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
+    @adopter_application = create(:adopter_application, person: @adopter.person)
   end
 
   context "non-staff" do

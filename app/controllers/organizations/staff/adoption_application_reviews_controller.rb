@@ -10,7 +10,7 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
       context: {organization: Current.organization}
 
     @q = authorized_scope(
-      Pet.includes(adopter_applications: [form_submission: [:person]])
+      Pet.includes(adopter_applications: [:person])
       .where.not(adopter_applications: {id: nil}).references(:person)
     ).ransack(params[:q])
     @pets_with_applications = @q.result.includes(:adopter_applications)

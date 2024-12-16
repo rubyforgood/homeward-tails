@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
           <div class="col-11 col-sm-10 col-lg-8">
             <h1 class="display-4 display-sm-3 display-lg-2 mb-4 mb-lg-5 fw-bold text-center text-lg-start" style='color: #000000;'>
-              <%= t('.title') + " " %><span class="text-primary"><%= t('.pet') %></span>
+              <%= t('.title')%>
             </h1>
             <p class="lead mb-4 mb-lg-5 text-center text-lg-start">
               <%= t('.description') %>
@@ -15,7 +15,6 @@
             </div>
             <div class="text-center text-lg-start">
               <%= link_to t('.btn_title'), new_organization_account_request_path, class: 'btn btn-primary btn-lg mb-2 px-4 px-sm-5' %>
-              <small class="d-block" style="color: #585858;"><%= t('.btn_subtitle')%></small>
             </div>
           </div>
         </div>
@@ -29,136 +28,132 @@
   </div>
 </section>
 
-<section class="bg-white py-4 shadow-sm">
-    <div class="container">
-        <div class="row d-flex align-items-center g-0">
-            <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-4">
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="ms-3">
-                        <h4 class="mb-0 fw-semibold text-center text-dark"><%= t('.free')%></h4>
-                        <p class="mb-0 text-center" style = "color: #373737;"><%= t('.free_description')%></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-4">
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="ms-3">
-                        <h4 class="mb-0 fw-semibold text-center text-dark"><%= t('.easy')%></h4>
-                        <p class="mb-0 text-center" style = "color: #373737;"><%= t('.easy_description')%></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 mb-lg-0 mb-4">
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="ms-3">
-                        <h4 class="mb-0 fw-semibold text-center text-dark"><%= t('.personalized')%></h4>
-                        <p class="mb-0 text-center" style = "color: #373737;"><%= t('.personalized_description')%></p>
-                    </div>
-                </div>
-            </div>
+<section class="bg-white pt-8 shadow-sm">
+  <div class="container">
+    <div class="row d-flex align-items-center justify-content-center ">
+      <div class="col-lg-3 col-12 d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center text-primary">
+          <i class="fe fe-dollar-sign display-4 me-2"></i>
+          <h3 class="mb-0 h1"><%= t('.free') %></h3>
         </div>
+        <p class="fs-4 mt-2 mb-4 text-center"><%= t('.free_description')%></p>
+      </div>
+
+      <div class="col-lg-3 col-12 d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center text-primary">
+          <i class="fe fe-award display-4 me-2"></i>
+          <h3 class="mb-0 h1"><%= t('.easy') %></h3>
+        </div>
+        <p class="fs-4 mt-2 mb-4 text-center"><%= t('.easy_description')%></p>
+      </div>
+
+      <div class="col-lg-3 col-12 d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center text-primary">
+          <i class="fe fe-clock display-4 me-2"></i>
+          <h3 class="mb-0 h1"><%= t('.save_time') %></h3>
+        </div>
+        <p class="fs-4 mt-2 mb-4 text-center"><%= t('.save_time_description')%></p>
+      </div>
     </div>
+  </div>
 </section>
 
 <section class="bg-white py-6 py-md-6 py-lg-8">
     <div class="container my-lg-8">
         <div class="row">
             <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.website')%></h3>
-                <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.website_description')%></p>
+              <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.website')%></h3>
+              <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.website_description')%></p>
             </div>
             <div class="offset-xl-1 col-xl-10 col-12 mt-8">
                 <div class="card bg-gradient-mix-shade px-md-5 pt-md-5 px-4 pt-4 rounded-3">
-                    <%= image_tag "website.png", alt: "website_image", class: "rounded-3 mb-n5 img-fluid smooth-shadow-md" %>
+                  <%= image_tag "website.png", alt: "website_image", class: "rounded-3 mb-n5 img-fluid smooth-shadow-md" %>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<section class="bg-light py-6 py-md-6 py-lg-8">
-  <div class="container">
-      <div class="row align-items-center pb-lg-8">
-        <div class = "row">
-            <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.keep_track')%></h3>
-                <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.common_description')%></p>
-            </div>
-        </div>
-        <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
-            <div class = "pe-lg-6 ps-lg-6" >
-                <div class="mt-6"> 
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="mb-2" style = "color: #373737;"><%= t('.easily_set')%></h3>
-                        </div>
-                    </div>
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="mb-2" style = "color: #373737;"><%= t('.add_notes')%></h3>
-                            <p class="mb-0 fs-4" style = "color: #373737;"><%= t('.add_notes_description')%></p>
-                        </div>
-                    </div>
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="b-2" style = "color: #373737;"><%= t('.filter')%></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class = "col-lg-6 col-md-12 col-12">
-            <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-            <%= image_tag "layout_graphic.png", alt: "screen_1", class: "img-fluid w-100 h-75"%>
-            </div>
-        </div>
-      </div>
-  </div>
-</section>
-
 
 <section class="bg-light py-6 py-md-6 py-lg-8">
   <div class="container">
     <div class="row align-items-center pb-lg-8">
-        <div class = "row">
-            <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.handle_adoption')%></h3>
-                <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.common_description')%></p>
-            </div>
+      <div class = "row">
+        <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+            <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.manage_pets')%></h3>
+            <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.manage_pets_description')%></p>
         </div>
-        <div class = "col-lg-6 col-md-12 col-12">
-            <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-                <%= image_tag "layout_graphic_2.png", alt: "screen_2", class: "img-fluid w-100 h-75"%>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
+        <div class = "pe-lg-6 ps-lg-6" >
+          <div class="mt-6">
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="mb-2"><%= t('.manage_pets_point_1')%></h3>
+              </div>
+              </div>
+              <div class="mb-4 d-flex">
+                <div class="vr me-3"></div>
+                <div class="ms-3">
+                  <h3 class="mb-2"><%= t('.manage_pets_point_2')%></h3>
+              </div>
+              </div>
+              <div class="mb-4 d-flex">
+                <div class="vr me-3"></div>
+                <div class="ms-3">
+                  <h3 class="b-2"><%= t('.manage_pets_point_3')%></h3>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12">
+          <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
+          <%= image_tag "layout_graphic.png", alt: "screen_1", class: "img-fluid w-100 h-75"%>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light py-6 py-md-6 py-lg-8">
+  <div class="container">
+    <div class="row align-items-center pb-lg-8">
+      <div class = "row">
+        <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+            <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.manage_adoption_applications')%></h3>
+            <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.manage_adoption_applications_description')%></p>
+        </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12">
+        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
+            <%= image_tag "layout_graphic_2.png", alt: "screen_2", class: "img-fluid w-100 h-75"%>
+        </div>
+      </div>
         <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
-            <div class = "pe-lg-6 ps-lg-6" >
-                <div class="mt-6"> 
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="mb-2" style = "color: #373737;"><%= t('.easily_set')%></h3>
-                        </div>
-                    </div>
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="mb-2" style = "color: #373737;"><%= t('.add_notes')%></h3>
-                            <p class="mb-0 fs-4" style = "color: #373737;"><%= t('.add_notes_description')%></p>
-                        </div>
-                    </div>
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="b-2" style = "color: #373737;"><%= t('.filter')%></h3>
-                        </div>
-                    </div>
+          <div class = "pe-lg-6 ps-lg-6" >
+            <div class="mt-6">
+              <div class="mb-4 d-flex">
+                <div class="vr me-3"></div>
+                <div class="ms-3">
+                  <h3 class="mb-2"><%= t('.manage_applications_point_1') %></h3>
                 </div>
+              </div>
+              <div class="mb-4 d-flex">
+                <div class="vr me-3"></div>
+                <div class="ms-3">
+                  <h3 class="mb-2"><%= t('.manage_applications_point_2') %></h3>
+                </div>
+              </div>
+              <div class="mb-4 d-flex">
+                <div class="vr me-3"></div>
+                <div class="ms-3">
+                  <h3 class="b-2"><%= t('.manage_applications_point_3') %></h3>
+                </div>
+              </div>
             </div>
         </div>
+      </div>
     </div>
   </div>
 </section>
@@ -166,190 +161,187 @@
 
 <section class="bg-light py-6 py-md-6 py-lg-8">
   <div class="container">
-        <div class= "row align-items-center pb-lg-8">
-            <div class = "row">
-                <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                    <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.take_complexity')%></h3>
-                    <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.common_description')%></p>
-                </div>
-            </div>
-            <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
-                <div class = "pe-lg-6 ps-lg-6" >
-                    <div class="mt-6"> 
-                        <div class="mb-4 d-flex">
-                            <div class="vr me-3" style="color: black;"></div>
-                            <div class="ms-3">
-                                <h3 class="mb-2" style = "color: #373737;"><%= t('.see_status')%></h3>
-                            </div>
-                        </div>
-                        <div class="mb-4 d-flex">
-                            <div class="vr me-3" style="color: black;"></div>
-                            <div class="ms-3">
-                                <h3 class="mb-2" style = "color: #373737;"><%= t('.easily_edit')%></h3>
-                                <p class="mb-0 fs-4" style = "color: #373737;"><%= t('.add_notes_description')%></p>
-                            </div>
-                        </div>
-                        <div class="mb-4 d-flex">
-                            <div class="vr me-3" style="color: black;"></div>
-                            <div class="ms-3">
-                                <h3 class="b-2" style = "color: #373737;"><%= t('.quickly_search')%></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class = "col-lg-6 col-md-12 col-12">
-                <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-                    <%= image_tag "layout_graphic_3.png", alt: "screen_3", class: "img-fluid w-100 h-75"%>
-                </div>
-            </div>
+    <div class= "row align-items-center pb-lg-8">
+      <div class = "row">
+        <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+          <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.fostering')%></h3>
+          <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.fostering_description') %></p>
         </div>
-  </div>
-</section>
-
-<section class="bg-light py-4 py-md-6 py-lg-8">
-  <div class="container">
-        <div class = "row align-items-center pb-lg-8">
-            <div class = "row">
-                <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                        <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.manage_adoster')%></h3>
-                        <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.manage_adoster_description')%></p>
-                </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
+        <div class = "pe-lg-6 ps-lg-6" >
+          <div class="mt-6">
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="mb-2"><%= t('.fostering_point_1')%></h3>
+              </div>
             </div>
-            <div class = "col-lg-6 col-md-12 col-12">
-                <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-                        <%= image_tag "layout_graphic_2.png", alt: "hero", class: "img-fluid w-100 h-75"%>
-                </div>  
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="mb-2"><%= t('.fostering_point_2')%></h3>
+              </div>
             </div>
-            <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
-                <div class = "pe-lg-6 ps-lg-6" >
-                    <div class="mt-6"> 
-                        <div class="mb-4 d-flex">
-                            <div class="vr me-3" style="color: black;"></div>
-                            <div class="ms-3">
-                                <h3 class="mb-2" style = "color: #373737;"><%= t('.easily_set')%></h3>
-                            </div>
-                        </div>
-                        <div class="mb-4 d-flex">
-                            <div class="vr me-3" style="color: black;"></div>
-                            <div class="ms-3">
-                                <h3 class="mb-2" style = "color: #373737;"><%= t('.add_notes')%></h3>
-                                <p class="mb-0 fs-4" style = "color: #373737;"><%= t('.add_notes_description')%></p>
-                            </div>
-                        </div>
-                        <div class="mb-4 d-flex">
-                            <div class="vr me-3" style="color: black;"></div>
-                            <div class="ms-3">
-                                <h3 class="b-2" style = "color: #373737;"><%= t('.filter')%></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="b-2"><%= t('.fostering_point_3')%></h3>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12">
+        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
+          <%= image_tag "layout_graphic_3.png", alt: "screen_3", class: "img-fluid w-100 h-75"%>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="bg-light py-6 py-md-6 py-lg-8">
   <div class="container">
     <div class = "row align-items-center pb-lg-8">
-        <div class = "row">
-            <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.create_account')%></h3>
-                <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.create_account_description')%></p>
-            </div>
+      <div class = "row">
+          <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+              <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.manage_people')%></h3>
+              <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.manage_people_description')%></p>
+          </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12">
+        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
+          <%= image_tag "layout_graphic_3.png", alt: "screen_3", class: "img-fluid w-100 h-75"%>
         </div>
-        <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
-            <div class = "pe-lg-6 ps-lg-6" >
-                    <div class="mt-6"> 
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="mb-2" style = "color: #373737;"><%=  t('.see_status')%></h3>
-                        </div>
-                    </div>
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="mb-2" style = "color: #373737;"><%= t('.add_notes')%></h3>
-                            <p class="mb-0 fs-4" style = "color: #373737;"><%= t('.add_notes_description')%></p>
-                        </div>
-                    </div>
-                    <div class="mb-4 d-flex">
-                        <div class="vr me-3" style="color: black;"></div>
-                        <div class="ms-3">
-                            <h3 class="b-2" style = "color: #373737;"><%= t('.quickly_search')%></h3>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
+        <div class = "pe-lg-6 ps-lg-6" >
+          <div class="mt-6">
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                  <h3 class="mb-2"><%= t('.manage_people_point_1') %></h3>
+              </div>
             </div>
-        </div>
-        <div class = "col-lg-6 col-md-12 col-12">
-            <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-                <%= image_tag "layout_graphic_3.png", alt: "screen_3", class: "img-fluid w-100 h-75"%>
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                  <h3 class="mb-2"><%= t('.manage_people_point_2') %></h3>
+              </div>
             </div>
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                  <h3 class="b-2"><%= t('root.index.manage_people_point_3')%></h3>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light py-4 py-md-6 py-lg-8">
+  <div class="container">
+    <div class = "row align-items-center pb-lg-8">
+      <div class = "row">
+        <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+          <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.adopter_foster_dashboard')%></h3>
+          <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.adopter_foster_dashboard_description')%></p>
+        </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
+        <div class = "pe-lg-6 ps-lg-6" >
+          <div class="mt-6">
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="mb-2"><%= t('.adopter_foster_dashboard_point_1') %></h3>
+              </div>
+            </div>
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="mb-2"><%= t('.adopter_foster_dashboard_point_2') %></h3>
+              </div>
+            </div>
+            <div class="mb-4 d-flex">
+              <div class="vr me-3"></div>
+              <div class="ms-3">
+                <h3 class="b-2"><%= t('.adopter_foster_dashboard_point_3') %></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class = "col-lg-6 col-md-12 col-12">
+        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
+          <%= image_tag "layout_graphic_2.png", alt: "hero", class: "img-fluid w-100 h-75"%>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="bg-light py-6 py-md-6 py-lg-8">
   <div class="container my-lg-8">
-        <div class = "row">
-            <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                    <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.give_ur_furr_ball')%></h3>
-                    <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.give_ur_furr_ball_description')%></p>
-            </div>
+    <div class = "row">
+      <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+        <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.give_ur_furr_ball')%></h3>
+        <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.give_ur_furr_ball_description')%></p>
+      </div>
 
-            <div class = "offset-xl-1 col-xl-10 col-12 mt-8 text-center">
-                <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-                    <%= image_tag "layout_graphic_5.png", alt: "screen_4", class: "img-fluid w-100 h-75"%>
-                </div>
-                <%= link_to t('.btn_title'), new_organization_account_request_path, class: 'btn btn-primary btn-lg px-6 my-6' %>
-            </div>
+      <div class = "offset-xl-1 col-xl-10 col-12 mt-8 text-center">
+        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
+            <%= image_tag "layout_graphic_5.png", alt: "happy pets", class: "img-fluid w-100 h-75"%>
         </div>
+        <%= link_to t('.btn_title'), new_organization_account_request_path, class: 'btn btn-primary btn-lg px-6 my-6' %>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="bg-light py-6 py-md-6 py-lg-8 d-none d-md-block">
-    <div class = "container">
-        <div class="row align-items-center">
-            <div class = "row">
-                <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
-                    <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.learn_more_about')%></h3>
-                    <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.learn_more_about_description')%></p>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row justify-content-between align-items-center mt-4 flex-nowrap overflow-auto">
-                <div class="col-auto">
-                <%= image_tag "icon_1.png", alt: "Human Essentials", class: "img-fluid", style: "max-width: 75px;" %>
-                </div>
-                <div class="col-auto">
-                <%= image_tag "icon_2.png", alt: "Human Essentials app", class: "img-fluid", style: "max-width: 180px;" %>
-                </div>
-                <div class="col-auto">
-                <%= image_tag "icon_3.png", alt: "Casa Volunteer Tracking", class: "img-fluid", style: "max-width: 190px;" %>
-                </div>
-                <div class="col-auto">
-                <%= image_tag "icon_4.png", alt: "Heart icon", class: "img-fluid", style: "max-width: 75px;" %>
-                </div>
-                <div class="col-auto">
-                <%= image_tag "icon_5.png", alt: "Refuge Restrooms", class: "img-fluid", style: "max-width: 125px;" %>
-                </div>
-                <div class="col-auto">
-                <%= image_tag "icon_6.png", alt: "Tree icon", class: "img-fluid", style: "max-width: 75px;" %>
-                </div>
-                <div class="col-auto">
-                <%= image_tag "icon_7.png", alt: "Tool Library", class: "img-fluid", style: "max-width: 75px;" %>
-                </div>
-            </div>
-        </div>
-
-        
-        <div class = "mt-5 column d-flex flex-column align-items-center justify-content-center">
-            <a href="https://rubyforgood.org/" target="_blank" class="btn btn-outline-secondary px-8 mb-2 text-primary"><%= t('.learn_more_about')%></a>
-        </div>
+  <div class = "container">
+    <div class="row align-items-center">
+      <div class = "row">
+          <div class = "offset-xl-2 col-xl-8 col-lg-12 col-md-12">
+              <h3 class="display-3 ls-sm mt-2 fw-bold text-center text-dark"><%= t('.learn_more_about')%></h3>
+              <p class="fs-3 mb-6 px-md-8 text-center text-dark"><%= t('.learn_more_about_description')%></p>
+          </div>
+      </div>
     </div>
+    <div class="container-fluid">
+      <div class="row justify-content-between align-items-center mt-4 flex-nowrap overflow-auto">
+        <div class="col-auto">
+          <%= image_tag "icon_1.png", alt: "Human Essentials", class: "img-fluid", style: "max-width: 75px;" %>
+        </div>
+        <div class="col-auto">
+          <%= image_tag "icon_2.png", alt: "Human Essentials app", class: "img-fluid", style: "max-width: 180px;" %>
+        </div>
+        <div class="col-auto">
+          <%= image_tag "icon_3.png", alt: "Casa Volunteer Tracking", class: "img-fluid", style: "max-width: 190px;" %>
+        </div>
+        <div class="col-auto">
+          <%= image_tag "icon_4.png", alt: "Heart icon", class: "img-fluid", style: "max-width: 75px;" %>
+        </div>
+        <div class="col-auto">
+          <%= image_tag "icon_5.png", alt: "Refuge Restrooms", class: "img-fluid", style: "max-width: 125px;" %>
+        </div>
+        <div class="col-auto">
+          <%= image_tag "icon_6.png", alt: "Tree icon", class: "img-fluid", style: "max-width: 75px;" %>
+        </div>
+        <div class="col-auto">
+          <%= image_tag "icon_7.png", alt: "Tool Library", class: "img-fluid", style: "max-width: 75px;" %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class = "mt-5 column d-flex flex-column align-items-center justify-content-center">
+      <a href="https://rubyforgood.org/" target="_blank" class="btn btn-outline-primary px-8 mb-2"><%= t('.learn_more_about')%></a>
+    </div>
+  </div>
 </section>

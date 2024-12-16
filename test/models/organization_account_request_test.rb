@@ -2,7 +2,7 @@ require "test_helper"
 
 class OrganizationAccountRequestTest < ActiveSupport::TestCase
   context "validations" do
-    should allow_value("123-456-7890").for(:phone_number)
+    should allow_value("201-555-7890").for(:phone_number)
     should_not allow_value("invalid_number").for(:phone_number)
 
     should allow_value("i_love_pets365@gmail.com").for(:email)

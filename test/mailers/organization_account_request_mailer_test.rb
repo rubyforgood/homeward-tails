@@ -6,7 +6,7 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
       name: "Test Organization",
       slug: "test_organ",
       requester_name: "John Doe",
-      phone_number: "123-456-7890",
+      phone_number: "201-555-7890",
       email: "test@example.com",
       country: "Country Name",
       city_town: "City Name",
@@ -15,11 +15,11 @@ class OrganizationAccountRequestsMailerTest < ActionMailer::TestCase
 
     mail = OrganizationAccountRequestsMailer.with(
       organization_account_request_params
-    ).create_new_organization_account_request.deliver_now
+    ).new_organization_account_request.deliver_now
 
     assert_equal "New Organization Account Request", mail.subject
-    assert_equal ["devs@email.com"], mail.to
-    assert_equal ["default@petrescue.org"], mail.from
+    assert_equal [Rails.application.config.from_email], mail.to
+    assert_equal [Rails.application.config.from_email], mail.from
 
     assert_match organization_account_request_params[:name], mail.body.encoded
     assert_match organization_account_request_params[:requester_name], mail.body.encoded

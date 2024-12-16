@@ -11,15 +11,8 @@ module Organizations
 
       def create
         authorize! :external_form_upload, context: {organization: Current.organization}
-
-        # Only processes single file upload
-        import = Organizations::Importers::GoogleCsvImportService.new(params[:files]).call
-
-        if import.success?
-          # do something
-        else
-          # import.errors
-        end
+        import = Organizations::Importers::CsvImportService.new(params[:files]).call
+        render turbo_stream: turbo_stream.replace("results", partial: "organizations/staff/external_form_upload/upload_results", locals: {import: import})
       end
     end
   end

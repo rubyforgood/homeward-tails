@@ -7,7 +7,6 @@
           <th scope="col"><%= t(:name) %></th>
           <th scope="col"><%= t(:joined_at) %></th>
           <th class="text-center" scope="col"><%= t(:deactivate) %></th>
-          <th scope="col"><%= t(:action) %></th>
         </tr>
       </thead>
       <tbody>
@@ -29,21 +28,6 @@
             </td>
             <td>
               <%= render "organizations/staff/shared/deactivate_toggle", user: adopter.user %>
-            </td>
-            <td>
-              <div class="hstack gap-4">
-                <a href="#" class="fe fe-mail text-muted" data-bs-toggle="tooltip" data-placement="top" aria-label="Message" data-bs-original-title="Message"></a>
-                <a href="#" class="text-muted" data-bs-toggle="tooltip" data-placement="top" aria-label="Delete" data-bs-original-title="Delete"><i class="fe fe-trash"></i></a>
-                <span class="dropdown dropstart">
-                  <a class="btn-icon btn btn-ghost btn-sm rounded-circle" href="#" role="button" data-bs-toggle="dropdown" data-bs-offset="-20,20" aria-expanded="false">
-                    <i class="fe fe-more-vertical"></i>
-                  </a>
-                  <span class="dropdown-menu">
-                    <span class="dropdown-header"><%=t(:settings) %></span>
-                    <a class="dropdown-item" href="#"><i class="fe fe-edit dropdown-item-icon"></i> <%= t("general.edit") %></a>
-                  </span>
-                </span>
-              </div>
             </td>
           </tr>
         <% end %>

@@ -34,7 +34,7 @@
       </div>
       <!-- Right side: Completion status and action buttons -->
       <div class="text-right">
-        <div class="d-flex align-items-center justify-content-end">
+        <div class=" d-flex flex-column flex-sm-row align-items-center justify-content-end">
           <%= link_to t('general.edit'), edit_staff_pet_task_path(task.pet, task), class: 'btn btn-warning m-2' %>
           <%= link_to t('general.delete'), staff_pet_task_path(task.pet, task), class: 'btn btn-danger m-2', data: { turbo_method: "delete", turbo_confirm: t('.confirm_delete') } %>
         </div>

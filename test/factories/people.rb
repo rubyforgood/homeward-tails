@@ -6,7 +6,13 @@ FactoryBot.define do
     email { Faker::Internet.email }
 
     trait :with_phone do
-      phone { Faker::PhoneNumber.phone_number }
+      phone_number { Faker::PhoneNumber.phone_number }
+    end
+
+    trait :with_location do
+      after(:create) do |person|
+        create(:location, locatable: person)
+      end
     end
   end
 end

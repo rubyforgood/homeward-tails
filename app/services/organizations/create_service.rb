@@ -10,7 +10,8 @@
 #   },
 #   organization: {
 #     name: 'Baja Pet Rescue',
-#     slug: 'baja'
+#     slug: 'baja',
+#     email: "lol@test.lol"
 #   },
 #   user: {
 #     email: 'test@test.lol',
@@ -26,6 +27,11 @@ class Organizations::CreateService
         args[:organization][:name],
         args[:organization][:slug],
         args[:organization][:email]
+      )
+      create_location(
+        args[:location][:country],
+        args[:location][:city_town],
+        args[:location][:province_state]
       )
       create_user(
         args[:user][:email],
@@ -47,6 +53,15 @@ class Organizations::CreateService
       name: name,
       slug: slug,
       email: email
+    )
+  end
+
+  def create_location(country, city_town, province_state)
+    Location.create!(
+      country: country,
+      city_town: city_town,
+      province_state: province_state,
+      locatable: @organization
     )
   end
 
@@ -75,7 +90,7 @@ class Organizations::CreateService
       user: @user,
       organization: @organization
     )
-      .create_new_org_and_admin(@organization.slug).deliver_now
+      .create_new_org_and_admin.deliver_now
   end
 
   def create_custom_page

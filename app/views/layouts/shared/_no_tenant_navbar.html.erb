@@ -14,13 +14,17 @@
 
     <!-- Collapse -->
     <div class="collapse navbar-collapse" id="navbar-default3">
-    <ul class="navbar-nav me-auto">
-      <li class='nav-item'>
-        <%= active_link_to 'About Us', '#about', class: 'nav-link', style: 'color: #000000;', active: :exact %>
+    <ul class="nav me-auto">
+      <li class='nav-link'>
+        <%= active_link_to t('root.index.about'), about_us_path %>
+      </li>
+
+      <li class='nav-link'>
+        <%= active_link_to t('root.index.partners'), partners_path %>
       </li>
   
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarBrowse", style: 'color: #000000;', data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-display="static">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarBrowse", data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-display="static">
           <%= t('.dropdown_title') %>
         </a>
         <ul class="dropdown-menu dropdown-menu-arrow" aria-labelledby="navbarBrowse">
@@ -32,9 +36,6 @@
         </ul>
       </li>
     </ul>
-    <div class="ms-auto mt-3 mt-lg-0">
-      <%= link_to t('.btn_title'), new_organization_account_request_path, class: 'btn btn-primary px-5' %>
-    </div>
   </div>
   </div>
 </nav>

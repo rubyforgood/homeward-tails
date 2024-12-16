@@ -1,4 +1,4 @@
-<ul class="card mb-4">
+<div class="card mb-4">
   <div class="card-body">
     <%= bootstrap_form_with model: fosterer,
       url: staff_fosterer_path(fosterer) do |f|
@@ -31,17 +31,49 @@
       <div class="row">
         <div class="mb-3 col-12 col-md-6">
           <%= f.email_field :email,
-            autofocus: true, 
-            class: 'form-control'
+            autofocus: true,
+            class: 'form-control',
+            disabled: true
           %>
         </div>
 
         <div class="mb-3 col-12 col-md-6">
-          <%= f.telephone_field :phone,
+          <%= f.telephone_field :phone_number,
             autofocus: true,
             placeholder: "10 digit number",
             class: 'form-control'
           %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-group">
+          <!-- Nested Form for Locations Table -->
+          <div class="form-group bigger" data-controller="country-state">
+            <%= f.fields_for :location, fosterer.location do |location_form| %>
+              <!-- Country Select -->
+              <%= location_form.select :country,
+                                   CS.countries.invert,
+                                   { prompt: "", selected: default_country },
+                                   "data-path": country_states_path(:country),
+                                   "data-country-state-target": "country",
+                                   "data-action": "change->country-state#updateStates",
+                                   "data-initial-value": location_form.object.country,
+                                   required: false,
+                                   class: "form-control" %>
+              <!-- Province/State Select -->
+              <%= location_form.select :province_state,
+                                   CS.states(location_form.object.country).invert,
+                                   { prompt: "" },
+                                   "data-country-state-target": "state",
+                                   required: false,
+                                   class: "form-control" %>
+              <!-- City/Town Text Field -->
+              <%= location_form.text_field :city_town,
+                                   required: false,
+                                   class: "form-control" %>
+            <% end %>
+          </div>
         </div>
       </div>
 
@@ -56,5 +88,4 @@
 
     <% end %>
   </div>
-</ul>
-
+</div>

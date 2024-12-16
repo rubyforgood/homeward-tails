@@ -6,12 +6,13 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
     include ActionPolicy::TestHelper
 
     setup do
+      @user = create(:admin)
+      @adopter = create(:adopter)
       @organization = ActsAsTenant.current_tenant
       @form_submission = create(:form_submission)
-      @adopter_application = create(:adopter_application, form_submission: @form_submission)
+      @adopter_application = create(:adopter_application, person: @adopter.person)
 
-      user = create(:admin)
-      sign_in user
+      sign_in @user
     end
 
     context "index" do
@@ -75,6 +76,7 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
 
   context "Filtering adoption applications" do
     setup do
+      @adopter = create(:adopter)
       @user = create(:admin)
       sign_in @user
     end
@@ -87,8 +89,8 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
       setup do
         pet1 = create(:pet, name: "Pango")
         pet2 = create(:pet, name: "Tycho")
-        create(:adopter_application, pet: pet1, form_submission: create(:form_submission))
-        create(:adopter_application, pet: pet2, form_submission: create(:form_submission))
+        create(:adopter_application, pet: pet1, person: @adopter.person)
+        create(:adopter_application, pet: pet2, person: @adopter.person)
       end
 
       should "return applications for a specific pet name" do
@@ -102,11 +104,9 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
     context "by applicant name" do
       setup do
         @pet = create(:pet)
-        create(:form_submission, person: create(:person, first_name: "David", last_name: "Attenborough"))
-        create(:form_submission, person: create(:person, first_name: "Jane", last_name: "Goodall"))
 
-        create(:adopter_application, pet: @pet, form_submission: create(:form_submission))
-        create(:adopter_application, pet: @pet, form_submission: create(:form_submission))
+        create(:adopter_application, pet: @pet, person: create(:person, first_name: "David", last_name: "Attenborough"))
+        create(:adopter_application, pet: @pet, person: create(:person, first_name: "Jane", last_name: "Goodall"))
       end
 
       should "return applications for a specific applicant name" do
@@ -119,9 +119,8 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
 
     context "Filtering by application status" do
       setup do
-        @pet = create(:pet)
-        @application_under_review = create(:adopter_application, pet: @pet, status: :under_review, form_submission: create(:form_submission))
-        @application_awaiting_review = create(:adopter_application, pet: @pet, status: :awaiting_review, form_submission: create(:form_submission))
+        @application_under_review = create(:adopter_application, status: :under_review, person: @adopter.person)
+        @application_awaiting_review = create(:adopter_application, status: :awaiting_review, person: @adopter.person)
       end
 
       should "return pets only with applications of the specified status" do
@@ -130,6 +129,18 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
         assert_select "button.bg-dark-info", text: "Under Review"
         assert_select "button.bg-dark-primary", text: "Awaiting Review", count: 0
       end
+    end
+  end
+
+  context "Viewing application details" do
+    setup do
+      @user = create(:admin)
+      sign_in @user
+
+      @adopter = create(:adopter)
+      @form_submission = create(:form_submission, person: @adopter.person)
+      @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
+      @adopter_application = create(:adopter_application, person: @adopter.person)
     end
   end
 end

@@ -48,6 +48,8 @@ class TasksTest < ApplicationSystemTestCase
       check "task_completed"
     end
 
+    find("input#flexSwitchCheckChecked").click # Toggle to show completed tasks.
+
     assert_text("recurring task", count: 2)
     assert has_current_path?(staff_pet_path(@pet, active_tab: "tasks"))
   end
@@ -62,6 +64,8 @@ class TasksTest < ApplicationSystemTestCase
       check "task_completed"
     end
 
+    find("input#flexSwitchCheckChecked").click # Toggle to show completed tasks.
+
     assert_text("recurring task with due date", count: 2)
     assert has_current_path?(staff_pet_path(@pet, active_tab: "tasks"))
   end
@@ -69,6 +73,7 @@ class TasksTest < ApplicationSystemTestCase
   test "doesn't incomplete completed recurring task" do
     recurring_task = create(:task, recurring: true, completed: true, pet: @pet, name: "completed recurring task")
     visit staff_pet_path(@pet, active_tab: "tasks")
+    find("input#flexSwitchCheckChecked").click # Toggle to show completed tasks.
 
     within "#edit_task_#{recurring_task.id}" do
       assert_nothing_raised do

@@ -1,11 +1,11 @@
 <%= render DashboardPageComponent.new(crumb: :external_form) do |c| %>
-  <% c.with_header_title { "Upload CSV File" } %>
+  <% c.with_header_title { t('.header') } %>
   <% c.with_body do %>
     <section>
       <div>
         <div>
-          <p class="fs-4">If you use a third party form service, like Google Forms, to provide questionnaires to potential adopters, and receive their answers, you can upload the CSV of data here to import the questions and responses to this application. This means the questionnaire data will live in one place, and you will be able to view it for a given adoption application at any time. Note that the adopter must have an account in this application using the same email address they used in the third party form.</p>
-          <p class="mb-4">Current form service supported: Google Forms</p>
+          <p><%= t('.description') %></p>
+          <p class="fw-bold"><%= t('.csv_header_requirements') %></p>
           <%= render "organizations/staff/shared/attachment_form", instance: nil, title: 'Files', url: staff_external_form_upload_index_path, multiple: false, attachment_type: 'files' %>
         </div>
       </div>

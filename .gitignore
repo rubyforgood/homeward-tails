@@ -53,3 +53,6 @@
 .DS_Store
 
 /config/credentials/production.key
+
+# LazyVim config file
+.lazy.lua

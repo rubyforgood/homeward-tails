@@ -18,7 +18,7 @@ servers:
 # in Cloudflare's SSL/TLS setting to "Full" to enable end-to-end encryption.
 proxy:
   ssl: true
-  host: homewardtails.org
+  host: "homewardtails.org,www.homewardtails.org"
   app_port: 3000
 
 # Credentials for your image host.
@@ -52,8 +52,10 @@ env:
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
 #
-# aliases:
-#   shell: app exec --interactive --reuse "bash"
+aliases:
+  shell: app exec --interactive --reuse "bash"
+  logs: app exec -i --reuse "tail -f log/production.log"
+  console: app exec -i --reuse "bin/rails console"
 
 # Use a different ssh user than root
 #

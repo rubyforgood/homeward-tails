@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 8.0.0"
 
 # Used to deploy to production
 gem "kamal"
@@ -19,7 +19,7 @@ gem "figaro"
 gem "pg", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.4.3"
+gem "puma", "~> 6.5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -107,7 +107,7 @@ gem "ransack"
 gem "rails-controller-testing"
 
 # Use Action Policy for authorization framework
-gem "action_policy", "~> 0.7.1"
+gem "action_policy", "~> 0.7.2"
 
 # Use ViewComponent for our presenter pattern framework
 gem "view_component", "~> 3.20"
@@ -121,6 +121,9 @@ gem "dry-initializer", "~> 3.1"
 # Catch unsafe migrations
 gem "strong_migrations", "~> 2.1"
 
+# Track errors in prod
+gem "bugsnag", "~> 6.27"
+
 group :development, :test, :staging do
   gem "faker"
 end
@@ -128,11 +131,7 @@ end
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "pry", "~> 0.14.2"
-
-  # Add annotation to models to make it easier to navigate in the codebase
-  # and the database structure
-  gem "annotate"
+  gem "pry", "~> 0.15.0"
 
   # Linting
   gem "standard"
@@ -155,12 +154,16 @@ group :development do
   # gem "spring"
 
   # view emails in browser in dev
-  gem "letter_opener", group: :development
+  gem "letter_opener_web", "~> 3.0"
 
   # better errors and guard gems
   gem "better_errors", "~> 2.9", ">= 2.9.1"
-  gem "guard", "~> 2.18"
+  gem "guard", "~> 2.19"
   gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
+
+  # Add annotation to models to make it easier to navigate in the codebase
+  # and the database structure
+  gem "annotaterb"
 end
 
 group :test do

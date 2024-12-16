@@ -8,15 +8,12 @@
         <div class="col-12 col-md col-sm ms-sm-2 ms-2">
           <ul class="list-unstyled d-flex flex-column flex-sm-row justify-content-start mb-0">
             <li class="mb-2 mb-sm-0 mx-sm-3">
-              <%= active_link_to t('.about'), about_us_path, class: 'nav-link p-0', style: "color: #000000;" %>
+              <%= active_link_to t('root.index.about'), about_us_path, class: 'nav-link p-0' %>
             </li>
             <li class="mb-2 mb-sm-0 mx-sm-3">
-              <%= active_link_to t('.rescues'), '#', class: 'nav-link p-0', style: "color: #000000;" %>
+              <%= active_link_to t('root.index.partners'), partners_path, class: 'nav-link p-0' %>
             </li>
-            <li class="mb-2 mb-sm-0 mx-sm-3">
-              <%= active_link_to t('.ruby_for_good'), "https://rubyforgood.org/", class: 'nav-link p-0', style: "color: #000000;" %>
-            </li>
-          </ul>
+            </ul>
         </div>
     </div>
     <div class="row align-items-center g-0 border-top py-2">

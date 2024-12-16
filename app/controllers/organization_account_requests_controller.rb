@@ -3,15 +3,15 @@ class OrganizationAccountRequestsController < ApplicationController
   skip_verify_authorized
 
   def new
-    @organization_acccount_request = OrganizationAccountRequest.new
+    @organization_account_request = OrganizationAccountRequest.new
   end
 
   def create
-    @organization_acccount_request = OrganizationAccountRequest.new(organization_acccount_request_params)
+    @organization_account_request = OrganizationAccountRequest.new(organization_account_request_params)
 
-    if @organization_acccount_request.valid?
-      OrganizationAccountRequestsMailer.with(organization_acccount_request_params)
-        .create_new_organization_account_request.deliver_now
+    if @organization_account_request.valid?
+      OrganizationAccountRequestsMailer.with(organization_account_request_params)
+        .new_organization_account_request.deliver_now
 
       redirect_to root_path, notice: I18n.t("contacts.create.success")
     else
@@ -21,7 +21,7 @@ class OrganizationAccountRequestsController < ApplicationController
 
   private
 
-  def organization_acccount_request_params
+  def organization_account_request_params
     params.require(:organization_account_request).permit(
       :name,
       :requester_name,

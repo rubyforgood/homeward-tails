@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_11_182208) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,10 +50,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
     t.text "notes"
     t.boolean "profile_show", default: true
     t.bigint "organization_id", null: false
-    t.bigint "form_submission_id", null: false
-    t.index ["form_submission_id"], name: "index_adopter_applications_on_form_submission_id"
+    t.bigint "person_id", null: false
     t.index ["organization_id"], name: "index_adopter_applications_on_organization_id"
-    t.index ["pet_id", "form_submission_id"], name: "index_adopter_applications_on_pet_id_and_form_submission_id", unique: true
+    t.index ["person_id"], name: "index_adopter_applications_on_person_id"
     t.index ["pet_id"], name: "index_adopter_applications_on_pet_id"
   end
 
@@ -151,8 +150,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "zipcode"
-    t.bigint "organization_id"
-    t.index ["organization_id"], name: "index_locations_on_organization_id"
+    t.string "locatable_type", null: false
+    t.bigint "locatable_id", null: false
+    t.index ["locatable_type", "locatable_id"], name: "index_locations_on_locatable"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -186,13 +186,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
   create_table "people", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "email", null: false
-    t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "phone_number", limit: 15
     t.index ["email"], name: "index_people_on_email"
     t.index ["organization_id"], name: "index_people_on_organization_id"
+    t.check_constraint "phone_number::text ~ '^[+]?[0-9]*$'::text", name: "phone_number_valid_e164"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -298,7 +299,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "adopter_applications", "form_submissions"
+  add_foreign_key "adopter_applications", "people"
   add_foreign_key "adopter_applications", "pets"
   add_foreign_key "custom_pages", "organizations"
   add_foreign_key "default_pet_tasks", "organizations"
@@ -313,7 +314,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_08_095758) do
   add_foreign_key "likes", "organizations"
   add_foreign_key "likes", "people"
   add_foreign_key "likes", "pets"
-  add_foreign_key "locations", "organizations"
   add_foreign_key "matches", "people"
   add_foreign_key "matches", "pets"
   add_foreign_key "people", "organizations"

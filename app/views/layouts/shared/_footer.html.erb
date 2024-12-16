@@ -102,9 +102,9 @@
       <!-- Links -->
       <div class="col-12 col-md-7 col-lg-8 d-md-flex justify-content-end">
         <nav class="nav nav-footer">
-          <a class="nav-link ps-0" href="#"><%= t('.policy') %></a>
-          <a class="nav-link px-2 px-md-3" href="#"><%= t('.cookie') %></a>
-          <a class="nav-link" href="#"><%= t('.terms') %></a>
+          <%= link_to t('.policy'), privacy_policy_path, target: '_blank', class: 'nav-link' %>
+          <%= link_to t('.cookie'), cookie_policy_path, target: '_blank',  class: 'nav-link' %>
+          <%= link_to t('.terms'), terms_and_conditions_path, target: '_blank',  class: "nav-link"%>
         </nav>
       </div>
     </div>
