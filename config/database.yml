@@ -40,11 +40,16 @@ development:
     #   https://stackoverflow.com/questions/59089991/ruby-2-6-5-and-postgresql-pg-gem-segmentation-fault
     gssencmode: disable
 
-
   cable:
     <<: *default
     database: cable
     migrations_paths: db/cable_migrate
+    gssencmode: disable
+
+  queue:
+    <<: *default
+    database: queue
+    migrations_paths: db/queue_migrate
     gssencmode: disable
 
   #username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
@@ -110,3 +115,7 @@ production:
     <<: *primary_production
     database: cable
     migrations_paths: db/cable_migrate
+  queue:
+    <<: *primary_production
+    database: queue
+    migrations_paths: db/queue_migrate
