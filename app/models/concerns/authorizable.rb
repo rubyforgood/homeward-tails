@@ -57,6 +57,8 @@ module Authorizable
       view_people
       view_form_submissions
       manage_faqs
+      activate_adopter
+      activate_foster
     ]
   ).freeze
 

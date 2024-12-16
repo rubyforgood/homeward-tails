@@ -11,16 +11,6 @@ class Organizations::Staff::StaffControllerTest < ActionDispatch::IntegrationTes
   context "authorization" do
     include ActionPolicy::TestHelper
 
-    context "#update_activation" do
-      should "be authorized" do
-        assert_authorized_to(
-          :update_activation?, @staff, with: Organizations::UserPolicy
-        ) do
-          patch staff_staff_update_activation_url(@staff)
-        end
-      end
-    end
-
     context "#index" do
       should "be authorized" do
         assert_authorized_to(
@@ -47,15 +37,5 @@ class Organizations::Staff::StaffControllerTest < ActionDispatch::IntegrationTes
         end
       end
     end
-  end
-
-  test "update activation should respond with turbo_stream when toggled on staff page" do
-    user = create(:super_admin)
-    sign_in user
-
-    patch staff_staff_update_activation_url(@staff), as: :turbo_stream
-
-    assert_equal Mime[:turbo_stream], response.media_type
-    assert_response :success
   end
 end

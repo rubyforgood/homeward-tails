@@ -8,6 +8,7 @@
         <tr>
           <th scope="col"><%= t(:name) %></th>
           <th scope="col"><%= t(:email) %></th>
+          <th class="text-center" scope="col"><%= t(:deactivate) %></th>
           <th scope="col"><%= t(:phone) %></th>
           <% if can_edit_person %>
             <th scope="col"><%= t(:action) %></th>
@@ -30,6 +31,9 @@
             </td>
             <td>
               <%= fosterer.email %>
+            </td>
+            <td>
+              <%= render "organizations/staff/shared/deactivate_toggle", user: fosterer.user %>
             </td>
             <td>
               <%= fosterer.phone_number %>
