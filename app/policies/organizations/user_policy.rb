@@ -5,8 +5,4 @@ class Organizations::UserPolicy < ApplicationPolicy
   def index?
     permission?(:manage_staff)
   end
-
-  def update_activation?
-    permission?(:activate_staff) && record.id != user.id
-  end
 end

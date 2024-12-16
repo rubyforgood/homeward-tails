@@ -174,7 +174,7 @@ en:
   layouts:
     shared:
       footer:
-        title: "Homeward Tails"
+        organization_name: "%{name}"
         call: "If you are a pet adoption or foster organization and want a website like this one, for free,"
         action: "Click Here"
         company: "Company"
@@ -195,7 +195,7 @@ en:
         dashboard: "Dashboard"
         demo: "This is a demo site"
       no_tenant_footer:
-        title: "Open Pet Rescue"
+        title: "Homeward Tails"
         about: "About Us"
         rescues: 'Rescues'
         ruby_for_good: 'Ruby For Good'
@@ -371,6 +371,10 @@ en:
     authorization_error: "You are not authorized to perform this action."
     try_again: "Error. Please try again."
   organizations:
+    activations:
+      update:
+        activated: "%{staff} was activated."
+        deactivated: "%{staff} was deactivated."
     home:
       index:
         every_paw: "Where every paw finds a home"
@@ -660,10 +664,6 @@ en:
             help_text:
               label: "Label"
               help_text: "help text"
-      staff:
-        update_activation:
-          activated: "%{staff} was activated."
-          deactivated: "%{staff} was deactivated."
       external_form_upload:
         index:
           description: "If you collect information from adopters from a third party service, like Google Forms, you can export a CSV file from Google Forms and upload it here. We will import the questions and answers for any adopters who have an account on your Homeward Tails website, providing they use the same email address. Then you will be able to see the information for each adopter when reviewing applications."

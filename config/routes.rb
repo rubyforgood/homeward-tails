@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     # Staff Routes
     namespace :staff do
       resource :organization, only: %i[edit update]
+      resources :staff, only: %i[index]
       resource :custom_page, only: %i[edit update]
       resources :external_form_upload, only: %i[index create]
       resources :default_pet_tasks
@@ -84,10 +85,6 @@ Rails.application.routes.draw do
         resources :form_answers, only: [:index]
       end
 
-      resources :staff do
-        patch "update_activation"
-      end
-
       namespace :custom_form do
         resources :forms do
           resources :questions
@@ -115,6 +112,9 @@ Rails.application.routes.draw do
         resources :tasks, only: [:index], module: :fostered_pets
       end
     end
+
+    # Activate/Deactivate users
+    resource :activations, only: [:update]
 
     # File Purging
     delete "staff/attachments/:id/purge", to: "attachments#purge", as: "staff_purge_attachment"
