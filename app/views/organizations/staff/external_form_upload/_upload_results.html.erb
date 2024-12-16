@@ -1,0 +1,21 @@
+<turbo-frame id="results">
+    <% if import.success? %>
+        <div class="alert alert-success">
+            <h5 class="alert-heading" role="alert"><%= t('.success_heading') %></h5>
+            <p><%= t('.submissions_added', count: import.count) %></p>
+        </div>
+    <% else %>
+        <div class="alert alert-danger">
+            <h5 class="alert-heading" role="alert"><%= t('.error_heading', count: import.errors.count) %></h5>
+            <p><%= t('.submissions_added', count: import.count) %></p>
+            <%= t('.review_errors', count: import.count) %>
+            <ul>
+                <% import.errors.each do |error| %>
+                    <li>
+                        <%= t('.row', number: error[0], message: error[1].message) %>
+                    </li>
+                <% end %>
+            </ul>
+         </div>
+    <% end %>
+</turbo-frame>

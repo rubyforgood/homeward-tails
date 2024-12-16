@@ -25,4 +25,5 @@
 class FormAnswer < ApplicationRecord
   acts_as_tenant(:organization)
   belongs_to :form_submission
+  has_one :person, through: :form_submission
 end
