@@ -5,11 +5,11 @@
       <div class="col-lg-4 col-md-6 col-12">
         <!-- about company -->
         <div class="mb-4">
-          <h3> <%= t('.title') %> </h3>
+          <h3> <%= t('.organization_name', name: Current.tenant.name) %> </h3>
           <div class="mt-4">
           <p>
               <%= t('.call') %>
-              <%= link_to t('.action'), new_organization_account_request_path %>
+              <%= link_to t('.action'), Rails.env.production? ? "https://www.homewardtails.org/organization_account_request/new" : "http://localhost:3000/organization_account_request/new" %>
 
             </p>
           </div>

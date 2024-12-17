@@ -6,6 +6,7 @@
         <tr>
           <th scope="col"><%= t(:name) %></th>
           <th scope="col"><%= t(:joined_at) %></th>
+          <th class="text-center" scope="col"><%= t(:deactivate) %></th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,9 @@
             </td>
             <td>
               <%= adopter.created_at.strftime("%d %B, %Y") %>
+            </td>
+            <td>
+              <%= render "organizations/staff/shared/deactivate_toggle", user: adopter.user %>
             </td>
           </tr>
         <% end %>

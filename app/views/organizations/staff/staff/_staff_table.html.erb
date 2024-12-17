@@ -31,7 +31,7 @@
               <%= staff.created_at.strftime("%d %B, %Y") %>
             </td>
             <td>
-              <%= render "deactivate_toggle", staff: staff %>
+              <%= render "organizations/staff/shared/deactivate_toggle", user: staff %>
             </td>
           </tr>
         <% end %>

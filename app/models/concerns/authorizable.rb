@@ -24,6 +24,7 @@ module Authorizable
     view_adopted_pets
     read_pet_tasks
     view_external_form
+    view_form_answers
   ].freeze
 
   FOSTERER_PERMISSIONS = %i[
@@ -56,6 +57,8 @@ module Authorizable
       view_people
       view_form_submissions
       manage_faqs
+      activate_adopter
+      activate_foster
     ]
   ).freeze
 

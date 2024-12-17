@@ -1,8 +1,15 @@
 <div class="d-flex flex-column align-items-center mb-4">
   <div class="my-4 mx-8">
     <% if params[:dashboard] %>
-      <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard") %></p>
-    <% else %>
+
+      <% if current_user.person.latest_form_submission.present? %>
+        <p class="fw-bold mb-0"><%= t('organizations.adopter_fosterer.form_instructions.previous_answers') %> <%= link_to t('general.here'), adopter_fosterer_form_answers_path %>.</p>
+        <p><%= t('organizations.adopter_fosterer.form_instructions.update_form_answers') %></p>
+      <% else %>
+        <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard", user_email: current_user.email) %></p>
+      <% end %>
+
+  <% else %>
       <p><%= t(
           "organizations.adopter_fosterer.form_instructions.index",
           organization_name: Current.tenant.name,
