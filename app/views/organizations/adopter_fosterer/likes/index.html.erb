@@ -39,7 +39,7 @@
             </div>
           <% end %>
         <% else %>
-          <p class = "text-center"><%= t('organizations.adopter_fosterer.likes.index.no_pets')%></p>
+          <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
         <% end %>
       </div>
     </div>

@@ -10,8 +10,6 @@
       </tr>
     </thead>
     <tbody>
-    <% if applications.present? %>
-
       <% applications.each do |app| %>
         <% pet = app.pet %>
         <tr>
@@ -48,13 +46,6 @@
           </td>
         </tr>
       <% end %>
-    <% else %>
-      <tr>
-        <td colspan="4" class="text-center">
-          <%= t("dashboard.applications.no_applications")%>
-        </td>
-      </tr>
-    <% end %>
     </tbody>
   </table>
 </div>

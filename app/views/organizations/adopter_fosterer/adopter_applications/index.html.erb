@@ -2,14 +2,18 @@
   <% c.with_header_title { t("dashboard.applications.header_title") } %>
   <% c.with_body do %>
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
-      <!-- Table layout -->
-      <div class="d-none d-xl-block">
-        <%= render partial: "applications_table", locals: { applications: @applications} %>
-      </div>
-      <!-- Card-based layout -->
-      <div class="d-xl-none d-flex justify-content-evenly flex-wrap">
-        <%= render partial:"application_cards", collection: @applications, as: :application %>
-      </div>
+      <% if @applications.present? %>
+        <!-- Table layout -->
+        <div class="d-none d-xl-block">
+          <%= render partial: "applications_table", locals: { applications: @applications} %>
+        </div>
+        <!-- Card-based layout -->
+        <div class="d-xl-none d-flex justify-content-evenly flex-wrap">
+          <%= render partial:"application_cards", collection: @applications, as: :application %>
+        </div>
+      <% else %>
+        <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+      <% end %>
     </div>
   <% end %>
 <% end %>
