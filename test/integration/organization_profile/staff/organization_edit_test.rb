@@ -23,7 +23,7 @@ class Organization::EditTest < ActionDispatch::IntegrationTest
     assert_select "label", text: "City/Town"
     assert_select "input[name='organization[locations_attributes][0][city_town]'][type='text']"
 
-    assert_select "label", text: "Attach picture"
+    assert_select "label", text: "Attach logo"
     assert_select "input[name='organization[avatar]']"
 
     assert_select 'input[type="submit"][value="Save profile"]'

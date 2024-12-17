@@ -59,14 +59,18 @@
     </div>
     <!-- row -->
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
-      <!-- Table layout -->
-      <div class="d-none d-xl-block">
-        <%= render partial: "pet_table", locals: { pets: @pets} %>
-      </div>          
-      <!-- Card-based layout -->
-      <div class="d-xl-none d-flex flex-wrap">
-        <%= render partial:"pet_cards", collection: @pets, as: :pet %>
-      </div>
+      <% if @pets.present? %>
+        <!-- Table layout -->
+        <div class="d-none d-xl-block">
+          <%= render partial: "pet_table", locals: { pets: @pets} %>
+        </div>          
+        <!-- Card-based layout -->
+        <div class="d-xl-none d-flex flex-wrap">
+          <%= render partial:"pet_cards", collection: @pets, as: :pet %>
+        </div>
+      <% else %>
+        <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+      <% end %>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-2">
       <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
