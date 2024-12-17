@@ -33,11 +33,24 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: pet_rescue_development
-  # The following line comes from:
-  #   https://stackoverflow.com/questions/59089991/ruby-2-6-5-and-postgresql-pg-gem-segmentation-fault
-  gssencmode: disable
+  primary:
+    <<: *default
+    database: pet_rescue_development
+    # The following line comes from:
+    #   https://stackoverflow.com/questions/59089991/ruby-2-6-5-and-postgresql-pg-gem-segmentation-fault
+    gssencmode: disable
+
+  cable:
+    <<: *default
+    database: cable
+    migrations_paths: db/cable_migrate
+    gssencmode: disable
+
+  queue:
+    <<: *default
+    database: queue
+    migrations_paths: db/queue_migrate
+    gssencmode: disable
 
   #username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
   #password: <%= ENV.fetch('DATABASE_PASSWORD') { 'password' }  %>
@@ -91,10 +104,18 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  host: <%= ENV["DB_HOST"] %>
-  pool: 5
-  username: <%= ENV["DB_USER"] %>
-  password: <%= ENV["DB_PASSWORD"] %>
-  database: postgres
-  timeout: 5000
+  primary: &primary_production
+    <<: *default
+    host: <%= ENV["DB_HOST"] %>
+    username: <%= ENV["DB_USER"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    database: postgres
+    timeout: 5000
+  cable:
+    <<: *primary_production
+    database: cable
+    migrations_paths: db/cable_migrate
+  queue:
+    <<: *primary_production
+    database: queue
+    migrations_paths: db/queue_migrate
