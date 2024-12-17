@@ -20,7 +20,6 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle install && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - .:/petrescue
-
     ports:
       - "3000:3000"
     depends_on:
@@ -33,7 +32,9 @@ services:
     tty: true
 
   sass:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfile.dev
     command: bash -c "bundle install && bundle exec rails dartsass:watch"
     volumes:
       - .:/petrescue

@@ -50,7 +50,8 @@ class Organizations::AdopterFosterer::AdopterApplicationsController < Organizati
       :pet_id,
       :form_submission_id,
       :status,
-      :profile_show
+      :profile_show,
+      :person_id
     )
   end
 end
