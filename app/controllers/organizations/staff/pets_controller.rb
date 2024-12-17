@@ -1,6 +1,8 @@
 class Organizations::Staff::PetsController < Organizations::BaseController
+  before_action :alert_for_no_images, only: [:attach_images, :attach_files]
   before_action :set_pet, only: [:show, :edit, :update, :destroy, :attach_images, :attach_files]
   include ::Pagy::Backend
+  include AttachmentManageable
 
   layout "dashboard"
 
