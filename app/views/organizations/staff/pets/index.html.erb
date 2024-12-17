@@ -69,7 +69,7 @@
           <%= render partial:"pet_cards", collection: @pets, as: :pet %>
         </div>
       <% else %>
-        <%= render partial: "shared/empty_state", locals: {text: t(".no_pets")} %>
+        <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
       <% end %>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-2">

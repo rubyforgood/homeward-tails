@@ -3,6 +3,6 @@
   <% if @pet.images.present? %>
     <%= render ImageAttachmentTableComponent.new(images: @pet.images) %>
   <% else %>
-    <%= render partial: "shared/empty_state", locals: {text: t(".no_photos")} %>
+    <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
   <% end %>
 </div>

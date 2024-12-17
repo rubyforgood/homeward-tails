@@ -12,7 +12,7 @@
           <%= render partial:"application_cards", collection: @applications, as: :application %>
         </div>
       <% else %>
-        <%= render partial: "shared/empty_state", locals: {text: t(".no_applications")} %>
+        <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
       <% end %>
     </div>
   <% end %>

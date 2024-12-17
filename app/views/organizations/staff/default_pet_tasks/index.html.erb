@@ -50,7 +50,7 @@
         <%= render partial:"default_pet_task_cards", collection: @default_pet_tasks, as: :default_pet_tasks %>
       </div>
     <% else %>
-      <%= render partial: "shared/empty_state", locals: {text: t(".no_default_pet_tasks")} %>
+      <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
     <% end %>
   </div>
     <div class="d-flex justify-content-center align-items-center mt-2">

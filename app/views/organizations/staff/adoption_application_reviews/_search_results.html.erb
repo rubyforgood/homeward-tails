@@ -9,6 +9,6 @@
       <%= render "organizations/staff/pets/tabs/applications", applications: pet.adopter_applications, pet: pet %>
     <% end %>
   <% else %>
-    <%= render partial: "shared/empty_state", locals: {text: t(".no_applications")} %>
+    <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
   <% end%>
 </div>

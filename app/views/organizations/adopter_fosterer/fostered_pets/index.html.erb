@@ -22,7 +22,7 @@
           <% end %>
         </div>
       <% else %>
-        <%= render partial: "shared/empty_state", locals: {text: t(".no_fostered_pets")} %>
+        <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
       <% end %>
     </div>
     <turbo-frame id="pet_files">
