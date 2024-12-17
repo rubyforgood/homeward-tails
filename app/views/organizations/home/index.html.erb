@@ -32,21 +32,21 @@
 
 <!--//? ADOPTION -->
 <section class="pt-5 pb-5" id="adopt">
-  <div class="container mb-md-5 mt-md-5">
+  <div class="container mb-md-5 mt-md-5 d-flex flex-column align-items-center">
 
     <!--//? section heading -->
-    <div class="text-center mb-5">
+    <div class="mb-5">
       <h2 class="section-heading text-uppercase text-xl">
         <%= t('.adopt')%>
       </h2>
     </div>
     <!--//? bootstrap cards -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4 w-100 justify-content-center">
       <% @pets.each do |pet| %>
         <%= link_to adoptable_pet_path(pet) do %>
           <div class="col">
             <div class="card featured-pets h-100 mt-4 mt-lg-0">
-              <%= image_tag(pet.images.first, alt: pet.name) %>
+              <%= image_tag(pet.images.first, alt: pet.name, height: 275, style: "object-fit: cover;") %>
               <div class="card-img-overlay p-0"></div>
               <div class="card-footer">
                 <p class="card-text text-black">
