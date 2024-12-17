@@ -85,11 +85,6 @@
                         <% end %>
                       </li>
                       <!-- Nav item -->
-                      <li class="nav-item">
-                        <%= active_link_to adopter_fosterer_faq_index_path, class: "nav-link" do %>
-                          <i class="fe fe-help-circle nav-icon"></i> FAQ
-                        <% end %>
-                      </li>
                       <% if Current.organization.external_form_url.present? %>
                         <li class="nav-item">
                         <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
