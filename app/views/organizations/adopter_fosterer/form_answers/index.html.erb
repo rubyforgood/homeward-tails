@@ -1,0 +1,17 @@
+<%= render DashboardPageComponent.new do |c| %>
+  <% c.with_header_title { t('.header') } %>
+  <% c.with_body do %>
+
+    <p><%= t('.description') %> <%= link_to t("general.here"), adopter_fosterer_external_form_index_path(dashboard: true) %>.</p>
+
+    <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
+      <div class="row">
+        <% if @form_answers.present? %>
+          <h4><%= t(".submitted_on", date: @latest_form_submission.csv_timestamp.strftime("%Y-%m-%d"), time: @latest_form_submission.csv_timestamp.strftime("%H:%M")) %></h4>
+
+          <%= render partial: "organizations/shared/form_answers", collection: @form_answers, as: :form_answer %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
