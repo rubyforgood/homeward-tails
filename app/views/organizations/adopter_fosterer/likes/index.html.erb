@@ -8,7 +8,7 @@
             <div class="col-lg-4 col-md-6 p-0">
               <%= render CardComponent.new(
                 card_options: {class: "card card-hover m-4"},
-                image_options: {src: pet.images.first, url: adoptable_pet_path(pet)}
+                image_options: {src: pet.images.first, url: adoptable_pet_path(pet), height: 200},
               ) do |c| %>
                 <%= c.with_badge do %>
                   <%= render BadgeComponent.new(t("general.adoption_pending"), class: "badge bg-info", when: pet.has_adoption_pending?) %>
