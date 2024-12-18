@@ -43,14 +43,14 @@ development:
   cable:
     <<: *default
     database: cable
-    host: cable
+    host: <%= ENV.fetch('CABLE_HOST') { 'cable' } %>
     migrations_paths: db/cable_migrate
     gssencmode: disable
 
   queue:
     <<: *default
     database: queue
-    host: queue
+    host: <%= ENV.fetch('QUEUE_HOST') { 'queue' } %>
     migrations_paths: db/queue_migrate
     gssencmode: disable
 
