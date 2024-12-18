@@ -1,6 +1,6 @@
 <!-- Country Select -->
 <%= form.select :country,
-                CountriesStates.keys.index_with { |abbr| CountriesStates.dig(abbr, :name) }.invert,
+                COUNTRIES_STATES.keys.index_with { |abbr| COUNTRIES_STATES.dig(abbr, :name) }.invert,
                 { prompt: "Please select" },
                 {
                   'data-path': countries_states_path,
@@ -12,7 +12,7 @@
 <!-- Province/State Select -->
 <%= form.select :province_state,
                 form.object.country.present? ? 
-                CountriesStates.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
+                COUNTRIES_STATES.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
                 { prompt: "Please select" },
                 {
                   'data-country-state-target': 'state',

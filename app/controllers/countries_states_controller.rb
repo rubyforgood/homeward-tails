@@ -8,7 +8,7 @@ class CountriesStatesController < ApplicationController
     @name = params[:name]
     @selected_state = params[:province_state]
 
-    @states = CountriesStates[country.to_sym][:states].invert
+    @states = COUNTRIES_STATES[country.to_sym][:states].invert
 
     respond_to do |format|
       format.turbo_stream
