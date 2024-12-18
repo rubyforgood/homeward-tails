@@ -1,4 +1,4 @@
-class CountryStatesController < ApplicationController
+class CountriesStatesController < ApplicationController
   skip_before_action :authenticate_user!
   skip_verify_authorized only: %i[index]
 
@@ -8,7 +8,7 @@ class CountryStatesController < ApplicationController
     @name = params[:name]
     @selected_state = params[:province_state]
 
-    @states = CS[country.to_sym][:states].invert
+    @states = CountriesStates[country.to_sym][:states].invert
 
     respond_to do |format|
       format.turbo_stream

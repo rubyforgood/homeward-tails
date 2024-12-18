@@ -1,9 +1,9 @@
 <!-- Country Select -->
 <%= form.select :country,
-                CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
+                CountriesStates.keys.index_with { |abbr| CountriesStates.dig(abbr, :name) }.invert,
                 { prompt: "Please select" },
                 {
-                  'data-path': country_states_path,
+                  'data-path': countries_states_path,
                   'data-country-state-target': 'country',
                   'data-action': 'change->country-state#updateStates',
                   required: true,
@@ -12,7 +12,7 @@
 <!-- Province/State Select -->
 <%= form.select :province_state,
                 form.object.country.present? ? 
-                CS.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
+                CountriesStates.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
                 { prompt: "Please select" },
                 {
                   'data-country-state-target': 'state',
