@@ -154,27 +154,14 @@
                     <%= image_tag('red_no.png', height: '21') %>
                   <% else %>
                     <%= image_tag('green_check.png', height: '21') %>
-                    <% if 'awaiting_review' == @adoption_application.status %>
-                        <button type="button" 
-                                class="btn btn-outline-secondary btn-xs" 
-                                style="border-radius: 50%; width: 20px; height: 20px; padding: 0; margin-left: 1px;" 
-                                data-bs-toggle="tooltip" 
-                                data-placement="top" 
-                                title="Please make sure you fill out the adoption questionnaire so staff have enough information to process your application.">
-                          i
-                        </button>
 
-                        <script>
-                          document.addEventListener("DOMContentLoaded", function () {
-                            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                            tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-                              new bootstrap.Tooltip(tooltipTriggerEl);
-                            });
-                          });
-                        </script>
-                    <% end %>
                   <% end %>
                 </div>
+                <% if 'awaiting_review' == @adoption_application.status %>
+                  <div class="mt-1">
+                    <%= render partial: "shared/empty_state", locals: {text: "Please make sure you fill out the adoption questionnaire so staff have enough information to process your application."} %>
+                  </div>
+                <% end %>
               <% elsif allowed_to?(:manage?, @pet) %>
                 <%= link_to "Manage #{@pet.name}", staff_pet_path(@pet) %>
               <%# FIXME: This section was missed during the remove of AdopterFosterProfile but I think it requires FormSubmission to be ready to refactor %>
