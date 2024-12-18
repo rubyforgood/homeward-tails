@@ -25,6 +25,8 @@ class CardComponent < ApplicationComponent
       src?: Types::ImageTagSource,
       class?: Types::String.default("card-img-top"),
       url?: Types::String,
+      style: Types::String.default("object-fit: cover;"),
+      height?: Types::Integer.default(150),
       default?: Types::ImageTagSource.default("coming_soon.jpg")
     ),
     default: -> { {} }
