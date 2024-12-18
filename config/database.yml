@@ -43,12 +43,14 @@ development:
   cable:
     <<: *default
     database: cable
+    host: cable
     migrations_paths: db/cable_migrate
     gssencmode: disable
 
   queue:
     <<: *default
     database: queue
+    host: queue
     migrations_paths: db/queue_migrate
     gssencmode: disable
 
