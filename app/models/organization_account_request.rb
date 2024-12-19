@@ -5,7 +5,7 @@ class OrganizationAccountRequest
 
   before_validation :normalize_phone
 
-  validates :name, :email, :city_town, :country, :province_state, presence: true
+  validates :name, :email, :requester_name, :city_town, :country, :province_state, presence: true
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :phone_number, presence: true, phone: {possible: true, allow_blank: true}
 
