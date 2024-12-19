@@ -16,3 +16,7 @@
                 disabled><%=t("organizations.staff.pets.applications.new_adoption")%></button>
   </span>
 <% end %>
+<script type="module">
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
