@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CountryStatesControllerTest < ActionDispatch::IntegrationTest
+class CountriesStatesControllerTest < ActionDispatch::IntegrationTest
   test "should return turbo stream with the states in it" do
     adopter = create(:adopter)
     sign_in adopter
@@ -8,7 +8,7 @@ class CountryStatesControllerTest < ActionDispatch::IntegrationTest
     name = "adopter[address_attributes][state]"
     target = "adopter_foster_profile_location_attributes_province_state"
 
-    get country_states_path,
+    get countries_states_path,
       headers: {"Accept" => "text/vnd.turbo-stream.html"},
       params: {country: "CA", target:, name:, province_state: "BC"}
 

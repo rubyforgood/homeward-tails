@@ -6,6 +6,7 @@ module Organizations
       before_action :set_organization, only: %i[edit update]
 
       def edit
+        @location = @organization.locations.last || @organization.locations.build # polymorphic
       end
 
       def update
