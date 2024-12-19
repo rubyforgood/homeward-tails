@@ -4,9 +4,9 @@ module Organizations
   module Importers
     class CsvImportService
       Status = Data.define(:success?, :count, :no_match, :errors)
-      def initialize(file, organization_id, current_user_id)
+      def initialize(file, current_user_id)
         @file = file
-        @organization = Organization.find(organization_id)
+        @organization = ActsAsTenant.current_tenant
         @current_user = User.find(current_user_id)
         @count = 0
         @no_match = []

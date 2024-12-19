@@ -14,7 +14,7 @@ module Organizations
         file = params[:files]
         @blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename)
 
-        CsvImportJob.perform_later(@blob.signed_id, Current.organization.id, current_user.id)
+        CsvImportJob.perform_later(@blob.signed_id, current_user.id)
 
         flash.now[:notice] = t(".processing_file")
         respond_to do |format|
