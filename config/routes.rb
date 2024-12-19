@@ -94,7 +94,6 @@ Rails.application.routes.draw do
 
     # Adopter and Fosterer Routes
     namespace :adopter_fosterer do
-      resources :faq, only: [:index]
       resources :donations, only: [:index]
       resources :dashboard, only: [:index]
       resources :likes, only: [:index, :create, :destroy]
