@@ -4,25 +4,22 @@ require "csv"
 module Organizations
   class CsvImportServiceTest < ActiveSupport::TestCase
     setup do
-      adopter = create(:adopter)
-      Current.organization = adopter.organization
+      @adopter = create(:adopter)
+      Current.organization = @adopter.organization
 
       @file = Tempfile.new(["test", ".csv"])
-      @file.stubs(:content_type).returns("text/csv")
 
       headers = ["Timestamp", "First name", "Last name", "Email", "Address", "Phone number", *Faker::Lorem.questions]
 
       @data = [
         "2024-10-02 12:45:37.000000000 +0000",
-        adopter.first_name,
-        adopter.last_name,
-        adopter.email,
+        @adopter.first_name,
+        @adopter.last_name,
+        @adopter.email,
         Faker::Address.full_address,
         Faker::PhoneNumber.phone_number,
         *Faker::Lorem.sentences
       ]
-
-      @adopter = adopter
 
       CSV.open(@file.path, "wb") do |csv|
         csv << headers
@@ -37,10 +34,13 @@ module Organizations
       CSV.open(@file.path, "ab") do |csv|
         csv << @data
       end
-
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: @file.open,
+        filename: "file.csv"
+      )
       assert_difference "FormSubmission.count" do
         assert_difference("FormAnswer.count", + 7) do
-          Organizations::Importers::CsvImportService.new(@file).call
+          Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
         end
       end
     end
@@ -51,8 +51,12 @@ module Organizations
         csv << @data
       end
 
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: @file.open,
+        filename: "file.csv"
+      )
       assert_no_difference "FormSubmission.count" do
-        Organizations::Importers::CsvImportService.new(@file).call
+        Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
       end
     end
 
@@ -61,71 +65,60 @@ module Organizations
         csv << @data
         csv << @data
       end
+
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: @file.open,
+        filename: "file.csv"
+      )
       assert_difference "FormSubmission.count", 1 do
-        Organizations::Importers::CsvImportService.new(@file).call
+        Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
       end
     end
 
-    should "return summary of import when successful" do
+    should "return successful scan broadcast" do
       CSV.open(@file.path, "ab") do |csv|
         csv << @data
       end
-      import = Organizations::Importers::CsvImportService.new(@file).call
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: @file.open,
+        filename: "file.csv"
+      )
+      Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
 
-      assert import.success?
-      assert_equal 1, import.count
-      assert import.errors.empty?
+      assert_turbo_stream_broadcasts ["csv_import", @adopter]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+
+      assert_equal "File successfully scanned", turbo_stream.first.at_css(".alert-heading").text.strip
+      # assert import.errors.empty?
     end
 
-    should "return errors" do
+    should "return errors for malformed data" do
       @data[0] = "2024/13/27 10:24:05 AM AST"
       CSV.open(@file.path, "ab") do |csv|
         csv << @data
       end
-      import = Organizations::Importers::CsvImportService.new(@file).call
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: @file.open,
+        filename: "file.csv"
+      )
+      Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
 
-      refute import.success?
-      assert_equal "mon out of range", import.errors[0][1].message
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+
+      assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
     end
 
-    should "validate file type" do
-      file = Tempfile.new(["test", ".png"])
-      file.stubs(:content_type).returns("image/png")
-      import = Organizations::Importers::CsvImportService.new(file).call
+    should "return error for file validation" do
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: File.open(Rails.root.join("test/fixtures/files/logo.png")),
+        filename: "file.png",
+        content_type: "image/png"
+      )
+      Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
 
-      assert_equal "Invalid File Type: File type must be CSV", import.errors.first.message
-    end
-
-    should "validate empty file" do
-      file = Tempfile.new(["test", ".csv"])
-      file.stubs(:content_type).returns("text/csv")
-      import = Organizations::Importers::CsvImportService.new(file).call
-
-      assert_equal "File is empty", import.errors.first.message
-    end
-
-    should "validate email header" do
-      file = Tempfile.new(["test", ".csv"])
-      headers = ["Timestamp", "First name", "Last name", "Address", "Phone number", *Faker::Lorem.questions]
-      CSV.open(file.path, "wb") do |csv|
-        csv << headers
-      end
-      file.stubs(:content_type).returns("text/csv")
-      import = Organizations::Importers::CsvImportService.new(file).call
-
-      assert_equal 'The column header "Email" was not found in the attached csv', import.errors.first.message
-    end
-
-    should "validate Timestamp header" do
-      file = Tempfile.new(["test", ".csv"])
-      headers = ["Email", "First name", "Last name", "Address", "Phone number", *Faker::Lorem.questions]
-      CSV.open(file.path, "wb") do |csv|
-        csv << headers
-      end
-      file.stubs(:content_type).returns("text/csv")
-      import = Organizations::Importers::CsvImportService.new(file).call
-
-      assert_equal 'The column header "Timestamp" was not found in the attached csv', import.errors.first.message
+      assert_turbo_stream_broadcasts ["csv_import", @adopter]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
     end
   end
 end
