@@ -1,7 +1,7 @@
 <div class="<%= card_options[:class] %>">
   <% if image_options[:url] %>
     <%= link_to image_options[:url] do %>
-      <%= image_tag image_src, class: image_options[:class] %>
+      <%= image_tag image_src, class: image_options[:class], height: image_options[:height], style: image_options[:style] %>
       <% if badge? %>
         <div class="position-absolute top-0 end-0 m-2">
           <%= badge %>

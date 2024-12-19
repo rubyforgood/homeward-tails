@@ -70,6 +70,8 @@ cp config/application.example.yml config/application.yml
 Update your `config/application.yml` by replacing the places that say REPLACE_ME. If you installed and configured PostgreSQL as discussed above
 you can use your username and leave the password blank for development.
 
+If you have already set up this application locally, and are now getting errors related to Queue or Cable database hosts, please update your `config/application.yml` to specify the host as localhost for these databases (see `config/application.example.yml`). 
+
 Run the setup script to prepare DB and assets
 ```sh
 bin/setup
