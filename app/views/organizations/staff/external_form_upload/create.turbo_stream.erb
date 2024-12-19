@@ -1,4 +1,7 @@
 <%= turbo_stream.replace("flash", partial: "layouts/shared/flash_messages") %>
-<%= turbo_stream.replace("broadcast_channel") do %>
+
+<%= turbo_stream.append("broadcast_channel") do %>
   <%= turbo_stream_from @blob.signed_id %>
 <% end %>
+
+<%= turbo_stream.replace("results", partial: "upload_in_progress") %>
