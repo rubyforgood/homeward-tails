@@ -4,6 +4,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
+    @contact.email = current_user.email if current_user.present?
   end
 
   def create
