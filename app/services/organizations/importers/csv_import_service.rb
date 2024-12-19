@@ -40,7 +40,12 @@ module Organizations
             end
           end
         end
-        Status.new(@errors.empty?, @count, @no_match, @errors)
+        Turbo::StreamsChannel.broadcast_replace_to @file.signed_id,
+          target: "results",
+          partial: "organizations/staff/external_form_upload/upload_results",
+          locals: {
+            import: Status.new(@errors.empty?, @count, @no_match, @errors)
+          }
       end
 
       private

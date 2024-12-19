@@ -1,14 +1,22 @@
 <%= render DashboardPageComponent.new(crumb: :external_form) do |c| %>
-  <% c.with_header_title { t('.header') } %>
+  <% c.with_header_title { t(".header") } %>
   <% c.with_body do %>
     <section>
       <div>
         <div>
-          <p><%= t('.description') %></p>
-          <p class="fw-bold"><%= t('.csv_header_requirements') %></p>
-          <%= render "organizations/staff/shared/attachment_form", instance: nil, title: 'Files', url: staff_external_form_upload_index_path, multiple: false, attachment_type: 'files' %>
+          <p><%= t(".description") %></p>
+          <p class="fw-bold"><%= t(".csv_header_requirements") %></p>
+          <%= render "organizations/staff/shared/attachment_form",
+          instance: nil,
+          title: "Files",
+          url: staff_external_form_upload_index_path,
+          multiple: false,
+          attachment_type: "files" %>
         </div>
       </div>
     </section>
+    <%= tag.div id: "broadcast_channel" %>
+    <%= turbo_frame_tag "results" %>
   <% end %>
 <% end %>
+

@@ -12,12 +12,13 @@ module Organizations
       def create
         authorize! :external_form_upload, context: {organization: Current.organization}
         file = params[:files]
-        blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename)
-        # CsvImportJob.perform_later(blob.signed_id, current_user.id, Current.organization.id)
-        import = Organizations::Importers::CsvImportService.new(blob, Current.organization).call
-        p import
-        debugger
-
+        @blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename)
+        CsvImportJob.perform_later(@blob.signed_id, current_user.id, Current.organization.id)
+        # import = Organizations::Importers::CsvImportService.new(@blob, Current.organization).call
+        flash.now[:notice] = "Processing File"
+        respond_to do |format|
+          format.turbo_stream
+        end
         # render turbo_stream: turbo_stream.replace("results", partial: "organizations/staff/external_form_upload/upload_results", locals: {import: import})
       end
     end
