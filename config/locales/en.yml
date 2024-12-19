@@ -678,7 +678,7 @@ en:
           header: "Upload CSV File"
           csv_header_requirements: "Your CSV file must have column headers of 'Email' and 'Timestamp' for the import to work."
         create:
-          processing_file: "Processing File..."
+          processing_file: "File uploaded for processing"
         upload_results:
           success_heading: "File successfully scanned"
           error_heading: "File scanned: %{count} error(s) present"
