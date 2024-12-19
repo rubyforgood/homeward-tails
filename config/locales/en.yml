@@ -773,3 +773,4 @@ en:
       more_questions: "More Questions? Contact us"
   attachment_manageable:
     upload_limit_exceeded: "Upload limit exceeded: Only one file allowed."
+    attachment_missing: "Please select a file to attach."
