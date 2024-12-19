@@ -58,12 +58,12 @@ module Organizations
         raise TimestampColumnError unless first_row.include?("Timestamp")
 
         email_headers = ["Email", "email", "Email Address", "email address"]
-        email_headers.each do |e|
-          @email_header = e if first_row.include?(e)
+        email_headers.each do |header|
+          @email_header = header if first_row.include?(header)
         end
         raise EmailColumnError unless @email_header
       rescue FileTypeError, FileEmptyError, TimestampColumnError, EmailColumnError => e
-        @errors << e
+        @errors << [1, e]
         throw :halt_import
       end
 

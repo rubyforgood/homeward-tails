@@ -13,7 +13,8 @@ module Organizations
         authorize! :external_form_upload, context: {organization: Current.organization}
         file = params[:files]
         @blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename)
-        CsvImportJob.perform_later(@blob.signed_id, Current.organization.id)
+
+        CsvImportJob.set(wait: 1.second).perform_later(@blob.signed_id, Current.organization.id)
 
         flash.now[:notice] = t(".processing_file")
         respond_to do |format|
