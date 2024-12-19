@@ -4,9 +4,9 @@ module Organizations
   module Importers
     class CsvImportService
       Status = Data.define(:success?, :count, :no_match, :errors)
-      def initialize(file)
+      def initialize(file, organization)
         @file = file
-        @organization = Current.organization
+        @organization = organization
         @count = 0
         @no_match = []
         @errors = []
@@ -14,29 +14,30 @@ module Organizations
 
       def call
         catch(:halt_import) do
-          validate_file
+          @file.download do |data|
+            validate_file(data)
+            CSV.parse(data, headers: true, skip_blanks: true).each_with_index do |row, index|
+              # Header may be different depending on which form applicaiton was used(e.g. google forms) or how it was created(User creates form with "Email Address")
+              email = row[@email_header].downcase
+              # Google forms uses "Timestamp", other services may use a different header
+              csv_timestamp = Time.parse(row["Timestamp"]) if row["Timestamp"].present?
 
-          CSV.foreach(@file.to_path, headers: true, skip_blanks: true).with_index(2) do |row, index|
-            # Header may be different depending on which form applicaiton was used(e.g. google forms) or how it was created(User creates form with "Email Address")
-            email = row[@email_header].downcase
-            # Google forms uses "Timestamp", other services may use a different header
-            csv_timestamp = Time.parse(row["Timestamp"]) if row["Timestamp"].present?
+              person = Person.find_by(email:, organization: @organization)
+              previously_matched_form_submission = FormSubmission.where(person:, csv_timestamp:)
 
-            person = Person.find_by(email:, organization: @organization)
-            previously_matched_form_submission = FormSubmission.where(person:, csv_timestamp:)
-
-            if person.nil?
-              @no_match << [index, email]
-            elsif previously_matched_form_submission.present?
-              next
-            else
-              ActiveRecord::Base.transaction do
-                create_form_answers(FormSubmission.create!(person:, csv_timestamp:), row)
-                @count += 1
+              if person.nil?
+                @no_match << [index + 2, email]
+              elsif previously_matched_form_submission.present?
+                next
+              else
+                ActiveRecord::Base.transaction do
+                  create_form_answers(FormSubmission.create!(person:, csv_timestamp:), row)
+                  @count += 1
+                end
               end
+            rescue => e
+              @errors << [index + 2, e]
             end
-          rescue => e
-            @errors << [index, e]
           end
         end
         Status.new(@errors.empty?, @count, @no_match, @errors)
@@ -44,10 +45,9 @@ module Organizations
 
       private
 
-      def validate_file
+      def validate_file(data)
         raise FileTypeError unless @file.content_type == "text/csv"
-
-        first_row = CSV.foreach(@file.to_path).first
+        first_row = CSV.new(data).shift
         raise FileEmptyError if first_row.nil?
 
         raise TimestampColumnError unless first_row.include?("Timestamp")
