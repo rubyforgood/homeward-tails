@@ -1,11 +1,12 @@
-# class to create a new location, organization, user, and staff account with role admin
-# email is sent to admin user if all steps are successful
+# Class to create a new location, organization, user, and staff account with role admin.
+# An email is sent to admin user if all steps are successful.
+# Be sure to use the Country and State codes from countries_states.yml
 # call with Organizations::CreateService.new.signal(args)
 # sample args:
 # {
 #   location: {
-#     country: 'Mexico',
-#     city_town: 'La Ventana',
+#     country: 'MX',
+#     city_town: 'JAL',
 #     province_state: 'Baja'
 #   },
 #   organization: {
