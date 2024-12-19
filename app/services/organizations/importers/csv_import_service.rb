@@ -4,9 +4,10 @@ module Organizations
   module Importers
     class CsvImportService
       Status = Data.define(:success?, :count, :no_match, :errors)
-      def initialize(file, organization)
+      def initialize(file, organization_id, current_user_id)
         @file = file
-        @organization = organization
+        @organization = Organization.find(organization_id)
+        @current_user = User.find(current_user_id)
         @count = 0
         @no_match = []
         @errors = []
@@ -40,7 +41,7 @@ module Organizations
             end
           end
         end
-        Turbo::StreamsChannel.broadcast_replace_to @file.signed_id,
+        Turbo::StreamsChannel.broadcast_replace_to ["csv_import", @current_user],
           target: "results",
           partial: "organizations/staff/external_form_upload/upload_results",
           locals: {

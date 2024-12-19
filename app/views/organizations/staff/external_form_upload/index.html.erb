@@ -15,8 +15,7 @@
         </div>
       </div>
     </section>
-    <%= tag.div id: "broadcast_channel" %>
+    <%= turbo_stream_from ["csv_import", current_user] %>
     <%= tag.div id: "results" %>
   <% end %>
 <% end %>
-
