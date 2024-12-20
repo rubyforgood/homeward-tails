@@ -39,9 +39,8 @@
       <div class="col-lg-6">
 
         <!-- Nested Form for Locations Table -->
-        <div class="form-group bigger" data-controller="country-state">
-          <% location = organization.locations.last || organization.locations.build %>
-          <%= form.fields_for :locations, location do |location_form| %>
+        <div class="form-group" data-controller="country-state">
+          <%= form.fields_for :locations, @location do |location_form| %>
             <%= render 'shared/location_fields', form: location_form %>
           <% end %>
         </div>

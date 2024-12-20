@@ -26,7 +26,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :sex_eq, "Sex" %>
-                <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
+                <%= f.select :sex_eq, [["Male", "male"], ["Female", "female"]], {include_blank: 'All'}, class: "form-select" %>
               </div>
               <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>

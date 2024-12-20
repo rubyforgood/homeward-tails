@@ -1,25 +1,33 @@
 <!-- Country Select -->
+<div class="form-group w-100">
 <%= form.select :country,
-                CS.keys.index_with { |abbr| CS.dig(abbr, :name) }.invert,
+                COUNTRIES_STATES.keys.index_with { |abbr| COUNTRIES_STATES.dig(abbr, :name) }.invert,
                 { prompt: "Please select" },
                 {
-                  'data-path': country_states_path,
+                  'data-path': countries_states_path,
                   'data-country-state-target': 'country',
                   'data-action': 'change->country-state#updateStates',
                   required: true,
                   class: 'form-control'
                 }  %>
+</div>
+
 <!-- Province/State Select -->
+<div class="form-group w-100">
 <%= form.select :province_state,
                 form.object.country.present? ? 
-                CS.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
+                COUNTRIES_STATES.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
                 { prompt: "Please select" },
                 {
                   'data-country-state-target': 'state',
                   required: true,
                   class: 'form-control'
                 }  %>
+</div>
+
 <!-- City/Town Text Field -->
+<div class="form-group w-100">
 <%= form.text_field :city_town,
-                    required: false,
+                    required: true,
                     class: "form-control" %>
+</div>
