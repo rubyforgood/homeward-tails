@@ -55,6 +55,16 @@ class RegistrationsController < Devise::RegistrationsController
       :avatar)
   end
 
+  def after_update_path_for(resource)
+    if User.staff.include?(resource) && resource.organization_id == Current.organization.id
+      return root_path unless allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {organization: Current.organization})
+      staff_dashboard_index_path
+    else
+      return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
+      adopter_fosterer_dashboard_index_path
+    end
+  end
+
   def after_sign_up_path_for(resource)
     return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
 

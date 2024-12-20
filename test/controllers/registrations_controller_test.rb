@@ -29,4 +29,27 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     get edit_user_registration_url(script_name: "/#{organization.slug}")
     assert_select "nav.navbar-vertical", 0
   end
+
+  test "should redirect to adopter foster dashboard when updated" do
+    user = create(:adopter_fosterer, password: "123456")
+    sign_in user
+
+    updated_params = {user: {first_name: "not the same name", current_password: "123456"}}
+
+    put user_registration_url, params: updated_params
+
+    assert_redirected_to adopter_fosterer_dashboard_index_url
+  end
+
+  test "should redirect to staff dashboard when updated" do
+    user = create(:admin, password: "123456")
+    organization = user.organization
+    sign_in user
+
+    updated_params = {user: {first_name: "Sean", current_password: "123456"}}
+
+    put user_registration_url(script_name: "/#{organization.slug}"), params: updated_params
+
+    assert_redirected_to staff_dashboard_index_url
+  end
 end
