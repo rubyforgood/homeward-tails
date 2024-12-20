@@ -83,12 +83,14 @@ module Organizations
         io: @file.open,
         filename: "file.csv"
       )
-      Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
+      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service.call
+      errors = service.instance_variable_get(:@errors)
 
-      assert_turbo_stream_broadcasts ["csv_import", @adopter]
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
 
       assert_equal "File successfully scanned", turbo_stream.first.at_css(".alert-heading").text.strip
+      assert errors.empty?
     end
 
     should "return errors for malformed data" do
@@ -100,24 +102,72 @@ module Organizations
         io: @file.open,
         filename: "file.csv"
       )
-      Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
+      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service.call
+      errors = service.instance_variable_get(:@errors)
 
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
 
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
+      assert_equal errors.first[1].message, "mon out of range"
     end
 
-    should "return error for file validation" do
+    should "validate file type" do
       blob = ActiveStorage::Blob.create_and_upload!(
         io: File.open(Rails.root.join("test/fixtures/files/logo.png")),
         filename: "file.png",
         content_type: "image/png"
       )
-      Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
+      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service.call
+      errors = service.instance_variable_get(:@errors)
 
       assert_turbo_stream_broadcasts ["csv_import", @adopter]
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
+      assert_equal errors.first[1].message, "Invalid File Type: File type must be CSV"
+    end
+
+    should "validate email header" do
+      file = Tempfile.new(["test", ".csv"])
+      headers = ["Timestamp", "First name", "Last name",
+        "Address", "Phone number", *Faker::Lorem.questions]
+      CSV.open(file.path, "wb") do |csv|
+        csv << headers
+      end
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: file.open,
+        filename: "file.csv"
+      )
+      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service.call
+      errors = service.instance_variable_get(:@errors)
+
+      assert_turbo_stream_broadcasts ["csv_import", @adopter]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
+      assert_equal errors.first[1].message, 'The column header "Email" was not found in the attached csv'
+    end
+
+    should "validate Timestamp header" do
+      file = Tempfile.new(["test", ".csv"])
+      headers = ["Email", "First name", "Last name",
+        "Address", "Phone number", *Faker::Lorem.questions]
+      CSV.open(file.path, "wb") do |csv|
+        csv << headers
+      end
+      blob = ActiveStorage::Blob.create_and_upload!(
+        io: file.open,
+        filename: "file.csv"
+      )
+      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service.call
+      errors = service.instance_variable_get(:@errors)
+
+      assert_turbo_stream_broadcasts ["csv_import", @adopter]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
+      assert_equal errors.first[1].message, 'The column header "Timestamp" was not found in the attached csv'
     end
   end
 end

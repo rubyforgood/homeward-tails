@@ -54,7 +54,6 @@ module Organizations
       def validate_file(data)
         raise FileTypeError unless @file.content_type == "text/csv"
         first_row = CSV.new(data).shift
-        raise FileEmptyError if first_row.nil?
 
         raise TimestampColumnError unless first_row.include?("Timestamp")
 
@@ -63,7 +62,7 @@ module Organizations
           @email_header = header if first_row.include?(header)
         end
         raise EmailColumnError unless @email_header
-      rescue FileTypeError, FileEmptyError, TimestampColumnError, EmailColumnError => e
+      rescue FileTypeError, TimestampColumnError, EmailColumnError => e
         @errors << [1, e]
         throw :halt_import
       end
