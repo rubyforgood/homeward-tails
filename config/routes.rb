@@ -67,10 +67,6 @@ Rails.application.routes.draw do
         resources :form_submissions, only: [:index]
       end
 
-      resources :people do
-        resources :form_submissions, only: [:index]
-      end
-
       resources :form_submissions do
         resources :form_answers, only: [:index]
       end
