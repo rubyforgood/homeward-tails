@@ -89,7 +89,6 @@ module Organizations
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
 
       assert_equal "File successfully scanned", turbo_stream.first.at_css(".alert-heading").text.strip
-      # assert import.errors.empty?
     end
 
     should "return errors for malformed data" do
