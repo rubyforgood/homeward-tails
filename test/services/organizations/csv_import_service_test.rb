@@ -109,7 +109,7 @@ module Organizations
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
 
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
-      assert_equal errors.first[1].message, "mon out of range"
+      assert_equal "mon out of range", errors.first[1].message
     end
 
     should "validate file type" do
@@ -125,7 +125,7 @@ module Organizations
       assert_turbo_stream_broadcasts ["csv_import", @adopter]
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
-      assert_equal errors.first[1].message, "Invalid File Type: File type must be CSV"
+      assert_equal "Invalid File Type: File type must be CSV", errors.first[1].message
     end
 
     should "validate email header" do
@@ -146,7 +146,7 @@ module Organizations
       assert_turbo_stream_broadcasts ["csv_import", @adopter]
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
-      assert_equal errors.first[1].message, 'The column header "Email" was not found in the attached csv'
+      assert_equal  'The column header "Email" was not found in the attached csv', errors.first[1].message
     end
 
     should "validate Timestamp header" do
@@ -167,7 +167,6 @@ module Organizations
       assert_turbo_stream_broadcasts ["csv_import", @adopter]
       turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
-      assert_equal errors.first[1].message, 'The column header "Timestamp" was not found in the attached csv'
-    end
+      assert_equal  'The column header "Timestamp" was not found in the attached csv', errors.first[1].message    end
   end
 end
