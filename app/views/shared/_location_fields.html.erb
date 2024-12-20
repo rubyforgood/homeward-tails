@@ -1,4 +1,5 @@
 <!-- Country Select -->
+<div class="form-group w-100">
 <%= form.select :country,
                 COUNTRIES_STATES.keys.index_with { |abbr| COUNTRIES_STATES.dig(abbr, :name) }.invert,
                 { prompt: "Please select" },
@@ -9,7 +10,10 @@
                   required: true,
                   class: 'form-control'
                 }  %>
+</div>
+
 <!-- Province/State Select -->
+<div class="form-group w-100">
 <%= form.select :province_state,
                 form.object.country.present? ? 
                 COUNTRIES_STATES.dig(form.object.country.to_sym, :states)&.map { |abbr, name| [:name, abbr] } : [],
@@ -19,7 +23,11 @@
                   required: true,
                   class: 'form-control'
                 }  %>
+</div>
+
 <!-- City/Town Text Field -->
+<div class="form-group w-100">
 <%= form.text_field :city_town,
                     required: true,
                     class: "form-control" %>
+</div>
