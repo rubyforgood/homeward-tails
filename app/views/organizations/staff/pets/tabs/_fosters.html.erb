@@ -1,24 +1,24 @@
-<div id="fosters_tab_table" class="card">
+<div id="fosters_tab_table" class="card col-6 col-xl-12">
   <div class="card-body px-5">
-    <% #headers %>
-    <div class="row border-bottom pb-3 pt-1">
-      <div class="col-4 fw-semibold">
-        <%= t("organizations.staff.pets.show.fosterer")%>
+    <% fosters.each do |foster|%> 
+      <% #headers %>
+      <div class="row border-bottom pb-3 pt-1 d-none d-xl-flex">
+        <div class="col-4 fw-semibold">
+          <%= t("organizations.staff.pets.show.fosterer")%>
+        </div>
+        <div class="col-2 fw-semibold">
+          <%= t("organizations.staff.pets.show.status")%>
+        </div>
+        <div class="col-2 fw-semibold">
+          <%= t("organizations.staff.pets.show.start_date")%>
+        </div>
+        <div class="col-2 fw-semibold">
+          <%= t("organizations.staff.pets.show.end_date")%>
+        </div>
+        <div class="col-2 fw-semibold">
+        </div>
       </div>
-      <div class="col-2 fw-semibold">
-        <%= t("organizations.staff.pets.show.status")%>
-      </div>
-      <div class="col-2 fw-semibold">
-        <%= t("organizations.staff.pets.show.start_date")%>
-      </div>
-      <div class="col-2 fw-semibold">
-        <%= t("organizations.staff.pets.show.end_date")%>
-      </div>
-      <div class="col-2 fw-semibold">
-      </div>
-    </div>
-
-    <% fosters.each do |foster|%>
+    
       <%= render 'organizations/staff/pets/tabs/partials/foster', foster: foster %>
     <% end %>
   </div>
