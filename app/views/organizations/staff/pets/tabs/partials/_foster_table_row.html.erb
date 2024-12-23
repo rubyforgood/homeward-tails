@@ -1,0 +1,44 @@
+<tr>
+  <!-- fosterer -->
+  <td class="w-20 align-middle">
+    <%= link_to foster.person.full_name, staff_person_form_submissions_path(foster.person)%>
+  </td>
+
+  <!-- status -->
+  <td class="w-20 align-middle">
+    <div class="badge <%= status_classes(foster.status) %>">
+      <%= foster.status.to_s.titleize %>
+    </div>
+  </td>
+  <!-- start date -->
+  <td class="w-20 align-middle">
+    <%= turbo_frame_tag dom_id(foster, :start_date) do %>
+      <%= link_to foster.start_date.strftime("%m/%d/%Y"),
+        edit_staff_manage_foster_path(foster, page: params[:page]),
+        class: "btn btn-outline-primary"
+      %>
+    <% end %>
+  </td>
+  <!-- end date -->
+  <td class="w-20 align-middle">
+    <%= turbo_frame_tag dom_id(foster, :end_date) do %>
+      <%= link_to foster.end_date.strftime("%m/%d/%Y"),
+        edit_staff_manage_foster_path(foster, page: params[:page]),
+        class: "btn btn-outline-primary"
+      %>
+    <% end %>
+  </td>
+  <!-- buttons -->
+  <td class="w-20 align-middle">
+    <div class="d-flex justify-content-end">
+      <%= button_to t('general.delete'),
+        staff_manage_foster_path(foster, page: params[:page]),
+        method: :delete,
+        class: "btn btn-outline-danger",
+        data: {
+          turbo_confirm: "Click OK to delete this foster."
+        }
+      %>
+    </div>
+  </td>
+</tr>
