@@ -8,14 +8,14 @@ module AttachmentManageable
 
   def show_alert_if_attachment_missing
     if params[:pet][:images].present?
-      no_empty_images = params[:pet][:images].reject { |image| image == "" }
+      images = params[:pet][:images].reject { |image| image == "" }
     elsif params[:pet][:files].present?
-      no_empty_files = params[:pet][:files].reject { |image| image == "" }
+      files = params[:pet][:files].reject { |image| image == "" }
     end
 
-    if params[:action] == "attach_images" && no_empty_images.length >= 1
+    if params[:action] == "attach_images" && images.length >= 1
       nil
-    elsif params[:action] == "attach_files" && no_empty_files.length >= 1
+    elsif params[:action] == "attach_files" && files.length >= 1
       nil
     else
       flash.now[:alert] = t("attachment_manageable.attachment_missing")
