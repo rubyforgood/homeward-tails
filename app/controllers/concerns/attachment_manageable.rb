@@ -7,10 +7,12 @@ module AttachmentManageable
   end
 
   def show_alert_if_attachment_missing
+    # images and files are arrays that sometimes populated with empty strings, so we want to remove
+    # those empty strings before checking whether or no "real" images / files are being attached
     if params[:pet][:images].present?
       images = params[:pet][:images].reject { |image| image == "" }
     elsif params[:pet][:files].present?
-      files = params[:pet][:files].reject { |image| image == "" }
+      files = params[:pet][:files].reject { |file| file == "" }
     end
 
     if params[:action] == "attach_images" && images.length >= 1
