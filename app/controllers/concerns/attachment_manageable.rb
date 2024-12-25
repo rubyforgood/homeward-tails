@@ -7,9 +7,9 @@ module AttachmentManageable
   end
 
   def show_alert_if_attachment_missing
-    if !params[:pet][:images].nil?
+    if params[:pet][:images].present?
       no_empty_images = params[:pet][:images].reject { |image| image == "" }
-    elsif !params[:pet][:files].nil?
+    elsif params[:pet][:files].present?
       no_empty_files = params[:pet][:files].reject { |image| image == "" }
     end
 
