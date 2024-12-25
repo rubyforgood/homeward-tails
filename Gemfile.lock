@@ -136,6 +136,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     coderay (1.1.3)
+    colorize (1.1.0)
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -583,6 +584,7 @@ DEPENDENCIES
   brakeman
   bugsnag (~> 6.27)
   capybara
+  colorize
   cuprite
   dartsass-rails
   debug

@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require "fileutils"
+require "colorize"
 
 APP_ROOT = File.expand_path("..", __dir__)
 
@@ -16,9 +17,13 @@ FileUtils.chdir APP_ROOT do
   system("bundle check") || system!("bundle install")
 
   # puts "\n== Copying sample files =="
-  # unless File.exist?("config/database.yml")
-  #   FileUtils.cp "config/database.yml.sample", "config/database.yml"
-  # end
+  unless File.exist?("config/application.yml")
+    puts "== Setup application.yml =="
+    puts "⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️"
+    puts "Please provide the necessary configuration in config/application.yml".colorize(:red)
+    puts "⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️"
+    FileUtils.cp "config/application.example.yml", "config/application.yml"
+  end
 
   puts "\n== Preparing database =="
   system! "bin/rails db:prepare"
