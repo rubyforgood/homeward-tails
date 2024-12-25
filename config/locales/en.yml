@@ -677,6 +677,8 @@ en:
           description: "If you collect information from adopters from a third party service, like Google Forms, you can export a CSV file from Google Forms and upload it here. We will import the questions and answers for any adopters who have an account on your Homeward Tails website, providing they use the same email address. Then you will be able to see the information for each adopter when reviewing applications."
           header: "Upload CSV File"
           csv_header_requirements: "Your CSV file must have column headers of 'Email' and 'Timestamp' for the import to work."
+        create:
+          processing_file: "File uploaded for processing"
         upload_results:
           success_heading: "File successfully scanned"
           error_heading: "File scanned: %{count} error(s) present"
@@ -733,7 +735,7 @@ en:
           header: "Welcome to %{organization_name}!"
           body_text: "At %{organization_name}, we’re dedicated to rescuing, rehabilitating, and rehoming animals in need. Your support helps us provide care, love, and hope to these pets until they find their forever homes."
       form_instructions:
-        index: "Please complete this form using the same email address you signed up with. %{organization_name} needs this information in order to process your application(s)."
+        index: "Please complete this form using the same email address you signed up with (%{email}). %{organization_name} needs this information in order to process your application(s). If you do not complete this form now, you can do so later via the 'Form' link in your dashboard"
         previous_answers: "You have already completed this form. View your responses"
         update_form_answers: "Please only submit this form again if your details have changed and need updating."
         dashboard: "Please complete this form so we have sufficient information to begin processing your adoption applications. Please ensure to use the same email address in the form as you did to register on this website (%{user_email})."

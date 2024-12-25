@@ -1,32 +1,32 @@
-<div class="d-flex flex-column align-items-center mb-4">
-  <div class="my-4 mx-8">
-    <% if params[:dashboard] %>
-
-      <% if current_user.person.latest_form_submission.present? %>
-        <p class="fw-bold mb-0"><%= t('organizations.adopter_fosterer.form_instructions.previous_answers') %> <%= link_to t('general.here'), adopter_fosterer_form_answers_path %>.</p>
-        <p><%= t('organizations.adopter_fosterer.form_instructions.update_form_answers') %></p>
+<section class="container d-flex flex-column py-6">
+  <div class="row justify-content-center gap-6">
+  <div class="col-8">
+      <% if params[:dashboard] %>
+        <% if current_user.person.latest_form_submission.present? %>
+          <p class="fw-bold mb-0"><%= t('organizations.adopter_fosterer.form_instructions.previous_answers') %> <%= link_to t('general.here'), adopter_fosterer_form_answers_path %>.</p>
+          <p><%= t('organizations.adopter_fosterer.form_instructions.update_form_answers') %></p>
+        <% else %>
+          <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard", user_email: current_user.email) %></p>
+        <% end %>
       <% else %>
-        <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard", user_email: current_user.email) %></p>
-      <% end %>
-
-  <% else %>
-      <p><%= t(
-          "organizations.adopter_fosterer.form_instructions.index",
-          organization_name: Current.tenant.name,
-        ) %></p>
+        <div>
+          <p class="fw-bold"><%= t(
+              "organizations.adopter_fosterer.form_instructions.index",
+              organization_name: Current.tenant.name,
+              email: current_user.email
+            ) %></p>
+          <%= link_to "Go to my dashboard", adopter_fosterer_dashboard_index_path, class: "btn btn-primary" %>
+        </div>
     <% end %>
-    <div class="d-flex justify-content-end gap-2 pb-2">
-      <%= link_to " #{t("general.view")} #{t("general.dogs")}",
-      adoptable_pets_path(species: "dog"),
-      class: "btn btn-primary" %>
-      <%= link_to " #{t("general.view")} #{t("general.cats")}",
-      adoptable_pets_path(species: "cat"),
-      class: "btn btn-primary" %>
     </div>
+
+    <div class="row">
+      <iframe id="external-form"
+        src=<%= @form_url%>
+        width="90%"
+        height="645"
+        >Loading…</iframe>
+    </div>
+
   </div>
-  <iframe id="external-form"
-    src=<%= @form_url%>
-    width="90%" 
-    height="645"
-    >Loading…</iframe>
-</div>
+</section>
