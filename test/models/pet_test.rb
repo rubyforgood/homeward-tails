@@ -83,6 +83,19 @@ class PetTest < ActiveSupport::TestCase
         assert_not Pet.with_photo.include?(pet_without_image)
       end
     end
+
+    context ".unique_species" do
+      should "returns an array of unique species" do
+        create(:pet, species: "Dog")
+        create(:pet, species: "Cat")
+        create(:pet, species: "Dog")
+    
+        unique_species = Pet.unique_species
+    
+        assert_equal ["Cat", "Dog"], unique_species.sort
+        assert_equal 1, unique_species.count("Dog")
+      end
+    end
   end
 
   context "#has_adoption_pending?" do
