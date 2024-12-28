@@ -89,9 +89,9 @@ class PetTest < ActiveSupport::TestCase
         create(:pet, species: "Dog")
         create(:pet, species: "Cat")
         create(:pet, species: "Dog")
-    
+
         unique_species = Pet.unique_species
-    
+
         assert_equal ["Cat", "Dog"], unique_species.sort
         assert_equal 1, unique_species.count("Dog")
       end

@@ -97,7 +97,7 @@ class Pet < ApplicationRecord
 
   # Returns an array of unique species of an organization
   scope :unique_species, -> { distinct.pluck(:species) }
-  
+
   attr_writer :toggle
 
   # check if pet has any applications with adoption pending status
