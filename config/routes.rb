@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     registrations: "registrations",
     sessions: "users/sessions",
     invitations: "organizations/staff/invitations",
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
 
   # Application Scope

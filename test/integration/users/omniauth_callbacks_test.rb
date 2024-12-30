@@ -4,17 +4,17 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
   setup do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-      provider: 'google_oauth2',
-      uid: '123456789',
+      provider: "google_oauth2",
+      uid: "123456789",
       info: {
-        email: 'test@example.com',
-        name: 'Test User',
-        first_name: 'Test',
-        last_name: 'User'
+        email: "test@example.com",
+        name: "Test User",
+        first_name: "Test",
+        last_name: "User"
       },
       credentials: {
-        token: 'token123',
-        refresh_token: 'refresh123',
+        token: "token123",
+        refresh_token: "refresh123",
         expires_at: Time.now + 1.week
       }
     })
@@ -25,21 +25,21 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
   end
 
   test "should create new user from google oauth" do
-    assert_difference 'User.count', 1 do
+    assert_difference "User.count", 1 do
       post user_google_oauth2_omniauth_callback_path
       assert_response :redirect
       assert_redirected_to adopter_fosterer_dashboard_index_path
     end
 
     user = User.last
-    assert_equal 'test@example.com', user.email
-    assert_equal 'Test', user.first_name
-    assert_equal 'google_oauth2', user.provider
-    assert_equal '123456789', user.uid
+    assert_equal "test@example.com", user.email
+    assert_equal "Test", user.first_name
+    assert_equal "google_oauth2", user.provider
+    assert_equal "123456789", user.uid
   end
 
   test "should sign in existing user from google oauth" do
-    assert_difference 'User.count', 1 do
+    assert_difference "User.count", 1 do
       post user_google_oauth2_omniauth_callback_path
       assert_response :redirect
       assert_redirected_to adopter_fosterer_dashboard_index_path

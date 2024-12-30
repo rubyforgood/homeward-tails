@@ -371,8 +371,7 @@ Devise.setup do |config|
   end
 
   config.omniauth :google_oauth2,
-                  Rails.application.credentials.dig(:google, :client_id),
-                  Rails.application.credentials.dig(:google, :client_secret),
-                  {}
-                  
+    Rails.application.credentials.dig(:google, :client_id),
+    Rails.application.credentials.dig(:google, :client_secret),
+    {}
 end

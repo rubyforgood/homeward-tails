@@ -17,11 +17,11 @@ module Omniauthable
   def assign_attributes_from_auth(auth)
     self.email = auth.info.email
     self.password = Devise.friendly_token[0, 20]
-    self.first_name = auth.info.first_name if self.respond_to?(:first_name)
-    self.last_name = auth.info.last_name if self.respond_to?(:last_name)
+    self.first_name = auth.info.first_name if respond_to?(:first_name)
+    self.last_name = auth.info.last_name if respond_to?(:last_name)
   end
 
   def set_adopter_role
-    self.add_role("adopter", Current.organization)
+    add_role("adopter", Current.organization)
   end
 end
