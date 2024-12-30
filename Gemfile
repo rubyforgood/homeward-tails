@@ -121,6 +121,11 @@ gem "strong_migrations", "~> 2.1"
 # Track errors in prod
 gem "bugsnag", "~> 6.27"
 
+# Google OAuth
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem 'omniauth-rails_csrf_protection'
+
 group :development, :test, :staging do
   gem "faker"
 end

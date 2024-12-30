@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "registrations",
     sessions: "users/sessions",
-    invitations: "organizations/staff/invitations"
+    invitations: "organizations/staff/invitations",
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   # Application Scope

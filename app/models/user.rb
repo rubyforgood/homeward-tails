@@ -15,10 +15,12 @@
 #  invitations_count      :integer          default(0)
 #  invited_by_type        :string
 #  last_name              :string           not null
+#  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  tos_agreement          :boolean
+#  uid                    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
@@ -43,6 +45,7 @@ class User < ApplicationRecord
   include Avatarable
   include Authorizable
   include RoleChangeable
+  include Omniauthable
 
   acts_as_tenant(:organization)
   default_scope do
