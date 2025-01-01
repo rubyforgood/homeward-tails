@@ -11,13 +11,11 @@
           </div>
           <div class="d-flex justify-content-center">
             <% if user_signed_in? %>
-
-              <%= link_to "#{t("general.browse")} #{t("general.dogs")}",
-              adoptable_pets_path(species: "dog"),
-              class: "btn btn-primary btn-lg rounded-1 ms-2" %>
-              <%= link_to "#{t("general.browse")} #{t("general.cats")}",
-              adoptable_pets_path(species: "cat"),
-              class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+              <% @unique_species.each do |species| %>
+                <%= link_to "#{t("general.browse")} #{t("general.#{species}s")}",
+                adoptable_pets_path(species: "#{species}"),
+                class: "btn btn-primary btn-lg rounded-1 ms-2" %>
+               <% end %> 
             <% else %>
               <%= link_to t("general.become_an_adopter"),
               new_user_registration_path,
