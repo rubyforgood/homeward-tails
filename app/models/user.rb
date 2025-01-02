@@ -149,6 +149,10 @@ class User < ApplicationRecord
     !!deactivated_at
   end
 
+  def google_oauth_user?
+    provider == 'google_oauth2' && uid.present?
+  end
+
   private
 
   def downcase_email
