@@ -113,7 +113,7 @@ gem "view_component", "~> 3.21"
 gem "dry-types", "~> 1.7"
 
 # Use dry-initializer for defining params and options for instances
-gem "dry-initializer", "~> 3.1"
+gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
 gem "strong_migrations", "~> 2.1"
