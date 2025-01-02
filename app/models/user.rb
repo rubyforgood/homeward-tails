@@ -150,7 +150,7 @@ class User < ApplicationRecord
   end
 
   def google_oauth_user?
-    provider == 'google_oauth2' && uid.present?
+    provider == "google_oauth2" && uid.present?
   end
 
   private
