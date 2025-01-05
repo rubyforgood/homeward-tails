@@ -83,13 +83,13 @@
         <div class="form-check form-switch d-flex align-items-center ps-3">
           <%= form.hidden_field :application_paused, value: false %>
           <%= form.check_box :application_paused, { class: "form-check-input", role: "switch", id: "flexSwitchCheckChecked" }, true, false %>
-          <%= render partial: "organizations/shared/tooltip", locals: {text: "Pet is visible to public but adopters cannot make applications" } %>
+          <%= render partial: "organizations/shared/tooltip", locals: { text: "Pet is visible to public but adopters cannot make applications" } %>
         </div>
 
         <div class="form-check form-switch ps-3">
           <%= form.hidden_field :published, value: false %>
           <%= form.check_box :published, { class: "form-check-input", role: "switch", required: false }, true, false %>
-          <%= render partial: "organizations/shared/tooltip", locals: {text: "Pet is visible to public" } %>
+          <%= render partial: "organizations/shared/tooltip", locals: { text: "Pet is visible to public" } %>
         </div>
       </div>
 
