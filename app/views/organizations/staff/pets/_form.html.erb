@@ -83,27 +83,13 @@
         <div class="form-check form-switch d-flex align-items-center ps-3">
           <%= form.hidden_field :application_paused, value: false %>
           <%= form.check_box :application_paused, { class: "form-check-input", role: "switch", id: "flexSwitchCheckChecked" }, true, false %>
-          <div data-controller="tooltip" data-action="mouseenter->tooltip#showTooltip mouseleave->tooltip#hideTooltip" class="mb-3 ms-1" tabindex="0">
-            <i class="fe fe-help-circle"></i>
-            <div data-tooltip-target="tooltip" class="tooltip bs-tooltip-top fade" role="tooltip" style="display: none;  position:absolute;">
-              <div class="tooltip-inner">
-                Pet is visible to public but adopters cannot make applications
-              </div>
-            </div>
-          </div>
+          <%= render partial: "organizations/shared/tooltip", locals: {text: "Pet is visible to public but adopters cannot make applications" } %>
         </div>
 
         <div class="form-check form-switch ps-3">
           <%= form.hidden_field :published, value: false %>
           <%= form.check_box :published, { class: "form-check-input", role: "switch", required: false }, true, false %>
-          <div data-controller="tooltip" data-action="mouseenter->tooltip#showTooltip mouseleave->tooltip#hideTooltip" class="mb-3 ms-1" tabindex="0">
-            <i class="fe fe-help-circle"></i>
-            <div data-tooltip-target="tooltip" class="tooltip bs-tooltip-top fade" role="tooltip" style="display: none;  position:absolute;">
-              <div class="tooltip-inner">
-                Pet is visible to public
-              </div>
-            </div>
-          </div>
+          <%= render partial: "organizations/shared/tooltip", locals: {text: "Pet is visible to public" } %>
         </div>
       </div>
 
