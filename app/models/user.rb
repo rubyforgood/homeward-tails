@@ -29,7 +29,7 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_email                 (email)
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
@@ -60,7 +60,7 @@ class User < ApplicationRecord
     end
   end
 
-  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable
 
   validates :first_name, presence: true
   validates :last_name, presence: true
