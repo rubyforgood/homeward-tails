@@ -1,4 +1,5 @@
 # Class to create a new location, organization, user, and staff account with role admin.
+# Be sure to add the callback URL for the new org in for Google OAuth dev account
 # An email is sent to admin user if all steps are successful.
 # Be sure to use the Country and State codes from countries_states.yml
 # call with Organizations::CreateService.new.signal(args)
