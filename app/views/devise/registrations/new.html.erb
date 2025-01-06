@@ -28,10 +28,6 @@
 
             <%= render "devise/shared/error_messages", resource: resource %>
 
-            <%= f.fields_for :adopter_foster_account do |fields| %>
-              <%= fields.hidden_field :user_id %>
-            <% end %>
-
             <div class="form-group mb-3 bigger">
               <%= f.email_field :email,
                                 autofocus: true,
