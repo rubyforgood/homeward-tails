@@ -110,7 +110,7 @@ gem "action_policy", "~> 0.7.3"
 gem "view_component", "~> 3.21"
 
 # Use dry-types for defining types
-gem "dry-types", "~> 1.7"
+gem "dry-types", "~> 1.8"
 
 # Use dry-initializer for defining params and options for instances
 gem "dry-initializer", "~> 3.2"
