@@ -36,7 +36,8 @@ class Organizations::CreateService
       create_user(
         args[:user][:email],
         args[:user][:first_name],
-        args[:user][:last_name]
+        args[:user][:last_name],
+        args[:user][:password]
       )
       add_super_admin_role_to_user
       send_email
@@ -65,14 +66,13 @@ class Organizations::CreateService
     )
   end
 
-  def create_user(email, first_name, last_name)
+  def create_user(email, first_name, last_name, password = SecureRandom.hex(3)[0, 6])
     ActsAsTenant.with_tenant(@organization) do
       @user = User.create!(
         email: email,
         first_name: first_name,
         last_name: last_name,
-        password: SecureRandom.hex(3)[0, 6],
-        tos_agreement: 1
+        password: password
       )
     end
   end
