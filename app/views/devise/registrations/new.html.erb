@@ -60,6 +60,19 @@
             <%= link_to 'Cookie Policy', cookie_policy_path,
                         target: '_blank', class: 'text-decoration-none' %>
           </div>
+          <%= f.check_box :tos_agreement, required: true do %>
+            <span>I agree to the </span>
+            <%# NOTE: Might be nice to change these to modal targets. %>
+            <%= link_to 'Terms and Conditions', terms_and_conditions_path,
+                        target: '_blank', class: 'text-decoration-none' %>
+            <span>& </span>
+            <%= link_to 'Privacy Policy', privacy_policy_path,
+                        target: '_blank', class: 'text-decoration-none' %>
+            <span>& </span>
+            <%# NOTE: Do we need cookie policy here? Cookie agreements are usually separate. %>
+            <%= link_to 'Cookie Policy', cookie_policy_path,
+                        target: '_blank', class: 'text-decoration-none' %>
+          <% end %>
 
           <div class="actions">
             <%= f.submit "Create Account", class: 'btn btn-outline-dark mb-3 bigger',
