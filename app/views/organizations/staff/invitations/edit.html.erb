@@ -26,7 +26,19 @@
           <% if f.object.class.require_password_on_accepting %>
             <%= f.password_field :password, autofocus: true %>
             <%= f.password_field :password_confirmation %>
-            <%= f.check_box :tos_agreement, required: true %>
+            <%= f.check_box :tos_agreement, required: true do %>
+              <span>I agree to the </span>
+              <%# NOTE: Might be nice to change these to modal targets. %>
+              <%= link_to 'Terms and Conditions', terms_and_conditions_path,
+                          target: '_blank', class: 'text-decoration-none' %>
+              <span>& </span>
+              <%= link_to 'Privacy Policy', privacy_policy_path,
+                          target: '_blank', class: 'text-decoration-none' %>
+              <span>& </span>
+              <%# NOTE: Do we need cookie policy here? Cookie agreements are usually separate. %>
+              <%= link_to 'Cookie Policy', cookie_policy_path,
+                          target: '_blank', class: 'text-decoration-none' %>
+            <% end %>
             
           <% end %>
             <div class='mb-5'>
