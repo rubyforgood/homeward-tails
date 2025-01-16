@@ -65,8 +65,8 @@ class User < ApplicationRecord
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
   validate :prevent_email_change, on: :update
-  # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
-  #   allow_nil: false, on: :create
+  validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
+    allow_nil: false, on: :create
 
   belongs_to :person
   accepts_nested_attributes_for :person
