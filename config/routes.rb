@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     invitations: "organizations/staff/invitations"
   }
 
+  # FIXME: Can I scope this to user without messing up Devise?
+  resource :agreement, only: %i[edit update]
+
   scope module: :organizations do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
