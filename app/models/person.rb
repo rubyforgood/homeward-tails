@@ -54,7 +54,7 @@ class Person < ApplicationRecord
   }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[first_name last_name]
+    %w[first_name last_name email]
   end
 
   def self.ransackable_associations(auth_object = nil)
