@@ -18,9 +18,11 @@
                           hide_label: true %>
           <small class="form-text text-muted">
             <% if attachment_type == 'files' %>
-              File must be .csv under 2MB.
+              Files must be .pdf, .png, or .jpeg under 2MB.
             <% elsif attachment_type == 'images' %>
               Images must be .jpg or .png under 1MB.
+            <% elsif attachment_type == 'csv' %>
+              File must be a .csv under 2MB.
             <% end %>
           </small>
         </div>
