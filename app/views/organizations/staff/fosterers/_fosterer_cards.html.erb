@@ -13,8 +13,15 @@
         <h4 class="mb-0"><%= "#{fosterer.user.full_name}" %></h4>
       </div>
       <div class="d-flex justify-content-between border-bottom py-2">
-        <span><%= t(:joined) %></span>
-        <span><%= fosterer.created_at.strftime("%d %B, %Y") %></span>
+        <span><%= t(:phone) %></span>
+        <span><%= fosterer.phone %></span>
+      </div>
+      <div class="d-flex justify-content-between border-bottom py-2">
+        <span><%= t(:email) %></span>
+        <span><%= fosterer.email %></span>
+      </div>
+      <div class="text-end mt-3">
+        <%= link_to 'Edit', edit_staff_fosterer_path(fosterer), class: 'btn btn-warning' %>
       </div>
     </div>
   </div>
