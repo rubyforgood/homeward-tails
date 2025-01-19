@@ -12,10 +12,11 @@ module Organizations
       def create
         authorize! :external_form_upload, context: {organization: Current.organization}
         file = params[:files]
+
         unless file.content_type == "text/csv"
           redirect_to staff_external_form_upload_index_path, alert: "File must be a CSV."
         end
-        
+
         @blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename)
 
         CsvImportJob.perform_later(@blob.signed_id, current_user.id)
