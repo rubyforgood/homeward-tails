@@ -26,7 +26,7 @@ module AttachmentManageable
   end
 
   def handle_incorrect_file_format_when_csv_expected
-    unless params[:files].content_type == "text/csv"
+    unless params[:files]&.content_type == "text/csv"
       redirect_to staff_external_form_upload_index_path, alert: "File must be a CSV."
     end
   end
