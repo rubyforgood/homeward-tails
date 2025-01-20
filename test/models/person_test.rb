@@ -45,17 +45,7 @@ class PersonTest < ActiveSupport::TestCase
         subject.avatar.attach(io: file, filename: "test.png")
 
         refute subject.valid?
-        assert_includes subject.errors[:avatar], "size must be between 10kb and 1Mb"
-      end
-
-      should "error if the avatar is too small" do
-        file = load_file("test.png")
-        file.stubs(:size).returns(5.kilobytes)
-
-        subject.avatar.attach(io: file, filename: "test.png")
-
-        refute subject.valid?
-        assert_includes subject.errors[:avatar], "size must be between 10kb and 1Mb"
+        assert_includes subject.errors[:avatar], "file size must be less than 1 MB (current size is 5 MB)"
       end
 
       should "error if the avatar is not an image" do
