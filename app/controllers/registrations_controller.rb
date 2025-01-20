@@ -64,6 +64,19 @@ class RegistrationsController < Devise::RegistrationsController
       :avatar)
   end
 
+  def after_update_path_for(resource)
+    role = resource.roles.find_by(resource_id: Current.organization.id)
+
+    case role&.name
+    when "adopter", "fosterer"
+      adopter_fosterer_dashboard_index_path
+    when "admin", "super_admin"
+      staff_dashboard_index_path
+    else
+      root_path
+    end
+  end
+
   def after_sign_up_path_for(resource)
     return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
 
