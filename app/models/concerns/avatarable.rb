@@ -8,7 +8,7 @@ module Avatarable
 
     # TODO:  move these validation strings to a locale file
     validates :avatar,
-      content_type: { in: ["image/png", "image/jpeg"], message: I18n.t(".content_type_invalid") },
-      size: { less_than: 1.megabytes, message: :file_size_not_less_than }
+      content_type: {in: ["image/png", "image/jpeg"], message: I18n.t(".content_type_invalid")},
+      size: {less_than: 1.megabytes, message: :file_size_not_less_than}
   end
 end
