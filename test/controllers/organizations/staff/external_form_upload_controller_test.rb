@@ -5,7 +5,7 @@ module Organizations
     class ExternalFormUploadControllerTest < ActionDispatch::IntegrationTest
       setup do
         file = fixture_file_upload("google_form_sample.csv", "text/csv")
-        @params = {files: file}
+        @params = {csv: file}
         admin = create(:admin)
         sign_in admin
       end
