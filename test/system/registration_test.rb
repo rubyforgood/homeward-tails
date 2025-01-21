@@ -24,12 +24,12 @@ class RegistrationTest < ApplicationSystemTestCase
       assert_selector("div.invalid-feedback", text: "must be PNG or JPEG")
     end
 
-    should "direct to home index path with valid upload" do
+    should "direct to staff dashboard path with valid upload" do
       attach_file("Attach picture", Rails.root + "test/fixtures/files/test.png")
       fill_in "Current password", with: @user.password
       click_on "Update"
 
-      assert has_current_path?(home_index_path)
+      assert has_current_path?(staff_dashboard_index_path)
     end
   end
 end
