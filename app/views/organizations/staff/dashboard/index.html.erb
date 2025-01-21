@@ -87,43 +87,7 @@
     </div>
 
     <div class="mt-5">
-      <turbo-frame id="tasks-frame">
-      <h3 class = "text-capitalize"><%= @header_title %></h3>
-        <div class="card">
-          <table class="table mb-0 text-nowrap table-hover table-centered">
-            <thead>
-              <tr>
-                <th scope="col"><%= t('name') %></th>
-                <th class="text-center" scope="col"><%= @column_name %></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @pets.each do |pet| %>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <%= render PetAvatarComponent.new(pet)%>
-                      <div class="ms-3">
-                        <h4 class="mb-0">
-                          <%= link_to pet.name, staff_pet_path(pet, active_tab: 'tasks'), class: 'text-inherit', data: { turbo: false } %>
-                        </h4>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="d-flex justify-content-center">
-                      <%= link_to pet.incomplete_tasks_count, staff_pet_path(pet, active_tab: 'tasks'), class: 'text-inherit', data: { turbo: false } %>
-                    </div>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="d-flex justify-content-center align-items-center mt-2">
-          <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
-        </div>
-      </turbo-frame>
+      <%= render 'pets_with_incomplete_or_overdue_tasks' %>
     </div>
   <% end %>
 <% end %>
