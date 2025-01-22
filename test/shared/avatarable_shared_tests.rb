@@ -17,16 +17,7 @@ module AvatarableSharedTests
             subject.avatar.attach(io: fixture_file, filename: "test.png")
 
             refute subject.valid?
-            assert_includes subject.errors[:avatar], "size must be between 10kb and 1Mb"
-          end
-
-          should "append error if avatar is too small" do
-            fixture_file.stubs(:size).returns(1.kilobyte)
-
-            subject.avatar.attach(io: fixture_file, filename: "test.png")
-
-            refute subject.valid?
-            assert_includes subject.errors[:avatar], "size must be between 10kb and 1Mb"
+            assert_includes subject.errors[:avatar], "file size must be less than 1 MB (current size is 2 MB)"
           end
         end
       end

@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  content_type_invalid: "must be PNG or JPEG"
   adopters: "Adopters"
   fosters: "Fosters"
   fosterer: "Fosterer"
@@ -776,3 +777,4 @@ en:
   attachment_manageable:
     upload_limit_exceeded: "Upload limit exceeded: Only one file allowed."
     attachment_missing: "Please select a file to attach."
+    must_be_csv: "File format must be .csv"

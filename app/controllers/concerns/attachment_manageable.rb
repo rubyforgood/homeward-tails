@@ -1,6 +1,6 @@
 module AttachmentManageable
-  def allow_only_one_attachment
-    return unless params[:files].is_a?(Array)
+  def allow_only_one_csv_attachment
+    return unless params[:csv].is_a?(Array)
 
     flash.now[:alert] = t("attachment_manageable.upload_limit_exceeded")
     render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
@@ -22,6 +22,12 @@ module AttachmentManageable
     else
       flash.now[:alert] = t("attachment_manageable.attachment_missing")
       render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
+    end
+  end
+
+  def handle_incorrect_file_format_when_csv_expected
+    unless params[:csv]&.content_type == "text/csv"
+      redirect_to staff_external_form_upload_index_path, alert: t("attachment_manageable.must_be_csv")
     end
   end
 end

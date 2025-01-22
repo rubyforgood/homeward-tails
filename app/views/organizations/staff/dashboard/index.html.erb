@@ -3,35 +3,6 @@
   <% c.with_body do %>
     <div class="row g-4">
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <div class="task-card">
-          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-primary") do |card| %>
-            <% card.with_title { "Tasks" } %>
-            <% card.with_icon_name { "list" } %>
-            <% card.with_value do %>
-              <div class="fs-4 ms-1">
-                <div>
-                  <%= link_to pets_with_incomplete_tasks_staff_dashboard_index_path, 
-                      data: { turbo_frame: "tasks-frame" }, 
-                      class: "text-decoration-none text-gray-500 fw-normal" do %>
-                    <i class="fe fe-alert-circle text-primary me-1"></i>
-                    <%= "#{@not_completed_not_overdue_tasks_count} Incomplete" %>
-                  <% end %>
-                </div>
-                <div>
-                  <%= link_to pets_with_overdue_tasks_staff_dashboard_index_path, 
-                      data: { turbo_frame: "tasks-frame" }, 
-                      class: "text-decoration-none text-gray-500 fw-normal" do %>
-                    <i class="fe fe-clock text-primary me-1"></i>
-                    <%= "#{@not_completed_overdue_tasks_count} Overdue" %>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-lg-6 col-md-12 col-12">
         <div class="application-card">
           <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-success") do |card| %>
             <% card.with_title { "Applications" } %>
@@ -86,14 +57,27 @@
       </div>
 
       <div class="col-xl-3 col-lg-6 col-md-12 col-12">
-        <div class="rescue-card">
-          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-gray-500") do |card| %>
-            <% card.with_title { t(:rescues) } %>
-            <% card.with_icon_name { "star" } %>
+        <div class="task-card">
+          <%= render DataCardComponent.new(title_size: :medium, icon_color: "text-primary") do |card| %>
+            <% card.with_title { "Tasks" } %>
+            <% card.with_icon_name { "list" } %>
             <% card.with_value do %>
-              <div class="text-muted text-decoration-none text-gray-500 fw-normal">
-                <div class="fs-4 ms-1">
-                  TBD
+              <div class="fs-4 ms-1">
+                <div>
+                  <%= link_to pets_with_incomplete_tasks_staff_dashboard_index_path, 
+                      data: { turbo_frame: "tasks-frame" }, 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-alert-circle text-primary me-1"></i>
+                    <%= "#{@not_completed_not_overdue_tasks_count} Incomplete" %>
+                  <% end %>
+                </div>
+                <div>
+                  <%= link_to pets_with_overdue_tasks_staff_dashboard_index_path, 
+                      data: { turbo_frame: "tasks-frame" }, 
+                      class: "text-decoration-none text-gray-500 fw-normal" do %>
+                    <i class="fe fe-clock text-primary me-1"></i>
+                    <%= "#{@not_completed_overdue_tasks_count} Overdue" %>
+                  <% end %>
                 </div>
               </div>
             <% end %>
