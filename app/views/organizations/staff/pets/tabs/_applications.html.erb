@@ -1,8 +1,11 @@
 <%# Table layout %>
 <div class="card d-none d-xl-block mb-4 flex-grow-1 w-100">
   <% if current_page?(staff_adoption_application_reviews_path) %>
-    <div class="card-header">
-      <h4 class="mb-0"><%= link_to pet.name, staff_pet_path(pet), class: "link-underline link-underline-opacity-0" %></h4>
+    <div class="d-flex card-header align-items-center">
+      <%= link_to staff_pet_path(pet) do %>
+        <%= render PetAvatarComponent.new(pet) %>
+      <% end %> 
+      <h4 class="mb-0 ms-3"><%= link_to pet.name, staff_pet_path(pet), class: "link-underline link-underline-opacity-0" %></h4>
     </div>
   <% end %>
   <div class="card-body px-5">
