@@ -1,6 +1,4 @@
 class AgreementsController < ApplicationController
-  # FIXME: Remove skip
-  skip_verify_authorized only: %i[edit update]
   before_action :set_user, only: %i[edit update]
 
   def edit
@@ -23,7 +21,6 @@ class AgreementsController < ApplicationController
   def set_user
     @user = current_user
 
-    # FIXME: Update authorize
-    # authorize! @user
+    authorize! @user
   end
 end
