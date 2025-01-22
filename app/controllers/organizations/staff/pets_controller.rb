@@ -44,8 +44,8 @@ class Organizations::Staff::PetsController < Organizations::BaseController
     if @pet.persisted?
       redirect_to staff_pet_path(@pet), notice: t(".success")
     else
-      flash[:alert] = t(".error")
-      redirect_to staff_pets_path
+      flash.now[:alert] = t(".error")
+      render :new, status: :unprocessable_entity
     end
   end
 
