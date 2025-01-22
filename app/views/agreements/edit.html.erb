@@ -1,8 +1,7 @@
 <%= render DashboardPageComponent.new do |c| %>
   <% c.with_header_title { "Edit my user settings" } %>
   <% c.with_body do %>
-    <%# FIXME: Cleanup Html %>
-    <section class="pb-5" id="registration_new">
+    <section class="pb-5">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mx-auto card p-5">
@@ -15,31 +14,23 @@
             </div>
             <p>You must agree to the terms of services before continuing with this service.</p>
           </div>
-          <div>
-            <% if flash[:alert] %>
-              <div class="alert alert-danger" role="alert">
-                <%= alert %>
-              </div>
-            <% end%>
-          </div>
-            <%= bootstrap_form_with model: @user, url: agreement_path, method: :put do |f| %>
-              <%= f.check_box :tos_agreement, required: true do %>
-                <span>I agree to the </span>
-                <%= link_to 'Terms and Conditions', terms_and_conditions_path,
-                            target: '_blank', class: 'text-decoration-none' %>
-                <span>& </span>
-                <%= link_to 'Privacy Policy', privacy_policy_path,
-                            target: '_blank', class: 'text-decoration-none' %>
-              <% end %>
-              <div class="actions">
-                <%= f.submit "Update",
-                         class: "btn btn-outline-dark mt-3 mb-3",
-                         data: {
-                           turbo: false,
-                         } %>
-              </div>
+          <%= bootstrap_form_with model: @user, url: agreement_path, method: :put do |f| %>
+            <%= f.check_box :tos_agreement, required: true do %>
+              <span>I agree to the </span>
+              <%= link_to 'Terms and Conditions', terms_and_conditions_path,
+                          target: '_blank', class: 'text-decoration-none' %>
+              <span>& </span>
+              <%= link_to 'Privacy Policy', privacy_policy_path,
+                          target: '_blank', class: 'text-decoration-none' %>
             <% end %>
-          </div>
+            <div class="actions">
+              <%= f.submit "Submit",
+                        class: "btn btn-outline-dark mt-3 mb-3",
+                        data: {
+                          turbo: false,
+                        } %>
+            </div>
+          <% end %>
         </div>
       </div>
     </section>
