@@ -1,9 +1,9 @@
 <head>
   <title>
     <% if Current.tenant %>
-      <%= Current.tenant.name %> | "Pet Rescue"
+      <%= Current.tenant.name %> | Homeward Tails
     <% else %>
-      <%= content_for?(:title) ? yield(:title) : "Pet Rescue" %>
+      <%= content_for?(:title) ? yield(:title) : "Homeward Tails" %>
     <% end %>
   </title>
 

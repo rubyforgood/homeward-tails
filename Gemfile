@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.0"
 
 # Used to deploy to production
 gem "kamal"
@@ -89,9 +89,6 @@ gem "active_link_to"
 # needed for pagination
 gem "pagy"
 
-# Adds location data for cities and states around the world
-gem "city-state", "~> 1.1.0"
-
 # Adds a simple way to fetch with Javascript
 gem "requestjs-rails", "~> 0.0.12"
 
@@ -107,22 +104,27 @@ gem "ransack"
 gem "rails-controller-testing"
 
 # Use Action Policy for authorization framework
-gem "action_policy", "~> 0.7.2"
+gem "action_policy", "~> 0.7.3"
 
 # Use ViewComponent for our presenter pattern framework
-gem "view_component", "~> 3.20"
+gem "view_component", "~> 3.21"
 
 # Use dry-types for defining types
-gem "dry-types", "~> 1.7"
+gem "dry-types", "~> 1.8"
 
 # Use dry-initializer for defining params and options for instances
-gem "dry-initializer", "~> 3.1"
+gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
 gem "strong_migrations", "~> 2.1"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.27"
+
+# Google OAuth
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test, :staging do
   gem "faker"
@@ -131,11 +133,7 @@ end
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "pry", "~> 0.15.0"
-
-  # Add annotation to models to make it easier to navigate in the codebase
-  # and the database structure
-  gem "annotate"
+  gem "pry", "~> 0.15.2"
 
   # Linting
   gem "standard"
@@ -164,6 +162,10 @@ group :development do
   gem "better_errors", "~> 2.9", ">= 2.9.1"
   gem "guard", "~> 2.19"
   gem "guard-livereload", "~> 2.5", ">= 2.5.2", require: false
+
+  # Add annotation to models to make it easier to navigate in the codebase
+  # and the database structure
+  gem "annotaterb"
 end
 
 group :test do
@@ -186,3 +188,7 @@ group :test do
   # Adds ability to stub out methods in tests easier
   gem "mocha"
 end
+
+gem "solid_cable", "~> 3.0"
+
+gem "solid_queue", "~> 1.1"

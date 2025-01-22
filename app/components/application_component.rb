@@ -11,6 +11,7 @@ class ApplicationComponent < ViewComponent::Base
     ImageTagSource =
       Types::String |
       Types::Symbol |
+      Types::Integer |
       Types::Nil |
       Types::Instance(ActiveStorage::Attachment) |
       Types::Instance(ActiveStorage::Attached::One) |

@@ -7,6 +7,7 @@ class FeedbackController < ApplicationController
 
   def new
     @feedback = Feedback.new
+    @feedback.email = current_user.email if current_user.present?
   end
 
   def create

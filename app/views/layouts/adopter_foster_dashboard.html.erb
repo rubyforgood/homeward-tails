@@ -7,13 +7,13 @@
 
     <!-- Page Content -->
     <main>
-      <section class="pt-5 pb-5">
-        <div class="container-lg">
+      <section class="pb-5">
+        <div class="container-fluid">
           <div class="row align-items-center">
             <!-- User info -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
               <!-- Bg -->
-              <div class="rounded-top" style="background: url('/assets/background/profile-bg.jpg') no-repeat; background-size: cover; height: 100px;"></div>
+              <div class="rounded-top" style="background: url('<%= asset_path('background/profile-bg.jpg') %>') no-repeat; background-size: cover; height: 100px;"></div>
               <div class="card px-4 pt-2 pb-4 shadow-sm rounded-top-0 rounded-bottom-0 rounded-bottom-md-2">
                 <div class="d-flex align-items-end justify-content-between">
                   <div class="d-flex align-items-center">
@@ -85,15 +85,18 @@
                         <% end %>
                       </li>
                       <!-- Nav item -->
-                      <li class="nav-item">
-                        <%= active_link_to adopter_fosterer_faq_index_path, class: "nav-link" do %>
-                          <i class="fe fe-help-circle nav-icon"></i> FAQ
-                        <% end %>
-                      </li>
                       <% if Current.organization.external_form_url.present? %>
                         <li class="nav-item">
                         <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
-                          <i class="fe fe-help-circle nav-icon"></i> My Info
+                          <i class="fe fe-clipboard nav-icon"></i> Form
+                        <% end %>
+
+                        <% if current_user.person.latest_form_submission.present? %>
+                          <li class="nav-item">
+                            <%= active_link_to adopter_fosterer_form_answers_path, class: "nav-link" do %>
+                              <i class="fe fe-clipboard nav-icon"></i> Form Responses
+                            <% end %>
+                          </li>
                         <% end %>
                       </li>
                       <% end %>
@@ -116,11 +119,6 @@
                       <li class="nav-item">
                         <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'nav-link' do %>
                           <i class="fe fe-power nav-icon"></i> Log Out
-                        <% end %>
-                      </li>
-                      <li class="nav-item">
-                        <%= active_link_to adopter_fosterer_dashboard_index_path, class: "nav-link" do %>
-                          <i class="fe fe-trash nav-icon"></i> Delete Account
                         <% end %>
                       </li>
                     </ul>

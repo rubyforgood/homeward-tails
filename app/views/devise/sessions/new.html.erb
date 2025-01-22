@@ -1,5 +1,5 @@
-<section class="container d-flex flex-column">
-  <div class="row align-items-center justify-content-center g-0 min-vh-100">
+<section class="container d-flex flex-column py-6">
+  <div class="row justify-content-center">
 
     <div class="col-lg-5 col-md-8 py-8 py-xl-0">
       <!-- Card -->
@@ -9,8 +9,10 @@
           <div class="mb-4">
             <div class='d-flex justify-content-center'>
               <div class='d-flex flex-column align-items-center mb-3'>
-                <%= image_tag "brand/pet-rescue.png", class: 'mb-0', alt: 'logo-icon', height: 100, width: 100 %>
-                <h1 class='text-muted'><%= Current.tenant.name %></h1>
+                <% if Current.organization.avatar.attached? %>
+                  <%= image_tag Current.organization.avatar, alt: current_organization_name, title: current_organization_name, height: 75 %>
+                <% end %>
+                <h1><%= Current.tenant.name %></h1>
               </div>
             </div>
             <h1 class="mb-1 fw-bold">Log in</h1>
@@ -38,10 +40,28 @@
                 <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'small text-end' %>
               </div>
             </div>
-            <div class='mb-5'>
+            <div class='mb-1'>
               <div class="d-grid">
                 <%= f.submit "Log in", class: 'btn btn-primary' %>
+               
               </div>
+            </div>
+
+            <div class="d-grid gap-3 mb-4">
+              <div class="position-relative mt-4">
+                <hr class="bg-gray-300">
+                <p class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">
+                  or
+                </p>
+              </div>
+              <%= link_to user_google_oauth2_omniauth_authorize_path, 
+                method: :post, 
+                data: { turbo: 'false' },
+                class: "btn border w-100 d-flex align-items-center justify-content-center gap-2",
+                onclick: "this.innerHTML='<span class=\"spinner-border spinner-border-sm me-2\" role=\"status\" aria-hidden=\"true\"></span>Signing in...'" do %>
+                <%= image_tag "google.svg", size: "20x20", alt: "Google" %>
+                Continue with Google
+              <% end %>
             </div>
           <% end %>
         </div>

@@ -29,10 +29,10 @@ class Person < ApplicationRecord
   has_one :latest_form_submission, -> { order(created_at: :desc) }, class_name: "FormSubmission"
   has_many :form_submissions, dependent: :destroy
   has_many :form_answers, through: :form_submissions
-  has_many :adopter_applications, through: :form_submissions
+  has_many :adopter_applications, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_pets, through: :likes, source: :pet
-  has_one :location, as: :locatable
+  has_one :location, as: :locatable, dependent: :destroy
   accepts_nested_attributes_for :location,
     reject_if: ->(attributes) { attributes["city_town"].blank? }
   has_many :matches # , dependent: :destroy
@@ -54,7 +54,7 @@ class Person < ApplicationRecord
   }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[first_name last_name]
+    %w[first_name last_name email]
   end
 
   def self.ransackable_associations(auth_object = nil)

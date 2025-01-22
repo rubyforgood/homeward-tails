@@ -1,13 +1,9 @@
 class AdopterApplicationPolicy < ApplicationPolicy
   authorize :pet, optional: true
-
-  pre_check :verify_form_submission!, except: %i[index?]
   pre_check :verify_pet_appliable!, only: %i[create?]
 
   relation_scope do |relation|
-    return relation.none unless user.latest_form_submission
-
-    relation.where(form_submission_id: user.latest_form_submission.id)
+    relation.where(person_id: user.person.id)
   end
 
   def update?
@@ -32,10 +28,6 @@ class AdopterApplicationPolicy < ApplicationPolicy
     user.person.adopter_applications.any? do |application|
       application.pet_id == pet.id
     end
-  end
-
-  def verify_form_submission!
-    deny! unless user.latest_form_submission.present?
   end
 
   def verify_pet_appliable!

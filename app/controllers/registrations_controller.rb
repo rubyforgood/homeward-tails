@@ -16,8 +16,16 @@ class RegistrationsController < Devise::RegistrationsController
     super do |resource|
       if resource.persisted?
         resource.add_role(:adopter, Current.organization)
-        resource.person.form_submissions.create
       end
+    end
+  end
+
+  def update_resource(resource, params)
+    if resource.google_oauth_user?
+      params.delete("current_password")
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
     end
   end
 
@@ -54,6 +62,19 @@ class RegistrationsController < Devise::RegistrationsController
       :signup_role,
       :current_password,
       :avatar)
+  end
+
+  def after_update_path_for(resource)
+    role = resource.roles.find_by(resource_id: Current.organization.id)
+
+    case role&.name
+    when "adopter", "fosterer"
+      adopter_fosterer_dashboard_index_path
+    when "admin", "super_admin"
+      staff_dashboard_index_path
+    else
+      root_path
+    end
   end
 
   def after_sign_up_path_for(resource)

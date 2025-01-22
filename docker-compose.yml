@@ -8,10 +8,32 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
     ports:
-      - 5432:5432
+      - 54320:5432
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-postgres} -d petrescue_development"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${DATABASE_USERNAME:-postgres} -d petrescue_development",
+        ]
       interval: 10s
+
+  cable:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: cable
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 54321:5432
+
+  queue:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: queue
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 54322:5432
 
   app:
     build:
@@ -20,7 +42,6 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle install && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - .:/petrescue
-
     ports:
       - "3000:3000"
     depends_on:
@@ -33,7 +54,9 @@ services:
     tty: true
 
   sass:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfile.dev
     command: bash -c "bundle install && bundle exec rails dartsass:watch"
     volumes:
       - .:/petrescue

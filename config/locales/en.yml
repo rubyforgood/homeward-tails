@@ -30,6 +30,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  content_type_invalid: "must be PNG or JPEG"
   adopters: "Adopters"
   fosters: "Fosters"
   fosterer: "Fosterer"
@@ -57,6 +58,7 @@ en:
         organization_name: Organization name
         your_name: Your name
   general:
+    here: "here"
     attach: "Attach"
     adoption_pending: "(Adoption Pending)"
     adopted: Adopted
@@ -107,17 +109,18 @@ en:
       status: Status
       withdraw_application: Withdraw Application
       confirm_withdraw: Withdraw your application
-      no_applications: You do not have any adoption applications
   root:
     index:
       title: "Homeward Tails"
+      about: "About"
+      partners: "Partners"
       pet: "Pets"
       description: "A free-to-use application built for pet rescue organizations that enables you to manage pets, people, adoptions, and fosters with ease. "
       btn_title: Request a free account
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
       free: "Free"
-      free_description: "Free for pet rescue organizations, forever"
+      free_description: "All pet rescue organizations can use this application for free"
       easy: "Easy"
       easy_description: "Your own customizable website up and running instantly"
       save_time: "Save Time"
@@ -171,7 +174,7 @@ en:
   layouts:
     shared:
       footer:
-        title: "Pet Rescue"
+        organization_name: "%{name}"
         call: "If you are a pet adoption or foster organization and want a website like this one, for free,"
         action: "Click Here"
         company: "Company"
@@ -192,7 +195,7 @@ en:
         dashboard: "Dashboard"
         demo: "This is a demo site"
       no_tenant_footer:
-        title: "Open Pet Rescue"
+        title: "Homeward Tails"
         about: "About Us"
         rescues: 'Rescues'
         ruby_for_good: 'Ruby For Good'
@@ -201,7 +204,7 @@ en:
         cookie: "Cookie Notice"
         terms: "Terms of Use"
       no_tenant_navbar:
-        title: "Open Pet Rescue"
+        title: "Homeward Tails"
         sub_title: "A Ruby For Good project"
         dropdown_title: "Rescues"
         btn_title: Request an account
@@ -368,6 +371,10 @@ en:
     authorization_error: "You are not authorized to perform this action."
     try_again: "Error. Please try again."
   organizations:
+    activations:
+      update:
+        activated: "%{staff} was activated."
+        deactivated: "%{staff} was deactivated."
     home:
       index:
         every_paw: "Where every paw finds a home"
@@ -381,6 +388,7 @@ en:
     adoptable_pets:
       index:
         header: "Up for adoption"
+        empty_state: "We don't have any pets matching your search criteria"
       show:
         application_status: "Application status:"
         adoption_process: "Adoption Process"
@@ -401,6 +409,14 @@ en:
         login: "Log in"
         important_info: "Important Information"
     staff:
+      form_submissions:
+        action: "Action"
+        form_submitted: "Form Submitted"
+        import_date: "Import Date"
+        view_submission: "View Submission"
+        index:
+          header: "Form Submissions"
+          empty_state: "%{person_name} does not have any imported form data. If they have completed a third party form, please upload the data"
       fosterers:
         update:
           success: Fosterer was susccessfully updated
@@ -442,6 +458,8 @@ en:
           success: "Foster for %{name} successfully updated."
         destroy:
           success: "Foster for %{name} deleted."
+        index:
+          empty_state: "No foster pets found"
       invitations:
         create:
           success: "Invite sent!"
@@ -449,6 +467,8 @@ en:
         update:
           success: "Application was successfully updated."
           error: "Error updating application"
+        search_results:
+          empty_state: "No applications found"
       default_pet_tasks:
         create:
           success: "Default pet task saved successfully."
@@ -475,6 +495,7 @@ en:
           default_pet_tasks: "Default Pet Tasks"
           create_default_task: "Create Default Task"
           are_you_sure_delete: "Are you sure you want to delete this default pet task?"
+          empty_state: "No default pet tasks found"
         default_pet_task_cards:
           name: "Name"
           description: "Description"
@@ -575,6 +596,7 @@ en:
           application:
             active: "Applications: active"
             paused: "Applications: paused"
+          empty_state: "No pets found"
         new:
           new_pet_post: "New Pet Post"
         applications:
@@ -597,6 +619,8 @@ en:
               paused: "Paused"
               published: "Published"
               draft: "Draft"
+          photos:
+            empty_state: "No photos exist for this pet"
       custom_form:
         forms:
           set_form: 
@@ -649,15 +673,19 @@ en:
             help_text:
               label: "Label"
               help_text: "help text"
-      staff:
-        update_activation:
-          activated: "%{staff} was activated."
-          deactivated: "%{staff} was deactivated."
       external_form_upload:
         index:
           description: "If you collect information from adopters from a third party service, like Google Forms, you can export a CSV file from Google Forms and upload it here. We will import the questions and answers for any adopters who have an account on your Homeward Tails website, providing they use the same email address. Then you will be able to see the information for each adopter when reviewing applications."
           header: "Upload CSV File"
           csv_header_requirements: "Your CSV file must have column headers of 'Email' and 'Timestamp' for the import to work."
+        create:
+          processing_file: "File uploaded for processing"
+        upload_results:
+          success_heading: "File successfully scanned"
+          error_heading: "File scanned: %{count} error(s) present"
+          submissions_added: "%{count} new form submissions were added."
+          review_errors: "Review the following error(s) to ensure all form submissions are added:"
+          row: "Row %{number} - %{message}"
     adopter_fosterer:
       adopter_applications:
         create:
@@ -675,10 +703,16 @@ en:
           withdrew_by_accident_html: "If you withdrew by accident, <a href='/contact'>contact us</a>"
           remove: "Remove"
           withdraw: "Withdraw"
+          empty_state: "You do not have any adoption applications"
+      form_answers:
+        index:
+          header: "Form Responses"
+          description: "These are the responses from the last time you completed the questionnaire. Please review for accuracy. If changes are required, please fill out a new form"
+          submitted_on: "Submitted on %{date} at %{time}"
       likes:
         index:
-          header_title: 'Liked Pets'
-          no_pets: 'You do not have any liked pets'
+          header_title: "Liked Pets"
+          empty_state: "You do not have any liked pets"
         create:
           success: "%{name} added to your liked pets."
           failed: "Error, %{name} not added to your liked pets."
@@ -688,9 +722,11 @@ en:
       adopted_pets:
         index:
           header_title: "Adopted pets"
+          empty_state: "You do not have any adopted pets"
       fostered_pets:
         index:
           header_title: "Fostered pets"
+          empty_state: "You do not have any fostered pets"
       dashboard:
         index:
           example: Example
@@ -700,8 +736,10 @@ en:
           header: "Welcome to %{organization_name}!"
           body_text: "At %{organization_name}, we’re dedicated to rescuing, rehabilitating, and rehoming animals in need. Your support helps us provide care, love, and hope to these pets until they find their forever homes."
       form_instructions:
-        index: "Please complete this form using the same email address you signed up with. %{organization_name} needs this information in order to process your application(s)."
-        dashboard: If you need to update your information, you can do so by filling out a new copy of this form. Please only submit a new copy if there has been a change. Please ensure the email you use in the form is the same as the email on your account on this website. Unnecessary submissions may delay the processing of your application(s).
+        index: "Please complete this form using the same email address you signed up with (%{email}). %{organization_name} needs this information in order to process your application(s). If you do not complete this form now, you can do so later via the 'Form' link in your dashboard"
+        previous_answers: "You have already completed this form. View your responses"
+        update_form_answers: "Please only submit this form again if your details have changed and need updating."
+        dashboard: "Please complete this form so we have sufficient information to begin processing your adoption applications. Please ensure to use the same email address in the form as you did to register on this website (%{user_email})."
     attachments:
       purge:
         success: "Attachment removed"
@@ -716,6 +754,14 @@ en:
       description: "Found a bug? Want to request a feature? Contact our dev team with the form below."
       message_placeholder: "Enter your message..."
   static_pages:
+    about_us:
+      about_us: "About"
+      headline: "Homeward Tails was created by 100+ developers, designers, and pet lovers from around the globe"
+      description: "Understanding that many small animal rescue organizations lack the resources to invest in custom-built websites, we wanted to build a platform to bridge this gap. Homeward Tails is a free application designed to empower organizations with the tools to efficiently manage people, pets, fosters, and adoptions all in one place."
+      mission: "To empower small, underfunded animal rescue organizations worldwide by providing a free, open-source platform to streamline pet, foster, adoption, and people management while offering them a professional online presence, created collaboratively by passionate developers united by a love for code and animals."
+      vision: "A world where technology bridges the gap for animal rescue organizations, enabling them to save more lives and connect pets with loving homes, regardless of their budget or resources, driven by a global community of developers dedicated to making a meaningful impact."
+    partners:
+      heading: "Partners"
     donate:
       give: "Give"
       give_sentence: "them a chance to be loved"
@@ -730,3 +776,5 @@ en:
       more_questions: "More Questions? Contact us"
   attachment_manageable:
     upload_limit_exceeded: "Upload limit exceeded: Only one file allowed."
+    attachment_missing: "Please select a file to attach."
+    must_be_csv: "File format must be .csv"

@@ -1,7 +1,7 @@
 <section class="pt-5 pb-5">
   <div class="container mb-md-5 mt-md-5">
     <div class="text-center mb-5">
-      <h1 class="section-heading text-capitalize underline">
+      <h1 class="section-heading underline">
         <%= t('.header') %>
       </h1>
     </div>
@@ -13,7 +13,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6 mx-auto card p-5">
+      <div class="col-md-6 mx-auto card p-5" data-controller="country-state">
         <%= bootstrap_form_with model: OrganizationAccountRequest.new, url: organization_account_request_path do |form| %>
           <% if @organization_account_request.errors.any? %>
             <div class="alert alert-danger mt-1" role="alert">
@@ -65,29 +65,8 @@
               </div>
 
               <div class="col-lg-6">
-                <div class="form-group">
-                  <%= form.select :country,
-                                  CS.countries.invert,
-                                  { prompt: "Please select" },
-                                  data: { path: country_states_path(:country) },
-                                  required: true,
-                                  class: 'form-control'
-                  %>
-                </div>
-
-                <div class="form-group">
-                  <%= form.text_field :province_state,
-                                      label: t('activerecord.attributes.location.province_state'),
-                                      required: true,
-                                      class: 'form-control'
-                  %>
-                </div>
-
-                <div class="form-group">
-                  <%= form.text_field :city_town,
-                                      label: t('activerecord.attributes.location.city_town'),
-                                      class: 'form-control'
-                  %>
+                <div class="input-group">
+                  <%= render 'shared/location_fields', form: form %>
                 </div>
               </div>
             </div>

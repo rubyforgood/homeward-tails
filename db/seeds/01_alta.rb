@@ -4,7 +4,8 @@
   email: "alta@email.com",
   phone_number: "201 555 8212",
   custom_page: CustomPage.new(hero: "Where every paw finds a home", about: "Alta was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations."),
-  external_form_url: "https://docs.google.com/forms/d/e/1FAIpQLSf9bI-kboxyQQB5I1W5pt0R25u9pHoXI7o3jQHKu1P4K-61mA/viewform?embedded=true"
+  external_form_url: "https://docs.google.com/forms/d/e/1FAIpQLSf9bI-kboxyQQB5I1W5pt0R25u9pHoXI7o3jQHKu1P4K-61mA/viewform?embedded=true",
+  donation_url: "https://wwww.example.com/"
 )
 
 ActsAsTenant.with_tenant(@organization) do
@@ -66,8 +67,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_adopter_one.add_role(:adopter, @organization)
 
-  @adopter_one.form_submissions.create!
-
   @adopter_two = Person.create!(
     email: "adopter2@alta.com",
     first_name: "Kamala",
@@ -85,8 +84,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_adopter_two.add_role(:adopter, @organization)
 
-  @adopter_two.form_submissions.create!
-
   @adopter_three = Person.create!(
     email: "adopter3@alta.com",
     first_name: "Bad",
@@ -103,8 +100,6 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   @user_adopter_three.add_role(:adopter, @organization)
-
-  @adopter_three.form_submissions.create!
 
   @fosterer_one = Person.create!(
     email: "fosterer1@alta.com",
@@ -229,6 +224,12 @@ ActsAsTenant.with_tenant(@organization) do
     end
   end
 
+  FormSubmission.create(
+    person: @adopter_one,
+    organization: @organization,
+    csv_timestamp: Time.current
+  )
+
   FormSubmission.all.each do |submission|
     5.times do
       FormAnswer.create!(
@@ -244,7 +245,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   match_application = AdopterApplication.create!(
     pet_id: Pet.first.id,
-    form_submission_id: @adopter_one.form_submissions.first.id,
+    person_id: @adopter_one.id,
     status: :successful_applicant
   )
 
@@ -312,13 +313,13 @@ ActsAsTenant.with_tenant(@organization) do
       profile_show: true,
       status: rand(0..4),
       pet: Pet.all.sample,
-      form_submission: FormSubmission.all.sample
+      person: [@adopter_one, @adopter_two, @adopter_three].sample
     )
 
     # Prevent duplicate adopter applications.
     redo if AdopterApplication.where(
       pet_id: adopter_application.pet_id,
-      form_submission_id: adopter_application.form_submission_id
+      person_id: adopter_application.person_id
     ).exists?
 
     if adopter_application.valid?

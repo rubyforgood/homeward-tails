@@ -18,7 +18,7 @@
                   </div>
                   <div class="form-group mb-3 col-md-3">
                     <%= f.label :sex_eq, "Sex" %>
-                    <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
+                    <%= f.select :sex_eq, [["Male", "male"], ["Female", "female"]], {include_blank: 'All'}, class: "form-select" %>
                   </div>
                   <div class="form-group mb-3 col-md-3">
                     <%= f.label :species_eq, "Species" %>
@@ -59,14 +59,18 @@
     </div>
     <!-- row -->
     <div class="justify-content-md-between mb-4 mb-xl-0 gx-3">
-      <!-- Table layout -->
-      <div class="d-none d-xl-block">
-        <%= render partial: "pet_table", locals: { pets: @pets} %>
-      </div>          
-      <!-- Card-based layout -->
-      <div class="d-xl-none d-flex flex-wrap">
-        <%= render partial:"pet_cards", collection: @pets, as: :pet %>
-      </div>
+      <% if @pets.present? %>
+        <!-- Table layout -->
+        <div class="d-none d-xl-block">
+          <%= render partial: "pet_table", locals: { pets: @pets} %>
+        </div>          
+        <!-- Card-based layout -->
+        <div class="d-xl-none d-flex flex-wrap">
+          <%= render partial:"pet_cards", collection: @pets, as: :pet %>
+        </div>
+      <% else %>
+        <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+      <% end %>
     </div>
     <div class="d-flex justify-content-center align-items-center mt-2">
       <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>

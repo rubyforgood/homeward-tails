@@ -30,30 +30,29 @@
 
 <section class="bg-white pt-8 shadow-sm">
   <div class="container">
-    <div class="row d-flex align-items-center g-0">
-      <div class="col-xl-4 col-lg-4 mb-lg-0 mb-4">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="mx-4">
-            <h5 class="mb-0 fw-semibold text-center display-5"><%= t('.free')%></h5>
-            <p class="mb-0 text-center fs-3 text-dark"><%= t('.free_description')%></p>
-          </div>
+    <div class="row d-flex align-items-center justify-content-center ">
+      <div class="col-lg-3 col-12 d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center text-primary">
+          <i class="fe fe-dollar-sign display-4 me-2"></i>
+          <h3 class="mb-0 h1"><%= t('.free') %></h3>
         </div>
+        <p class="fs-4 mt-2 mb-4 text-center"><%= t('.free_description')%></p>
       </div>
-      <div class="col-xl-4 col-lg-4 mb-lg-0 mb-4">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="mx-4">
-            <h5 class="mb-0 fw-semibold text-center text-dark display-5"><%= t('.easy')%></h5>
-            <p class="mb-0 text-center fs-3 text-dark"><%= t('.easy_description')%></p>
-          </div>
+
+      <div class="col-lg-3 col-12 d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center text-primary">
+          <i class="fe fe-award display-4 me-2"></i>
+          <h3 class="mb-0 h1"><%= t('.easy') %></h3>
         </div>
+        <p class="fs-4 mt-2 mb-4 text-center"><%= t('.easy_description')%></p>
       </div>
-      <div class="col-xl-4 col-lg-4 mb-lg-0 mb-4">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="mx-4">
-            <h4 class="mb-0 fw-semibold text-center text-dark display-5"><%= t('.save_time')%></h4>
-            <p class="mb-0 text-center fs-3 text-dark"><%= t('.save_time_description')%></p>
-          </div>
+
+      <div class="col-lg-3 col-12 d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center text-primary">
+          <i class="fe fe-clock display-4 me-2"></i>
+          <h3 class="mb-0 h1"><%= t('.save_time') %></h3>
         </div>
+        <p class="fs-4 mt-2 mb-4 text-center"><%= t('.save_time_description')%></p>
       </div>
     </div>
   </div>
@@ -109,9 +108,7 @@
         </div>
       </div>
       <div class = "col-lg-6 col-md-12 col-12">
-          <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
           <%= image_tag "layout_graphic.png", alt: "screen_1", class: "img-fluid w-100 h-75"%>
-          </div>
       </div>
     </div>
   </div>
@@ -127,9 +124,7 @@
         </div>
       </div>
       <div class = "col-lg-6 col-md-12 col-12">
-        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-            <%= image_tag "layout_graphic_2.png", alt: "screen_2", class: "img-fluid w-100 h-75"%>
-        </div>
+          <%= image_tag "layout_graphic_2.png", alt: "screen_2", class: "img-fluid w-100 h-75"%>
       </div>
         <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
           <div class = "pe-lg-6 ps-lg-6" >
@@ -194,9 +189,7 @@
         </div>
       </div>
       <div class = "col-lg-6 col-md-12 col-12">
-        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-          <%= image_tag "layout_graphic_3.png", alt: "screen_3", class: "img-fluid w-100 h-75"%>
-        </div>
+        <%= image_tag "invite_fosterers.png", alt: "screen_3", class: "img-fluid w-100 h-75 rounded shadow-sm p-2"%>
       </div>
     </div>
   </div>
@@ -212,9 +205,7 @@
           </div>
       </div>
       <div class = "col-lg-6 col-md-12 col-12">
-        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-          <%= image_tag "layout_graphic_3.png", alt: "screen_3", class: "img-fluid w-100 h-75"%>
-        </div>
+        <%= image_tag "invite_staff.png", alt: "screen_3", class: "img-fluid w-100 h-75 rounded shadow-sm p-4"%>
       </div>
       <div class = "col-lg-6 col-md-12 col-12 mt-4 mt-lg-0 d-none d-md-block">
         <div class = "pe-lg-6 ps-lg-6" >
@@ -278,9 +269,7 @@
         </div>
       </div>
       <div class = "col-lg-6 col-md-12 col-12">
-        <div class = "mb-4 mb-lg-0 bg-gray-200 rounded-4">
-          <%= image_tag "layout_graphic_2.png", alt: "hero", class: "img-fluid w-100 h-75"%>
-        </div>
+        <%= image_tag "adoption_applications.png", alt: "hero", class: "img-fluid w-100 h-75 rounded shadow-sm p-4"%>
       </div>
     </div>
   </div>
@@ -342,7 +331,7 @@
 
 
     <div class = "mt-5 column d-flex flex-column align-items-center justify-content-center">
-      <a href="https://rubyforgood.org/" target="_blank" class="btn btn-outline-secondary px-8 mb-2 text-primary"><%= t('.learn_more_about')%></a>
+      <a href="https://rubyforgood.org/" target="_blank" class="btn btn-outline-primary px-8 mb-2"><%= t('.learn_more_about')%></a>
     </div>
   </div>
 </section>

@@ -26,7 +26,7 @@
               </div>
               <div class="form-group">
                 <%= f.label :sex_eq, "Sex" %>
-                <%= f.select :sex_eq, ["Male", "Female"], {include_blank: 'All'}, class: "form-select" %>
+                <%= f.select :sex_eq, [["Male", "male"], ["Female", "female"]], {include_blank: 'All'}, class: "form-select" %>
               </div>
               <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>
@@ -52,20 +52,12 @@
       </div>
     </div>
       
-      <% if @pets.empty? %>
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="card text-center mx-auto" style="max-width: 400px;">
-            <div class="card-body">
-              <p class="class-text">We don't have any pets matching your search criteria.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% else %>
+    <% if @pets.present? %>
       <div class="d-flex justify-content-center align-items-center mt-2">
         <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
       </div>
+    <% else %>
+      <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
     <% end %>
 
     <div class="row">
@@ -73,7 +65,7 @@
         <div class="col-lg-4 col-md-6 p-0">
           <%= render CardComponent.new(
             card_options: {class: "card card-hover m-4"},
-            image_options: {src: pet.images.first, url: adoptable_pet_path(pet)}
+            image_options: {src: pet.images.first, url: adoptable_pet_path(pet), height: 275}
           ) do |c| %>
             <%= c.with_badge do %>
               <%= render BadgeComponent.new("Adoption Pending", class: "badge bg-info", when: pet.has_adoption_pending?) %>

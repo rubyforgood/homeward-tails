@@ -610,6 +610,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "caitlynl22",
+      "name": "Caitlyn Landry",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8726946?v=4",
+      "profile": "https://github.com/caitlynl22",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jasonwang7517",
+      "name": "Jason Wang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39580712?v=4",
+      "profile": "https://www.linkedin.com/in/jasonwang7517/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mgrigoriev8109",
+      "name": "Mikhail Grigoriev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43343880?v=4",
+      "profile": "https://github.com/mgrigoriev8109",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

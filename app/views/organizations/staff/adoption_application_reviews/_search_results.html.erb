@@ -3,8 +3,12 @@
 <% @collection = @pet.nil? ? @pets_with_applications : @pet %>
 
 <div class="d-flex flex-wrap justify-content-center">
-  <% @collection.each do |pet| %>
-    <!--pet name-->
-    <%= render "organizations/staff/pets/tabs/applications", applications: pet.adopter_applications, pet: pet %>
-  <% end %>
+  <% if @collection.present? %>
+    <% @collection.each do |pet| %>
+      <!--pet name-->
+      <%= render "organizations/staff/pets/tabs/applications", applications: pet.adopter_applications, pet: pet %>
+    <% end %>
+  <% else %>
+    <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+  <% end%>
 </div>

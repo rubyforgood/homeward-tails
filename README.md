@@ -1,6 +1,6 @@
 # Homeward Tails Adoption Application
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-67-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-70-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Application](https://github.com/kasugaijin/baja-pet-rescue/tree/main) created by @kasugaijin who wanted to give back to the grassroots organization from where he adopted his dog in Mexico by building them a web application. Homeward Tails is an application that makes it easy to connect shelters with people who are looking to adopt or foster pets.
@@ -69,6 +69,8 @@ cp config/application.example.yml config/application.yml
 
 Update your `config/application.yml` by replacing the places that say REPLACE_ME. If you installed and configured PostgreSQL as discussed above
 you can use your username and leave the password blank for development.
+
+If you have already set up this application locally, and are now getting errors related to Queue or Cable database hosts, please update your `config/application.yml` to specify the host as localhost for these databases (see `config/application.example.yml`). 
 
 Run the setup script to prepare DB and assets
 ```sh
@@ -319,6 +321,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Isaac3924"><img src="https://avatars.githubusercontent.com/u/17149928?v=4?s=100" width="100px;" alt="Isaac Alter"/><br /><sub><b>Isaac Alter</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=Isaac3924" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/fivefootbot"><img src="https://avatars.githubusercontent.com/u/149846643?v=4?s=100" width="100px;" alt="Amy McCaughan"/><br /><sub><b>Amy McCaughan</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=fivefootbot" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jrussell416"><img src="https://avatars.githubusercontent.com/u/58918229?v=4?s=100" width="100px;" alt="jrussell416"/><br /><sub><b>jrussell416</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=jrussell416" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/caitlynl22"><img src="https://avatars.githubusercontent.com/u/8726946?v=4?s=100" width="100px;" alt="Caitlyn Landry"/><br /><sub><b>Caitlyn Landry</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=caitlynl22" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/jasonwang7517/"><img src="https://avatars.githubusercontent.com/u/39580712?v=4?s=100" width="100px;" alt="Jason Wang"/><br /><sub><b>Jason Wang</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=jasonwang7517" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mgrigoriev8109"><img src="https://avatars.githubusercontent.com/u/43343880?v=4?s=100" width="100px;" alt="Mikhail Grigoriev"/><br /><sub><b>Mikhail Grigoriev</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=mgrigoriev8109" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

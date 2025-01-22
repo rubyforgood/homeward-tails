@@ -19,18 +19,20 @@
                 <div>Currently waiting confirmation for:
                     <%= resource.unconfirmed_email %></div>
               <% end %>
-              <div class="form-group mb-3">
-                <%= f.password_field :password, autocomplete: "new-password",
-                                      class: 'form-control', label: 'New password' %>
-                <i>(leave blank if you don't want to change it)</i><br />
-                <% if @minimum_password_length %>
-                  <em><%= @minimum_password_length %> characters minimum</em>
-                <% end %>
-              </div>
-              <div class="form-group mb-3">
-                <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                                      class: 'form-control', label: 'Confirm new password' %>
-              </div>
+              <% unless resource.google_oauth_user? %>
+                <div class="form-group mb-3">
+                  <%= f.password_field :password, autocomplete: "new-password",
+                                        class: 'form-control', label: 'New password' %>
+                  <i>(leave blank if you don't want to change it)</i><br />
+                  <% if @minimum_password_length %>
+                    <em><%= @minimum_password_length %> characters minimum</em>
+                  <% end %>
+                </div>
+                <div class="form-group mb-3">
+                  <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                                        class: 'form-control', label: 'Confirm new password' %>
+                </div>
+              <% end %>
               <div class="form-group mb-3">
                 <%= f.text_field :first_name,
                                   class: 'form-control' %>
@@ -39,13 +41,15 @@
                 <%= f.text_field :last_name,
                                   class: 'form-control' %>
               </div>
-              <div class="form-group mb-3">
-                <%= f.password_field :current_password,
-                                    autocomplete: "current-password",
-                                    required: true,
-                                    class: 'form-control' %>
-                <i>(we need your current password to confirm your changes)</i><br/>
-              </div>
+              <% unless resource.google_oauth_user? %>
+                <div class="form-group mb-3">
+                  <%= f.password_field :current_password,
+                                      autocomplete: "current-password",
+                                      required: true,
+                                      class: 'form-control' %>
+                  <i>(we need your current password to confirm your changes)</i><br/>
+                </div>
+              <% end %>  
               <% if resource.avatar.id %>
                 <div class='form-group mt-3'>
                   <label class="form-label">

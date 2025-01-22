@@ -5,23 +5,23 @@ module Organizations
     class ExternalFormUploadControllerTest < ActionDispatch::IntegrationTest
       setup do
         file = fixture_file_upload("google_form_sample.csv", "text/csv")
-        @params = {files: file}
+        @params = {csv: file}
         admin = create(:admin)
-        @adopter = create(:adopter, email: "adopter1111@alta.com")
-        @adopter2 = create(:adopter, email: "no_answer_will_be_created@alta.com")
         sign_in admin
       end
 
-      test "Creates form answers for adopter in its latest form submission" do
-        assert_changes -> { @adopter.latest_form_submission.form_answers.count } do
-          post staff_external_form_upload_index_path, params: @params
-        end
+      should "get index" do
+        get staff_external_form_upload_index_path
+        assert_response :success
       end
 
-      test "It does not create form answers for adopter2" do
-        assert_no_difference -> { @adopter2.latest_form_submission.form_answers.count } do
-          post staff_external_form_upload_index_path, params: @params
+      should "Creates new form submission" do
+        assert_enqueued_with(job: CsvImportJob) do
+          post staff_external_form_upload_index_path, params: @params, as: :turbo_stream
         end
+
+        assert_response :success
+        assert_equal "File uploaded for processing", flash[:notice]
       end
     end
   end

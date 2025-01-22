@@ -1,4 +1,8 @@
 <div class="mb-4">
   <%= render "organizations/staff/shared/attachment_form", multiple: true, instance: @pet, title: 'Photos', url: attach_images_staff_pet_path(@pet), attachment_type: 'images' %>
-  <%= render ImageAttachmentTableComponent.new(images: @pet.images) %>
+  <% if @pet.images.present? %>
+    <%= render ImageAttachmentTableComponent.new(images: @pet.images) %>
+  <% else %>
+    <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+  <% end %>
 </div>
