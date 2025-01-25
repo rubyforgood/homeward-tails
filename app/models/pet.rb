@@ -94,6 +94,9 @@ class Pet < ApplicationRecord
     query = species ? where(species: species.capitalize) : all
     query.where(published: true).order(:breed).distinct.pluck(:breed)
   }
+  
+  # Returns an array of unique species of an organization
+  scope :unique_species, -> { distinct.pluck(:species) }
 
   attr_writer :toggle
 
