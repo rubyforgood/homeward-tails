@@ -86,13 +86,23 @@ class PetTest < ActiveSupport::TestCase
 
     context ".unique_species" do
       should "returns an array of unique species" do
-        create(:pet, species: "Dog")
-        create(:pet, species: "Cat")
-        create(:pet, species: "Dog")
+        create(:pet, species: "Dog", placement_type: "Adoptable")
+        create(:pet, species: "Cat", placement_type: "Adoptable")
+        create(:pet, species: "Dog", placement_type: "Adoptable")
 
         unique_species = Pet.unique_species
 
         assert_equal ["Cat", "Dog"], unique_species.sort
+      end
+
+      should "exclude species that are not adoptable" do
+        create(:pet, species: "Dog", placement_type: "Adoptable")
+        create(:pet, species: "Cat", placement_type: "Fosterable")
+        create(:pet, species: "Dog", placement_type: "Adoptable and Fosterable")
+
+        unique_species = Pet.unique_species
+
+        assert_equal ["Dog"], unique_species
       end
     end
   end
