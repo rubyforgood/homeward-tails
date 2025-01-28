@@ -7,5 +7,7 @@ class Organizations::HomeController < Organizations::BaseController
       .unadopted
       .includes(images_attachments: :blob)
       .sample(4)
+
+    @unique_species = Pet.unique_species
   end
 end
