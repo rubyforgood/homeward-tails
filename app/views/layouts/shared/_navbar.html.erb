@@ -44,15 +44,11 @@
             <%= t(".pets") %>
           </a>
           <ul class="dropdown-menu">
-            <li>
-              <%= link_to t("general.dogs"),
-              adoptable_pets_path(species: "dog"),
-              class: "dropdown-item" %></li>
-
-            <li>
-              <%= link_to t("general.cats"),
-              adoptable_pets_path(species: "cat"),
-              class: "dropdown-item" %></li>
+            <% Pet.adoptable_unique_species.each do |species| %>
+              <li>
+                <%= link_to t("general.#{species.downcase}s"), adoptable_pets_path(species: "#{species.downcase}"), class: "dropdown-item" %>
+              </li>
+            <% end %>
           </ul>
         </li>
         <li class='nav-item'>
