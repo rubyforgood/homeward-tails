@@ -96,7 +96,7 @@ class Pet < ApplicationRecord
   }
 
   # Returns an array of unique species of an organization
-  scope :unique_species, -> { where(placement_type: ["Adoptable", "Adoptable and Fosterable"]).distinct.pluck(:species) }
+  scope :adoptable_unique_species, -> { unadopted.where(placement_type: ["Adoptable", "Adoptable and Fosterable"]).distinct.pluck(:species) }
 
   attr_writer :toggle
 

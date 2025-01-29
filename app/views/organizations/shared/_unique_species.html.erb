@@ -1,3 +1,3 @@
-<% @unique_species.each do |species| %>
+<% @adoptable_unique_species.each do |species| %>
   <%= link_to "#{t("general.browse")} #{t("general.#{species.downcase}s")}", adoptable_pets_path(species: "#{species.downcase}"), class: "btn btn-primary btn-lg rounded-1 ms-2" %>
 <% end %>

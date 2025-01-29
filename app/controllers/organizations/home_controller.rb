@@ -8,6 +8,6 @@ class Organizations::HomeController < Organizations::BaseController
       .includes(images_attachments: :blob)
       .sample(4)
 
-    @unique_species = Pet.unique_species
+    @adoptable_unique_species = Pet.adoptable_unique_species
   end
 end
