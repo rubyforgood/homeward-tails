@@ -49,7 +49,7 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
-    active_storage_validations (1.4.0)
+    active_storage_validations (2.0.1)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
