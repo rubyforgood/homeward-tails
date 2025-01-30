@@ -7,6 +7,8 @@ class Organizations::AdopterFosterer::DashboardController < Organizations::BaseC
     @hide_footer = true
     @application_count = @user.person.adopter_applications.count.to_i
 
+    @adoptable_unique_species = Pet.adoptable_unique_species
+
     authorize! :adopter_foster_dashboard, context: {organization: @organization}
   end
 end
