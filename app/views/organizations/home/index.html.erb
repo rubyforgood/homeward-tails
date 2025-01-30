@@ -11,7 +11,7 @@
           </div>
           <div class="d-flex justify-content-center">
             <% if user_signed_in? %>
-              <%= render partial: "organizations/shared/unique_species" %>
+              <%= render partial: "organizations/shared/unique_species", locals: { adoptable_unique_species: @adoptable_unique_species } %>
             <% else %>
               <%= link_to t("general.become_an_adopter"),
               new_user_registration_path,
