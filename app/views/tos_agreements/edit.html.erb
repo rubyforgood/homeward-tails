@@ -14,7 +14,7 @@
             </div>
             <p>You must agree to the terms of services before continuing with this service.</p>
           </div>
-          <%= bootstrap_form_with model: @user, url: agreement_path, method: :put do |f| %>
+          <%= bootstrap_form_with model: @user, url: tos_agreement_path, method: :put do |f| %>
             <%= f.check_box :tos_agreement, required: true do %>
               <span>I agree to the </span>
               <%= link_to 'Terms and Conditions', terms_and_conditions_path,

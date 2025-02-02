@@ -16,7 +16,7 @@ class Organizations::BaseController < ApplicationController
   rescue_from TosAgreementError do
     flash[:alert] = "You must accept the Terms of Service before continuing."
 
-    redirect_to edit_agreement_path
+    redirect_to edit_tos_agreement_path
   end
 
   def verify_tos_accepted

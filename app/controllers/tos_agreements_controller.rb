@@ -1,4 +1,4 @@
-class AgreementsController < ApplicationController
+class TosAgreementsController < ApplicationController
   before_action :set_user, only: %i[edit update]
 
   def edit
