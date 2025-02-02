@@ -25,7 +25,6 @@
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
 #  organization_id        :bigint
-#  person_id              :bigint           not null
 #
 # Indexes
 #
@@ -34,31 +33,13 @@
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
 #  index_users_on_organization_id       (organization_id)
-#  index_users_on_person_id             (person_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (person_id => people.id)
 #
 class User < ApplicationRecord
   include Avatarable
   include Authorizable
   include RoleChangeable
   include Omniauthable
-
-  acts_as_tenant(:organization)
-  default_scope do
-    #
-    # Used as a extra measure to scope down the options for devise
-    # when the Current.organization is set
-    #
-    if Current.organization
-      where(organization_id: Current.organization&.id)
-    else
-      all
-    end
-  end
 
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
@@ -71,14 +52,17 @@ class User < ApplicationRecord
   # validates :tos_agreement, acceptance: {message: "Please accept the Terms and Conditions"},
   #   allow_nil: false, on: :create
 
-  belongs_to :person
-  accepts_nested_attributes_for :person
+  has_many :people
+  has_many :organizations, through: :people
+  accepts_nested_attributes_for :people
 
   before_validation :ensure_person_exists, on: :create
 
   before_save :downcase_email
 
   delegate :latest_form_submission, to: :person
+
+  self.ignored_columns += ["person_id"]
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
   def prevent_email_change
@@ -111,15 +95,9 @@ class User < ApplicationRecord
   end
 
   def ensure_person_exists
-    return if person.present?
+    return if Person.find_by(user_id: id)
 
-    existing = Person.find_by(organization: organization, email: email)
-
-    if existing
-      self.person = existing
-    else
-      build_person(first_name:, last_name:, email:, organization:)
-    end
+    Person.create!(first_name:, last_name:, email:, organization:, user_id: id)
   end
 
   def full_name(format = :default)
