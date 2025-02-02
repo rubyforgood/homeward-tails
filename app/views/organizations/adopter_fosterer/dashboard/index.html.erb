@@ -6,12 +6,7 @@
           <div>
             <h1 class="fw-bold"><%= t('.header', organization_name: @organization.name) %></h1>
             <p class="fs-4 mb-4"><%= t('.body_text', organization_name: @organization.name) %></p>
-            <%= link_to "#{t("general.browse")} #{t("general.dogs")}",
-            adoptable_pets_path(species: "dog"),
-            class: "btn btn-primary btn-lg rounded-1 ms-2 mt-sm-2 mt-1" %>
-            <%= link_to "#{t("general.browse")} #{t("general.cats")}",
-            adoptable_pets_path(species: "cat"),
-            class: "btn btn-primary btn-lg rounded-1 ms-2 mt-sm-2 mt-1" %>
+            <%= render partial: "organizations/shared/unique_species", locals: { adoptable_unique_species: @adoptable_unique_species } %>
           </div>
         </div>
         <div class="col-xxl-5 offset-xxl-1 col-xl-6 col-lg-6 col-12 d-lg-flex justify-content-end">
