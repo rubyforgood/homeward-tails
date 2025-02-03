@@ -1,4 +1,4 @@
-class Organizations::AdopterFosterDashboardPolicy < ApplicationPolicy
+class Organizations::AdopterFosterDashboardPolicy < Organizations::ApplicationPolicy
   pre_check :verify_organization!
 
   def index?

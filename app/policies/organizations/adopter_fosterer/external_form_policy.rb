@@ -1,6 +1,6 @@
 module Organizations
   module AdopterFosterer
-    class ExternalFormPolicy < ApplicationPolicy
+    class ExternalFormPolicy < Organizations::ApplicationPolicy
       def index?
         permission?(:view_external_form)
       end

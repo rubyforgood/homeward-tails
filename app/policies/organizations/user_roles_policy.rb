@@ -1,4 +1,4 @@
-class Organizations::UserRolesPolicy < ApplicationPolicy
+class Organizations::UserRolesPolicy < Organizations::ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
   def change_role?

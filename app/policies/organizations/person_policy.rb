@@ -1,4 +1,4 @@
-class Organizations::PersonPolicy < ApplicationPolicy
+class Organizations::PersonPolicy < Organizations::ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
 

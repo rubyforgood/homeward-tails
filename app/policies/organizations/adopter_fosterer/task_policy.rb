@@ -1,6 +1,6 @@
 module Organizations
   module AdopterFosterer
-    class TaskPolicy < ApplicationPolicy
+    class TaskPolicy < Organizations::ApplicationPolicy
       def index?
         permission?(:read_pet_tasks)
       end

@@ -1,5 +1,5 @@
 module Organizations
-  class ExternalFormUploadPolicy < ApplicationPolicy
+  class ExternalFormUploadPolicy < Organizations::ApplicationPolicy
     pre_check :verify_organization!
     pre_check :verify_active_staff!
 
