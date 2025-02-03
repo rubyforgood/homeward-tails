@@ -20,14 +20,7 @@ default: &default
   host: localhost
   username: <%= ENV.fetch('DATABASE_USERNAME') { } %>
   password: <%= ENV.fetch('DATABASE_PASSWORD') { }  %>
-  port: <%= ENV.fetch("DATABASE_PORT") do
-          begin
-            docker_port = `docker compose port postgres 5432 2> /dev/null`.split(":").last
-            Integer(docker_port.strip)
-          rescue
-            5432
-          end
-        end %>
+  port: <%= ENV.fetch("DATABASE_PORT", "5432") %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
