@@ -49,6 +49,8 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgres://${DATABASE_USERNAME:-postgres}:${DATABASE_PASSWORD:-password}@postgres:5432/petrescue_development
+      CABLE_HOST: cable
+      QUEUE_HOST: queue
       RAILS_ENV: development
       SERVICE_NAME: app
       SOLID_QUEUE_IN_PUMA: true
