@@ -116,7 +116,7 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.1"
+gem "strong_migrations", "~> 2.2"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.27"
