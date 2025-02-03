@@ -21,8 +21,8 @@ services:
     image: postgres:14
     environment:
       POSTGRES_DB: cable
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
     ports:
       - 54321:5432
 
@@ -30,8 +30,8 @@ services:
     image: postgres:14
     environment:
       POSTGRES_DB: queue
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
     ports:
       - 54322:5432
 
