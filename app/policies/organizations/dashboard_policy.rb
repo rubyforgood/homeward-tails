@@ -1,4 +1,4 @@
-class Organizations::DashboardPolicy < ApplicationPolicy
+class Organizations::DashboardPolicy < Organizations::ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
 
