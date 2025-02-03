@@ -49,7 +49,7 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
-    active_storage_validations (2.0.1)
+    active_storage_validations (2.0.2)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -421,7 +421,7 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.8)
+    rack (3.1.9)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
