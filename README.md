@@ -80,8 +80,6 @@ Figaro instructions for setting environment variables:
 2. `code config/application.yml` or `vi config/application.yml` or `nano config.application.yml`
 3. Replace `REPLACE_ME` with your PostgreSQL role credentials
 
-If you have already set up this application locally, and are now getting errors related to Queue or Cable database hosts, please update your `config/application.yml` to specify the host as localhost for these databases (see `config/application.example.yml`). 
-
 Run the setup script to prepare DB and assets
 ```sh
 bin/setup
