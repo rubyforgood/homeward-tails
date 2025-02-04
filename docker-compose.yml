@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
     ports:
-      - 54320:5432
+      - ${DATABASE_PORT:-54320}:5432
     healthcheck:
       test:
         [
@@ -24,7 +24,7 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
     ports:
-      - 54321:5432
+      - ${CABLE_PORT:-54321}:5432
 
   queue:
     image: postgres:14
@@ -33,7 +33,7 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
     ports:
-      - 54322:5432
+      - ${QUEUE_PORT:-54322}:5432
 
   app:
     build:
