@@ -46,13 +46,13 @@ Installing PostgreSQL is required to run the application.
 Instructions: https://wiki.postgresql.org/wiki/Homebrew
 
 ```sh
-brew install postgresql
+brew install postgresql@14
 ```
 
 To run postgresql as a service:
 
 ```sh
-brew services start postgresql
+brew services start postgresql@14
 ```
 
 ## Install & Setup
