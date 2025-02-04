@@ -11,26 +11,6 @@ The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Applica
 
 Let's get your machine setup to start up the application!
 
-## Docker
-
-Install a containerization app, such as Docker Desktop.
-
-Clone the repo to your local machine and navigate to the directory and run:
-
-`docker-compose build` to build the base image.
-
-`docker-compose up`  to start the containers. You can add the `-d` flag to run silently without logging.
-
-`docker-compose run --rm app bin/setup` to set up and seed the database.
-
-If you need to run migrations at all: `docker-compose run --rm app bin/rails db:migrate`
-
-Visit `localhost:3000` in your browser.
-
-#### Debugging in Docker
-You need to attach to an interactive shell on the app service `docker attach pet-rescue-app-1`
-
-Place `debugger` in your code and hit it. You should be able to interact in the attached shell.
 
 ## Local Installation
 
@@ -94,6 +74,28 @@ You should see the seed organization by going to:
 ```
 http://localhost:3000/alta/
 ```
+
+## Docker
+
+Install a containerization app, such as Docker Desktop.
+
+Clone the repo to your local machine and navigate to the directory and run:
+
+`docker-compose build` to build the base image.
+
+`docker-compose up`  to start the containers. You can add the `-d` flag to run silently without logging.
+
+`docker-compose run --rm app bin/setup` to set up and seed the database.
+
+If you need to run migrations at all: `docker-compose run --rm app bin/rails db:migrate`
+
+Visit `localhost:3000` in your browser.
+
+#### Debugging in Docker
+
+You need to attach to an interactive shell on the app service `docker attach pet-rescue-app-1`
+
+Place `debugger` in your code and hit it. You should be able to interact in the attached shell.
 
 ## Login Credentials
 
