@@ -55,6 +55,11 @@ To run postgresql as a service:
 brew services start postgresql@14
 ```
 
+#### Set up PostgreSQL role
+
+Setting up a PostgreSQL role is beyond the scope of this README. However, if you do need help, we recommend [Setting up PostgreSQL from The Odin Project](https://www.theodinproject.com/lessons/ruby-on-rails-installing-postgresql#step-3-setting-up-postgresql-1).
+
+
 ## Install & Setup
 
 Clone the codebase 
@@ -62,13 +67,18 @@ Clone the codebase
 git clone git@github.com:rubyforgood/pet-rescue.git
 ```
 
-Create a new `config/application.yml` file from the `config/application.example.yml`:
-```
-cp config/application.example.yml config/application.yml
-```
+#### Set environment variables
 
-Update your `config/application.yml` by replacing the places that say REPLACE_ME. If you installed and configured PostgreSQL as discussed above
-you can use your username and leave the password blank for development.
+You must set the environment variables `DATABASE_USERNAME` and `DATABASE_PASSWORD` for a role running your PostgreSQL instance (this is not necessary if running via Docker compose). There are many tools to help manage environment variables:
+- [direnv](https://direnv.net/)
+- [mise](https://mise.jdx.dev/environments/)
+
+This project also ships with figaro if you would like to use it to set these environment variables.
+
+Figaro instructions for setting environment variables:
+1. `cp config/application.example.yml config/application.yml`
+2. `code config/application.yml` or `vi config/application.yml` or `nano config.application.yml`
+3. Replace `REPLACE_ME` with your PostgreSQL role credentials
 
 If you have already set up this application locally, and are now getting errors related to Queue or Cable database hosts, please update your `config/application.yml` to specify the host as localhost for these databases (see `config/application.example.yml`). 
 
