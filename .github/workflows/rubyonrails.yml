@@ -4,6 +4,9 @@
 #
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
+env:
+  DATABASE_USERNAME: rails
+  DATABASE_PASSWORD: password
 name: "Ruby on Rails CI"
 on:
   push:
