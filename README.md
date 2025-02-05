@@ -7,79 +7,21 @@ The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Applica
 
 ---
 
-# 🚀 Getting Started
+## 🚀 Getting Started
 
 Let's get your machine setup to start up the application!
 
-
-## Local Installation
-
-⚠️  We assume you already have ruby installed with your preferred version manager. This codebase supports [rbenv](
-https://github.com/rbenv/rbenv) and [asdf](https://github.com/asdf-vm/asdf-ruby).
-
-### PostgreSQL
-
-Installing PostgreSQL is required to run the application.
-
-#### Installing on MacOS
-
-Instructions: https://wiki.postgresql.org/wiki/Homebrew
+### Clone the codebase
 
 ```sh
-brew install postgresql@14
-```
-
-To run postgresql as a service:
-
-```sh
-brew services start postgresql@14
-```
-
-#### Set up PostgreSQL role
-
-Setting up a PostgreSQL role is beyond the scope of this README. However, if you do need help, we recommend [Setting up PostgreSQL from The Odin Project](https://www.theodinproject.com/lessons/ruby-on-rails-installing-postgresql#step-3-setting-up-postgresql-1).
-
-
-## Install & Setup
-
-Clone the codebase 
-```
 git clone git@github.com:rubyforgood/pet-rescue.git
 ```
 
-#### Set environment variables
-
-You must set the environment variables `DATABASE_USERNAME` and `DATABASE_PASSWORD` for a role running your PostgreSQL instance (this is not necessary if running via Docker compose). There are many tools to help manage environment variables:
-- [direnv](https://direnv.net/)
-- [mise](https://mise.jdx.dev/environments/)
-
-This project also ships with figaro if you would like to use it to set these environment variables.
-
-Figaro instructions for setting environment variables:
-1. `cp config/application.example.yml config/application.yml`
-2. `code config/application.yml` or `vi config/application.yml` or `nano config.application.yml`
-3. Replace `REPLACE_ME` with your PostgreSQL role credentials
-
-Run the setup script to prepare DB and assets
-```sh
-bin/setup
-```
-
-To run the app locally, use:
-```
-bin/dev
-```
-
-You should see the seed organization by going to:
-```
-http://localhost:3000/alta/
-```
-
-## Docker
+### Docker
 
 Install a containerization app, such as Docker Desktop.
 
-Clone the repo to your local machine and navigate to the directory and run:
+Navigate to the project directory and run:
 
 `docker-compose build` to build the base image.
 
@@ -97,53 +39,119 @@ You need to attach to an interactive shell on the app service `docker attach pet
 
 Place `debugger` in your code and hit it. You should be able to interact in the attached shell.
 
+### Local Installation
+
+⚠️  We assume you already have ruby installed with your preferred version manager. This codebase supports [rbenv](
+https://github.com/rbenv/rbenv) and [asdf](https://github.com/asdf-vm/asdf-ruby).
+
+#### PostgreSQL
+
+Installing PostgreSQL is required to run the application.
+
+##### Installing on MacOS
+
+Instructions: [https://wiki.postgresql.org/wiki/Homebrew]
+
+```sh
+brew install postgresql@14
+```
+
+To run postgresql as a service:
+
+```sh
+brew services start postgresql@14
+```
+
+##### Set up PostgreSQL role
+
+Setting up a PostgreSQL role is beyond the scope of this README. If you do need help, we recommend [Setting up PostgreSQL from The Odin Project](https://www.theodinproject.com/lessons/ruby-on-rails-installing-postgresql#step-3-setting-up-postgresql-1).
+
+#### Set environment variables
+
+You must set the environment variables `DATABASE_USERNAME` and `DATABASE_PASSWORD` for a role running your PostgreSQL instance (this is not necessary if running via Docker compose). There are many tools to help manage environment variables:
+
+- [direnv](https://direnv.net/)
+- [mise](https://mise.jdx.dev/environments/)
+
+This project also ships with figaro if you would like to use it to set these environment variables.
+
+Figaro instructions for setting environment variables:
+
+1. `cp config/application.example.yml config/application.yml`
+2. `code config/application.yml` or `vi config/application.yml` or `nano config.application.yml`
+3. Replace `REPLACE_ME` with your PostgreSQL role credentials
+
+Run the setup script to prepare DB and assets
+
+```sh
+bin/setup
+```
+
+To run the app locally, use:
+
+```sh
+bin/dev
+```
+
+You should see the seed organization by going to [http://localhost:3000/alta/]
+
+
 ## Login Credentials
 
 All users are scoped to an organization. Hence, you must login via the correct
-login portal per organization. 
+login portal per organization.
 
-You can use the following login credentials to login to http://localhost:3000/alta:
+You can use the following login credentials to login to [http://localhost:3000/alta]:
 
-Use the following login 
-Adopter 
-- email: `adopter1@alta.com` 
+Use the following login
+Adopter
+
+- email: `adopter1@alta.com`
 - password: `123456`
 
 Staff
+
 - email: `staff@alta.com`
 - password: `123456`
 
-### Viewing Mail
+## Viewing Mail
+
 Go to `http://localhost:3000/letters` to view mail in development.
 
-
-# 🧪 Running Tests
+## 🧪 Running Tests
 
 Run unit tests only
-```
+
+```sh
 ./bin/rails test
 ```
 
 Run system tests only (Headless)
-```
+
+```sh
 ./bin/rails test:system
 ```
 
 Run system tests only (Not-Headless)
-```
+
+```sh
 CI=false ./bin/rails test:system
 ```
 
 **Note:** If system tests are failing for you, try prepending the command with `APP_HOST=localhost`. Your host might be misconfigured.
-```
+
+```sh
 APP_HOST=localhost ./bin/rails test:system
 ```
 
 Run ALL tests:
-```
+
+```sh
 ./bin/rails test:all
 ```
+
 ## Troubleshoot
+
 <details>
   <summary>Test Errors</summary>
   - System tests Error TCP Connection refused
@@ -154,8 +162,7 @@ Run ALL tests:
   
 </details>
 
-
-# 💅 Linting 
+## 💅 Linting
 
 We use [standard](https://github.com/standardrb/standard) for linting. It provides a command for auto-fixing errors:
 
@@ -163,48 +170,51 @@ We use [standard](https://github.com/standardrb/standard) for linting. It provid
 rails standard:fix
 ```
 
-# Authorization
+## Authorization
 
 If you find yourself writing a conditional checking the question, "Is the user **allowed** to view/do this?" that is an authorization concern. Homeward Tails utilizes the gem [Action Policy](https://github.com/palkan/action_policy) as our authorization framework. If you are familiar with Pundit, you will see many similarities. If you want to learn more about authorization or have questions about how Action Policy works, [their documentation](https://actionpolicy.evilmartians.io/#/) is excellent. If you would like a quick onboarding to how Action Policy is used in Homeward Tails, see [our wiki page on authorization](https://github.com/rubyforgood/pet-rescue/wiki/Authorization).
 
-# 🔨 Tools
+## 🔨 Tools
 
 This [google sheets](https://docs.google.com/spreadsheets/d/1kPDeLicDu1IFkjWEXrWpwT36jtvoMVopEBiX-5L-r1A/edit?usp=sharing) contains a list of tools, their purposes, and who has access to grant permissions.
-
 
 ## 🤝 Contributing Guidelines
 
 Please feel free to contribute! Priority will be given to pull requests that address outstanding issues and have appropriate test coverage. Focus on issues tagged with the next milestone for higher priority.
 
 To contribute:
-* Identify an unassigned issue
-* Only work on one issue at a time
-* Request assignment of an issue by adding a comment on the issue
-* Fork the repo if you're not yet a contributor
-* Ensure that the application runs locally in your browser. When you run the test suite locally, it should pass
-* Create a new branch for the issue using the format `XXX-brief-description-of-feature`, where `XXX` is the issue number
-* Make code changes related to the assigned issue
-* Commit locally using descriptive messages that indicate the affected parts of the application
-* Add tests related to your work(most of the time)
-* Ensure all tests pass successfully; if any fail, fix the issues causing the failures
-* Make a final commit if any code changes are required
-* Push up the branch
-* Create a pull request and fill out the description fields
-* We like to make sure people are recognized for their contributions, so please attribute others by commenting on a pull request with
+
+- Only work on one issue at a time
+- Identify an unassigned issue
+- Request assignment of an issue by adding a comment on the issue
+- Fork the repo if you're not yet a contributor
+- Ensure that the application runs locally in your browser. When you run the test suite locally, it should pass
+- Create a new branch for the issue using the format `XXX-brief-description-of-feature`, where `XXX` is the issue number
+- Make code changes related to the assigned issue
+- Commit locally using descriptive messages that indicate the affected parts of the application
+- Add tests related to your work(most of the time)
+- Ensure all tests pass successfully; if any fail, fix the issues causing the failures
+- Make a final commit if any code changes are required
+- Push up the branch
+- Create a pull request and fill out the description fields
+- We like to make sure people are recognized for their contributions, so please attribute others by commenting on a pull request with
 
   ```
   @all-contributors
   please add @<username> for <contributions>. 
   please add @<username> for <contributions>.
   ```
+
   Replace `<contributions>` with `code` or `review`
 
-# 📖 About
+## 📖 About
 
-## Ruby for Good
-Homeward Tails is one of many projects initiated and run by Ruby for Good. You can find out more about Ruby for Good at https://rubyforgood.org
+### Ruby for Good
 
-# 🌟 Core Values
+Homeward Tails is one of many projects initiated and run by Ruby for Good. You can find out more about Ruby for Good at [https://rubyforgood.org]
+
+### 🌟 Core Values
+
 While vision is the destination, and strategy is how we'll get there, core values are what we'll use to handle times of change or uncertainty (both of which are expected, guaranteed to happen, and positive signs of growth!).
 
 We are committed to promoting positive culture and outcomes for all, from coders and maintainers and leads
@@ -214,27 +224,28 @@ We will lean on the following as guiding principles when interacting with others
 
 Here are our core values defined by early contributors and leads:
 
-### Code Quality and Collaboration
+#### Code Quality and Collaboration
+
 Write maintainable code that is accessible and enjoyable (for beginners and seasoned coders alike), supports and encourages contributors and their contributions, and ensures long-term sustainability of this project and the efforts it supports.
 
-### Communication and Perspective:
+#### Communication and Perspective
+
 Prioritize clear communication, embrace diverse viewpoints, and always engage feedback -- all with a commitment to timely responses and ongoing improvement for all. Rescue and adoption partner perspectives will be prioritized over abstracted conceptualization of their needs.
 
-### Engagement and Practicality:
-Build upon stakeholder partnerships to foster and encourage their active involvement, focusing constructive discussion and dispute resolution on the practical impact of our collective work.
+#### Engagement and Practicality
 
+Build upon stakeholder partnerships to foster and encourage their active involvement, focusing constructive discussion and dispute resolution on the practical impact of our collective work.
 
 ---
 
-# 📚Knowledge Base
+## 📚 Useful resources
 
-## Useful resources
 These are some resources that may help with contributing to the codebase
-* [Figma site design](https://www.figma.com/file/0jVgYASUJy0KiX3BVc3dFM/Tasks?type=design&node-id=0-1&mode=design)
-* Model association diagram: Import the schema.rb file into https://dbdiagram.io/d to get the latest version of the diagram
-* [Turbo Rails Tutorial](https://www.hotrails.dev/turbo-rails)
-* [Geek UI Documentation](https://geeksui.codescandy.com/geeks/docs/index.html)
 
+- [Figma site design](https://www.figma.com/file/0jVgYASUJy0KiX3BVc3dFM/Tasks?type=design&node-id=0-1&mode=design)
+- Model association diagram: Import the schema.rb file into [https://dbdiagram.io/d] to get the latest version of the diagram
+- [Turbo Rails Tutorial](https://www.hotrails.dev/turbo-rails)
+- [Geek UI Documentation](https://geeksui.codescandy.com/geeks/docs/index.html)
 
 ## Contributors ✨
 
@@ -344,4 +355,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
