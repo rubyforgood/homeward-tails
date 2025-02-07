@@ -6,7 +6,7 @@ class TosAgreementsController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to root_path, notice: "Success"
+      redirect_to session.delete(:original_url) || root_path, notice: "TOS accepted"
     else
       render :edit, status: :unprocessable_entity
     end

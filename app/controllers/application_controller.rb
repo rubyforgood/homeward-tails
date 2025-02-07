@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionPolicy::Unauthorized do |ex|
     if ex.result.reasons.details.values.flatten.any?(:no_tos_accepted)
       flash[:alert] = "You must accept the Terms of Service before continuing."
+      session[:original_url] = request.original_url
 
       redirect_to edit_tos_agreement_path
     else
