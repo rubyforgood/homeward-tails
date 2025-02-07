@@ -1,4 +1,4 @@
-class Organizations::DefaultPetTaskPolicy < Organizations::ApplicationPolicy
+class Organizations::DefaultPetTaskPolicy < ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
 

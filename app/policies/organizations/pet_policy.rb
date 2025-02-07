@@ -1,4 +1,4 @@
-class Organizations::PetPolicy < Organizations::ApplicationPolicy
+class Organizations::PetPolicy < ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
 

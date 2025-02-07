@@ -1,4 +1,4 @@
-class Organizations::StaffInvitationPolicy < Organizations::ApplicationPolicy
+class Organizations::StaffInvitationPolicy < ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
 

@@ -1,4 +1,4 @@
-class Organizations::CustomPagePolicy < Organizations::ApplicationPolicy
+class Organizations::CustomPagePolicy < ApplicationPolicy
   pre_check :verify_organization!
   pre_check :verify_active_staff!
 

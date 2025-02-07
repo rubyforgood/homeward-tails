@@ -1,5 +1,5 @@
 module Organizations
-  class FormSubmissionPolicy < Organizations::ApplicationPolicy
+  class FormSubmissionPolicy < ApplicationPolicy
     pre_check :verify_organization!
     pre_check :verify_active_staff!
 

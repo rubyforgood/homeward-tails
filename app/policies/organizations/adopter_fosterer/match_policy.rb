@@ -1,6 +1,6 @@
 module Organizations
   module AdopterFosterer
-    class MatchPolicy < Organizations::ApplicationPolicy
+    class MatchPolicy < ApplicationPolicy
       relation_scope do |relation|
         relation.where(person_id: user.person.id)
       end

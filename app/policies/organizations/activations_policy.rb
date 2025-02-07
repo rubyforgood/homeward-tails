@@ -1,5 +1,5 @@
 module Organizations
-  class ActivationsPolicy < Organizations::ApplicationPolicy
+  class ActivationsPolicy < ApplicationPolicy
     pre_check :verify_organization!
     pre_check :verify_active_staff!
 

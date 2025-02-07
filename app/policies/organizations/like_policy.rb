@@ -1,4 +1,4 @@
-class Organizations::LikePolicy < Organizations::ApplicationPolicy
+class Organizations::LikePolicy < ApplicationPolicy
   authorize :pet, optional: true
   pre_check :verify_pet_likable!, only: %i[create? destroy?]
 

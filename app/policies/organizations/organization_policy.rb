@@ -1,5 +1,5 @@
 module Organizations
-  class OrganizationPolicy < Organizations::ApplicationPolicy
+  class OrganizationPolicy < ApplicationPolicy
     pre_check :verify_active_staff!
 
     def manage?

@@ -2,7 +2,7 @@
 
 module Organizations
   module CustomForm
-    class QuestionPolicy < Organizations::ApplicationPolicy
+    class QuestionPolicy < ApplicationPolicy
       pre_check :verify_organization!
       pre_check :verify_active_staff!
 
