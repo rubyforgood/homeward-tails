@@ -133,6 +133,9 @@
 
           <div class='text-center d-flex flex-column align-items-center mt-1'>
             <% if user_signed_in? %>
+              <% unless current_user.tos_agreement %>
+                <%= link_to "View Terms of Service before applying", edit_tos_agreement_path %>
+              <% end %>
               <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, user: current_user}) %>
                 <h4 class="mb-4 mt-3"><%= t('.in_love') %></h4>
                 <%= form_with model: [:adopter_fosterer, @adoption_application] do |form| %>
