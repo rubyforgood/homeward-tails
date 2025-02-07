@@ -28,7 +28,7 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post user_google_oauth2_omniauth_callback_path
       assert_response :redirect
-      assert_redirected_to adopter_fosterer_dashboard_index_path
+      assert_redirected_to edit_tos_agreement_path
     end
 
     user = User.last
@@ -42,7 +42,7 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post user_google_oauth2_omniauth_callback_path
       assert_response :redirect
-      assert_redirected_to adopter_fosterer_dashboard_index_path
+      assert_redirected_to edit_tos_agreement_path
     end
   end
 
