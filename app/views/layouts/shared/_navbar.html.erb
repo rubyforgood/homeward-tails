@@ -61,7 +61,8 @@
           <%= active_link_to t('.faq'), faq_index_path, class: 'nav-link' %>
         </li>
         <% if user_signed_in? %>
-          <% if allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization}) %>            <li class='nav-item'>
+          <% if allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization}) %>
+            <li class='nav-item'>
               <%= active_link_to t('.dashboard'), adopter_fosterer_dashboard_index_path, class: 'nav-link' %>
             </li>
           <% end %>
