@@ -19,7 +19,7 @@ gem "figaro"
 gem "pg", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.5.0"
+gem "puma", "~> 6.6.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -116,7 +116,7 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.1"
+gem "strong_migrations", "~> 2.2"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.27"
