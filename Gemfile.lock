@@ -159,7 +159,7 @@ GEM
       actionmailer (>= 5.0)
       devise (>= 4.6)
     docile (1.4.1)
-    dotenv (3.1.6)
+    dotenv (3.1.7)
     drb (2.2.1)
     dry-core (1.1.0)
       concurrent-ruby (~> 1.0)
@@ -291,7 +291,7 @@ GEM
     json (2.9.1)
     jwt (2.10.1)
       base64
-    kamal (2.4.0)
+    kamal (2.5.1)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
@@ -350,7 +350,7 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-scp (4.0.0)
+    net-scp (4.1.0)
       net-ssh (>= 2.6.5, < 8.0.0)
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
