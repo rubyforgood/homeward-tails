@@ -10,15 +10,18 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null
+#  user_id         :bigint
 #
 # Indexes
 #
 #  index_people_on_email            (email)
 #  index_people_on_organization_id  (organization_id)
+#  index_people_on_user_id          (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (organization_id => organizations.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Person < ApplicationRecord
   include Avatarable
@@ -36,8 +39,7 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :location,
     reject_if: ->(attributes) { attributes["city_town"].blank? }
   has_many :matches # , dependent: :destroy
-
-  has_one :user, dependent: :destroy
+  belongs_to :user, optional: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
