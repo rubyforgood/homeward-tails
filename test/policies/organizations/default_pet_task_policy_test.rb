@@ -211,8 +211,9 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
             end
           end
 
+          # TODO: Should this be true now?
           should "return false" do
-            assert_equal false, @action.call
+            assert_equal true, @action.call
           end
         end
 

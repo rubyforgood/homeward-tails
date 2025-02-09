@@ -78,6 +78,9 @@ class Organizations::Staff::UserRolesControllerTest < ActionDispatch::Integratio
 
     should "scope role to organization" do
       post staff_user_to_admin_url(@account), headers: {"HTTP_REFERER" => "http://www.example.com/"}
+      puts "Current.organization #{Current.organization}"
+      puts "admin? : #{@account.has_role? :admin}"
+      puts "super_admin? : #{@account.has_role? :super_admin}"
       has_strict_role = @account.has_strict_role?(:admin, ActsAsTenant.current_tenant)
       global_role = @account.has_role?(:admin)
 

@@ -62,7 +62,7 @@ class User < ApplicationRecord
 
   delegate :latest_form_submission, to: :person
 
-  self.ignored_columns += ["person_id"]
+  # self.ignored_columns += ["person_id"]
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
   def prevent_email_change
@@ -97,7 +97,7 @@ class User < ApplicationRecord
   def ensure_person_exists
     return if Person.find_by(user_id: id)
 
-    Person.create!(first_name:, last_name:, email:, organization:, user_id: id)
+    people.build(first_name:, last_name:, email:, organization: Current.organization)
   end
 
   def full_name(format = :default)

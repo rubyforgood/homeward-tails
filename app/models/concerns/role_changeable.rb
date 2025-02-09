@@ -4,8 +4,8 @@ module RoleChangeable
 
   def change_role(previous, new)
     ActiveRecord::Base.transaction do
-      remove_role(previous, organization)
-      add_role(new, organization)
+      remove_role(previous, Current.organization)
+      add_role(new, Current.organization)
     end
   rescue
     false
