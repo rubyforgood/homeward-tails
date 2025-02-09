@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   }
 
   # Application Scope
+  resource :tos_agreement, only: %i[edit update]
   resources :countries_states, only: [:index]
 
   root "root#index"
