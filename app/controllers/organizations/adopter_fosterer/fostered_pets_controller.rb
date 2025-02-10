@@ -5,7 +5,7 @@ module Organizations
       layout "adopter_foster_dashboard"
 
       def index
-        @fostered_pets = authorized_scope(Match.fosters.current, with: Organizations::AdopterFosterer::MatchPolicy)
+        @fostered_pets = authorized_scope(Match.fosters.current.or(Match.fosters.upcoming), with: Organizations::AdopterFosterer::MatchPolicy)
       end
 
       private
