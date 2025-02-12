@@ -101,8 +101,6 @@ production:
   primary: &primary_production
     <<: *default
     host: <%= ENV["DB_HOST"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
     database: postgres
     timeout: 5000
   cable:

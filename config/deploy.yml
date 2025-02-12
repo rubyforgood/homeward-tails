@@ -46,8 +46,8 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - DB_HOST
-    - DB_USER
-    - DB_PASSWORD
+    - DATABASE_USERNAME
+    - DATABASE_PASSWORD
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
@@ -61,8 +61,12 @@ env:
 #
 aliases:
   shell: app exec --interactive --reuse "bash"
-  logs: app logs -f
   console: app exec -i --reuse "bin/rails console"
+  logs: app exec -i --reuse "less -n +F log/production.log"
+# Running "kamal logs" will start following the tail of the log file and
+# display more text as the file grows. "ctrl-c" to enter navigation. "F" to follow again.
+# Navigation - "j" up, "k" down, "q" quit, Search - "/" /foo, "n" next occurance, "N" previous
+# https://greenwoodsoftware.com/less/index.html
 
 # Use a different ssh user than root
 #
