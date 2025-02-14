@@ -4,7 +4,7 @@ module Exportable
   extend ActiveSupport::Concern
 
   class_methods do
-    def to_csv(columns=column_names)
+    def to_csv(columns = column_names)
       CSV.generate(headers: true) do |csv|
         csv << columns
 
