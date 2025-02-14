@@ -6,6 +6,37 @@
     </div>
   <% end %>
   <% c.with_body do %>
+    <!-- Ransack Search Form -->
+    <div class="mx-1 row p-4 border rounded-5 mb-5 bg-white">
+      <div class="col-xl-12">
+        <%= search_form_for @q, url: staff_fosterers_path do |f| %>
+          <div class="row">
+            <div class="form-group mb-3 col-md-4">
+              <%= f.label :email_cont, "Email" %>
+              <%= f.search_field :email_cont,
+                class: "form-control",
+                placeholder: "Enter Email"
+              %>
+            </div>
+            <div class="form-group mb-3 col-md-4">
+              <%= f.label :first_name_or_last_name_cont, "Fosterer Name" %>
+              <%= f.search_field :first_name_or_last_name_cont,
+                class: "form-control",
+                placeholder: "Enter Fosterer Name"
+              %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <%= f.submit "Search", class: "btn btn-primary" %>
+              <%= link_to "Clear filters", staff_fosterers_path,
+                class: "btn btn-default"
+              %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class="d-flex justify-content-center align-items-center mt-2">
       <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
     </div>

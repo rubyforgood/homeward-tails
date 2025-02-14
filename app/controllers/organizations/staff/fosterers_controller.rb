@@ -7,8 +7,9 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
   def index
     authorize! Person, context: {organization: Current.organization}
 
+    @q = authorized_scope(Person.fosterers).ransack(params[:q])
     @pagy, @fosterer_accounts = pagy(
-      authorized_scope(Person.fosterers),
+      @q.result,
       limit: 10
     )
   end
