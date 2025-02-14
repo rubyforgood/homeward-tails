@@ -6,6 +6,13 @@
     </div>
   <% end %>
   <% c.with_body do %>
+    <% if params[:q] %>
+      <%= link_to 'Export CSV', staff_fosterers_path(request.parameters.merge({format: 'csv'})), class: "btn btn-secondary mb-4" %>
+    <% else %>
+      <%= link_to "Export CSV", staff_fosterers_path(format: "csv"),
+        class: "btn btn-secondary mb-4"
+      %>
+    <% end %>
     <!-- Ransack Search Form -->
     <div class="mx-1 row p-4 border rounded-5 mb-5 bg-white">
       <div class="col-xl-12">

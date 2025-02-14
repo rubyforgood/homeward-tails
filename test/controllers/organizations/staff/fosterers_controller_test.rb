@@ -61,6 +61,15 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
           assert_not_includes assigns[:fosterer_accounts].map { |fosterer| fosterer.first_name }, "Bob"
         end
 
+        should "generate CSV with fosterers' emails" do
+          fosterer = create(:fosterer)
+
+          get staff_fosterers_url, params: {format: :csv}
+
+          assert_response :success
+          assert_includes response.header["Content-Type"], "text/csv"
+          assert_includes response.body, fosterer.person.email
+        end
       end
     end
   end

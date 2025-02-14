@@ -12,6 +12,10 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
       @q.result,
       limit: 10
     )
+    respond_to do |format|
+      format.html
+      format.csv { send_data @fosterer_accounts.to_csv(%w[email]), filename: "fosterer_emails-#{Date.today}.csv" }
+    end
   end
 
   def edit
