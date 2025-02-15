@@ -192,6 +192,12 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   path = Rails.root.join("app", "assets", "images", "hero.jpg")
+  blob = ActiveStorage::Blob.create_and_upload!(
+    io: File.open(path),
+    filename: "hero.jpg",
+    content_type: "image/jpeg"
+  )
+
   from_weight = [5, 10, 20, 30, 40, 50, 60].sample
 
   50.times do
@@ -211,7 +217,7 @@ ActsAsTenant.with_tenant(@organization) do
       placement_type: Pet.placement_types.values.sample,
       published: true
     )
-    pet.images.attach(io: File.open(path), filename: "hero.jpg")
+    pet.images.attach(blob)
 
     due_dates = [Date.today - 1.day, Date.today, Date.today + 30.days]
     DefaultPetTask.all.each_with_index do |task, index|
