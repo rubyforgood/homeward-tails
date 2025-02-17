@@ -2,7 +2,7 @@ module Organizations
   module AdopterFosterer
     class MatchPolicy < ApplicationPolicy
       relation_scope do |relation|
-        relation.where(person_id: user.person.id)
+        relation.where(person_id: Person.where(user_id: user.id).first)
       end
 
       def index?

@@ -24,8 +24,8 @@ FactoryBot.define do
 
     factory :adopter do
       after(:create) do |user, _context|
+        puts "factory after create user person: #{user.id} #{user.persisted?} #{Person.where(user_id: user.id).first}"
         user.add_role(:adopter, Current.organization)
-        # create(:form_submission, person: user.people.where(user_id: user.id).first)
         create(:form_submission, person: Person.where(user_id: user.id).first)
       end
     end

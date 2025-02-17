@@ -85,7 +85,7 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
 
   # TODO: We should consider removing this duplicated logic, so we don't have to do this.
   def assign_person_attributes(user)
-    person = user.person || user.build_person
+    person = user.person || user.people.build(organization: Current.organization) # user.build_person
     person.first_name = user.first_name
     person.last_name = user.last_name
     person.email = user.email

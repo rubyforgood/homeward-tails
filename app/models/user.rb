@@ -56,9 +56,10 @@ class User < ApplicationRecord
   has_many :organizations, through: :people
   accepts_nested_attributes_for :people
 
-  before_validation :ensure_person_exists, on: :create
+  # before_validation :ensure_person_exists, on: :create
 
   before_save :downcase_email
+  after_create :ensure_person_exists
 
   delegate :latest_form_submission, to: :person
 
@@ -94,10 +95,34 @@ class User < ApplicationRecord
     deactivated? ? :deactivated : super
   end
 
-  def ensure_person_exists
-    return if Person.find_by(user_id: id)
+  # TODO: revist this
+  def person
+    # Do not need to specify the Organization because Person
+    # is scoped to an Organization by ActAsTenant
+    people.where(user_id: id).first
+  end
 
-    people.build(first_name:, last_name:, email:, organization: Current.organization)
+  # TODO: Revisit
+  # Match by email and update user_id reference if exists
+  def ensure_person_exists
+    # debugger
+    exists = Person.where(email: email).any?
+
+    if exists
+      person = Person.where(email: email).first
+      person.user_id = id
+      person.save
+      puts "person with id: #{email} exists #{person}, #{person.id}, #{person.user_id}"
+    else
+      puts "person with id: #{id} not exist"
+    end
+
+    return if exists
+
+    # puts "ensure_person_exists create Person and associate with user"
+
+    person = people.create!(first_name:, last_name:, email:)
+    # puts "ensure_person_exists person #{person.user_id} #{person}"
   end
 
   def full_name(format = :default)

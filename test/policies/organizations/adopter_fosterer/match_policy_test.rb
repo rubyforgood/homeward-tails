@@ -15,6 +15,7 @@ class Organizations::AdopterFosterer::MatchPolicyTest < ActiveSupport::TestCase
   context "relation_scope" do
     setup do
       @user = create(:user)
+      user_person = @user.person
       @pet = create(:pet)
       @adopted_application = create(:adopter_application, person: @user.person, pet: @pet, status: :adoption_made)
       @match = create(:match, person: @user.person, pet: @pet, match_type: :adoption)
@@ -25,7 +26,8 @@ class Organizations::AdopterFosterer::MatchPolicyTest < ActiveSupport::TestCase
       @other_match = create(:match, person: @other_user.person, pet: @other_pet, match_type: :adoption)
 
       ActsAsTenant.with_tenant(create(:organization)) do
-        create(:match, person: @user.person, match_type: :adoption)
+        # TODO: Can't have the same person in different organizations
+        create(:match, person: user_person, match_type: :adoption)
       end
     end
 
