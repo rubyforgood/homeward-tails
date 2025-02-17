@@ -418,6 +418,8 @@ en:
           header: "Form Submissions"
           empty_state: "%{person_name} does not have any imported form data. If they have completed a third party form, please upload the data"
       fosterers:
+        index:
+          export_emails: "Export Emails"
         update:
           success: Fosterer was susccessfully updated
         edit:
@@ -623,7 +625,7 @@ en:
             empty_state: "No photos exist for this pet"
       custom_form:
         forms:
-          set_form: 
+          set_form:
             not_found: "Form not found."
           not_found: "Form not found."
           index:

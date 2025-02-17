@@ -37,6 +37,39 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
             get staff_fosterers_url
           end
         end
+
+        should "filter by email" do
+          create(:fosterer, email: "bob.cat@gmail.com")
+          create(:fosterer, email: "sally.cat@gmail.com")
+
+          get staff_fosterers_url, params: {q: {email_cont: "sally.cat@gmail.com"}}
+          assert_response :success
+
+          assert_equal 1, assigns[:fosterer_accounts].count
+          assert_not_includes assigns[:fosterer_accounts].map { |fosterer| fosterer.email }, "bob.cat@gmail.com"
+        end
+
+        should "filter by name" do
+          create(:fosterer, first_name: "Bob", last_name: "Cat")
+          create(:fosterer, first_name: "Sally", last_name: "Cat")
+          create(:fosterer, first_name: "Sally", last_name: "Smith")
+
+          get staff_fosterers_url, params: {q: {first_name_or_last_name_cont: "Sally"}}
+          assert_response :success
+
+          assert_equal 2, assigns[:fosterer_accounts].count
+          assert_not_includes assigns[:fosterer_accounts].map { |fosterer| fosterer.first_name }, "Bob"
+        end
+
+        should "generate CSV with fosterers' emails" do
+          fosterer = create(:fosterer)
+
+          get staff_fosterers_url, params: {format: :csv}
+
+          assert_response :success
+          assert_includes response.header["Content-Type"], "text/csv"
+          assert_includes response.body, fosterer.person.email
+        end
       end
     end
   end
