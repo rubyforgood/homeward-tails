@@ -7,9 +7,9 @@
   <% end %>
   <% c.with_body do %>
     <% if params[:q] %>
-      <%= link_to 'Export CSV', staff_fosterers_path(request.parameters.merge({format: 'csv'})), class: "btn btn-secondary mb-4" %>
+      <%= link_to t('.export_emails'), staff_fosterers_path(request.parameters.merge({format: 'csv'})), class: "btn btn-secondary mb-4", data: {turbo: false} %>
     <% else %>
-      <%= link_to "Export CSV", staff_fosterers_path(format: "csv"),
+      <%= link_to t('.export_emails'), staff_fosterers_path(format: "csv"),
         class: "btn btn-secondary mb-4"
       %>
     <% end %>
