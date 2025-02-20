@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_20_220629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -167,6 +167,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
     t.index ["organization_id"], name: "index_matches_on_organization_id"
     t.index ["person_id"], name: "index_matches_on_person_id"
     t.index ["pet_id"], name: "index_matches_on_pet_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text "notes"
+    t.string "notable_type", null: false
+    t.bigint "notable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable"
   end
 
   create_table "organizations", force: :cascade do |t|

@@ -39,6 +39,7 @@ class Person < ApplicationRecord
   has_many :matches # , dependent: :destroy
 
   has_one :user, dependent: :destroy
+  has_one :notes, as: :notable, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true
