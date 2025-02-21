@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       resources :adopters, only: %i[index]
       resources :staff_invitations, only: %i[new]
       resources :fosterer_invitations, only: %i[new]
+      resources :notes, only: %i[update]
       post "user_roles/:id/to_admin", to: "user_roles#to_admin", as: "user_to_admin"
       post "user_roles/:id/to_super_admin", to: "user_roles#to_super_admin", as: "user_to_super_admin"
 

@@ -2,7 +2,7 @@ require "test_helper"
 
 class NoteTest < ActiveSupport::TestCase
   def setup
-    @user = create(:adopter)
+    @user = create(:fosterer)
     @notable = @user.person
     @note = Note.new(notable: @notable, notes: "This is a test note")
   end
