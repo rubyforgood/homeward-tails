@@ -14,7 +14,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new with dashboard layout when signed in as staff" do
     user = create(:admin)
-    organization = user.organization
+    organization = Current.organization
     sign_in user
 
     get edit_user_registration_url(script_name: "/#{organization.slug}")
@@ -43,7 +43,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect to staff dashboard when updated" do
     user = create(:admin, password: "123456")
-    organization = user.organization
+    organization = Current.organization
     sign_in user
 
     updated_params = {user: {first_name: "Sean", current_password: "123456"}}
