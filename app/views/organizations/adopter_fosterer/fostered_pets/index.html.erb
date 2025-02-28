@@ -16,9 +16,9 @@
                             style: "width: 100%; height: 100%; object-fit: cover;"
                           ) %>
                     </div>
-                    <h3 class="card-title mb-0 flex-grow-1 text-center">
+                    <h4 class="card-title mb-0 flex-grow-1 text-center">
                       <%= fostered_pet.pet.name %>
-                    </h3>
+                    </h4>
                     <div class="fostered-dates d-flex flex-column text-start">
                       <div class="badge mb-2 <%= status_classes(fostered_pet.status) %>">
                         <%= fostered_pet.status.to_s.titleize %>
