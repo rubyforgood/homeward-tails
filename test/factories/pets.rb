@@ -49,11 +49,16 @@ FactoryBot.define do
     end
 
     trait :future_foster do
+      transient do
+        foster_person { create(:person) }
+      end
+
       matches {
         start = Time.current + rand(1..3).months
         [association(:match,
           pet: instance,
           match_type: :foster,
+          person: foster_person,
           start_date: start,
           end_date: start + rand(3..6).months)]
       }
