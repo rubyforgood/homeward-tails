@@ -37,7 +37,7 @@
     <!--//? bootstrap cards -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4 w-100 justify-content-center">
       <% @pets.each do |pet| %>
-        <%= link_to adoptable_pet_path(pet) do %>
+        <%= link_to adoptable_pet_path(pet), data: { turbo: "false" } do %>
           <div class="col">
             <div class="card featured-pets h-100 mt-4 mt-lg-0">
               <%= image_tag(pet.images.first, alt: pet.name, height: 275, style: "object-fit: cover;") %>
