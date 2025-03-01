@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_02_194147) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -191,8 +191,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "phone_number", limit: 15
+    t.bigint "user_id"
     t.index ["email"], name: "index_people_on_email"
     t.index ["organization_id"], name: "index_people_on_organization_id"
+    t.index ["user_id"], name: "index_people_on_user_id"
     t.check_constraint "phone_number::text ~ '^[+]?[0-9]*$'::text", name: "phone_number_valid_e164"
   end
 
@@ -278,7 +280,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "person_id", null: false
     t.datetime "deactivated_at"
     t.string "provider"
     t.string "uid"
@@ -287,7 +288,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["organization_id"], name: "index_users_on_organization_id"
-    t.index ["person_id"], name: "index_users_on_person_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -319,8 +319,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
   add_foreign_key "matches", "people"
   add_foreign_key "matches", "pets"
   add_foreign_key "people", "organizations"
+  add_foreign_key "people", "users"
   add_foreign_key "pets", "organizations"
   add_foreign_key "questions", "forms"
   add_foreign_key "tasks", "pets"
-  add_foreign_key "users", "people"
 end
