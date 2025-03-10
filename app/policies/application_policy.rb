@@ -28,19 +28,17 @@ class ApplicationPolicy < ActionPolicy::Base
   def organization
     return record if record.is_a?(Organization)
 
-    @organization || Current.organization # || record.organization
+    @organization || Current.organization
   end
 
   def verify_organization!
-    # deny! unless user.organization_id == organization.id
-    # TODO: should be verified via roles instead...
+    deny! unless Current.organization.present?
     true
   end
 
+  # TODO: verify user active
   def verify_active_staff!
-    # User no longer associated with an Organization
-    # also redundant with verify_organization??
-    deny! unless user.staff?(organization)
+    # deny! unless user.staff?(organization)
     deny! if user.deactivated?
   end
 

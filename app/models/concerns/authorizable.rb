@@ -84,7 +84,6 @@ module Authorizable
 
   def permissions
     roles.where(resource_id: Current.organization.id).reduce([]) do |permissions, role|
-      # roles.reduce([]) do |permissions, role|
       permissions.concat(PERMISSIONS.fetch(role.name.to_sym))
     end
   end

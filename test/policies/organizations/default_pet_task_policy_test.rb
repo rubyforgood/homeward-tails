@@ -55,7 +55,9 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
 
         context "when organization context is a different organization" do
           setup do
-            @organization = create(:organization)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:admin)
+            end
           end
 
           should "return false" do
@@ -87,7 +89,9 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
 
         context "when organization context is a different organization" do
           setup do
-            @organization = create(:organization)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:super_admin)
+            end
           end
 
           should "return false" do
@@ -174,13 +178,12 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
               @default_task = create(:default_pet_task)
+              @user = create(:admin)
             end
           end
 
           should "return false" do
-            # TODO: what should we do here?
-            # assert_equal false, @action.call
-            assert_equal true, @action.call
+            assert_equal false, @action.call
           end
         end
 
@@ -209,13 +212,14 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
         context "when default pet task belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @default_task = create(:default_pet_task)
+              # @default_task = create(:default_pet_task)
+              @user = create(:super_admin)
             end
           end
 
           # TODO: Should this be true now?
           should "return false" do
-            assert_equal true, @action.call
+            assert_equal false, @action.call
           end
         end
 

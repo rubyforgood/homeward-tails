@@ -9,7 +9,6 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
     authorize! AdopterApplication,
       context: {organization: Current.organization}
 
-    puts "Organizations::Staff::AdoptionApplicationReviewsController#index: "
     @q = authorized_scope(
       Pet.includes(adopter_applications: [:person])
       .where.not(adopter_applications: {id: nil}).references(:person)

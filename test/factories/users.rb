@@ -24,34 +24,33 @@ FactoryBot.define do
 
     factory :adopter do
       after(:create) do |user, _context|
-        puts "factory after create user person: #{user.id} #{user.persisted?} #{Person.where(user_id: user.id).first}"
-        user.add_role(:adopter, Current.organization)
+        user.add_role(:adopter, ActsAsTenant.current_tenant)
         create(:form_submission, person: Person.where(user_id: user.id).first)
       end
     end
 
     factory :fosterer do
       after(:build) do |user, _context|
-        user.add_role(:fosterer, Current.organization)
+        user.add_role(:fosterer, ActsAsTenant.current_tenant)
       end
     end
 
     factory :adopter_fosterer do
       after(:build) do |user, _context|
-        user.add_role(:adopter, Current.organization)
-        user.add_role(:fosterer, Current.organization)
+        user.add_role(:adopter, ActsAsTenant.current_tenant)
+        user.add_role(:fosterer, ActsAsTenant.current_tenant)
       end
     end
 
     factory :admin do
       after(:build) do |user, _context|
-        user.add_role(:admin, Current.organization)
+        user.add_role(:admin, ActsAsTenant.current_tenant)
       end
     end
 
     factory :super_admin do
       after(:build) do |user, _context|
-        user.add_role(:super_admin, Current.organization)
+        user.add_role(:super_admin, ActsAsTenant.current_tenant)
       end
     end
   end

@@ -16,18 +16,13 @@ class Organizations::Staff::UserRolesController < Organizations::BaseController
   end
 
   def to_super_admin
-    puts "1"
     if @user.change_role(:admin, :super_admin)
-      puts "2"
       respond_to do |format|
-        puts "3"
         format.html { redirect_to request.referrer, notice: t(".success") }
         format.turbo_stream { flash.now[:notice] = t(".success") }
       end
     else
-      puts "4"
       respond_to do |format|
-        puts "5"
         format.html { redirect_to request.referrer, alert: t(".error") }
         format.turbo_stream { flash.now[:alert] = t(".error") }
       end

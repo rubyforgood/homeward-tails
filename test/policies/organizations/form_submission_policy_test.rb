@@ -57,7 +57,9 @@ module Organizations
 
           context "when organization context is a different organization" do
             setup do
-              @organization = create(:organization)
+              ActsAsTenant.with_tenant(create(:organization)) do
+                @user = create(:admin)
+              end
             end
 
             should "return false" do
@@ -89,7 +91,9 @@ module Organizations
 
           context "when organization context is a different organization" do
             setup do
-              @organization = create(:organization)
+              ActsAsTenant.with_tenant(create(:organization)) do
+                @user = create(:super_admin)
+              end
             end
 
             should "return false" do
@@ -241,12 +245,10 @@ module Organizations
 
         context "when user is adopter" do
           setup do
-            puts "Setup start before create adopter"
             @user = create(:adopter)
           end
 
           should "return false" do
-            puts "Test start"
             assert_equal false, @action.call
           end
         end
