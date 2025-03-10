@@ -55,7 +55,9 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
 
         context "when organization context is a different organization" do
           setup do
-            @organization = create(:organization)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:admin)
+            end
           end
 
           should "return false" do
@@ -87,7 +89,9 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
 
         context "when organization context is a different organization" do
           setup do
-            @organization = create(:organization)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:super_admin)
+            end
           end
 
           should "return false" do
@@ -174,6 +178,7 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
               @default_task = create(:default_pet_task)
+              @user = create(:admin)
             end
           end
 
@@ -207,7 +212,7 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
         context "when default pet task belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @default_task = create(:default_pet_task)
+              @user = create(:super_admin)
             end
           end
 
