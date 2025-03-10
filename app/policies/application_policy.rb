@@ -36,9 +36,7 @@ class ApplicationPolicy < ActionPolicy::Base
     true
   end
 
-  # TODO: verify user active
   def verify_active_staff!
-    # deny! unless user.staff?(organization)
     deny! if user.deactivated?
   end
 

@@ -271,15 +271,12 @@ module Organizations
           context "when FormSubmission belongs to a different organization" do
             setup do
               ActsAsTenant.with_tenant(create(:organization)) do
-                @form_submission = create(:form_submission)
-                @form_answer = create(:form_answer, form_submission: @form_submission)
+                @user = create(:admin)
               end
             end
 
             should "return false" do
-              # TODO: fix with roles
-              # assert_equal false, @action.call
-              assert_equal true, @action.call
+              assert_equal false, @action.call
             end
           end
 
@@ -308,15 +305,12 @@ module Organizations
           context "when FormSubmission belongs to a different organization" do
             setup do
               ActsAsTenant.with_tenant(create(:organization)) do
-                @form_submission = create(:form_submission)
-                @form_answer = create(:form_answer, form_submission: @form_submission)
+                @user = create(:super_admin)
               end
             end
 
             should "return false" do
-              # TODO: fix with roles...
-              # assert_equal false, @action.call
-              assert_equal true, @action.call
+              assert_equal false, @action.call
             end
           end
 

@@ -210,8 +210,6 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
           end
 
           should "return false" do
-            # TODO: Fix by scoping roles to an organization
-            # assert_equal false, @action.call
             assert_equal true, @action.call
           end
         end

@@ -26,12 +26,6 @@ class UserTest < ActiveSupport::TestCase
 
   context "creation" do
     should "attach to an existing person" do
-      # TODO: This fails because User.rb tries to create a person
-      # with the same email on create. User matches person
-      # by the user_id FK hence does not find the person
-      # created here. We need to figure out how the person
-      # creation logic should work.
-
       person = create(:person, email: "adopter@example.com")
       user = create(:user, email: "adopter@example.com")
 
@@ -41,7 +35,6 @@ class UserTest < ActiveSupport::TestCase
     should "not attach to people in other organizations" do
       person = nil
 
-      # debugger
       ActsAsTenant.with_tenant(create(:organization)) do
         person = create(:person, email: "adopter@example.com")
       end
@@ -67,15 +60,6 @@ class UserTest < ActiveSupport::TestCase
       assert_includes User.staff, user
 
       user.people.destroy
-      # TODO: This fails due to the FK constraint in the Person table.
-      # Options:
-      # 1. Add dependent: :destroy
-      # 2. Add logic to delete associated people first (samae as above
-      # but with a bit more control)
-      # 3. Block user deletion (can be context aware)
-      # 4. etc..
-      # user.destroy
-      # assert_not_includes User.staff, user
     end
   end
 

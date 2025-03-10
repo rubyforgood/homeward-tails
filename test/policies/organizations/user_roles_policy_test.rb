@@ -59,17 +59,15 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
         @user = create(:super_admin)
       end
 
-      # TODO: Are these tests still valid?
       context "when account belongs to a different organization" do
         setup do
           ActsAsTenant.with_tenant(create(:organization)) do
-            @account = create(:admin)
+            @user = create(:super_admin)
           end
         end
 
-        should "return true" do
-          # assert_equal false, @action.call
-          assert_equal true, @action.call
+        should "return false" do
+          assert_equal false, @action.call
         end
       end
 

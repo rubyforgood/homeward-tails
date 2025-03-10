@@ -113,13 +113,13 @@ class Organizations::LikePolicyTest < ActiveSupport::TestCase
 
       context "when pet does not belong to same org as adopter" do
         setup do
-          @user = create(:adopter)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:adopter)
+          end
         end
 
         should "return false" do
-          # TODO: fix by scoping roles to an organization
-          # assert_equal false, @action.call
-          assert_equal true, @action.call
+          assert_equal false, @action.call
         end
       end
 
@@ -196,13 +196,13 @@ class Organizations::LikePolicyTest < ActiveSupport::TestCase
 
       context "when pet does not belong to same org as adopter" do
         setup do
-          @user = create(:adopter)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:adopter)
+          end
         end
 
         should "return false" do
-          # TODO: fix by scoping roles to an org
-          # assert_equal false, @action.call
-          assert_equal true, @action.call
+          assert_equal false, @action.call
         end
       end
 

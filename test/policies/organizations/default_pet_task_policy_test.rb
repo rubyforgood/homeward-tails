@@ -212,12 +212,10 @@ class Organizations::DefaultPetTaskPolicyTest < ActiveSupport::TestCase
         context "when default pet task belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              # @default_task = create(:default_pet_task)
               @user = create(:super_admin)
             end
           end
 
-          # TODO: Should this be true now?
           should "return false" do
             assert_equal false, @action.call
           end

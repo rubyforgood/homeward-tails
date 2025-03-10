@@ -26,7 +26,6 @@ class Organizations::AdopterFosterer::MatchPolicyTest < ActiveSupport::TestCase
       @other_match = create(:match, person: @other_user.person, pet: @other_pet, match_type: :adoption)
 
       ActsAsTenant.with_tenant(create(:organization)) do
-        # TODO: Can't have the same person in different organizations
         create(:match, person: user_person, match_type: :adoption)
       end
     end

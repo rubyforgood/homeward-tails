@@ -166,16 +166,13 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
         context "when pet is from a different organization" do
           setup do
-            @other_organization = create(:organization)
-            ActsAsTenant.with_tenant(@other_organization) do
-              @pet = create(:pet)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:super_admin)
             end
           end
 
           should "return false" do
-            # TODO: scope role to organization
-            # assert_equal false, @action.call
-            assert_equal true, @action.call
+            assert_equal false, @action.call
           end
         end
 

@@ -5,7 +5,6 @@ class Organizations::DefaultPetTaskPolicy < ApplicationPolicy
   alias_rule :new?, :create?, :index?, to: :manage?
 
   def manage?
-    # debugger
     permission?(:manage_default_pet_tasks)
   end
 end

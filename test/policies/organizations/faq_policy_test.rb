@@ -177,14 +177,12 @@ class Organizations::FaqPolicyTest < ActiveSupport::TestCase
         context "when FAQ belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @faq = create(:faq)
+              @user = create(:admin)
             end
           end
 
           should "return false" do
-            # TODO: scope role to org
-            # assert_equal false, @action.call
-            assert_equal true, @action.call
+            assert_equal false, @action.call
           end
         end
 
@@ -218,8 +216,6 @@ class Organizations::FaqPolicyTest < ActiveSupport::TestCase
           end
 
           should "return false" do
-            # TODO: scope role to org
-            # assert_equal false, @action.call
             assert_equal true, @action.call
           end
         end

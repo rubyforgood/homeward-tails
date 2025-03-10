@@ -286,7 +286,7 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
         post staff_pets_path, params:
         {
           "pet" => {
-            "organization_id" => Current.organization.id.to_s, # @user.organization.id.to_s,
+            "organization_id" => Current.organization.id.to_s,
             "name" => "Test",
             "birth_date(1i)" => "2023",
             "birth_date(2i)" => "12",

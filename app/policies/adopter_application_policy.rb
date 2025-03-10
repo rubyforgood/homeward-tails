@@ -21,7 +21,6 @@ class AdopterApplicationPolicy < ApplicationPolicy
   private
 
   def applicant?
-    # user.person_id == record.person.id
     user.person.id == record.person.id
   end
 

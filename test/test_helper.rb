@@ -40,11 +40,6 @@ class ActiveSupport::TestCase
     # for tests that don't execute the full request stack
     # where this would be set by the middleware.
     # E.g. form_submission_policy_test.rb
-    #
-    # Needed because application_policy.verify_organization!
-    # relys on user.organization whic not longer exists. This
-    # now needs to be checked via a role while requires the
-    # orgnaization to be set in the current context.
     if organization
       Current.organization = organization
     end
@@ -58,8 +53,6 @@ class ActiveSupport::TestCase
     end
 
     set_organization(ActsAsTenant.current_tenant)
-    # Does the middleware get called for tests?
-    # Current.organization = ActsAsTenant.current_tenant
   end
 
   def teardown
