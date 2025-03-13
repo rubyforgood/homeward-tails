@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :adopter_application do
-    notes { Faker::Lorem.paragraph }
     profile_show { true }
     status { 1 }
     association :person
