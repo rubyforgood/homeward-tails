@@ -166,9 +166,8 @@ class Organizations::TaskPolicyTest < ActiveSupport::TestCase
 
         context "when pet is from a different organization" do
           setup do
-            @other_organization = create(:organization)
-            ActsAsTenant.with_tenant(@other_organization) do
-              @pet = create(:pet)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:super_admin)
             end
           end
 

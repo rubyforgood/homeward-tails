@@ -35,6 +35,14 @@ class ActiveSupport::TestCase
     else
       ""
     end
+
+    # Need to set the organization in the Current context
+    # for tests that don't execute the full request stack
+    # where this would be set by the middleware.
+    # E.g. form_submission_policy_test.rb
+    if organization
+      Current.organization = organization
+    end
   end
 
   setup do |test|

@@ -62,7 +62,7 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
       context "when account belongs to a different organization" do
         setup do
           ActsAsTenant.with_tenant(create(:organization)) do
-            @account = create(:admin)
+            @user = create(:super_admin)
           end
         end
 

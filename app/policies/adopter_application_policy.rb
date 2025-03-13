@@ -3,7 +3,7 @@ class AdopterApplicationPolicy < ApplicationPolicy
   pre_check :verify_pet_appliable!, only: %i[create?]
 
   relation_scope do |relation|
-    relation.where(person_id: user.person.id)
+    relation.where(person_id: user.person) # Person.where(user_id: user.id).first)
   end
 
   def update?
@@ -21,7 +21,7 @@ class AdopterApplicationPolicy < ApplicationPolicy
   private
 
   def applicant?
-    user.person_id == record.person.id
+    user.person.id == record.person.id
   end
 
   def already_applied?

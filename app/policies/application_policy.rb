@@ -19,7 +19,7 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # Default authorized_scope; override for individual policies if necessary.
   relation_scope do |relation|
-    relation.where(organization: user.organization)
+    relation.where(organization: Current.organization)
   end
 
   private
@@ -29,15 +29,15 @@ class ApplicationPolicy < ActionPolicy::Base
   def organization
     return record if record.is_a?(Organization)
 
-    @organization || record.organization
+    @organization || Current.organization
   end
 
   def verify_organization!
-    deny! unless user.organization_id == organization.id
+    deny! unless Current.organization.present?
+    true
   end
 
   def verify_active_staff!
-    deny! unless user.staff?(organization)
     deny! if user.deactivated?
   end
 

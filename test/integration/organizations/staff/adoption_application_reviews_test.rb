@@ -12,9 +12,9 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
 
     # Setup for show view tests
-    @form_submission = create(:form_submission, person: @adopter.person)
+    @form_submission = create(:form_submission, person: Person.where(user_id: @adopter.id).first)
     @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
-    @adopter_application = create(:adopter_application, person: @adopter.person)
+    @adopter_application = create(:adopter_application, person: Person.where(user_id: @adopter.id).first)
   end
 
   context "non-staff" do

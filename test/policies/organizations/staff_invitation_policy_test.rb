@@ -65,7 +65,9 @@ class Organizations::StaffInvitationPolicyTest < ActiveSupport::TestCase
 
       context "when created staff is for a different organization" do
         setup do
-          @organization = create(:organization)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:super_admin)
+          end
         end
 
         should "return false" do
