@@ -267,7 +267,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   10.times do
     adopter_application = AdopterApplication.new(
-      notes: Faker::Lorem.paragraph,
       profile_show: true,
       status: rand(0..4),
       pet: Pet.all.sample,

@@ -55,8 +55,13 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     end
 
     should "be able to add a note to an application" do
-      patch staff_adoption_application_review_path(@under_review_app.id),
-        params: {adopter_application: {notes: "some notes"}},
+      patch staff_note_path,
+        params: {
+          notes: "some notes",
+          notable_id: @under_review_app.id,
+          notable_type: @under_review_app.class.name,
+          context: "default"
+        },
         headers: {"HTTP_REFERER" => "example.com"}
 
       assert_response :redirect
