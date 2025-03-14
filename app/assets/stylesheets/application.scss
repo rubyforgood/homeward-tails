@@ -1,13 +1,14 @@
+@use "sass:meta";
 // Bootstrap (https://getbootstrap.com/)
 // @import "bootstrap"; - Not needed since theme.min.css is already a compiled version of bootstrap
 // with the theme we use.
-@import "rails_bootstrap_forms";
+@import "rails_bootstrap_forms.css";
 
 // Geek theme (https://geeksui.codescandy.com/)
 // @import 'theme.min.scss';
 
 // Custom Styling
-@import 'custom';
+@include meta.load-css('custom');
 
 
 
