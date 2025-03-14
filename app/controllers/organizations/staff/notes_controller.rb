@@ -27,12 +27,20 @@ module Organizations
         notable_type = params[:notable_type]
         notable_id = params[:notable_id]
 
-        if notable_type.present? && notable_id.present?
-          klass = notable_type.constantize
-          @notable = klass.find(notable_id)
-        else
-          raise ActionController::ParameterMissing, "Missing notable_type or notable_id parameters"
+        if notable_type.blank? || notable_id.blank?
+          raise ActionController::ParameterMissing.new("Missing notable_type or notable_id parameters")
         end
+
+        case notable_type
+        when "AdopterApplication"
+          @notable = AdopterApplication.find(notable_id)
+        when "Person"
+          @notable = Person.find(notable_id)
+        else
+          raise ActionController::BadRequest.new("Invalid notable_type parameter")
+        end
+      rescue ActiveRecord::RecordNotFound
+        raise ActionController::BadRequest.new("Resource not found")
       end
 
       def note_params
