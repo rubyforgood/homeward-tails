@@ -11,9 +11,8 @@ class Organizations::Staff::UserRolesControllerTest < ActionDispatch::Integratio
       sign_in user
       @account = create(:admin)
     end
-=begin # standard:disable Style/BlockComments
-    context "#to_admin" do
 
+    context "#to_admin" do
       should "be authorized" do
         assert_authorized_to(
           :change_role?, @account,
@@ -36,7 +35,6 @@ class Organizations::Staff::UserRolesControllerTest < ActionDispatch::Integratio
         end
       end
     end
-=end
   end
   teardown do
     :after_teardown

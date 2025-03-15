@@ -211,12 +211,12 @@ class Organizations::FaqPolicyTest < ActiveSupport::TestCase
         context "when FAQ belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @faq = create(:faq)
+              @user = create(:super_admin)
             end
           end
 
           should "return false" do
-            assert_equal true, @action.call
+            assert_equal false, @action.call
           end
         end
 
