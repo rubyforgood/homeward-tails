@@ -59,7 +59,9 @@ class UserTest < ActiveSupport::TestCase
       user = create(:admin)
       assert_includes User.staff, user
 
-      user.people.destroy
+      user.people.destroy_all
+      user.destroy
+      assert_not_includes User.staff, user
     end
   end
 
