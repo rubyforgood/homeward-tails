@@ -51,7 +51,9 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
       context "when organization context is a different organization" do
         setup do
-          @organization = create(:organization)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:admin)
+          end
         end
 
         should "return false" do
@@ -83,7 +85,9 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
       context "when organization context is a different organization" do
         setup do
-          @organization = create(:organization)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:super_admin)
+          end
         end
 
         should "return false" do
@@ -146,7 +150,7 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
       context "when match belongs to a different organization" do
         setup do
           ActsAsTenant.with_tenant(create(:organization)) do
-            @match = create(:match, match_type: :adoption)
+            @user = create(:admin)
           end
         end
 
@@ -180,7 +184,7 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
       context "when match belongs to a different organization" do
         setup do
           ActsAsTenant.with_tenant(create(:organization)) do
-            @match = create(:match, match_type: :adoption)
+            @user = create(:super_admin)
           end
         end
 

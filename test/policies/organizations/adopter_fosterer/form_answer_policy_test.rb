@@ -17,11 +17,11 @@ module Organizations
       context "relation_scope" do
         setup do
           @user = create(:user)
-          @form_submission_one = create(:form_submission, person: @user.person)
+          @form_submission_one = create(:form_submission, person: @user.people.where(user_id: @user.id).first)
           @form_answer_one = create(:form_answer, form_submission: @form_submission_one)
 
           @user_two = create(:user)
-          @form_submission_two = create(:form_submission, person: @user_two.person)
+          @form_submission_two = create(:form_submission, person: @user_two.people.where(user_id: @user_two.id).first)
           @form_answer_two = create(:form_answer, form_submission: @form_submission_two)
         end
 
