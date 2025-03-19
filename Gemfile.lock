@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    action_policy (0.7.3)
+    action_policy (0.7.4)
       ruby-next-core (>= 1.0)
     actioncable (8.0.2)
       actionpack (= 8.0.2)
@@ -508,7 +508,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.72.1, < 2.0)
       rubocop-ast (>= 1.38.0, < 2.0)
-    ruby-next-core (1.0.3)
+    ruby-next-core (1.1.1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     sass-embedded (1.83.0)
@@ -617,7 +617,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  action_policy (~> 0.7.3)
+  action_policy (~> 0.7.4)
   active_link_to
   active_storage_validations
   acts_as_tenant
