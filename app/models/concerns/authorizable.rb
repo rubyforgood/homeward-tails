@@ -59,6 +59,7 @@ module Authorizable
       manage_faqs
       activate_adopter
       activate_foster
+      manage_notes
     ]
   ).freeze
 
