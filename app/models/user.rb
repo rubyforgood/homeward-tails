@@ -94,6 +94,7 @@ class User < ApplicationRecord
   end
 
   def ensure_person_exists
+    # TODO: Association should be by ID not email: exists = Person.where(user_id: id).any?
     exists = Person.where(email: email).any?
     if exists
       person = Person.where(email: email).first
