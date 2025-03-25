@@ -7,7 +7,7 @@ class UserTest < ActiveSupport::TestCase
   include AvatarableSharedTests
 
   context "associations" do
-    should belong_to(:person).required(false)
+    should have_many(:people)
   end
 
   context "validations" do
@@ -59,6 +59,7 @@ class UserTest < ActiveSupport::TestCase
       user = create(:admin)
       assert_includes User.staff, user
 
+      user.people.destroy_all
       user.destroy
       assert_not_includes User.staff, user
     end

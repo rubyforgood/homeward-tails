@@ -5,7 +5,6 @@ module Organizations
   class CsvImportServiceTest < ActiveSupport::TestCase
     setup do
       @adopter = create(:adopter)
-      Current.organization = @adopter.organization
 
       @file = Tempfile.new(["test", ".csv"])
 

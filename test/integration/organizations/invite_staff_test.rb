@@ -16,6 +16,7 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
   end
 
   test "staff admin can invite other staffs to the organization" do
+    current_organization = Current.organization
     post(
       user_invitation_path,
       params: @user_invitation_params
@@ -26,7 +27,7 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
     invited_user = User.find_by(email: "john@example.com")
 
     assert invited_user.invited_to_sign_up?
-    assert invited_user.has_role?(:super_admin, invited_user.organization)
+    assert invited_user.has_role?(:super_admin, current_organization)
     assert_not invited_user.deactivated?
 
     assert_equal 1, ActionMailer::Base.deliveries.count
