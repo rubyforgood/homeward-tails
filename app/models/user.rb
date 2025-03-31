@@ -89,6 +89,8 @@ class User < ApplicationRecord
   end
 
   def person
+    raise StandardError, "Organization not set" unless Current.organization
+
     ActsAsTenant.with_tenant(Current.organization) do
       people.where(user_id: id).first
     end
