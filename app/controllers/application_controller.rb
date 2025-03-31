@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   verify_authorized unless: :devise_controller?
   before_action :set_current_user
-  before_action :set_current_person
+  before_action :verify_and_set_current_person
   around_action :switch_locale
 
   KNOWN_ERRORS = [ActionPolicy::Unauthorized]
@@ -17,8 +17,14 @@ class ApplicationController < ActionController::Base
     Current.user = current_user
   end
 
-  def set_current_person
-    Current.person = current_user&.person if Current.organization
+  def verify_and_set_current_person
+    if Current.organization && Current.user
+      if !Current.user.person
+        redirect_to new_staff_person_path, alert: "Please join this organization" # t("errors.person_not_found")
+      else
+        Current.person = Current.user.person
+      end
+    end
   end
 
   def switch_locale(&action)

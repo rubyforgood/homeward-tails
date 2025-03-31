@@ -3,6 +3,7 @@ module Organizations
     include ::Pagy::Backend
 
     skip_before_action :authenticate_user!
+    skip_before_action :verify_and_set_current_person
     skip_verify_authorized only: %i[index show]
     before_action :set_likes, only: %i[index show],
       if: -> { allowed_to?(:index?, Like) }

@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: {scope: :organization_id}, format: {
+  validates :email, presence: true, uniqueness: true, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
   validate :prevent_email_change, on: :update
@@ -56,7 +56,6 @@ class User < ApplicationRecord
   has_many :organizations, through: :people
   accepts_nested_attributes_for :people
   before_save :downcase_email
-  after_create :ensure_person_exists
   delegate :latest_form_submission, to: :person
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
@@ -90,20 +89,9 @@ class User < ApplicationRecord
   end
 
   def person
-    people.where(user_id: id).first
-  end
-
-  def ensure_person_exists
-    # TODO: Association should be by ID not email: exists = Person.where(user_id: id).any?
-    exists = Person.where(email: email).any?
-    if exists
-      person = Person.where(email: email).first
-      person.user_id = id
-      person.save
-      return
+    ActsAsTenant.with_tenant(Current.organization) do
+      people.where(user_id: id).first
     end
-
-    people.create!(first_name:, last_name:, email:)
   end
 
   def full_name(format = :default)

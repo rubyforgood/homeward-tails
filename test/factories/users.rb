@@ -8,6 +8,10 @@ FactoryBot.define do
     tos_agreement { true }
     deactivated_at { nil }
 
+    after(:create) do |user, _context|
+      create(:person, user: user, first_name: user.first_name, last_name: user.last_name, email: user.email, user_id: user.id)
+    end
+
     trait :with_avatar do
       after(:build) do |user|
         user.avatar.attach(

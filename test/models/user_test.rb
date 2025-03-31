@@ -25,13 +25,6 @@ class UserTest < ActiveSupport::TestCase
   end
 
   context "creation" do
-    should "attach to an existing person" do
-      person = create(:person, email: "adopter@example.com")
-      user = create(:user, email: "adopter@example.com")
-
-      assert_equal person, user.person
-    end
-
     should "not attach to people in other organizations" do
       person = nil
 

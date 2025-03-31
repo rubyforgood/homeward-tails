@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :verify_and_set_current_person
   skip_verify_authorized only: %i[new create]
 
   def new

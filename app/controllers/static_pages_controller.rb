@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :verify_and_set_current_person
   skip_verify_authorized only: %i[about_us cookie_policy donate partners
     privacy_policy terms_and_conditions]
 

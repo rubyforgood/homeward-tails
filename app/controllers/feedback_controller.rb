@@ -2,6 +2,7 @@ class FeedbackController < ApplicationController
   include OrganizationScopable
 
   skip_before_action :authenticate_user!
+  skip_before_action :verify_and_set_current_person
   skip_verify_authorized only: %i[new create]
   layout :set_layout, only: %i[new]
 

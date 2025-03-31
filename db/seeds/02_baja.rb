@@ -25,7 +25,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @staff_one = Person.create!(
@@ -34,7 +33,6 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Peters",
     user_id: @user_staff_one.id
   )
-=end
 
   @user_staff_one.add_role(:super_admin, @organization)
 
@@ -47,7 +45,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @staff_two = Person.create!(
@@ -56,7 +53,6 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Peterson",
     user_id: @user_staff_two.id
   )
-=end
 
   @user_staff_two.add_role(:super_admin, @organization)
 
@@ -69,7 +65,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @adopter_one = Person.create!(
@@ -78,7 +73,7 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Brando",
     user_id: @user_adopter_one.id
   )
-=end
+
   @adopter_one = Person.where(email: "adopter1@baja.com").first
 
   @user_adopter_one.add_role(:adopter, @organization)
@@ -92,7 +87,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @adopter_two = Person.create!(
@@ -101,7 +95,6 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Lolsworth",
     user_id: @user_adopter_two.id
   )
-=end
 
   @user_adopter_two.add_role(:adopter, @organization)
 
@@ -114,7 +107,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @adopter_three = Person.create!(
@@ -123,7 +115,6 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Address",
     user_id: @user_adopter_three.id
   )
-=end
 
   @user_adopter_three.add_role(:adopter, @organization)
 
@@ -136,7 +127,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @fosterer_one = Person.create!(
@@ -145,7 +135,7 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Petrikov",
     user_id: @user_fosterer_one.id
   )
-=end
+
   @fosterer_one = Person.where(email: "fosterer1@baja.com").first
 
   @user_fosterer_one.add_role(:adopter, @organization)
@@ -160,7 +150,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-=begin
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
   @fosterer_two = Person.create!(
@@ -169,7 +158,7 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Mertens",
     user_id: @user_fosterer_two.id
   )
-=end
+
   @fosterer_two = Person.where(email: "fosterer2@baja.com").first
 
   @user_fosterer_two.add_role(:adopter, @organization)
