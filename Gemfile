@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.0.2"
 
 # Used to deploy to production
 gem "kamal"
@@ -104,7 +104,7 @@ gem "ransack"
 gem "rails-controller-testing"
 
 # Use Action Policy for authorization framework
-gem "action_policy", "~> 0.7.3"
+gem "action_policy", "~> 0.7.4"
 
 # Use ViewComponent for our presenter pattern framework
 gem "view_component", "~> 3.21"
