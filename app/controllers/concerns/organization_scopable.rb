@@ -4,6 +4,7 @@ module OrganizationScopable
   included do
     set_current_tenant_through_filter
     before_action :set_tenant
+    before_action :verify_and_set_current_person
   end
 
   def set_tenant
@@ -11,6 +12,16 @@ module OrganizationScopable
       redirect_to root_path, alert: t("general.organization_not_found")
     else
       set_current_tenant(Current.organization)
+    end
+  end
+
+  def verify_and_set_current_person
+    if Current.user
+      if !Current.user.person
+        redirect_to new_staff_person_path, alert: "Please join this organization" # t("errors.person_not_found")
+      else
+        Current.person = Current.user.person
+      end
     end
   end
 

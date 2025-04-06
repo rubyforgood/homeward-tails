@@ -4,7 +4,6 @@
   </button>
 
   <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton" >
-    <!-- TODO: How to hanlde this? -->
     <% if staff.has_role?(:super_admin, Current.organization)%>
       <%= button_to "Admin", staff_user_to_admin_path(staff), class:
       "dropdown-item" %>

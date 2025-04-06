@@ -6,15 +6,15 @@
                             value: current_user.id %>
 
        <div class='form-group'>
-        <%= form.text_field :email, value: Current.user.email, readonly: true, class: 'form-control' %>
+        <%= form.text_field :email, value: current_user.email, readonly: true, class: 'form-control' %>
       </div>
 
       <div class='form-group'>
-        <%= form.text_field :first_name, value: Current.user.first_name, class: 'form-control' %>
+        <%= form.text_field :first_name, value: current_user.first_name, class: 'form-control' %>
       </div>
 
       <div class='form-group'>
-        <%= form.text_field :last_name, value: Current.user.last_name, class: 'form-control' %>
+        <%= form.text_field :last_name, value: current_user.last_name, class: 'form-control' %>
       </div>
 
       <div class='form-group'>

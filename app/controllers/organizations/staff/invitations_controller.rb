@@ -22,12 +22,11 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
       # for this organization.
       # TODO: The user should probably get an email letting them know they
       # were added to a new organization.
-      if User.where(email: user_params[:email]).any?
-        @user = User.find_by(email: user_params[:email])
+      @user = User.find_by(email: user_params[:email])
+      if @user.present?
         if !@user.has_role?(user_params[:roles], Current.organization)
           @user.add_role(user_params[:roles], Current.organization)
-          redirect_to staff_staff_index_path, notice: t(".success")
-          return
+          redirect_to staff_staff_index_path, notice: t(".success"); return
         end
       end
 
@@ -98,7 +97,7 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
   end
 
   def create_person(user)
-    unless (Person.where(email: user.email).any?)
+    unless (Person.exists?(email: user.email))
       Person.create!(user_id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email)
     end
   end

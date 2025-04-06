@@ -92,7 +92,7 @@ class User < ApplicationRecord
     raise StandardError, "Organization not set" unless Current.organization
 
     ActsAsTenant.with_tenant(Current.organization) do
-      people.where(user_id: id).first
+      people.find_by(user_id: id)
     end
   end
 

@@ -1,6 +1,5 @@
 class Organizations::AdopterFosterer::LikesController < Organizations::BaseController
   before_action :authenticate_user!
-  before_action :verify_and_set_current_person
   before_action :set_pet, only: [:create]
   before_action :set_like, only: [:destroy]
   layout "adopter_foster_dashboard", only: :index
