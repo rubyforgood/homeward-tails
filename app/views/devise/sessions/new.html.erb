@@ -18,9 +18,7 @@
             <h1 class="mb-1 fw-bold">Log in</h1>
             <span>Don’t have an account? <%= link_to "Sign up", new_user_registration_path, class: 'small fw-bold' %></span>
           </div>
-          <div class="gap-3 mb-4">
-            <div class="position-relative mt-4">
-            </div>
+          <div class="d-grid gap-3 mb-4">
             <%= link_to user_google_oauth2_omniauth_authorize_path, 
               method: :post, 
               data: { turbo: 'false' },
@@ -29,6 +27,12 @@
               <%= image_tag "google.svg", size: "20x20", alt: "Google" %>
               Continue with Google
             <% end %>
+            <div class="position-relative mt-4">
+              <hr class="bg-gray-300">
+                <p class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">
+                  or
+                </p>
+            </div>
           </div>
 
           <div>
