@@ -18,6 +18,18 @@
             <h1 class="mb-1 fw-bold">Log in</h1>
             <span>Don’t have an account? <%= link_to "Sign up", new_user_registration_path, class: 'small fw-bold' %></span>
           </div>
+          <div class="gap-3 mb-4">
+            <div class="position-relative mt-4">
+            </div>
+            <%= link_to user_google_oauth2_omniauth_authorize_path, 
+              method: :post, 
+              data: { turbo: 'false' },
+              class: "btn border w-100 d-flex align-items-center justify-content-center gap-2",
+              onclick: "this.innerHTML='<span class=\"spinner-border spinner-border-sm me-2\" role=\"status\" aria-hidden=\"true\"></span>Signing in...'" do %>
+              <%= image_tag "google.svg", size: "20x20", alt: "Google" %>
+              Continue with Google
+            <% end %>
+          </div>
 
           <div>
             <% if flash[:alert] %>
@@ -45,23 +57,6 @@
                 <%= f.submit "Log in", class: 'btn btn-primary' %>
                
               </div>
-            </div>
-
-            <div class="d-grid gap-3 mb-4">
-              <div class="position-relative mt-4">
-                <hr class="bg-gray-300">
-                <p class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">
-                  or
-                </p>
-              </div>
-              <%= link_to user_google_oauth2_omniauth_authorize_path, 
-                method: :post, 
-                data: { turbo: 'false' },
-                class: "btn border w-100 d-flex align-items-center justify-content-center gap-2",
-                onclick: "this.innerHTML='<span class=\"spinner-border spinner-border-sm me-2\" role=\"status\" aria-hidden=\"true\"></span>Signing in...'" do %>
-                <%= image_tag "google.svg", size: "20x20", alt: "Google" %>
-                Continue with Google
-              <% end %>
             </div>
           <% end %>
         </div>
