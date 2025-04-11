@@ -17,6 +17,8 @@
             <h1 class="mb-1 fw-bold">Sign up</h1>
           </div>
 
+          <%= render "devise/shared/google_oauth_button" %>
+
           <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <div class="form-group mb-3 bigger">
               <%= f.email_field :email,
