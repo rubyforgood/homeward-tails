@@ -16,8 +16,8 @@
       <%= render 'organizations/staff/pets/tabs/partials/application_create_button', app: app %>
     </li>
 
-    <li class="list-group-item">
-      <%= render 'organizations/staff/pets/tabs/partials/application_notes', app: app, modal_id: 'card' %>
+    <li class="list-group-item" id="<%= dom_id(app, :notes) %>"%>
+      <%= render 'organizations/staff/shared/notes', notable: app, modal_id: 'card', context: 'applications' %>
     </li>
   </ul>
 </div>
