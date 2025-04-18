@@ -25,7 +25,6 @@
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
 #  organization_id        :bigint
-#  person_id              :bigint           not null
 #
 # Indexes
 #
@@ -34,12 +33,7 @@
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
 #  index_users_on_organization_id       (organization_id)
-#  index_users_on_person_id             (person_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (person_id => people.id)
 #
 class User < ApplicationRecord
   include Avatarable
@@ -47,36 +41,20 @@ class User < ApplicationRecord
   include RoleChangeable
   include Omniauthable
 
-  acts_as_tenant(:organization)
-  default_scope do
-    #
-    # Used as a extra measure to scope down the options for devise
-    # when the Current.organization is set
-    #
-    if Current.organization
-      where(organization_id: Current.organization&.id)
-    else
-      all
-    end
-  end
-
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: {scope: :organization_id}, format: {
+  validates :email, presence: true, uniqueness: true, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
   validate :prevent_email_change, on: :update
   validates :tos_agreement, acceptance: true
 
-  belongs_to :person
-  accepts_nested_attributes_for :person
-
-  before_validation :ensure_person_exists, on: :create
-
+  has_many :people
+  has_many :organizations, through: :people
+  accepts_nested_attributes_for :people
   before_save :downcase_email
-
   delegate :latest_form_submission, to: :person
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
@@ -85,7 +63,7 @@ class User < ApplicationRecord
   end
 
   def self.staff
-    joins(:roles).where(roles: {name: %i[admin super_admin]})
+    joins(:roles).where(roles: {name: %i[admin super_admin], resource_id: Current.organization.id})
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -109,15 +87,11 @@ class User < ApplicationRecord
     deactivated? ? :deactivated : super
   end
 
-  def ensure_person_exists
-    return if person.present?
+  def person
+    raise StandardError, "Organization not set" unless Current.organization
 
-    existing = Person.find_by(organization: organization, email: email)
-
-    if existing
-      self.person = existing
-    else
-      build_person(first_name:, last_name:, email:, organization:)
+    ActsAsTenant.with_tenant(Current.organization) do
+      people.find_by(user_id: id)
     end
   end
 
