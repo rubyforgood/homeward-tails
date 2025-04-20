@@ -25,8 +25,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @staff_one = Person.create!(
     email: "staff@baja.com",
     first_name: "Andy",
@@ -45,8 +43,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @staff_two = Person.create!(
     email: "staff2@baja.com",
     first_name: "Randy",
@@ -65,8 +61,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @adopter_one = Person.create!(
     email: "adopter1@baja.com",
     first_name: "Joe",
@@ -87,8 +81,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @adopter_two = Person.create!(
     email: "adopter2@baja.com",
     first_name: "Kamala",
@@ -107,8 +99,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @adopter_three = Person.create!(
     email: "adopter3@baja.com",
     first_name: "Bad",
@@ -127,8 +117,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @fosterer_one = Person.create!(
     email: "fosterer1@baja.com",
     first_name: "Simon",
@@ -150,8 +138,6 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.
   @fosterer_two = Person.create!(
     email: "fosterer2@baja.com",
     first_name: "Finn",
