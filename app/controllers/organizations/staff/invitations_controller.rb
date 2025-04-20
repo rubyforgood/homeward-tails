@@ -26,7 +26,8 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
       if @user.present?
         if !@user.has_role?(user_params[:roles], Current.organization)
           @user.add_role(user_params[:roles], Current.organization)
-          redirect_to staff_staff_index_path, notice: t(".success"); return
+          redirect_to staff_staff_index_path, notice: t(".success")
+          return
         end
       end
 
@@ -97,7 +98,7 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
   end
 
   def create_person(user)
-    unless (Person.exists?(email: user.email))
+    unless Person.exists?(email: user.email)
       Person.create!(user_id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email)
     end
   end

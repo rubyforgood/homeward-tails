@@ -4,7 +4,7 @@ module Organizations
       skip_before_action :verify_and_set_current_person
       skip_verify_authorized only: %i[new create]
       before_action :validate_person_does_not_exist
-      
+
       def new
         @person = Person.new
       end
@@ -21,7 +21,7 @@ module Organizations
       end
 
       private
-      
+
       def validate_person_does_not_exist
         if Person.find_by(user_id: Current.user.id).present?
           flash[:notice] = "You are already a member of this organization."

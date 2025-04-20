@@ -16,7 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
     super do |resource|
       if resource.persisted?
         resource.add_role(:adopter, Current.organization)
-        unless (Person.exists?(email: resource.email))
+        unless Person.exists?(email: resource.email)
           Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name, email: resource.email)
         end
       end

@@ -44,7 +44,7 @@ class Person < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: {case_sensitive: false, scope: :organization_id}
-  validates :user_id, uniqueness: { scope: :organization_id }, allow_nil: true
+  validates :user_id, uniqueness: {scope: :organization_id}, allow_nil: true
   validates :phone_number, phone: true, if: :phone_number?
 
   scope :adopters, -> {

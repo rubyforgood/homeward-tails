@@ -34,7 +34,6 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_one.id
   )
 
-
   @user_staff_one.add_role(:super_admin, @organization)
 
   @user_staff_two = User.create!(
@@ -45,7 +44,6 @@ ActsAsTenant.with_tenant(@organization) do
     password_confirmation: "123456",
     tos_agreement: 1
   )
-
 
   # Person automatically created by User#enable_person_exists.
   # Re-enable when context aware Person creation is implemented.
@@ -90,7 +88,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   # Person automatically created by User#enable_person_exists.
-  # Re-enable when context aware Person creation is implemented.  
+  # Re-enable when context aware Person creation is implemented.
   @adopter_two = Person.create!(
     email: "adopter2@alta.com",
     first_name: "Kamala",
