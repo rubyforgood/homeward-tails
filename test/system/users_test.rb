@@ -3,9 +3,8 @@ require "application_system_test_case"
 class UsersTest < ApplicationSystemTestCase
   setup do
     @user = create(:admin)
-    @organization = @user.organization
+    @organization = Current.organization
     @custom_page = create(:custom_page, :with_about_us_image, organization: @organization, hero: "Where every paw finds a home")
-    Current.organization = @organization
   end
 
   test "user can log out" do
