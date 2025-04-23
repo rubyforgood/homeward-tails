@@ -76,4 +76,53 @@ class Person < ApplicationRecord
       raise ArgumentError, "Unsupported format: #{format}"
     end
   end
+
+  def add_role_and_group(name)
+    transaction do
+      user.add_role(name, Current.organization)
+      add_group(name)
+    end
+  end
+
+  def add_group(*args)
+    args.map(&:to_s).uniq.each do |name|
+      next unless Group.names.key?(name)
+      group = Group.find_or_create_by!(name: name)
+
+      unless groups.exists?(id: group.id)
+        person_groups.create!(group: group)
+      end
+    end
+  end
+
+  def is_staff?
+    groups.exists?(name: %i[admin super_admin])
+  end
+
+  def add_or_change_staff_role_and_group(new_group, prev_group = nil)
+    transaction do
+      user.change_role(prev_group, new_group)
+
+      # Remove existing admin/super_admin groups
+      groups.where(name: [:admin, :super_admin]).each do |group|
+        groups.destroy(group)
+      end
+
+      add_group(new_group)
+    end
+  end
+
+  def deactivate_group(group_name)
+    person_groups
+      .joins(:group)
+      .find_by(groups: {name: group_name.to_s})
+      &.update(deactivated_at: Time.current)
+  end
+
+  def deactivated_in_org?
+    !person_groups
+      .joins(:group)
+      .where(deactivated_at: nil)
+      .exists?
+  end
 end

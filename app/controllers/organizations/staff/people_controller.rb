@@ -12,7 +12,7 @@ module Organizations
       def create
         @person = Person.new(person_params)
         if @person.save
-          Current.user.add_role(:adopter, Current.organization)
+          @person.add_role_and_group(:adopter)
           redirect_to adopter_fosterer_dashboard_index_path, notice: "You have successfully joined the organization."
         else
           flash.now[:alert] = "There was an unexpected error. Please try again soon."

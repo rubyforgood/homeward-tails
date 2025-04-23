@@ -33,6 +33,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   @user_staff_one.add_role(:super_admin, @organization)
+  @staff_one.add_group(:super_admin)
 
   @user_staff_two = User.create!(
     email: "staff2@alta.com",
