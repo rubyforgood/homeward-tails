@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -79,8 +78,11 @@ class User < ApplicationRecord
     errors.where(attribute)
   end
 
+  # If a User has a Person in Org A that is deactived (no PersonGroup with deactivated_at: nil) they cannot
+  # log in while scoped to Org A. If the User has no Person in Org B or at least one active Group in Org B,
+  # they can log in while scoped to Org B.
   def active_for_authentication?
-    super && !deactivated?
+    super && (!person || !person.deactivated_in_org?)
   end
 
   def inactive_message
@@ -110,17 +112,17 @@ class User < ApplicationRecord
     full_name.split.map { |part| part[0] }.join.upcase
   end
 
-  def deactivate
-    update!(deactivated_at: Time.now) unless deactivated_at
-  end
+  # def deactivate
+  #   update!(deactivated_at: Time.now) unless deactivated_at
+  # end
 
-  def activate
-    update!(deactivated_at: nil) if deactivated_at
-  end
+  # def activate
+  #   update!(deactivated_at: nil) if deactivated_at
+  # end
 
-  def deactivated?
-    !!deactivated_at
-  end
+  # def deactivated?
+  #   !!deactivated_at
+  # end
 
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
