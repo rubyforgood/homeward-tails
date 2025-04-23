@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_02_194147) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_23_174928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -132,6 +132,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_194147) do
     t.index ["organization_id"], name: "index_forms_on_organization_id"
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.integer "name", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "organization_id"], name: "index_groups_on_name_and_organization_id", unique: true
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.bigint "organization_id", null: false
@@ -196,6 +205,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_194147) do
     t.index ["organization_id"], name: "index_people_on_organization_id"
     t.index ["user_id"], name: "index_people_on_user_id"
     t.check_constraint "phone_number::text ~ '^[+]?[0-9]*$'::text", name: "phone_number_valid_e164"
+  end
+
+  create_table "person_groups", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "deactivated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_person_groups_on_group_id"
+    t.index ["person_id", "group_id"], name: "index_person_groups_on_person_id_and_group_id", unique: true
+    t.index ["person_id"], name: "index_person_groups_on_person_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -313,6 +333,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_194147) do
   add_foreign_key "form_submissions", "organizations"
   add_foreign_key "form_submissions", "people"
   add_foreign_key "forms", "organizations"
+  add_foreign_key "groups", "organizations"
   add_foreign_key "likes", "organizations"
   add_foreign_key "likes", "people"
   add_foreign_key "likes", "pets"
@@ -320,6 +341,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_02_194147) do
   add_foreign_key "matches", "pets"
   add_foreign_key "people", "organizations"
   add_foreign_key "people", "users"
+  add_foreign_key "person_groups", "groups"
+  add_foreign_key "person_groups", "people", on_delete: :cascade
   add_foreign_key "pets", "organizations"
   add_foreign_key "questions", "forms"
   add_foreign_key "tasks", "pets"
