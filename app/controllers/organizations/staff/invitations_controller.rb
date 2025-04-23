@@ -54,20 +54,26 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
       authorize! User, context: {organization: Current.organization},
         with: Organizations::FostererInvitationPolicy
 
-      @user = User.new(
-        user_params.merge(password: SecureRandom.hex(8)).except(:roles)
-      )
-      @user.add_role("adopter", Current.organization)
-      @user.add_role("fosterer", Current.organization)
+      @user = User.find_by(email: user_params[:email])
 
-      if @user.save
-        @user.invite!(current_user)
-        create_person(@user)
-        @person.add_group(:adopter, :fosterer)
-        redirect_to staff_fosterers_path, notice: t(".success")
-      else
-        render "organizations/staff/fosterer_invitations/new", status: :unprocessable_entity
+      if @user.nil?
+        @user = User.new(
+          user_params.merge(password: SecureRandom.hex(8)).except(:roles)
+        )
+        if @user.save
+          @user.invite!(current_user)
+        else
+          render "organizations/staff/fosterer_invitations/new", status: :unprocessable_entity
+        end
       end
+
+      if @user.person.nil?
+        create_person(@user)
+      end
+
+      @user.person.add_role_and_group(:adopter, :fosterer)
+      redirect_to staff_fosterers_path, notice: t(".success")
+
     else
       authorize! User, context: {organization: Current.organization},
         with: Organizations::InvitationPolicy

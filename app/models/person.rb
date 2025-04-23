@@ -77,15 +77,17 @@ class Person < ApplicationRecord
     end
   end
 
-  def add_role_and_group(name)
+  def add_role_and_group(*names)
     transaction do
-      user.add_role(name, Current.organization)
-      add_group(name)
+      names.each do |name|
+        user.add_role(name, Current.organization)
+      end
+      add_group(*names)
     end
   end
 
-  def add_group(*args)
-    args.map(&:to_s).uniq.each do |name|
+  def add_group(*names)
+    names.map(&:to_s).uniq.each do |name|
       next unless Group.names.key?(name)
       group = Group.find_or_create_by!(name: name)
 
