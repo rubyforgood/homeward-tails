@@ -7,6 +7,7 @@ class ApplicationPolicy < ActionPolicy::Base
   authorize :organization, optional: true
 
   pre_check :verify_authenticated!
+  pre_check :verify_tos_agreement!
 
   # Action Policy defaults https://actionpolicy.evilmartians.io/#/aliases?id=default-rule
 
@@ -52,5 +53,9 @@ class ApplicationPolicy < ActionPolicy::Base
 
   def verify_authenticated!
     deny! if unauthenticated?
+  end
+
+  def verify_tos_agreement!
+    deny!(:no_tos_accepted) unless user.tos_agreement?
   end
 end

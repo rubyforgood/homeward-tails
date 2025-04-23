@@ -7,9 +7,15 @@ class ApplicationController < ActionController::Base
   KNOWN_ERRORS = [ActionPolicy::Unauthorized]
   rescue_from StandardError, with: :log_and_reraise
   rescue_from ActionPolicy::Unauthorized do |ex|
-    flash[:alert] = t("errors.authorization_error")
+    if ex.result.reasons.details.values.flatten.any?(:no_tos_accepted)
+      flash[:alert] = "You must accept the Terms of Service before continuing."
+      session[:original_url] = request.original_url
 
-    redirect_back_or_to root_path
+      redirect_to edit_tos_agreement_path
+    else
+      flash[:alert] = t("errors.authorization_error")
+      redirect_back_or_to root_path
+    end
   end
 
   def set_current_user

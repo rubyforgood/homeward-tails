@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.3.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.0.2"
 
 # Used to deploy to production
 gem "kamal"
@@ -19,7 +19,7 @@ gem "figaro"
 gem "pg", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.5.0"
+gem "puma", "~> 6.6.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -57,7 +57,7 @@ gem "bootstrap_form", "~> 5.4"
 # Devise Authentication
 gem "devise"
 
-gem "devise_invitable", "~> 2.0.9"
+gem "devise_invitable", "~> 2.0.10"
 
 # Use Sass to process CSS
 gem "dartsass-rails"
@@ -104,7 +104,7 @@ gem "ransack"
 gem "rails-controller-testing"
 
 # Use Action Policy for authorization framework
-gem "action_policy", "~> 0.7.3"
+gem "action_policy", "~> 0.7.4"
 
 # Use ViewComponent for our presenter pattern framework
 gem "view_component", "~> 3.21"
@@ -116,7 +116,7 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.1"
+gem "strong_migrations", "~> 2.3"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.27"

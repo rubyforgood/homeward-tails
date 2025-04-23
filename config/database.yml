@@ -17,17 +17,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
-  username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
-  password: <%= ENV.fetch('DATABASE_PASSWORD') { 'password' }  %>
-  port: <%= ENV.fetch("DATABASE_PORT") do
-          begin
-            docker_port = `docker compose port postgres 5432 2> /dev/null`.split(":").last
-            Integer(docker_port.strip)
-          rescue
-            5432
-          end
-        end %>
+  host: <%= ENV.fetch("DEFAULT_HOST", "localhost") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "password") %>
+  port: <%= ENV.fetch("DATABASE_PORT", "5432") %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -43,19 +36,18 @@ development:
   cable:
     <<: *default
     database: cable
-    host: <%= ENV.fetch('CABLE_HOST') { 'cable' } %>
+    host: <%= ENV.fetch("CABLE_HOST", "localhost") %>
+    port: <%= ENV.fetch("CABLE_PORT", "5432") %>
     migrations_paths: db/cable_migrate
     gssencmode: disable
 
   queue:
     <<: *default
     database: queue
-    host: <%= ENV.fetch('QUEUE_HOST') { 'queue' } %>
+    host: <%= ENV.fetch("QUEUE_HOST", "localhost") %>
+    port: <%= ENV.fetch("QUEUE_PORT", "5432") %>
     migrations_paths: db/queue_migrate
     gssencmode: disable
-
-  #username: <%= ENV.fetch('DATABASE_USERNAME') { 'postgres' } %>
-  #password: <%= ENV.fetch('DATABASE_PASSWORD') { 'password' }  %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -109,8 +101,6 @@ production:
   primary: &primary_production
     <<: *default
     host: <%= ENV["DB_HOST"] %>
-    username: <%= ENV["DB_USER"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
     database: postgres
     timeout: 5000
   cable:

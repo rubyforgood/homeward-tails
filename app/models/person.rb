@@ -26,6 +26,7 @@
 class Person < ApplicationRecord
   include Avatarable
   include Phoneable
+  include Exportable
 
   acts_as_tenant(:organization)
 

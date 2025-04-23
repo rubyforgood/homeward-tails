@@ -24,7 +24,7 @@ RUN gem install bundler && bundle install
 COPY . /petrescue
 
 # Precompile assets (optional for development, but useful for production)
-RUN bundle exec rails assets:precompile
+# RUN bundle exec rails assets:precompile
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/

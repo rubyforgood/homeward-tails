@@ -73,8 +73,7 @@ class Organizations::CreateService
         email: email,
         first_name: first_name,
         last_name: last_name,
-        password: SecureRandom.hex(3)[0, 6],
-        tos_agreement: 1
+        password: SecureRandom.hex(3)[0, 6]
       )
     end
   end

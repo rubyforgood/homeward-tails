@@ -4,6 +4,9 @@
 #
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
+env:
+  DATABASE_USERNAME: rails
+  DATABASE_PASSWORD: password
 name: "Ruby on Rails CI"
 on:
   push:
@@ -22,8 +25,8 @@ jobs:
           - "5432:5432"
         env:
           POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: ${{ env.DATABASE_USERNAME }}
+          POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
@@ -53,8 +56,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Run Style Checks
-        run: bin/style
+      - name: Lint
+        run: bundle exec standardrb
   brakeman:
     name: Brakeman
     runs-on: ubuntu-latest

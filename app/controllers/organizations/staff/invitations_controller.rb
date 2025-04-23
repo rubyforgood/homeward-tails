@@ -3,6 +3,8 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
 
   layout "dashboard", only: [:new, :create]
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   # This action is for generally creating any User, and it is currently unused.
   # See the other sub InvitationsControllers for the used `new` actions.
   def new
@@ -79,6 +81,10 @@ class Organizations::Staff::InvitationsController < Devise::InvitationsControlle
           location_attributes: %i[country province_state city_town]
         ]
       )
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[tos_agreement])
   end
 
   def after_accept_path_for(_resource)
