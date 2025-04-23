@@ -52,6 +52,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   @user_staff_two.add_role(:super_admin, @organization)
+  @staff_two.add_group(:super_admin)
 
   @user_adopter_one = User.create!(
     email: "adopter1@alta.com",
@@ -72,6 +73,7 @@ ActsAsTenant.with_tenant(@organization) do
   @adopter_one = Person.where(email: "adopter1@alta.com").first
 
   @user_adopter_one.add_role(:adopter, @organization)
+  @adopter_one.add_group(:adopter)
 
   @user_adopter_two = User.create!(
     email: "adopter2@alta.com",
@@ -90,6 +92,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   @user_adopter_two.add_role(:adopter, @organization)
+  @adopter_two.add_group(:adopter)
 
   @user_adopter_three = User.create!(
     email: "adopter3@alta.com",
@@ -108,6 +111,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   @user_adopter_three.add_role(:adopter, @organization)
+  @adopter_three.add_group(:adopter)
 
   @user_fosterer_one = User.create!(
     email: "fosterer1@alta.com",
@@ -129,6 +133,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_fosterer_one.add_role(:adopter, @organization)
   @user_fosterer_one.add_role(:fosterer, @organization)
+  @fosterer_one.add_group(:adopter, :fosterer)
 
   @user_fosterer_two = User.create!(
     email: "fosterer2@alta.com",
@@ -142,13 +147,15 @@ ActsAsTenant.with_tenant(@organization) do
   @fosterer_two = Person.create!(
     email: "fosterer2@alta.com",
     first_name: "Finn",
-    last_name: "Mertens"
+    last_name: "Mertens",
+    user_id: @user_fosterer_two.id
   )
 
   @fosterer_two = Person.where(email: "fosterer2@alta.com").first
 
   @user_fosterer_two.add_role(:adopter, @organization)
   @user_fosterer_two.add_role(:fosterer, @organization)
+  @fosterer_two.add_group(:adopter, :fosterer)
 
   5.times do
     DefaultPetTask.create!(
