@@ -41,6 +41,8 @@ class Person < ApplicationRecord
     reject_if: ->(attributes) { attributes["city_town"].blank? }
   has_many :matches # , dependent: :destroy
   belongs_to :user, optional: true
+  has_many :person_groups
+  has_many :groups, through: :person_groups
 
   validates :first_name, presence: true
   validates :last_name, presence: true
