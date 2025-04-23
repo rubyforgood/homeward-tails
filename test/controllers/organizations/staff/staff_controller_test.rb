@@ -21,21 +21,6 @@ class Organizations::Staff::StaffControllerTest < ActionDispatch::IntegrationTes
           get staff_staff_index_url
         end
       end
-
-      context "when user is authorized" do
-        setup do
-          user = create(:super_admin)
-          sign_in user
-        end
-
-        should "have authorized scope" do
-          assert_have_authorized_scope(
-            type: :active_record_relation, with: Organizations::UserPolicy
-          ) do
-            get staff_staff_index_url
-          end
-        end
-      end
     end
   end
 end

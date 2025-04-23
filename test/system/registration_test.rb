@@ -3,9 +3,8 @@ require "application_system_test_case"
 class RegistrationTest < ApplicationSystemTestCase
   setup do
     @user = create(:admin)
-    @organization = @user.organization
+    @organization = Current.organization
     @custom_page = create(:custom_page, :with_about_us_image, organization: @organization)
-    Current.organization = @organization
 
     visit root_url
     click_on "Log In"

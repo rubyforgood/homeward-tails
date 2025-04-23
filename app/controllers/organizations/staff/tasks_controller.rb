@@ -81,7 +81,7 @@ class Organizations::Staff::TasksController < Organizations::BaseController
   private
 
   def set_pet
-    @organization = current_user.organization
+    @organization = Current.organization
     raise ActiveRecord::RecordNotFound if @organization.nil?
 
     @pet = @organization.pets.find(params[:pet_id] || params[:id])

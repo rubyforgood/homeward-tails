@@ -63,12 +63,14 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
 
         should "generate CSV with fosterers' emails" do
           fosterer = create(:fosterer)
+          # TODO: Current.organization is nulled out after the call 'get staff_fosterers_url, params: {format: :csv}'
+          # hence can't use the person method on User model on line 73.
+          person = fosterer.person
 
           get staff_fosterers_url, params: {format: :csv}
-
           assert_response :success
           assert_includes response.header["Content-Type"], "text/csv"
-          assert_includes response.body, fosterer.person.email
+          assert_includes response.body, person.email
         end
       end
     end

@@ -3,9 +3,8 @@ require "application_system_test_case"
 class LoginTest < ApplicationSystemTestCase
   setup do
     @user = create(:admin)
-    @organization = @user.organization
+    @organization = Current.organization
     @custom_page = create(:custom_page, :with_about_us_image, organization: @organization)
-    Current.organization = @organization
   end
 
   context "when logging in as a staff member" do
@@ -25,9 +24,8 @@ class LoginTest < ApplicationSystemTestCase
   context "when logging in as a fosterer" do
     setup do
       @user = create(:fosterer)
-      @organization = @user.organization
+      @organization = Current.organization
       @custom_page = create(:custom_page, :with_about_us_image, organization: @organization)
-      Current.organization = @organization
     end
 
     should "direct to the user's dashboard" do

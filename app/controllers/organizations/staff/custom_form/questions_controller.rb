@@ -50,7 +50,7 @@ module Organizations
         private
 
         def organization
-          current_user.organization
+          Current.organization
         end
 
         def set_form

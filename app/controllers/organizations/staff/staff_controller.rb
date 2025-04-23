@@ -6,9 +6,6 @@ class Organizations::Staff::StaffController < Organizations::BaseController
   def index
     authorize! User, context: {organization: Current.organization}
 
-    @pagy, @staff = pagy(
-      authorized_scope(User.staff),
-      limit: 10
-    )
+    @pagy, @staff = pagy(User.staff, limit: 10)
   end
 end

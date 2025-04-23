@@ -57,7 +57,7 @@ gem "bootstrap_form", "~> 5.4"
 # Devise Authentication
 gem "devise"
 
-gem "devise_invitable", "~> 2.0.9"
+gem "devise_invitable", "~> 2.0.10"
 
 # Use Sass to process CSS
 gem "dartsass-rails"
@@ -116,7 +116,7 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.2"
+gem "strong_migrations", "~> 2.3"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.27"

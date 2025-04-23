@@ -56,7 +56,9 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
         context "when organization context is a different organization" do
           setup do
-            @organization = create(:organization)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:super_admin)
+            end
           end
 
           should "return false" do
@@ -88,7 +90,9 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
         context "when organization context is a different organization" do
           setup do
-            @organization = create(:organization)
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @user = create(:super_admin)
+            end
           end
 
           should "return false" do
@@ -165,9 +169,7 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
         context "when application belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @form_submission = create(:form_submission)
-              @adopter = create(:adopter)
-              @adopter_application = create(:adopter_application, person: @adopter.person)
+              @user = create(:admin)
             end
           end
 
@@ -201,9 +203,7 @@ class Organizations::AdopterApplicationPolicyTest < ActiveSupport::TestCase
         context "when application belongs to a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @form_submission = create(:form_submission)
-              @adopter = create(:adopter)
-              @adopter_application = create(:adopter_application, person: @adopter.person)
+              @user = create(:super_admin)
             end
           end
 

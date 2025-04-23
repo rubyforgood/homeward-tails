@@ -140,6 +140,7 @@ class Organizations::Staff::UserRolesControllerTest < ActionDispatch::Integratio
       assert_equal true, has_strict_role
       assert_equal false, global_role
     end
+
     should "receive alert if role is not changed" do
       User.any_instance.stubs(:change_role).returns(false)
       post staff_user_to_super_admin_url(@account), headers: {"HTTP_REFERER" => "http://www.example.com/"}

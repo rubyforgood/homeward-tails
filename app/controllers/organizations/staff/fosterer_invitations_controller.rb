@@ -7,7 +7,7 @@ class Organizations::Staff::FostererInvitationsController < Organizations::BaseC
       with: Organizations::FostererInvitationPolicy
 
     @user = User.new
-    @user.build_person
-    @user.person.build_location
+    @person = Person.new
+    @person.build_location
   end
 end

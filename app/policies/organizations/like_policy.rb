@@ -1,6 +1,5 @@
 class Organizations::LikePolicy < ApplicationPolicy
   authorize :pet, optional: true
-  pre_check :verify_pet_likable!, only: %i[create? destroy?]
 
   def index?
     permission?(:manage_likes)
@@ -15,10 +14,6 @@ class Organizations::LikePolicy < ApplicationPolicy
   end
 
   private
-
-  def verify_pet_likable!
-    deny! if pet.organization_id != user.organization_id
-  end
 
   def pet
     @pet || record.pet

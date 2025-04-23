@@ -16,13 +16,7 @@ ActsAsTenant.with_tenant(@organization) do
     zipcode: "12346"
   )
 
-  @staff_one = Person.create!(
-    email: "staff@baja.com",
-    first_name: "Andy",
-    last_name: "Peters"
-  )
-
-  @user_staff_one = @staff_one.create_user!(
+  @user_staff_one = User.create!(
     email: "staff@baja.com",
     first_name: "Andy",
     last_name: "Peters",
@@ -31,15 +25,16 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  @user_staff_one.add_role(:super_admin, @organization)
-
-  @staff_two = Person.create!(
-    email: "staff2@baja.com",
-    first_name: "Randy",
-    last_name: "Peterson"
+  @staff_one = Person.create!(
+    email: "staff@baja.com",
+    first_name: "Andy",
+    last_name: "Peters",
+    user_id: @user_staff_one.id
   )
 
-  @user_staff_two = @staff_two.create_user!(
+  @user_staff_one.add_role(:super_admin, @organization)
+
+  @user_staff_two = User.create!(
     email: "staff2@baja.com",
     first_name: "Randy",
     last_name: "Peterson",
@@ -48,15 +43,16 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  @user_staff_two.add_role(:super_admin, @organization)
-
-  @adopter_one = Person.create!(
-    email: "adopter1@baja.com",
-    first_name: "Joe",
-    last_name: "Brando"
+  @staff_two = Person.create!(
+    email: "staff2@baja.com",
+    first_name: "Randy",
+    last_name: "Peterson",
+    user_id: @user_staff_two.id
   )
 
-  @user_adopter_one = @adopter_one.create_user!(
+  @user_staff_two.add_role(:super_admin, @organization)
+
+  @user_adopter_one = User.create!(
     email: "adopter1@baja.com",
     first_name: "Joe",
     last_name: "Brando",
@@ -65,15 +61,18 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  @user_adopter_one.add_role(:adopter, @organization)
-
-  @adopter_two = Person.create!(
-    email: "adopter2@baja.com",
-    first_name: "Kamala",
-    last_name: "Lolsworth"
+  @adopter_one = Person.create!(
+    email: "adopter1@baja.com",
+    first_name: "Joe",
+    last_name: "Brando",
+    user_id: @user_adopter_one.id
   )
 
-  @user_adopter_two = @adopter_two.create_user!(
+  @adopter_one = Person.where(email: "adopter1@baja.com").first
+
+  @user_adopter_one.add_role(:adopter, @organization)
+
+  @user_adopter_two = User.create!(
     email: "adopter2@baja.com",
     first_name: "Kamala",
     last_name: "Lolsworth",
@@ -82,15 +81,16 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  @user_adopter_two.add_role(:adopter, @organization)
-
-  @adopter_three = Person.create!(
-    email: "adopter3@baja.com",
-    first_name: "Bad",
-    last_name: "Address"
+  @adopter_two = Person.create!(
+    email: "adopter2@baja.com",
+    first_name: "Kamala",
+    last_name: "Lolsworth",
+    user_id: @user_adopter_two.id
   )
 
-  @user_adopter_three = @adopter_three.create_user!(
+  @user_adopter_two.add_role(:adopter, @organization)
+
+  @user_adopter_three = User.create!(
     email: "adopter3@baja.com",
     first_name: "Bad",
     last_name: "Address",
@@ -99,15 +99,16 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
-  @user_adopter_three.add_role(:adopter, @organization)
-
-  @fosterer_one = Person.create!(
-    email: "fosterer1@baja.com",
-    first_name: "Simon",
-    last_name: "Petrikov"
+  @adopter_three = Person.create!(
+    email: "adopter3@baja.com",
+    first_name: "Bad",
+    last_name: "Address",
+    user_id: @user_adopter_three.id
   )
 
-  @user_fosterer_one = @fosterer_one.create_user!(
+  @user_adopter_three.add_role(:adopter, @organization)
+
+  @user_fosterer_one = User.create!(
     email: "fosterer1@baja.com",
     first_name: "Simon",
     last_name: "Petrikov",
@@ -116,16 +117,19 @@ ActsAsTenant.with_tenant(@organization) do
     tos_agreement: 1
   )
 
+  @fosterer_one = Person.create!(
+    email: "fosterer1@baja.com",
+    first_name: "Simon",
+    last_name: "Petrikov",
+    user_id: @user_fosterer_one.id
+  )
+
+  @fosterer_one = Person.where(email: "fosterer1@baja.com").first
+
   @user_fosterer_one.add_role(:adopter, @organization)
   @user_fosterer_one.add_role(:fosterer, @organization)
 
-  @fosterer_two = Person.create!(
-    email: "fosterer2@baja.com",
-    first_name: "Finn",
-    last_name: "Mertens"
-  )
-
-  @user_fosterer_two = @fosterer_two.create_user!(
+  @user_fosterer_two = User.create!(
     email: "fosterer2@baja.com",
     first_name: "Finn",
     last_name: "Mertens",
@@ -133,6 +137,15 @@ ActsAsTenant.with_tenant(@organization) do
     password_confirmation: "123456",
     tos_agreement: 1
   )
+
+  @fosterer_two = Person.create!(
+    email: "fosterer2@baja.com",
+    first_name: "Finn",
+    last_name: "Mertens",
+    user_id: @user_fosterer_two.id
+  )
+
+  @fosterer_two = Person.where(email: "fosterer2@baja.com").first
 
   @user_fosterer_two.add_role(:adopter, @organization)
   @user_fosterer_two.add_role(:fosterer, @organization)

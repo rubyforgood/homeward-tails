@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-8 mx-auto card p-5 bigger">
+    <%= bootstrap_form_with model: [:staff, person] do |form| %>
+
+      <%= form.hidden_field :user_id,
+                            value: current_user.id %>
+
+       <div class='form-group'>
+        <%= form.text_field :email, value: current_user.email, readonly: true, class: 'form-control' %>
+      </div>
+
+      <div class='form-group'>
+        <%= form.text_field :first_name, value: current_user.first_name, class: 'form-control' %>
+      </div>
+
+      <div class='form-group'>
+        <%= form.text_field :last_name, value: current_user.last_name, class: 'form-control' %>
+      </div>
+
+      <div class='form-group'>
+        <%= form.text_field :phone_number, class: 'form-control' %>
+      </div>
+
+      <%= form.submit t('general.save'), class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div> <!--row-->

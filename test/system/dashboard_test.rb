@@ -3,8 +3,7 @@ require "application_system_test_case"
 class DashboardTest < ApplicationSystemTestCase
   setup do
     @user = create(:admin)
-    @organization = @user.organization
-    Current.organization = @organization
+    @organization = Current.organization
     @pets = create_list(:pet, 3, organization: @organization)
 
     @pets.each do |pet|

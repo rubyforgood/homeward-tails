@@ -1,0 +1,15 @@
+<section class="pt-3 pb-5" id="about_us">
+  <div class="container mb-md-5 mt-md-5">
+
+    <!--page heading-->
+    <div class="text-center">
+      <h1 class="h4 mb-5">
+        <%= "Join #{Current.organization.name}!" %>
+      </h1>
+    </div>
+
+    <!--main section-->
+    <%= render 'form', person: @person %>
+
+  </div>
+</section>

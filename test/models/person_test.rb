@@ -2,7 +2,7 @@ require "test_helper"
 
 class PersonTest < ActiveSupport::TestCase
   context "associations" do
-    should have_one(:user).dependent(:destroy)
+    should belong_to(:user).optional
   end
 
   context "validations" do

@@ -4,11 +4,11 @@
   </button>
 
   <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton" >
-    <% if staff.has_role?(:super_admin, current_user.organization)%>
+    <% if staff.has_role?(:super_admin, Current.organization)%>
       <%= button_to "Admin", staff_user_to_admin_path(staff), class:
       "dropdown-item" %>
     <% end %>
-    <% if staff.has_role?(:admin, current_user.organization)%>
+    <% if staff.has_role?(:admin, Current.organization)%>
       <%= button_to "Super Admin", staff_user_to_super_admin_path(staff),
         class: "dropdown-item"
       %>

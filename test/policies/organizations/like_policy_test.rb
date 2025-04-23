@@ -113,7 +113,9 @@ class Organizations::LikePolicyTest < ActiveSupport::TestCase
 
       context "when pet does not belong to same org as adopter" do
         setup do
-          @user = create(:adopter)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:adopter)
+          end
         end
 
         should "return false" do
@@ -194,7 +196,9 @@ class Organizations::LikePolicyTest < ActiveSupport::TestCase
 
       context "when pet does not belong to same org as adopter" do
         setup do
-          @user = create(:adopter)
+          ActsAsTenant.with_tenant(create(:organization)) do
+            @user = create(:adopter)
+          end
         end
 
         should "return false" do
