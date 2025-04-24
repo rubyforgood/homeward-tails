@@ -400,7 +400,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
-    phonelib (0.10.7)
+    phonelib (0.10.8)
     popper_js (2.11.8)
     pp (0.6.2)
       prettyprint
