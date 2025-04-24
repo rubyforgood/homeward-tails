@@ -2,9 +2,9 @@ class Organizations::Staff::UserRolesController < Organizations::BaseController
   before_action :set_user
 
   def to_admin
-    if @user.change_role(:super_admin, :admin)
+    @user.person.add_or_change_staff_role_and_group(:admin, :super_admin)
+    if @user.person.active_in_group?(:admin)
       respond_to do |format|
-        @user.person.add_or_change_staff_role_and_group(:admin)
         format.html { redirect_to request.referrer, notice: t(".success") }
         format.turbo_stream { flash.now[:notice] = t(".success") }
       end
@@ -17,8 +17,8 @@ class Organizations::Staff::UserRolesController < Organizations::BaseController
   end
 
   def to_super_admin
-    if @user.change_role(:admin, :super_admin)
-      @user.person.add_or_change_staff_role_and_group(:super_admin)
+    @user.person.add_or_change_staff_role_and_group(:super_admin, :admin)
+    if @user.person.active_in_group?(:super_admin)
       respond_to do |format|
         format.html { redirect_to request.referrer, notice: t(".success") }
         format.turbo_stream { flash.now[:notice] = t(".success") }
