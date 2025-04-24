@@ -21,11 +21,15 @@
         <span><%= fosterer.email %></span>
       </div>
       <div class="text-end mt-3">
-        <%= link_to t('general.edit'), edit_staff_fosterer_path(fosterer), class: 'btn btn-warning' %>
+        <%= link_to t("general.edit"),
+        edit_staff_fosterer_path(fosterer),
+        class: "btn btn-warning" %>
       </div>
       <div class="d-flex justify-content-between pt-2">
         <span><%= t(:deactivate) %></span>
-        <%= render "organizations/staff/shared/deactivate_toggle", user: fosterer.user %>
+        <%= render "organizations/staff/shared/deactivate_toggle",
+        person: fosterer,
+        group: "fosterer" %>
       </div>
     </div>
   </div>
