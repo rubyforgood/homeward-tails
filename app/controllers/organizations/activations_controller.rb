@@ -5,8 +5,10 @@ module Organizations
     def update
       if params[:person_group][:deactivated] == "true"
         @pg.update!(deactivated_at: Time.now)
+        @person.user.remove_role(@group.name, Current.organization)
       elsif params[:person_group][:deactivated] == "false"
         @pg.update!(deactivated_at: nil)
+        @person.user.add_role(@group.name, Current.organization)
       else
         respond_to do |format|
           format.html { redirect_back_or_to staff_staff_index_path, alert: t("errors.try_again)") }

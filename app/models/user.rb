@@ -85,8 +85,9 @@ class User < ApplicationRecord
     super && (!person || !person.deactivated_in_org?)
   end
 
+  # used with devise active_for_authentication?
   def inactive_message
-    deactivated? ? :deactivated : super
+    person.deactivated_in_org? ? :deactivated : super
   end
 
   def person

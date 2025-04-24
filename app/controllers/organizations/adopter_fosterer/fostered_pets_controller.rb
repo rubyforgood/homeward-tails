@@ -5,6 +5,7 @@ module Organizations
       layout "adopter_foster_dashboard"
 
       def index
+        # TODO adopter can visit this page
         @fostered_pets = authorized_scope(Match.fosters.current.or(Match.fosters.upcoming), with: Organizations::AdopterFosterer::MatchPolicy)
       end
 
