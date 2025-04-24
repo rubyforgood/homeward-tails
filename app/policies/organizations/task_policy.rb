@@ -2,7 +2,7 @@ class Organizations::TaskPolicy < ApplicationPolicy
   authorize :pet, optional: true
 
   pre_check :verify_organization!
-  # pre_check :verify_active_staff!
+  pre_check :verify_active_staff!
   pre_check :verify_pet!
 
   alias_rule :create?, :new?, :index?, to: :manage?

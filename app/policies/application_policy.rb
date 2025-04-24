@@ -37,9 +37,9 @@ class ApplicationPolicy < ActionPolicy::Base
     true
   end
 
-  # def verify_active_staff!
-  #   deny! if user.deactivated?
-  # end
+  def verify_active_staff!
+    deny! unless user.person&.is_active_staff?
+  end
 
   def permission?(name)
     return false unless user

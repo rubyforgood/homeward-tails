@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       redirect_to edit_tos_agreement_path
     else
       flash[:alert] = t("errors.authorization_error")
-      redirect_back_or_to root_path
+      redirect_to root_path
     end
   end
 

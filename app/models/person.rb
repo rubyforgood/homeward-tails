@@ -109,6 +109,10 @@ class Person < ApplicationRecord
     groups.find_by(name: ["admin", "super_admin"])&.name
   end
 
+  def is_active_staff?
+    active_in_group?(current_staff_group)
+  end
+
   def add_or_change_staff_role_and_group(new_group, prev_group = nil)
     transaction do
       user.change_role(prev_group, new_group)

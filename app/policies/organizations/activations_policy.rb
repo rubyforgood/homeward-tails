@@ -2,7 +2,7 @@ module Organizations
   class ActivationsPolicy < ApplicationPolicy
     authorize :group
     pre_check :verify_organization!
-    # pre_check :verify_active_staff!
+    pre_check :verify_active_staff!
 
     def update?
       return false if record.id == user.person.id

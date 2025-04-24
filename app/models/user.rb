@@ -82,7 +82,11 @@ class User < ApplicationRecord
   # log in while scoped to Org A. If the User has no Person in Org B or at least one active Group in Org B,
   # they can log in while scoped to Org B.
   def active_for_authentication?
-    super && (!person || !person.deactivated_in_org?)
+    if Current.organization
+      super && (!person || !person.deactivated_in_org?)
+    else
+      super
+    end
   end
 
   # used with devise active_for_authentication?
