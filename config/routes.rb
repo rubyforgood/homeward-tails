@@ -109,7 +109,7 @@ Rails.application.routes.draw do
     end
 
     # Activate/Deactivate users
-    resource :activations, only: [:update]
+    resources :activations, only: [:update]
 
     # File Purging
     delete "staff/attachments/:id/purge", to: "attachments#purge", as: "staff_purge_attachment"

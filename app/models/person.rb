@@ -105,6 +105,10 @@ class Person < ApplicationRecord
     groups.exists?(name: %i[admin super_admin])
   end
 
+  def current_staff_group
+    groups.find_by(name: ["admin", "super_admin"])&.name
+  end
+
   def add_or_change_staff_role_and_group(new_group, prev_group = nil)
     transaction do
       user.change_role(prev_group, new_group)
@@ -118,11 +122,17 @@ class Person < ApplicationRecord
     end
   end
 
-  def deactivate_group(group_name)
-    person_groups
-      .joins(:group)
-      .find_by(groups: {name: group_name.to_s})
-      &.update(deactivated_at: Time.current)
+  def active_in_group?(name)
+    person_groups.joins(:group)
+      .where(deactivated_at: nil, groups: {name: name})
+      .exists?
+  end
+
+  def person_group_for(group_name)
+    group = Group.find_by(name: group_name)
+    return nil unless group
+
+    person_groups.find_by(group_id: group.id)
   end
 
   def deactivated_in_org?

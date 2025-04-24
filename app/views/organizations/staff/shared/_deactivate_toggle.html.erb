@@ -1,18 +1,19 @@
-<div class=<%= "user_deactivate_toggle_#{user.id}" %>>
-  <%= form_with model: user, url: activations_path(user_id: user.id) do |form| %>
+<div class=<%= "user_deactivate_toggle_#{person.id}" %>>
+  <% person_group = person.person_group_for(group) %>
+  <%= form_with model: person_group, url: activation_path(person_group.id) do |form| %>
     <div class='form-group d-flex justify-content-center'>
       <div class="form-check form-switch">
+        <%= form.hidden_field "deactivated", value: false %>
         <%= form.check_box :deactivated?,
-          {
-            class: "form-check-input",
-            role: "switch",
-            disabled: user == current_user,
-            id: "flexSwitchCheckChecked",
-            onchange: "this.form.requestSubmit()"
-          },
-          true,
-          false
-        %>
+                       {
+                         class: "form-check-input",
+                         role: "switch",
+                         disabled: person == Current.person,
+                         id: "flexSwitchCheckChecked",
+                         onchange: "this.form.requestSubmit()",
+                       },
+                       true,
+                       false %>
       </div>
     </div>
   <% end %>

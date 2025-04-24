@@ -25,4 +25,11 @@ class PersonGroup < ApplicationRecord
   belongs_to :group
 
   validates :person_id, uniqueness: {scope: :group_id}
+  def activated?
+    deactivated_at.nil?
+  end
+
+  def deactivated?
+    !activated?
+  end
 end
