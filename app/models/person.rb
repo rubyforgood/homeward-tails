@@ -62,6 +62,12 @@ class Person < ApplicationRecord
     joins(:groups).where(groups: {name: ["admin", "super_admin"]})
   }
 
+  scope :active_staff, -> {
+    joins(groups: :person_groups)
+      .where(groups: {name: ["admin", "super_admin"]})
+      .where(person_groups: {deactivated_at: nil})
+  }
+
   def self.ransackable_attributes(auth_object = nil)
     %w[first_name last_name email]
   end
