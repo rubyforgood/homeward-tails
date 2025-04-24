@@ -9,6 +9,7 @@ module Authorizable
     permissions.include?(name)
   end
 
+  # TODO Check if we still use this anywhere
   def staff?(organization)
     has_role?("super_admin", organization) || has_role?("admin", organization)
   end

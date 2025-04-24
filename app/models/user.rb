@@ -61,10 +61,6 @@ class User < ApplicationRecord
     errors.add(:email, "Email cannot be changed") if email_changed?
   end
 
-  # def self.staff
-  #   joins(:roles).where(roles: {name: %i[admin super_admin], resource_id: Current.organization.id})
-  # end
-
   def self.ransackable_attributes(auth_object = nil)
     %w[first_name last_name]
   end
@@ -91,7 +87,11 @@ class User < ApplicationRecord
 
   # used with devise active_for_authentication?
   def inactive_message
-    person.deactivated_in_org? ? :deactivated : super
+    if Current.organization
+      person.deactivated_in_org? ? :deactivated : super
+    else
+      super
+    end
   end
 
   def person
@@ -116,18 +116,6 @@ class User < ApplicationRecord
   def name_initials
     full_name.split.map { |part| part[0] }.join.upcase
   end
-
-  # def deactivate
-  #   update!(deactivated_at: Time.now) unless deactivated_at
-  # end
-
-  # def activate
-  #   update!(deactivated_at: nil) if deactivated_at
-  # end
-
-  # def deactivated?
-  #   !!deactivated_at
-  # end
 
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
