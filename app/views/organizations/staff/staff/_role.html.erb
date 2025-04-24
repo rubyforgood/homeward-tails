@@ -9,7 +9,7 @@
     aria-haspopup="true"
     aria-expanded="false"
   >
-    <%= staff.user.roles.pluck(:name).map(&:titleize).join(", ").gsub("_", " ") %>
+    <%= staff.current_staff_group.titleize %>
   </button>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
