@@ -61,9 +61,9 @@ class User < ApplicationRecord
     errors.add(:email, "Email cannot be changed") if email_changed?
   end
 
-  def self.staff
-    joins(:roles).where(roles: {name: %i[admin super_admin], resource_id: Current.organization.id})
-  end
+  # def self.staff
+  #   joins(:roles).where(roles: {name: %i[admin super_admin], resource_id: Current.organization.id})
+  # end
 
   def self.ransackable_attributes(auth_object = nil)
     %w[first_name last_name]

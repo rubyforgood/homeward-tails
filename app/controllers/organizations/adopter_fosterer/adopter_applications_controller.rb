@@ -19,6 +19,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsController < Organizati
         notice: t(".success", message: MessagesHelper.affirmations.sample)
 
       # mailer
+      # TODO change to Person.staff (or active staff)
       @org_staff = User.staff
       StaffApplicationNotificationMailer.with(pet: @pet,
         organization_staff: @org_staff)

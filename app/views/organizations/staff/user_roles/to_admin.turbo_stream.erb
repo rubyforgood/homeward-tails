@@ -1,3 +1,6 @@
-<%= turbo_stream.replace_all ".#{dom_id(@user, :role)}", partial: "organizations/staff/staff/role",
-locals: {staff: @user} %>
+<%= turbo_stream.replace_all ".#{dom_id(@user.person, :role)}",
+                         partial: "organizations/staff/staff/role",
+                         locals: {
+                           staff: @user.person,
+                         } %>
 <%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>
