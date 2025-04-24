@@ -51,11 +51,11 @@ class Person < ApplicationRecord
   validates :phone_number, phone: true, if: :phone_number?
 
   scope :adopters, -> {
-    joins(user: :roles).where(roles: {name: "adopter"})
+    joins(:groups).where(groups: {name: "adopter"})
   }
 
   scope :fosterers, -> {
-    joins(user: :roles).where(roles: {name: "fosterer"})
+    joins(:groups).where(groups: {name: "fosterer"})
   }
 
   scope :staff, -> {
