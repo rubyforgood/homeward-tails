@@ -6,11 +6,11 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     tos_agreement { true }
-    deactivated_at { nil }
+    # deactivated_at { nil }
 
-    after(:create) do |user, _context|
-      create(:person, user: user, first_name: user.first_name, last_name: user.last_name, email: user.email, user_id: user.id)
-    end
+    # after(:create) do |user, _context|
+    #   create(:person, user: user, first_name: user.first_name, last_name: user.last_name, email: user.email, user_id: user.id)
+    # end
 
     trait :with_avatar do
       after(:build) do |user|
@@ -22,9 +22,9 @@ FactoryBot.define do
       end
     end
 
-    trait :deactivated do
-      deactivated_at { DateTime.now }
-    end
+    # trait :deactivated do
+    #   deactivated_at { DateTime.now }
+    # end
 
     factory :adopter do
       after(:create) do |user, _context|
