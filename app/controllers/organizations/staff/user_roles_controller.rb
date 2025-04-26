@@ -1,6 +1,6 @@
 module Organizations
   module Staff
-    class Organizations::Staff::UserRolesController < Organizations::BaseController
+    class UserRolesController < Organizations::BaseController
       before_action :set_user
 
       def to_admin
