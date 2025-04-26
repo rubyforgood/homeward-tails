@@ -99,6 +99,7 @@ en:
     browse: "Browse"
     view: "View"
     about_us: "About us"
+    please_join: "Please join this organization"
   dashboard:
     index:
       header_title: Dashboard

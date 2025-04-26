@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
+    resources :people, only: %i[new create]
 
     # Staff Routes
     namespace :staff do
@@ -65,7 +66,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :people do
+      resources :person, only: [] do
         resources :form_submissions, only: [:index]
       end
 

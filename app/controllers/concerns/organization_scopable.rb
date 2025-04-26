@@ -18,7 +18,7 @@ module OrganizationScopable
   def verify_and_set_current_person
     if Current.user
       if !Current.user.person
-        redirect_to new_staff_person_path, alert: "Please join this organization" # t("errors.person_not_found")
+        redirect_to new_person_path, notice: t("general.please_join")
       else
         Current.person = Current.user.person
       end
