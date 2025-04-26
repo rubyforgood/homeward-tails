@@ -1,5 +1,5 @@
 <% context ||= 'default' %>
-<span title="<%= notable.notes %>" id="<%= dom_id(notable, "notes_display_#{context}") %>">
+<span title="<%= notable.notes %>" class="notes-display-<%= context %>-<%= notable.id %>">
   <% if context == 'applications' || params[:active_tab] == 'applications' || @applications_tab == true %>
     <%= notable.notes&.truncate(8) %>
   <% else %>
@@ -29,7 +29,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body border-top-0 pt-2">
-        <%= bootstrap_form_with url: staff_note_path, method: "patch", data: { turbo: true } do |form| %>
+        <%= bootstrap_form_with url: staff_note_path,  model: notable.note, method: "patch", data: { turbo: true } do |form| %>
           <%= form.text_area :notes, hide_label: true, rows: 5, value: notable.notes %>
           <%= form.hidden_field :notable_id, value: notable.id %>
           <%= form.hidden_field :notable_type, value: notable.class.name %>

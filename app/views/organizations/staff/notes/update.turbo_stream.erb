@@ -1,17 +1,11 @@
-<%= turbo_stream.replace dom_id(@notable, "notes_display_#{@context}") do %>
-  <span title="<%= @notable.notes %>" id="<%= dom_id(@notable, "notes_display_#{@context}") %>">
+<%= turbo_stream.replace_all ".notes-display-#{@context}-#{@notable.id}" do %>
+  <span title="<%= @notable.notes %>" class="notes-display-<%= @context %>-<%= @notable.id %>">
     <% if @context == 'applications' %>
       <%= @notable.notes&.truncate(8) %>
     <% else %>
       <%= @notable.notes&.truncate(20) %>
     <% end %>
   </span>
-<% end %>
-
-<%= turbo_stream.replace dom_id(@notable, :notes) do %>
-  <li class="list-group-item" id="<%= dom_id(@notable, :notes) %>">
-    <%= render 'organizations/staff/shared/notes', notable: @notable, modal_id: 'card', context: 'applications' %>
-  </li>
 <% end %>
 
 <%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>

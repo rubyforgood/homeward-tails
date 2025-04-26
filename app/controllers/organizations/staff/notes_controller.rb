@@ -13,10 +13,10 @@ module Organizations
           @notable.create_note(note_params)
         end
 
-        @context = params[:context] || "default"
+        @context = params.dig(:note, :context) || "default"
 
         respond_to do |format|
-          format.html { redirect_back(fallback_location: root_path, notice: t("organizations.staff.notes.update.success")) }
+          format.html { redirect_back_or_to root_path, notice: t("organizations.staff.notes.update.success") }
           format.turbo_stream { flash.now[:notice] = t(".success") }
         end
       end
@@ -24,8 +24,8 @@ module Organizations
       private
 
       def set_notable
-        notable_type = params[:notable_type]
-        notable_id = params[:notable_id]
+        notable_type = params[:notable_type] || params.dig(:note, :notable_type)
+        notable_id = params[:notable_id] || params.dig(:note, :notable_id)
 
         if notable_type.blank? || notable_id.blank?
           raise ActionController::ParameterMissing.new("Missing notable_type or notable_id parameters")
@@ -44,7 +44,7 @@ module Organizations
       end
 
       def note_params
-        params.permit(:notes, :notable_id, :notable_type)
+        params.expect(note: [:notes, :notable_id, :notable_type])
       end
     end
   end

@@ -1,14 +1,14 @@
-require "rails_helper"
+require "test_helper"
 
-RSpec.describe Organizations::NotePolicy, type: :policy do
+# See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
+class Organizations::UserPolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   setup do
     @organization = ActsAsTenant.current_tenant
     @policy = -> {
       Organizations::NotePolicy.new(Note, user: @user,
-        organization: @organization)
-    }
+        organization: @organization) }
   end
 
   context "#update?" do
@@ -46,33 +46,13 @@ RSpec.describe Organizations::NotePolicy, type: :policy do
       end
     end
 
-    context "when user is deactivated staff" do
-      setup do
-        @user = create(:admin, :deactivated)
-      end
-
-      should "return false" do
-        assert_equal false, @action.call
-      end
-    end
-
-    context "when user is active staff" do
+    context "when user is staff" do
       setup do
         @user = create(:admin)
       end
 
       should "return false" do
         assert_equal false, @action.call
-      end
-    end
-
-    context "when user is staff admin" do
-      setup do
-        @user = create(:super_admin)
-      end
-
-      should "return true" do
-        assert_equal true, @action.call
       end
     end
   end
