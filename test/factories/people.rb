@@ -46,7 +46,7 @@ FactoryBot.define do
 
     trait :super_admin do
       after(:create) do |person, context|
-        group = create(:group, :admin)
+        group = create(:group, :super_admin)
         create(:person_group, person: person, group: group, deactivated_at: (context.deactivated ? Time.current : nil))
         person.user.add_role(:super_admin, ActsAsTenant.current_tenant) unless context.deactivated == true
       end

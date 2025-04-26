@@ -5,7 +5,7 @@ module Organizations
     pre_check :verify_active_staff!
 
     def update?
-      return false if record.id == user.person.id
+      return false if record.id == user.person&.id
 
       case group
       when "admin", "super_admin"
