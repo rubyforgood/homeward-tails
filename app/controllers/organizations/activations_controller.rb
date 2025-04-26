@@ -3,25 +3,24 @@ module Organizations
     before_action :set_pg
 
     def update
-      if params[:person_group][:deactivated] == "true"
-        @pg.update!(deactivated_at: Time.now)
-        @person.user.remove_role(@group.name, Current.organization)
+      @result = if params[:person_group][:deactivated] == "true"
+        [@person.deactivate!(@pg), t(".deactivated", staff: @person.full_name)]
       elsif params[:person_group][:deactivated] == "false"
-        @pg.update!(deactivated_at: nil)
-        @person.user.add_role(@group.name, Current.organization)
+        [@person.activate!(@pg), t(".activated", staff: @person.full_name)]
       else
-        respond_to do |format|
-          format.html { redirect_back_or_to staff_staff_index_path, alert: t("errors.try_again)") }
-          format.turbo_stream { flash.now[:alert] = t("errors.try_again") and return }
-        end
+        ["invalid parameter"]
       end
 
-      respond_to do |format|
-        success = @person.active_in_group?(@group.name) ?
-          t(".activated", staff: @person.full_name) :
-          t(".deactivated", staff: @person.full_name)
-        format.html { redirect_to staff_staff_index_path, notice: success }
-        format.turbo_stream { flash.now[:notice] = success }
+      if @result[0] == true
+        respond_to do |format|
+          format.html { redirect_to staff_staff_index_path, notice: @result[1] }
+          format.turbo_stream { flash.now[:notice] = @result[1] }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_back_or_to staff_staff_index_path, alert: @result }
+          format.turbo_stream { flash.now[:alert] = @result[0] }
+        end
       end
     end
 
@@ -29,10 +28,9 @@ module Organizations
 
     def set_pg
       @pg = PersonGroup.find(params[:id])
-      @group = Group.find(@pg.group_id)
       @person = Person.find(@pg.person_id)
 
-      authorize! @person, with: ActivationsPolicy, context: {group: @group.name}
+      authorize! @person, with: ActivationsPolicy, context: {group: @pg.group.name}
     end
   end
 end

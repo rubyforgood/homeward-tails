@@ -3,7 +3,7 @@
                            "organizations/staff/shared/deactivate_toggle",
                          locals: {
                            person: @person,
-                           group: @group.name,
+                           group: @pg.group.name,
                          } %>
 
 <%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>

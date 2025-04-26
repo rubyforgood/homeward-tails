@@ -107,6 +107,28 @@ class Person < ApplicationRecord
     end
   end
 
+  def deactivate!(person_group)
+    group = person_group.group
+
+    transaction do
+      user.remove_role(group.name, group.organization)
+      person_group.update(deactivated_at: Time.current)
+    rescue => e
+      "Deactivation failed: #{e.message}"
+    end
+  end
+
+  def activate!(person_group)
+    group = person_group.group
+
+    transaction do
+      user.add_role(group.name, group.organization)
+      person_group.update(deactivated_at: nil)
+    rescue => e
+      "Activation failed: #{e.message}"
+    end
+  end
+
   def is_staff?
     groups.exists?(name: %i[admin super_admin])
   end
