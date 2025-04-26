@@ -107,6 +107,11 @@ ActsAsTenant.with_tenant(@organization) do
     last_name: "Petrikov"
   )
 
+  Note.create!(
+    notes: Faker::Lorem.paragraph(sentence_count: 2),
+    notable: @fosterer_one
+  )
+
   @user_fosterer_one = @fosterer_one.create_user!(
     email: "fosterer1@alta.com",
     first_name: "Simon",
@@ -123,6 +128,11 @@ ActsAsTenant.with_tenant(@organization) do
     email: "fosterer2@alta.com",
     first_name: "Finn",
     last_name: "Mertens"
+  )
+
+  Note.create!(
+    notes: Faker::Lorem.paragraph(sentence_count: 2),
+    notable: @fosterer_two
   )
 
   @user_fosterer_two = @fosterer_two.create_user!(
@@ -332,6 +342,11 @@ ActsAsTenant.with_tenant(@organization) do
     else
       redo
     end
+
+    Note.create!(
+      notes: Faker::Lorem.paragraph(sentence_count: 2),
+      notable: adopter_application
+    )
   end
 
   5.times do
