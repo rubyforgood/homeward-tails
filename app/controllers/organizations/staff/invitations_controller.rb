@@ -81,7 +81,7 @@ module Organizations
           authorize! User, context: {organization: Current.organization},
             with: Organizations::InvitationPolicy
 
-          redirect_back fallback_location: root_path
+          redirect_back_or_to root_path
         end
       end
 
