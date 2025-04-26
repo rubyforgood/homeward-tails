@@ -18,7 +18,7 @@ module Organizations
         end
       else
         respond_to do |format|
-          format.html { redirect_back_or_to staff_staff_index_path, alert: @result }
+          format.html { redirect_back_or_to staff_staff_index_path, alert: @result[0] }
           format.turbo_stream { flash.now[:alert] = @result[0] }
         end
       end
