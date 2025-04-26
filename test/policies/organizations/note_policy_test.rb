@@ -8,7 +8,8 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
     @organization = ActsAsTenant.current_tenant
     @policy = -> {
       Organizations::NotePolicy.new(Note, user: @user,
-        organization: @organization) }
+        organization: @organization)
+    }
   end
 
   context "#update?" do
