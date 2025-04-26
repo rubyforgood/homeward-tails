@@ -30,7 +30,11 @@
       </div>
       <div class="modal-body border-top-0 pt-2">
         <%= bootstrap_form_with url: staff_note_path,  model: notable.note, method: "patch", data: { turbo: true } do |form| %>
-          <%= form.text_area :notes, hide_label: true, rows: 5, value: notable.notes %>
+          <%= form.text_area :notes, 
+              hide_label: true, 
+              rows: 5, 
+              value: notable.notes, 
+              class: "form-control notes-textarea-#{notable.id}" %>
           <%= form.hidden_field :notable_id, value: notable.id %>
           <%= form.hidden_field :notable_type, value: notable.class.name %>
           <%= form.hidden_field :context, value: context %>

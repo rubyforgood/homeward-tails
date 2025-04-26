@@ -8,4 +8,8 @@
   </span>
 <% end %>
 
+<%= turbo_stream.replace_all ".notes-textarea-#{@notable.id}" do %>
+  <%= text_area_tag "note[notes]", @notable.notes, class: "form-control notes-textarea-#{@notable.id}", rows: 5 %>
+<% end %>
+
 <%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>
