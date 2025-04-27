@@ -25,11 +25,21 @@ class PersonGroup < ApplicationRecord
   belongs_to :group
 
   validates :person_id, uniqueness: {scope: :group_id}
+  validate :organization_ids
+
   def activated?
     deactivated_at.nil?
   end
 
   def deactivated?
     !activated?
+  end
+
+  private
+
+  def organization_ids
+    if person.organization_id != group.organization_id
+      errors.add(:base, "Person and Group must belong to the same organization")
+    end
   end
 end
