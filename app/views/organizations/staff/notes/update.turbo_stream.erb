@@ -12,4 +12,10 @@
   <%= text_area_tag "note[notes]", @notable.notes, class: "form-control notes-textarea-#{@notable.id}", rows: 5 %>
 <% end %>
 
+<%= turbo_stream.replace_all ".notes-last-modified-#{@notable.id}" do %>
+  <div class="text-muted small notes-last-modified-<%= @notable.id %>">
+    Last modified: <%= @notable.note.updated_at.strftime("%B #{@notable.note.updated_at.day.ordinalize}, %Y") %>
+  </div>
+<% end %>
+
 <%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>
