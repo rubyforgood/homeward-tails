@@ -37,7 +37,7 @@ module GroupRoleManagement
     private
 
     def add_group(*names)
-      names.map(&:to_s).uniq.each do |name|
+      names.map(&:to_sym).uniq.each do |name|
         next unless Group.names.key?(name)
         group = Group.find_or_create_by!(name: name)
 
