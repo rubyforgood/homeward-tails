@@ -17,11 +17,11 @@ module GroupRoleManagement
     end
 
     def current_group
-      person.groups.find_by(name: ["admin", "super_admin"])
+      person.groups.find_sole_by(name: ["admin", "super_admin"])
     end
 
     def active?
-      person.active_in_group?(current_group.name)
+      person.active_in_group?(current_group&.name)
     end
 
     def change_role_and_group(prev_group, new_group)
