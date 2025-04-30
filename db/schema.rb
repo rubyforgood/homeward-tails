@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,7 +47,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
-    t.text "notes"
     t.boolean "profile_show", default: true
     t.bigint "organization_id", null: false
     t.bigint "person_id", null: false
@@ -167,6 +166,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
     t.index ["organization_id"], name: "index_matches_on_organization_id"
     t.index ["person_id"], name: "index_matches_on_person_id"
     t.index ["pet_id"], name: "index_matches_on_pet_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text "content"
+    t.string "notable_type", null: false
+    t.bigint "notable_id", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable"
+    t.index ["organization_id"], name: "index_notes_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -318,6 +328,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_004147) do
   add_foreign_key "likes", "pets"
   add_foreign_key "matches", "people"
   add_foreign_key "matches", "pets"
+  add_foreign_key "notes", "organizations"
   add_foreign_key "people", "organizations"
   add_foreign_key "pets", "organizations"
   add_foreign_key "questions", "forms"

@@ -39,6 +39,9 @@ class Person < ApplicationRecord
   has_many :matches # , dependent: :destroy
 
   has_one :user, dependent: :destroy
+  has_one :note, as: :notable, dependent: :destroy
+
+  delegate :content, to: :note, allow_nil: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -71,5 +74,9 @@ class Person < ApplicationRecord
     else
       raise ArgumentError, "Unsupported format: #{format}"
     end
+  end
+
+  def note
+    super || build_note
   end
 end

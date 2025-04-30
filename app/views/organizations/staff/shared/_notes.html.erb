@@ -1,0 +1,57 @@
+<% context ||= 'default' %>
+<span title="<%= notable.content %>" class="notes-display-<%= context %>-<%= notable.id %>">
+  <% if context == 'applications' || params[:active_tab] == 'applications' || @applications_tab == true %>
+    <%= notable.content&.truncate(8) %>
+  <% else %>
+    <%= notable.content&.truncate(20) %>
+  <% end %>
+</span>
+<button type="button" class="btn btn-outline-primary border border-0" data-bs-toggle="modal" data-bs-target="#notesModal<%= notable.id %>_<%= modal_id %>_<%= notable.class.name.underscore %>">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+  </svg>
+</button>
+<!-- Modal -->
+<div class="modal fade" id="notesModal<%= notable.id %>_<%= modal_id %>_<%= notable.class.name.underscore %>" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0 pb-2">
+        <h1 class="modal-title fs-4">
+          <%= t("organizations.staff.notes.edit_notes") %> 
+          <% if notable.respond_to?(:pet) && notable.pet&.name.present? %>
+            <%= notable.pet.name %>
+          <% elsif notable.respond_to?(:name) %>
+            <%= notable.name %>
+          <% else %>
+            <%= notable.class.name.humanize %>
+          <% end %>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body border-top-0 pt-2">
+        <%= bootstrap_form_with url: staff_note_path,  model: notable.note, method: "patch", data: { turbo: true } do |form| %>
+          <%= form.text_area :content, 
+              hide_label: true, 
+              rows: 5, 
+              value: notable.content, 
+              class: "form-control notes-textarea-#{notable.id}" %>
+          <%= form.hidden_field :notable_id, value: notable.id %>
+          <%= form.hidden_field :notable_type, value: notable.class.name %>
+          <%= form.hidden_field :context, value: context %>        
+          <div class="d-flex align-items-center justify-content-between mt-2">
+            <% if notable.note&.persisted? %>
+              <div class="text-muted small notes-last-modified-<%= notable.id %>">
+                Last modified: <%= notable.note.updated_at.strftime("#{notable.note.updated_at.day.ordinalize} %B, %Y") %>
+              </div>
+            <% else %>
+              <div></div>
+            <% end %>
+            <%= form.submit t("general.save"), 
+                  class: "btn btn-primary position-relative" ,
+                  data: { bs_dismiss: "modal" } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
