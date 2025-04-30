@@ -58,7 +58,7 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
       patch staff_note_path,
         params: {
           note: {
-            notes: "some notes",
+            content: "some notes",
             notable_id: @under_review_app.id,
             notable_type: @under_review_app.class.name
           },
@@ -70,7 +70,7 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
       follow_redirect!
 
       @under_review_app.reload
-      assert_equal("some notes", @under_review_app.notes)
+      assert_equal("some notes", @under_review_app.content)
     end
 
     context "deactivated staff" do

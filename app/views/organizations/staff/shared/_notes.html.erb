@@ -1,9 +1,9 @@
 <% context ||= 'default' %>
-<span title="<%= notable.notes %>" class="notes-display-<%= context %>-<%= notable.id %>">
+<span title="<%= notable.content %>" class="notes-display-<%= context %>-<%= notable.id %>">
   <% if context == 'applications' || params[:active_tab] == 'applications' || @applications_tab == true %>
-    <%= notable.notes&.truncate(8) %>
+    <%= notable.content&.truncate(8) %>
   <% else %>
-    <%= notable.notes&.truncate(20) %>
+    <%= notable.content&.truncate(20) %>
   <% end %>
 </span>
 <button type="button" class="btn btn-outline-primary border border-0" data-bs-toggle="modal" data-bs-target="#notesModal<%= notable.id %>_<%= modal_id %>_<%= notable.class.name.underscore %>">
@@ -30,10 +30,10 @@
       </div>
       <div class="modal-body border-top-0 pt-2">
         <%= bootstrap_form_with url: staff_note_path,  model: notable.note, method: "patch", data: { turbo: true } do |form| %>
-          <%= form.text_area :notes, 
+          <%= form.text_area :content, 
               hide_label: true, 
               rows: 5, 
-              value: notable.notes, 
+              value: notable.content, 
               class: "form-control notes-textarea-#{notable.id}" %>
           <%= form.hidden_field :notable_id, value: notable.id %>
           <%= form.hidden_field :notable_type, value: notable.class.name %>
@@ -41,7 +41,7 @@
           <div class="d-flex align-items-center justify-content-between mt-2">
             <% if notable.note&.persisted? %>
               <div class="text-muted small notes-last-modified-<%= notable.id %>">
-                Last modified: <%= notable.note.updated_at.strftime("%B #{notable.note.updated_at.day.ordinalize}, %Y") %>
+                Last modified: <%= notable.note.updated_at.strftime("#{notable.note.updated_at.day.ordinalize} %B, %Y") %>
               </div>
             <% else %>
               <div></div>

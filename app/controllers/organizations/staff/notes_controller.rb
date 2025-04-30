@@ -44,7 +44,7 @@ module Organizations
       end
 
       def note_params
-        params.expect(note: [:notes, :notable_id, :notable_type])
+        params.expect(note: [:content, :notable_id, :notable_type])
       end
     end
   end

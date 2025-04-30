@@ -108,7 +108,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   Note.create!(
-    notes: Faker::Lorem.paragraph(sentence_count: 2),
+    content: Faker::Lorem.paragraph(sentence_count: 2),
     notable: @fosterer_one
   )
 
@@ -131,7 +131,7 @@ ActsAsTenant.with_tenant(@organization) do
   )
 
   Note.create!(
-    notes: Faker::Lorem.paragraph(sentence_count: 2),
+    content: Faker::Lorem.paragraph(sentence_count: 2),
     notable: @fosterer_two
   )
 
@@ -296,7 +296,7 @@ ActsAsTenant.with_tenant(@organization) do
     end
 
     Note.create!(
-      notes: Faker::Lorem.paragraph(sentence_count: 2),
+      content: Faker::Lorem.paragraph(sentence_count: 2),
       notable: adopter_application
     )
   end

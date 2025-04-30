@@ -28,7 +28,7 @@ class AdopterApplication < ApplicationRecord
   belongs_to :person
   has_one :note, as: :notable, dependent: :destroy
 
-  delegate :notes, to: :note, allow_nil: true
+  delegate :content, to: :note, allow_nil: true
 
   validates :pet_id, uniqueness: {scope: :person_id}
 

@@ -3,8 +3,8 @@
 # Table name: notes
 #
 #  id              :bigint           not null, primary key
+#  content         :text
 #  notable_type    :string           not null
-#  notes           :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  notable_id      :bigint           not null

@@ -41,7 +41,7 @@ class Person < ApplicationRecord
   has_one :user, dependent: :destroy
   has_one :note, as: :notable, dependent: :destroy
 
-  delegate :notes, to: :note, allow_nil: true
+  delegate :content, to: :note, allow_nil: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true

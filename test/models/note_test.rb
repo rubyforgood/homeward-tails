@@ -4,7 +4,7 @@ class NoteTest < ActiveSupport::TestCase
   def setup
     @user = create(:fosterer)
     @notable = @user.person
-    @note = Note.new(notable: @notable, notes: "This is a test note")
+    @note = Note.new(notable: @notable, content: "This is a test note")
   end
 
   test "should be valid" do
@@ -18,7 +18,7 @@ class NoteTest < ActiveSupport::TestCase
 
   test "should allow different notable types" do
     @application = create(:adopter_application, person: @user.person)
-    note_for_application = Note.new(notable: @application, notes: "Application note")
+    note_for_application = Note.new(notable: @application, content: "Application note")
     assert note_for_application.valid?
   end
 end

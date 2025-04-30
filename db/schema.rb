@@ -169,7 +169,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.text "notes"
+    t.text "content"
     t.string "notable_type", null: false
     t.bigint "notable_id", null: false
     t.bigint "organization_id", null: false
