@@ -1,5 +1,5 @@
 module GroupRoleManagement
-  class AdopterFosterer
+  class GroupMember
     attr_reader :person
 
     def initialize(person)
@@ -26,6 +26,19 @@ module GroupRoleManagement
         .joins(:group)
         .where(deactivated_at: nil)
         .exists?
+    end
+
+    private
+
+    def add_group(*names)
+      names.map(&:to_s).uniq.each do |name|
+        next unless Group.names.key?(name)
+        group = Group.find_or_create_by!(name: name)
+
+        unless person.groups.exists?(id: group.id)
+          person.person_groups.create!(group: group)
+        end
+      end
     end
   end
 end

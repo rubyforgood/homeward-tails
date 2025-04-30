@@ -1,5 +1,5 @@
 module GroupRoleManagement
-  class Staff
+  class Staff < GroupMember
     attr_reader :person
 
     def initialize(person)
@@ -10,15 +10,15 @@ module GroupRoleManagement
       person.groups.exists?(name: %i[admin super_admin])
     end
 
-    def current_staff_group
+    def current_group
       person.groups.find_by(name: ["admin", "super_admin"])
     end
 
-    def active_staff?
-      person.active_in_group?(current_staff_group.name)
+    def active?
+      person.active_in_group?(current_group.name)
     end
 
-    def add_or_change_staff_role_and_group(new_group, prev_group = nil)
+    def change_role_and_group(prev_group, new_group)
       person.transaction do
         person.user.change_role(prev_group, new_group)
 
@@ -27,7 +27,7 @@ module GroupRoleManagement
           person.groups.destroy(group)
         end
 
-        person.add_group(new_group)
+        add_group(new_group)
       end
     end
   end
