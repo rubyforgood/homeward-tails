@@ -3,7 +3,7 @@
 # Methods in this class are delegated to the Person model via the `staff`
 # association using the prefix `staff` with the method name.
 # This allows calls like `@person.staff_active?` to invoke logic defined here.
-# Only `staff?` is directly available on Person (@person.staff?); all other methods must be called using the prefix.
+# Only `staff?` is used directly (@person.staff?); all other methods must be called using the prefix.
 
 module GroupRoleManagement
   class Staff < GroupMember
