@@ -52,7 +52,7 @@ class Person < ApplicationRecord
 
   delegate :activate!, :deactivate!,
     to: :activation
-  delegate :add_role_and_group, :add_group, :active_in_group?, :deactivated_in_org?,
+  delegate :add_role_and_group, :active_in_group?, :deactivated_in_org?,
     to: :group_member
   delegate :staff?,
     to: :staff

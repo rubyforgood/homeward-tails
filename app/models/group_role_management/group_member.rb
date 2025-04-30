@@ -7,6 +7,7 @@ module GroupRoleManagement
     end
 
     def add_role_and_group(*names)
+      raise StandardError, "Organization not set" unless Current.organization
       person.transaction do
         names.each do |name|
           person.user.add_role(name, Current.organization)
@@ -28,7 +29,7 @@ module GroupRoleManagement
         .exists?
     end
 
-    # private
+    private
 
     def add_group(*names)
       names.map(&:to_s).uniq.each do |name|

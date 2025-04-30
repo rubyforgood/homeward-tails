@@ -9,6 +9,9 @@
 )
 
 ActsAsTenant.with_tenant(@organization) do
+  # used for roles
+  Current.organization = @organization
+
   @orga_location = @organization.locations.create!(
     country: "US",
     province_state: "NV",
@@ -32,8 +35,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_one.id
   )
 
-  @user_staff_one.add_role(:super_admin, @organization)
-  @staff_one.add_group(:super_admin)
+  @staff_one.add_role_and_group(:super_admin)
 
   @user_staff_two = User.create!(
     email: "staff2@baja.com",
@@ -51,8 +53,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_two.id
   )
 
-  @user_staff_two.add_role(:super_admin, @organization)
-  @staff_two.add_group(:super_admin)
+  @staff_two.add_role_and_group(:super_admin)
 
   @user_adopter_one = User.create!(
     email: "adopter1@baja.com",
@@ -72,8 +73,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @adopter_one = Person.where(email: "adopter1@baja.com").first
 
-  @user_adopter_one.add_role(:adopter, @organization)
-  @adopter_one.add_group(:adopter)
+  @adopter_one.add_role_and_group(:adopter)
 
   @user_adopter_two = User.create!(
     email: "adopter2@baja.com",
@@ -91,8 +91,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_adopter_two.id
   )
 
-  @user_adopter_two.add_role(:adopter, @organization)
-  @adopter_two.add_group(:adopter)
+  @adopter_two.add_role_and_group(:adopter)
 
   @user_adopter_three = User.create!(
     email: "adopter3@baja.com",
@@ -110,8 +109,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_adopter_three.id
   )
 
-  @user_adopter_three.add_role(:adopter, @organization)
-  @adopter_three.add_group(:adopter)
+  @adopter_three.add_role_and_group(:adopter)
 
   @user_fosterer_one = User.create!(
     email: "fosterer1@baja.com",
@@ -131,9 +129,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @fosterer_one = Person.where(email: "fosterer1@baja.com").first
 
-  @user_fosterer_one.add_role(:adopter, @organization)
-  @user_fosterer_one.add_role(:fosterer, @organization)
-  @fosterer_one.add_group(:adopter, :fosterer)
+  @fosterer_one.add_role_and_group(:adopter, :fosterer)
 
   @user_fosterer_two = User.create!(
     email: "fosterer2@baja.com",
@@ -153,9 +149,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @fosterer_two = Person.where(email: "fosterer2@baja.com").first
 
-  @user_fosterer_two.add_role(:adopter, @organization)
-  @user_fosterer_two.add_role(:fosterer, @organization)
-  @fosterer_two.add_group(:adopter, :fosterer)
+  @fosterer_two.add_role_and_group(:adopter, :fosterer)
 
   5.times do
     DefaultPetTask.create!(
