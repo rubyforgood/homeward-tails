@@ -1,8 +1,9 @@
-# This is a PORO Model that encapsulates logic for modifying associations on Person/User models
+# This is a PORO Model that encapsulates logic for modifying/retrieving associations on Person/User models
 
-# This class adds staff-specific behavior to a Person.
-# Access it via `@person.staff`, then call methods like `active?` on that object. (@person.staff.active?)
-# Only `staff?` is directly available on Person (@person.staff?); all other methods must be called through `staff`.
+# Methods in this class are delegated to the Person model via the `staff`
+# association using the prefix `staff` with the method name.
+# This allows calls like `@person.staff_active?` to invoke logic defined here.
+# Only `staff?` is directly available on Person (@person.staff?); all other methods must be called using the prefix.
 
 module GroupRoleManagement
   class Staff < GroupMember

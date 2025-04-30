@@ -1,5 +1,5 @@
 <% pg =
-  @person.person_groups.find_sole_by(group_id: @person.staff.current_group.id) %>
+  @person.person_groups.find_sole_by(group_id: @person.staff_current_group.id) %>
 
 <%= turbo_stream.replace_all ".#{dom_id(@person, :role)}",
                          partial: "organizations/staff/staff/role",

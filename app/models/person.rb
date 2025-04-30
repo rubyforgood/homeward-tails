@@ -57,6 +57,9 @@ class Person < ApplicationRecord
   delegate :staff?,
     to: :staff
 
+  delegate :active?, :current_group, :change_role_and_group,
+    to: :staff, prefix: :staff
+
   scope :adopters, -> {
     joins(:groups).where(groups: {name: "adopter"})
   }
@@ -94,10 +97,6 @@ class Person < ApplicationRecord
     end
   end
 
-  def staff
-    @staff ||= GroupRoleManagement::Staff.new(self)
-  end
-
   private
 
   def activation
@@ -106,5 +105,9 @@ class Person < ApplicationRecord
 
   def group_member
     @group_member ||= GroupRoleManagement::GroupMember.new(self)
+  end
+
+  def staff
+    @staff ||= GroupRoleManagement::Staff.new(self)
   end
 end
