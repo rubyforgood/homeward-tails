@@ -1,3 +1,8 @@
+# This is a PORO Model that encapsulates logic for modifying associations on Person/User models
+
+# Methods in this class are delegated to from the Person model via the `activation` association.
+# This allows calls like `@person.activate!(:adopter)` to invoke logic defined here.
+#
 module GroupRoleManagement
   class Activation
     attr_reader :person
