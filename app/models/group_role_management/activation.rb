@@ -49,7 +49,7 @@ module GroupRoleManagement
       when String, Symbol
         Group.find_sole_by!(name: group_or_name)
       else
-        raise ArgumentError, "Expected Group or Group Name, got #{group_or_name.class.name}"
+        raise ArgumentError, "Expected Group or Group Name, received #{group_or_name.class.name}"
       end
     end
   end
