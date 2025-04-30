@@ -50,6 +50,13 @@ class Person < ApplicationRecord
   validates :user_id, uniqueness: {scope: :organization_id}, allow_nil: true
   validates :phone_number, phone: true, if: :phone_number?
 
+  delegate :activate!, :deactivate!,
+    to: :activation
+  delegate :add_role_and_group, :active_in_group?, :deactivated_in_org?,
+    to: :adopter_fosterer
+  delegate :staff?, :current_staff_group, :active_staff?, :add_or_change_staff_role_and_group,
+    to: :staff
+
   scope :adopters, -> {
     joins(:groups).where(groups: {name: "adopter"})
   }
@@ -87,15 +94,6 @@ class Person < ApplicationRecord
     end
   end
 
-  def add_role_and_group(*names)
-    transaction do
-      names.each do |name|
-        user.add_role(name, Current.organization)
-      end
-      add_group(*names)
-    end
-  end
-
   def add_group(*names)
     names.map(&:to_s).uniq.each do |name|
       next unless Group.names.key?(name)
@@ -107,70 +105,104 @@ class Person < ApplicationRecord
     end
   end
 
-  def deactivate!(person_group)
-    group = person_group.group
+  private
 
-    transaction do
-      user.remove_role(group.name, group.organization)
-      person_group.update(deactivated_at: Time.current)
-    rescue => e
-      "Deactivation failed: #{e.message}"
-    end
+  def activation
+    @activation ||= GroupRoleManagement::Activation.new(self)
   end
 
-  def activate!(person_group)
-    group = person_group.group
-
-    transaction do
-      user.add_role(group.name, group.organization)
-      person_group.update(deactivated_at: nil)
-    rescue => e
-      "Activation failed: #{e.message}"
-    end
+  def adopter_fosterer
+    @adopter_fosterer ||= GroupRoleManagement::AdopterFosterer.new(self)
   end
 
-  def is_staff?
-    groups.exists?(name: %i[admin super_admin])
+  def staff
+    @staff ||= GroupRoleManagement::Staff.new(self)
   end
 
-  def current_staff_group
-    groups.find_by(name: ["admin", "super_admin"])&.name
-  end
-
-  def is_active_staff?
-    active_in_group?(current_staff_group)
-  end
-
-  def add_or_change_staff_role_and_group(new_group, prev_group = nil)
-    transaction do
-      user.change_role(prev_group, new_group)
-
-      # Remove existing admin/super_admin groups
-      groups.where(name: [:admin, :super_admin]).each do |group|
-        groups.destroy(group)
-      end
-
-      add_group(new_group)
-    end
-  end
-
-  def active_in_group?(name)
-    person_groups.joins(:group)
-      .where(deactivated_at: nil, groups: {name: name})
-      .exists?
-  end
-
-  def person_group_for(group_name)
-    group = Group.find_by(name: group_name)
-    return nil unless group
-
-    person_groups.find_by(group_id: group.id)
-  end
-
-  def deactivated_in_org?
-    !person_groups
-      .joins(:group)
-      .where(deactivated_at: nil)
-      .exists?
-  end
+  # def add_role_and_group(*names)
+  #   transaction do
+  #     names.each do |name|
+  #       user.add_role(name, Current.organization)
+  #     end
+  #     add_group(*names)
+  #   end
+  # end
+  #
+  # def add_group(*names)
+  #   names.map(&:to_s).uniq.each do |name|
+  #     next unless Group.names.key?(name)
+  #     group = Group.find_or_create_by!(name: name)
+  #
+  #     unless groups.exists?(id: group.id)
+  #       person_groups.create!(group: group)
+  #     end
+  #   end
+  # end
+  #
+  # def deactivate!(person_group)
+  #   group = person_group.group
+  #
+  #   transaction do
+  #     user.remove_role(group.name, group.organization)
+  #     person_group.update(deactivated_at: Time.current)
+  #   rescue => e
+  #     "Deactivation failed: #{e.message}"
+  #   end
+  # end
+  #
+  # def activate!(person_group)
+  #   group = person_group.group
+  #
+  #   transaction do
+  #     user.add_role(group.name, group.organization)
+  #     person_group.update(deactivated_at: nil)
+  #   rescue => e
+  #     "Activation failed: #{e.message}"
+  #   end
+  # end
+  #
+  # def is_staff?
+  #   groups.exists?(name: %i[admin super_admin])
+  # end
+  #
+  # def current_staff_group
+  #   groups.find_by(name: ["admin", "super_admin"])&.name
+  # end
+  #
+  # def is_active_staff?
+  #   active_in_group?(current_staff_group)
+  # end
+  #
+  # def add_or_change_staff_role_and_group(new_group, prev_group = nil)
+  #   transaction do
+  #     user.change_role(prev_group, new_group)
+  #
+  #     # Remove existing admin/super_admin groups
+  #     groups.where(name: [:admin, :super_admin]).each do |group|
+  #       groups.destroy(group)
+  #     end
+  #
+  #     add_group(new_group)
+  #   end
+  # end
+  #
+  # def active_in_group?(name)
+  #   person_groups.joins(:group)
+  #     .where(deactivated_at: nil, groups: {name: name})
+  #     .exists?
+  # end
+  #
+  # def person_group_for(group_name)
+  #   group = Group.find_by(name: group_name)
+  #   return nil unless group
+  #
+  #   person_groups.find_by(group_id: group.id)
+  # end
+  #
+  # def deactivated_in_org?
+  #   !person_groups
+  #     .joins(:group)
+  #     .where(deactivated_at: nil)
+  #     .exists?
+  # end
 end

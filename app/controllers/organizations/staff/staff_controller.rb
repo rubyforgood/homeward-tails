@@ -1,6 +1,6 @@
 module Organizations
   module Staff
-    class Organizations::Staff::StaffController < Organizations::BaseController
+    class StaffController < Organizations::BaseController
       include ::Pagy::Backend
 
       layout "dashboard"
@@ -8,7 +8,7 @@ module Organizations
       def index
         authorize! User, context: {organization: Current.organization}
 
-        @pagy, @staff = pagy(Person.staff, limit: 10)
+        @pagy, @staff = pagy(Person.staff.includes(person_groups: :group), limit: 10)
       end
     end
   end

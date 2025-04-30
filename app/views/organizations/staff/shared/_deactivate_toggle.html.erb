@@ -1,5 +1,4 @@
 <div class=<%= "user_deactivate_toggle_#{person.id}" %>>
-  <% person_group = person.person_group_for(group) %>
   <%= form_with model: person_group, url: activation_path(person_group.id) do |form| %>
     <div class='form-group d-flex justify-content-center'>
       <div class="form-check form-switch">

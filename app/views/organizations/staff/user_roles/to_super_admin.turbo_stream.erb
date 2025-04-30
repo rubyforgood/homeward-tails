@@ -1,14 +1,18 @@
-<%= turbo_stream.replace_all ".#{dom_id(@user.person, :role)}",
+<% pg =
+  @person.person_groups.find_sole_by(group_id: @person.current_staff_group.id) %>
+
+<%= turbo_stream.replace_all ".#{dom_id(@person, :role)}",
                          partial: "organizations/staff/staff/role",
                          locals: {
-                           staff: @user.person,
+                           staff: @person,
                          } %>
 
-<%= turbo_stream.replace_all ".user_deactivate_toggle_#{@user.person.id}",
+<%= turbo_stream.replace_all ".user_deactivate_toggle_#{@person.id}",
                          partial:
                            "organizations/staff/shared/deactivate_toggle",
                          locals: {
-                           person: @user.person,
-                           group: @user.person.current_staff_group,
+                           person: @person,
+                           person_group: pg,
                          } %>
+
 <%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>

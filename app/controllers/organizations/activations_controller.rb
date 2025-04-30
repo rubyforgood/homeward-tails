@@ -4,9 +4,9 @@ module Organizations
 
     def update
       @result = if params[:person_group][:deactivated] == "true"
-        [@person.deactivate!(@pg), t(".deactivated", staff: @person.full_name)]
+        [@person.deactivate!(@group), t(".deactivated", staff: @person.full_name)]
       elsif params[:person_group][:deactivated] == "false"
-        [@person.activate!(@pg), t(".activated", staff: @person.full_name)]
+        [@person.activate!(@group), t(".activated", staff: @person.full_name)]
       else
         ["invalid parameter"]
       end
@@ -29,8 +29,9 @@ module Organizations
     def set_pg
       @pg = PersonGroup.find(params[:id])
       @person = Person.find(@pg.person_id)
+      @group = @pg.group
 
-      authorize! @person, with: ActivationsPolicy, context: {group: @pg.group.name}
+      authorize! @person, with: ActivationsPolicy, context: {group: @group.name}
     end
   end
 end

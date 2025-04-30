@@ -7,11 +7,13 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
   def index
     authorize! Person, context: {organization: Current.organization}
 
-    @q = authorized_scope(Person.fosterers).ransack(params[:q])
+    @q = authorized_scope(Person.fosterers.includes(person_groups: :group)).ransack(params[:q])
     @pagy, @fosterer_accounts = pagy(
       @q.result,
       limit: 10
     )
+    @group_id = Group.find_by(name: "fosterer").id
+
     respond_to do |format|
       format.html
       format.csv { send_data @fosterer_accounts.to_csv(%w[email]), filename: "fosterer_emails-#{Date.today}.csv" }

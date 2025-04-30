@@ -29,7 +29,8 @@
             <td>
               <%= render "organizations/staff/shared/deactivate_toggle",
               person: adopter,
-              group: "adopter" %>
+              person_group: adopter.person_groups.find_sole_by(group_id: @group_id) %>
+
             </td>
           </tr>
         <% end %>
