@@ -28,7 +28,7 @@ module GroupRoleManagement
         .exists?
     end
 
-    private
+    # private
 
     def add_group(*names)
       names.map(&:to_s).uniq.each do |name|

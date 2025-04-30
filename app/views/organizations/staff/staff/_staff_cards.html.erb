@@ -14,7 +14,7 @@
       </div>
       <div class="d-flex justify-content-between border-bottom py-2 mt-4">
         <span><%= t(:role) %></span>
-        <%= render "role", staff: staff %>
+        <%= render "role", person: staff %>
       </div>
       <div class="d-flex justify-content-between border-bottom py-2">
         <span><%= t(:joined) %></span>
@@ -25,7 +25,7 @@
         <%= render "organizations/staff/shared/deactivate_toggle",
         person: staff,
         person_group:
-          staff.person_groups.find_sole_by(group_id: staff.current_staff_group.id) %>
+          staff.person_groups.find_sole_by(group_id: staff.staff.current_group.id) %>
       </div>
     </div>
   </div>

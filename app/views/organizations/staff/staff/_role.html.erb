@@ -1,7 +1,7 @@
-<div class="dropdown <%= dom_id(staff, :role)%>">
+<div class="dropdown <%= dom_id(person, :role)%>">
   <button
     class="
-      btn btn-outline-secondary dropdown-toggle <%= "disabled" if staff == Current.person%>
+      btn btn-outline-secondary dropdown-toggle <%= "disabled" if person == Current.person%>
     "
     type="button"
     id="dropdownMenuButton"
@@ -9,16 +9,16 @@
     aria-haspopup="true"
     aria-expanded="false"
   >
-    <%= staff.current_staff_group.name.titleize %>
+    <%= person.staff.current_group.name.titleize %>
   </button>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <% if staff.user.has_role?(:super_admin, Current.organization) %>
-      <%= button_to "Admin", staff_user_to_admin_path(staff.user), class: "dropdown-item" %>
+    <% if person.user.has_role?(:super_admin, Current.organization) %>
+      <%= button_to "Admin", staff_user_to_admin_path(person.user), class: "dropdown-item" %>
     <% end %>
-    <% if staff.user.has_role?(:admin, Current.organization) %>
+    <% if person.user.has_role?(:admin, Current.organization) %>
       <%= button_to "Super Admin",
-      staff_user_to_super_admin_path(staff.user),
+      staff_user_to_super_admin_path(person.user),
       class: "dropdown-item" %>
     <% end %>
   </div>

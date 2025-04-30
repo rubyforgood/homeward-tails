@@ -25,7 +25,7 @@
               </div>
             </td>
             <td>
-              <%= render "role", staff: staff %>
+              <%= render "role", person: staff %>
             </td>
             <td>
               <%= staff.created_at.strftime("%d %B, %Y") %>
@@ -34,7 +34,7 @@
               <%= render "organizations/staff/shared/deactivate_toggle",
               person: staff,
               person_group:
-                staff.person_groups.find_sole_by(group_id: staff.current_staff_group.id) %>
+                staff.person_groups.find_sole_by(group_id: staff.staff.current_group.id) %>
             </td>
           </tr>
         <% end %>

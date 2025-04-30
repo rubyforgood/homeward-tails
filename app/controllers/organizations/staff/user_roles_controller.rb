@@ -4,7 +4,7 @@ module Organizations
       before_action :set_user_and_person
 
       def to_admin
-        @person.add_or_change_staff_role_and_group(:admin, :super_admin)
+        @person.staff.change_role_and_group(:super_admin, :admin)
         if @person.active_in_group?(:admin)
           respond_to do |format|
             format.html { redirect_to request.referrer, notice: t(".success") }
@@ -19,7 +19,7 @@ module Organizations
       end
 
       def to_super_admin
-        @person.add_or_change_staff_role_and_group(:super_admin, :admin)
+        @person.staff.change_role_and_group(:admin, :super_admin)
         if @person.active_in_group?(:super_admin)
 
           respond_to do |format|
