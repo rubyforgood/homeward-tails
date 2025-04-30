@@ -31,7 +31,7 @@ module Organizations
       @person = Person.find(@pg.person_id)
       @group = @pg.group
 
-      authorize! @person, with: ActivationsPolicy, context: {group: @group.name}
+      authorize! @person, with: ActivationsPolicy, context: {group: @group}
     end
   end
 end
