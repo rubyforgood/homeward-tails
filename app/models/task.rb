@@ -59,7 +59,7 @@ class Task < ApplicationRecord
   def next_due_date_when_sensible
     if next_due_date_in_days && (!due_date || !recurring)
       errors.add(:base, "A task must be recurring and have a due date in order to set next due date in days value.")
-    elsif !next_due_date_in_days && (recurring && due_date)
+    elsif !next_due_date_in_days && recurring && due_date
       errors.add(:base, "Recurring tasks with due dates must set a next due date in days value.")
     end
   end
