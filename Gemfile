@@ -90,7 +90,7 @@ gem "active_link_to"
 gem "pagy"
 
 # Adds a simple way to fetch with Javascript
-gem "requestjs-rails", "~> 0.0.12"
+gem "requestjs-rails", "~> 0.0.13"
 
 # Add ability to set user roles
 gem "rolify"
