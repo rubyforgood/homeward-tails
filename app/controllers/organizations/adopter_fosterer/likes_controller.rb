@@ -13,7 +13,7 @@ class Organizations::AdopterFosterer::LikesController < Organizations::BaseContr
   end
 
   def create
-    authorize! context: {pet: @pet}
+    authorize! @pet, with: Organizations::LikePolicy
 
     @like = Like.new(person_id: Current.person.id,
       pet_id: like_params[:pet_id])
@@ -31,7 +31,7 @@ class Organizations::AdopterFosterer::LikesController < Organizations::BaseContr
 
   def destroy
     @pet = @like.pet
-    authorize! context: {pet: @pet}, with: Organizations::LikePolicy
+    authorize! @like
 
     respond_to do |format|
       if @like.destroy
@@ -56,6 +56,5 @@ class Organizations::AdopterFosterer::LikesController < Organizations::BaseContr
 
   def set_like
     @like = Like.find(params[:id])
-    authorize! @like
   end
 end
