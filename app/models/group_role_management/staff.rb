@@ -25,10 +25,8 @@ module GroupRoleManagement
       person.active_in_group?(current_group&.name)
     end
 
-    def change_role_and_group(prev_group, new_group)
+    def change_group(new_group)
       person.transaction do
-        person.user.change_role(prev_group, new_group)
-
         # Remove existing admin/super_admin groups
         person.groups.where(name: [:admin, :super_admin]).each do |group|
           person.groups.destroy(group)

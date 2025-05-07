@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   verify_authorized unless: :devise_controller?
-  before_action :set_current_user
+  # before_action :set_current_user
   around_action :switch_locale
 
   KNOWN_ERRORS = [ActionPolicy::Unauthorized]
@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_current_user
-    Current.user = current_user
-  end
+  # def set_current_user
+  #   Current.user = current_user
+  # end
 
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale

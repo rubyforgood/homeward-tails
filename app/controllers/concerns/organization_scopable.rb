@@ -16,24 +16,32 @@ module OrganizationScopable
   end
 
   def verify_and_set_current_person
-    if Current.user
-      if !Current.user.person
-        redirect_to new_person_path, notice: t("general.please_join")
-      else
-        Current.person = Current.user.person
-      end
+    return unless current_user
+
+    # This is scoped to the org via acts_as_tenant - Only a single record will be returned if present
+    # ActsAsTenant.current_tenant is set prior to this, however if a query is attempted while
+    # Current.organization is present, an error with be raise via the acts_as_tenant initializer
+    # Current.person is used for authorization via Action Policy, and permission lookups
+    # in authorizable.rb
+
+    person = current_user.people.first
+
+    if person
+      Current.person = person
+    else
+      redirect_to new_person_path, alert: "Please create a profile for this organization."
     end
   end
 
   def after_sign_in_path_for(resource_or_scope)
     if allowed_to?(
       :index?, with: Organizations::DashboardPolicy,
-      context: {organization: Current.organization}
+      context: {person: Current.person}
     )
       staff_dashboard_index_path
     elsif allowed_to?(
       :index?, with: Organizations::AdopterFosterDashboardPolicy,
-      context: {organization: Current.organization}
+      context: {person: Current.person}
     )
       adopter_fosterer_dashboard_index_path
     else

@@ -28,9 +28,9 @@ class FeedbackController < ApplicationController
   end
 
   def set_layout
-    if current_user.nil?
+    if Current.person.nil?
       "application"
-    elsif current_user.has_role?(:adopter, ActsAsTenant.current_tenant)
+    elsif Current.person.active_in_group?(:adopter)
       "adopter_foster_dashboard"
     else
       "dashboard"

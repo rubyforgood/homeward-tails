@@ -36,7 +36,6 @@
 #
 class User < ApplicationRecord
   include Avatarable
-  include Authorizable
   include RoleChangeable
   include Omniauthable
 
@@ -79,7 +78,11 @@ class User < ApplicationRecord
   # they can log in while scoped to Org B.
   def active_for_authentication?
     if Current.organization
-      super && (!person || !person.deactivated_in_org?)
+      # This is being ran prior to ActsAsTenant being set so we must scope the queries here
+      ActsAsTenant.with_tenant(Current.organization) do
+        person = people.first
+        super && (!person || !person.deactivated_in_org?)
+      end
     else
       super
     end
@@ -94,13 +97,12 @@ class User < ApplicationRecord
     end
   end
 
-  def person
-    raise StandardError, "Organization not set" unless Current.organization
-
-    ActsAsTenant.with_tenant(Current.organization) do
-      people.find_by(user_id: id)
-    end
-  end
+  #   raise StandardError, "Organization not set" unless Current.organization
+  #
+  #   ActsAsTenant.with_tenant(Current.organization) do
+  #     people.find_by(user_id: id)
+  #   end
+  # end
 
   def full_name(format = :default)
     case format

@@ -27,7 +27,9 @@ class Person < ApplicationRecord
   include Avatarable
   include Phoneable
   include Exportable
+  include Authorizable
 
+  belongs_to :user, optional: true
   acts_as_tenant(:organization)
 
   has_one :latest_form_submission, -> { order(created_at: :desc) }, class_name: "FormSubmission"
@@ -40,10 +42,11 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :location,
     reject_if: ->(attributes) { attributes["city_town"].blank? }
   has_many :matches # , dependent: :destroy
-  belongs_to :user, optional: true
   has_many :person_groups
   has_many :groups, through: :person_groups
 
+  # TODO add DB contraint
+  validates_uniqueness_to_tenant :user_id
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: {case_sensitive: false, scope: :organization_id}
@@ -52,12 +55,12 @@ class Person < ApplicationRecord
 
   delegate :activate!, :deactivate!,
     to: :activation
-  delegate :add_role_and_group, :active_in_group?, :deactivated_in_org?,
+  delegate :add_group, :active_in_group?, :deactivated_in_org?,
     to: :group_member
   delegate :staff?,
     to: :staff
 
-  delegate :active?, :current_group, :change_role_and_group,
+  delegate :active?, :current_group, :change_group,
     to: :staff, prefix: :staff
 
   scope :adopters, -> {

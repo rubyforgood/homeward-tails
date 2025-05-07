@@ -7,15 +7,15 @@ class Organizations::AdopterFosterer::LikesController < Organizations::BaseContr
   def index
     authorize!
 
-    likes = current_user.person.likes
+    likes = Current.person.likes
     @likes_by_id = likes.index_by(&:pet_id)
-    @pets = current_user.person.liked_pets.includes(:matches, :adopter_applications, images_attachments: :blob)
+    @pets = Current.person.liked_pets.includes(:matches, :adopter_applications, images_attachments: :blob)
   end
 
   def create
     authorize! context: {pet: @pet}
 
-    @like = Like.new(person_id: current_user.person.id,
+    @like = Like.new(person_id: Current.person.id,
       pet_id: like_params[:pet_id])
 
     respond_to do |format|

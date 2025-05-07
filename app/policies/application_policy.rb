@@ -5,6 +5,7 @@ class ApplicationPolicy < ActionPolicy::Base
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
   authorize :user, allow_nil: true
   authorize :organization, optional: true
+  authorize :person, allow_nil: true
 
   pre_check :verify_authenticated!
   pre_check :verify_tos_agreement!
@@ -26,25 +27,28 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # Define shared methods useful for most policies.
 
-  def organization
-    return record if record.is_a?(Organization)
+  # def organization
+  #   return record if record.is_a?(Organization)
+  #
+  #   @organization || Current.organization
+  # end
+  #
 
-    @organization || Current.organization
+  def verify_record_organization!
+    # if the record is an instance, we want to check that the record belongs the same org as the person acting on it.
+    if record.respond_to?(:organization_id)
+      deny! unless record.organization_id == person.organization_id
+    end
   end
 
-  def verify_organization!
-    deny! unless Current.organization.present?
-    true
-  end
-
-  def verify_active_staff!
-    deny! unless user.person&.staff_active?
-  end
+  # def verify_active_staff!
+  #   deny! unless user.person&.staff_active?
+  # end
 
   def permission?(name)
-    return false unless user
+    return false unless person
 
-    user.permission?(name)
+    person.permission?(name)
   end
 
   def authenticated? = user.present?

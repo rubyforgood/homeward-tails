@@ -37,9 +37,9 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def set_layout
-    if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {organization: Current.organization})
+    if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {person: Current.person})
       "dashboard"
-    elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
+    elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {person: Current.person})
       "adopter_foster_dashboard"
     else
       "application"

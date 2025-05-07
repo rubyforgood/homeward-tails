@@ -11,13 +11,24 @@ module GroupRoleManagement
       @person = person
     end
 
-    def add_role_and_group(*names)
-      raise StandardError, "Organization not set" unless Current.organization
-      person.transaction do
-        names.each do |name|
-          person.user.add_role(name, Current.organization)
+    # def add_role_and_group(*names)
+    #   raise StandardError, "Organization not set" unless Current.organization
+    #   person.transaction do
+    #     names.each do |name|
+    #       # person.user.add_role(name, Current.organization)
+    #     end
+    #     add_group(*names)
+    #   end
+    # end
+
+    def add_group(*names)
+      names.map(&:to_sym).uniq.each do |name|
+        next unless Group.names.key?(name)
+        group = Group.find_or_create_by!(name: name)
+
+        unless person.groups.exists?(id: group.id)
+          person.person_groups.create!(group: group)
         end
-        add_group(*names)
       end
     end
 
@@ -32,19 +43,6 @@ module GroupRoleManagement
         .joins(:group)
         .where(deactivated_at: nil)
         .exists?
-    end
-
-    private
-
-    def add_group(*names)
-      names.map(&:to_sym).uniq.each do |name|
-        next unless Group.names.key?(name)
-        group = Group.find_or_create_by!(name: name)
-
-        unless person.groups.exists?(id: group.id)
-          person.person_groups.create!(group: group)
-        end
-      end
     end
   end
 end
