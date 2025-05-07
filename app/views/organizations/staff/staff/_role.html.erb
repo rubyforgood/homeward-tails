@@ -1,3 +1,4 @@
+<% current_group_name = person.staff_current_group.name %>
 <div class="dropdown <%= dom_id(person, :role)%>">
   <button
     class="
@@ -9,16 +10,16 @@
     aria-haspopup="true"
     aria-expanded="false"
   >
-    <%= person.staff_current_group.name.titleize %>
+    <%= current_group_name.titleize %>
   </button>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <% if person.user.has_role?(:super_admin, Current.organization) %>
-      <%= button_to "Admin", staff_user_to_admin_path(person.user), class: "dropdown-item" %>
+    <% if current_group_name == "super_admin" %>
+      <%= button_to "Admin", staff_user_to_admin_path(person), class: "dropdown-item" %>
     <% end %>
-    <% if person.user.has_role?(:admin, Current.organization) %>
+    <% if current_group_name == "admin" %>
       <%= button_to "Super Admin",
-      staff_user_to_super_admin_path(person.user),
+      staff_user_to_super_admin_path(person),
       class: "dropdown-item" %>
     <% end %>
   </div>

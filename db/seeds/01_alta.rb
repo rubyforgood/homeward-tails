@@ -9,9 +9,6 @@
 )
 
 ActsAsTenant.with_tenant(@organization) do
-  # used for roles
-  Current.organization = @organization
-
   @orga_location = @organization.locations.create!(
     country: "US",
     province_state: "NY",
@@ -35,7 +32,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_one.id
   )
 
-  @staff_one.add_role_and_group(:super_admin)
+  @staff_one.add_group(:super_admin)
 
   @user_staff_two = User.create!(
     email: "staff2@alta.com",
@@ -53,7 +50,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_two.id
   )
 
-  @staff_two.add_role_and_group(:super_admin)
+  @staff_two.add_group(:super_admin)
 
   @user_adopter_one = User.create!(
     email: "adopter1@alta.com",
@@ -73,7 +70,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @adopter_one = Person.where(email: "adopter1@alta.com").first
 
-  @adopter_one.add_role_and_group(:adopter)
+  @adopter_one.add_group(:adopter)
 
   @user_adopter_two = User.create!(
     email: "adopter2@alta.com",
@@ -91,7 +88,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_adopter_two.id
   )
 
-  @adopter_two.add_role_and_group(:adopter)
+  @adopter_two.add_group(:adopter)
 
   @user_adopter_three = User.create!(
     email: "adopter3@alta.com",
@@ -109,7 +106,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_adopter_three.id
   )
 
-  @adopter_three.add_role_and_group(:adopter)
+  @adopter_three.add_group(:adopter)
 
   @user_fosterer_one = User.create!(
     email: "fosterer1@alta.com",
@@ -129,7 +126,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @fosterer_one = Person.where(email: "fosterer1@alta.com").first
 
-  @fosterer_one.add_role_and_group(:adopter, :fosterer)
+  @fosterer_one.add_group(:adopter, :fosterer)
 
   @user_fosterer_two = User.create!(
     email: "fosterer2@alta.com",
@@ -149,7 +146,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @fosterer_two = Person.where(email: "fosterer2@alta.com").first
 
-  @fosterer_two.add_role_and_group(:adopter, :fosterer)
+  @fosterer_two.add_group(:adopter, :fosterer)
 
   5.times do
     DefaultPetTask.create!(
