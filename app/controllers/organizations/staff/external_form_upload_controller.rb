@@ -8,11 +8,11 @@ module Organizations
       before_action :handle_incorrect_file_format_when_csv_expected, only: [:create]
 
       def index
-        authorize! :external_form_upload, context: {organization: Current.organization}
+        authorize! :external_form_upload
       end
 
       def create
-        authorize! :external_form_upload, context: {organization: Current.organization}
+        authorize! :external_form_upload
         file = params[:csv]
 
         @blob = ActiveStorage::Blob.create_and_upload!(io: file, filename: file.original_filename)

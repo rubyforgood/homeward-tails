@@ -5,7 +5,7 @@ module Organizations
       layout "dashboard", only: %i[new]
 
       def new
-        authorize! User, context: {organization: Current.organization},
+        authorize! User,
           with: Organizations::StaffInvitationPolicy
 
         @user = User.new

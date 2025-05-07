@@ -17,8 +17,7 @@ module Organizations
       end
 
       def context_authorize!
-        authorize! FormSubmission,
-          context: {organization: Current.organization}
+        authorize! FormSubmission
       end
     end
   end

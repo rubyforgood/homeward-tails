@@ -76,16 +76,14 @@
           <i class="nav-icon fe fe-file-text me-2"></i>FAQs
         <% end %>
       </li>
-      <% if allowed_to?(:edit?, Organization, namespace: Organizations,
-        context: {organization: Current.organization}) %>
+      <% if allowed_to?(:edit?, Organization, namespace: Organizations ) %>
         <li class="nav-item">
           <%= active_link_to edit_staff_organization_path, class: "nav-link" do %>
             <i class="nav-icon fe fe-settings me-2"></i>Settings
           <% end %>
         </li>
       <% end %>
-      <% if allowed_to?(:edit?, CustomPage, namespace: Organizations,
-        context: {organization: Current.organization}) %>
+      <% if allowed_to?(:edit?, CustomPage, namespace: Organizations ) %>
         <li class="nav-item">
           <%= active_link_to edit_staff_custom_page_path(@custom_page), class: "nav-link" do %>
             <i class="nav-icon fe fe-layout me-2"></i>Custom Page

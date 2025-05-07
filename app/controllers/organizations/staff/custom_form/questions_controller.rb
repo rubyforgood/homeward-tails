@@ -72,7 +72,7 @@ module Organizations
         end
 
         def context_authorize!
-          authorize! ::CustomForm::Question, context: {organization: Current.organization}
+          authorize! ::CustomForm::Question
         end
       end
     end

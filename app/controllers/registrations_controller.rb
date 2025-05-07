@@ -83,7 +83,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
+    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {person: Current.person})
 
     if Current.organization.external_form_url
       adopter_fosterer_external_form_index_path

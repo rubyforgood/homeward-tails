@@ -18,7 +18,7 @@ module Organizations
         # If you extend this, make sure new paths have their own authz!
         case user_params[:roles]
         when "super_admin", "admin"
-          authorize! User, context: {organization: Current.organization},
+          authorize! User,
             with: Organizations::StaffInvitationPolicy
 
           # User may already exist as adopter, fosterer, or staff for another
@@ -54,7 +54,7 @@ module Organizations
 
         when "fosterer"
           # TODO unpermitted param
-          authorize! User, context: {organization: Current.organization},
+          authorize! User,
             with: Organizations::FostererInvitationPolicy
 
           @user = User.find_by(email: user_params[:email])
@@ -78,7 +78,7 @@ module Organizations
           redirect_to staff_fosterers_path, notice: t(".success")
 
         else
-          authorize! User, context: {organization: Current.organization},
+          authorize! User,
             with: Organizations::InvitationPolicy
 
           redirect_back_or_to root_path

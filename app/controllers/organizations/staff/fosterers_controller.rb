@@ -5,7 +5,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
   before_action :authorize_user, only: %i[edit update]
 
   def index
-    authorize! Person, context: {organization: Current.organization}
+    authorize! Person
 
     @q = authorized_scope(Person.fosterers.includes(person_groups: :group)).ransack(params[:q])
     @pagy, @fosterer_accounts = pagy(
@@ -47,7 +47,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
   end
 
   def authorize_user
-    authorize! Person, context: {organization: Current.organization},
+    authorize! Person,
       with: Organizations::FostererInvitationPolicy
   end
 end

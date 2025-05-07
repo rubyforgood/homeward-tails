@@ -65,7 +65,7 @@ module Organizations
         end
 
         def context_authorize!
-          authorize! ::CustomForm::Form, context: {organization: Current.organization}
+          authorize! ::CustomForm::Form
         end
       end
     end
