@@ -3,7 +3,6 @@ module Organizations
     include ::Pagy::Backend
 
     skip_before_action :authenticate_user!
-    skip_before_action :verify_and_set_current_person, only: %i[index]
     skip_verify_authorized only: %i[index show]
     before_action :set_likes, only: %i[index show],
       if: -> { allowed_to?(:index?, Like) }
@@ -35,10 +34,10 @@ module Organizations
         @adoption_application =
           AdopterApplication.find_by(
             pet_id: @pet.id,
-            person_id: current_user.person.id
+            person_id: Current.person.id
           ) ||
           @pet.adopter_applications.build(
-            person: current_user.person
+            person: Current.person
           )
       end
     end
@@ -46,7 +45,7 @@ module Organizations
     private
 
     def set_likes
-      likes = current_user.person.likes
+      likes = Current.person.likes
       @likes_by_id = likes.index_by(&:pet_id)
     end
 

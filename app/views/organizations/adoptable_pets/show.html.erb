@@ -3,28 +3,41 @@
     <!-- Pet Info -->
     <div class="col-xl-12 col-lg-12 col-md-12 col-12">
       <div class="pt-16 rounded-top-md bg-gray-200"></div>
-      <div class="d-flex align-items-center justify-content-between bg-white px-4 pt-2 pb-4 rounded-none rounded-bottom-md shadow-sm">
+      <div
+        class="
+          d-flex align-items-center justify-content-between bg-white px-4 pt-2 pb-4
+          rounded-none rounded-bottom-md shadow-sm
+        "
+      >
         <div class="d-flex align-items-center">
-          <div class="me-2 position-relative d-flex justify-content-end align-items-end mt-n5">
+          <div
+            class="
+              me-2 position-relative d-flex justify-content-end align-items-end mt-n5
+            "
+          >
             <% if @pet.images.attached? %>
-              <%= image_tag @pet.images.first, class: 'avatar-xl rounded-circle border border-4 border-white' %>
+              <%= image_tag @pet.images.first,
+              class: "avatar-xl rounded-circle border border-4 border-white" %>
             <% end %>
           </div>
           <div class="lh-1">
             <h2 class="mb-0"><%= @pet.name %></h2>
-            <%= content_tag(:span, t('general.adoption_pending'), class: "badge bg-info") if @pet.has_adoption_pending? %>
+            <%= if @pet.has_adoption_pending?
+              content_tag(:span, t("general.adoption_pending"), class: "badge bg-info")
+            end %>
           </div>
         </div>
         <div>
           <% unless current_user %>
-            <%= link_to t('general.become_an_adopter'), new_user_registration_path, class: 'btn btn-primary btn-sm d-none d-md-block' %>
+            <%= link_to t("general.become_an_adopter"),
+            new_user_registration_path,
+            class: "btn btn-primary btn-sm d-none d-md-block" %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 </header>
-
 <!--pet tile-->
 <section class="pb-5" id="adoptable_pets_show">
   <div class="container">
@@ -32,28 +45,45 @@
       <div class="col-lg-6">
         <!--pet images-->
         <% if @pet.images.attached? %>
-          <div id="carouselExampleIndicators" class="carousel slide mb-5" data-bs-ride="carousel">
+          <div
+            id="carouselExampleIndicators"
+            class="carousel slide mb-5"
+            data-bs-ride="carousel"
+          >
             <div class="carousel-indicators">
               <% @pet.images.each_with_index do |image, index| %>
-                <button type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : '' %>"
-                        aria-current="true" aria-label="Slide <%= index %>"></button>
+                <button
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide-to="<%= index %>"
+                  class="<%= index == 0 ? 'active' : '' %>"
+                  aria-current="true"
+                  aria-label="Slide <%= index %>"
+                ></button>
               <% end %>
             </div>
             <div class="carousel-inner">
               <% @pet.images.each_with_index do |image, index| %>
                 <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
-                  <%= image_tag image, class: 'd-block w-100' %>
+                  <%= image_tag image, class: "d-block w-100" %>
                 </div>
               <% end %>
             </div>
-            <button class="carousel-control-prev" type="button"
-                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button"
-                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
@@ -64,14 +94,17 @@
           <%= c.with_header do %>
             <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex justify-content-between align-items-center gap-3">
-                <h4 class="mb-0"><%= "#{t('general.about')} #{@pet.name}" %></h4>
+                <h4 class="mb-0"><%= "#{t("general.about")} #{@pet.name}" %></h4>
                 <span class="badge bg-secondary-soft text-secondary">
                   <%= @pet.species %>
                 </span>
               </div>
 
               <% if allowed_to?(:create?, Like, context: {pet: @pet}) %>
-                <div id="like_button_pet_<%= @pet.id %>" class="d-flex flex-column align-items-center">
+                <div
+                  id="like_button_pet_<%= @pet.id %>"
+                  class="d-flex flex-column align-items-center"
+                >
                   <%= render LikeButtonComponent.new(pet: @pet, like: @likes_by_id[@pet.id]) %>
                 </div>
               <% end %>
@@ -81,27 +114,28 @@
             <p><%= @pet.description %></p>
 
             <ul class="list-group list-group-flush">
-              <% pet_infos = {"Age": time_ago_in_words(@pet.birth_date).titleize,
-                              "Sex": @pet.sex,
-                              "Breed": @pet.breed,
-                              "Weight": "#{@pet.weight_from} to #{@pet.weight_to} #{@pet.weight_unit}"
+              <% pet_infos = {
+                Age: time_ago_in_words(@pet.birth_date).titleize,
+                Sex: @pet.sex,
+                Breed: @pet.breed,
+                Weight: "#{@pet.weight_from} to #{@pet.weight_to} #{@pet.weight_unit}",
               } %>
               <% pet_infos.each do |pet_info| %>
-              <li class="list-group-item px-0">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="d-flex align-items-center">
-                    <i class="fe fe-book me-2"></i>
-                    <div class="ms-2">
-                      <h5 class="mb-0 text-body"><%= pet_info[0] %></h5>
+                <li class="list-group-item px-0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <i class="fe fe-book me-2"></i>
+                      <div class="ms-2">
+                        <h5 class="mb-0 text-body"><%= pet_info[0] %></h5>
+                      </div>
                     </div>
-                  </div>
-                  <div>
                     <div>
-                      <p class="text-dark mb-0 fw-semibold"><%= pet_info[1] %></p>
+                      <div>
+                        <p class="text-dark mb-0 fw-semibold"><%= pet_info[1] %></p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
+                </li>
               <% end %>
             </ul>
           <% end %>
@@ -113,15 +147,15 @@
           <div>
             <div class="row">
               <!-- heading -->
-              <span class="text-uppercase text-primary fw-semibold ls-md"><%= t('.adoption_process') %></span>
+              <span class="text-uppercase text-primary fw-semibold ls-md"><%= t(".adoption_process") %></span>
               <!-- para -->
-              <p class="fs-3  mb-5"><%= t('.please_read_faq_html', faq_link: link_to('FAQ', faq_index_path)) %></p>
+              <p class="fs-3 mb-5"><%= t(".please_read_faq_html", faq_link: link_to("FAQ", faq_index_path)) %></p>
             </div>
 
             <% if @adoptable_pet_info.present? %>
               <div class="row align-items-center">
                 <div class="mb-6">
-                  <h3 class="mb-3 fw-bold"><%= t('.important_info') %></h3>
+                  <h3 class="mb-3 fw-bold"><%= t(".important_info") %></h3>
                   <p class="mb-0 fs-4 ">
                     <%= @adoptable_pet_info %>
                   </p>
@@ -136,59 +170,63 @@
               <% unless current_user.tos_agreement? %>
                 <%= link_to "View Terms of Service before applying", edit_tos_agreement_path %>
               <% end %>
-              <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, user: current_user}) %>
-                <h4 class="mb-4 mt-3"><%= t('.in_love') %></h4>
+              <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, person: Current.person}) %>
+                <h4 class="mb-4 mt-3"><%= t(".in_love") %></h4>
                 <%= form_with model: [:adopter_fosterer, @adoption_application] do |form| %>
                   <%= form.hidden_field :pet_id, value: @adoption_application.pet_id %>
                   <%= form.hidden_field :person_id, value: @adoption_application.person_id %>
                   <%= form.submit t(".apply_to_adopt"),
-                    class: "btn btn-primary",
-                    data: {turbo: false}
-                  %>
+                              class: "btn btn-primary",
+                              data: {
+                                turbo: false,
+                              } %>
                 <% end %>
-              <% elsif AdopterApplication.exists?(person: current_user.person, pet: @pet) %>
+              <% elsif AdopterApplication.exists?(person: Current.person, pet: @pet) %>
                 <div class='d-flex align-items-center mt-3'>
                   <h4 class="me-2 mb-0">
-                    <%= "#{t('organizations.adoptable_pets.show.application_status')} #{@adoption_application.human_enum_name(:status) || t('.status.default')}" %>
+                    <%= "#{t("organizations.adoptable_pets.show.application_status")} #{@adoption_application.human_enum_name(:status) || t(".status.default")}" %>
                   </h4>
                   <% if %w[under_review adoption_pending].include?(@adoption_application.status) %>
-                    <%= image_tag('pause.png', height: '21') %>
+                    <%= image_tag("pause.png", height: "21") %>
                   <% elsif 'withdrawn' == @adoption_application.status %>
-                    <%= image_tag('red_no.png', height: '21') %>
+                    <%= image_tag("red_no.png", height: "21") %>
                   <% else %>
-                    <%= image_tag('green_check.png', height: '21') %>
+                    <%= image_tag("green_check.png", height: "21") %>
                   <% end %>
                 </div>
                 <% if 'awaiting_data' == @adoption_application.status %>
                   <div class="mt-1">
-                    <%= render partial: "shared/empty_state", locals: {text: "Please make sure you fill out the adoption questionnaire so staff have enough information to process your application."} %>
+                    <%= render partial: "shared/empty_state",
+                    locals: {
+                      text:
+                        "Please make sure you fill out the adoption questionnaire so staff have enough information to process your application.",
+                    } %>
                   </div>
                 <% end %>
               <% elsif allowed_to?(:manage?, @pet) %>
                 <%= link_to "Manage #{@pet.name}", staff_pet_path(@pet) %>
-              <%# FIXME: This section was missed during the remove of AdopterFosterProfile but I think it requires FormSubmission to be ready to refactor %>
-              <%# Once the form_submission CRUD and policy are created, should use conditional like the below  %>
-              <%# elsif allowed_to?(:create?, FormSubmission) %>
+                <%# FIXME: This section was missed during the remove of AdopterFosterProfile but I think it requires FormSubmission to be ready to refactor %>
+                <%# Once the form_submission CRUD and policy are created, should use conditional like the below %>
+                <%# elsif allowed_to?(:create?, FormSubmission) %>
               <% elsif @pet.application_paused? %>
                 <h4 class='mb-4 mt-3'>
-                  <%= t('.application_paused', pet_name: @pet.name) %>
+                  <%= t(".application_paused", pet_name: @pet.name) %>
                 </h4>
               <% end %>
             <% else %>
               <h4 class="mb-4 mt-3">
-                <%= t('.create_an_account') %>
+                <%= t(".create_an_account") %>
               </h4>
-              <%= link_to t('.adopt'), new_user_registration_path,
-                          class: 'custom-btn-pink mb-2' %>
+              <%= link_to t(".adopt"), new_user_registration_path, class: "custom-btn-pink mb-2" %>
               <p>
-                <%= link_to t('.login'), new_user_session_path %>
+                <%= link_to t(".login"), new_user_session_path %>
               </p>
             <% end %>
           </div>
         </div>
       </div>
     </div>
- <!-- row -->
+    <!-- row -->
   </div>
- <!-- container -->
+  <!-- container -->
 </section>
