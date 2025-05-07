@@ -40,8 +40,7 @@ class Organizations::Staff::DashboardController < Organizations::BaseController
   private
 
   def context_authorize!
-    authorize! :dashboard,
-      context: {organization: Current.organization}
+    authorize! :dashboard
   end
 
   def set_pets_with_overdue_tasks

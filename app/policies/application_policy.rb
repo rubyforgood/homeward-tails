@@ -41,10 +41,6 @@ class ApplicationPolicy < ActionPolicy::Base
     end
   end
 
-  # def verify_active_staff!
-  #   deny! unless user.person&.staff_active?
-  # end
-
   def permission?(name)
     return false unless person
 
