@@ -91,7 +91,9 @@ class User < ApplicationRecord
   # used with devise active_for_authentication?
   def inactive_message
     if Current.organization
-      person.deactivated_in_org? ? :deactivated : super
+      ActsAsTenant.with_tenant(Current.organization) do
+        people.first.deactivated_in_org? ? :deactivated : super
+      end
     else
       super
     end

@@ -8,4 +8,7 @@
 
 class Organizations::BaseController < ApplicationController
   include OrganizationScopable
+
+  # Add current person conext to all organization policies
+  authorize :person, through: -> { Current.person }
 end
