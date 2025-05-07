@@ -3,7 +3,7 @@ class Organizations::Staff::MatchesController < Organizations::BaseController
   before_action :set_match, only: %i[destroy]
 
   def create
-    authorize! context: {organization: @pet.organization}
+    authorize!
 
     @match = Match.new(match_params.merge(
       organization_id: @pet.organization_id
@@ -19,6 +19,7 @@ class Organizations::Staff::MatchesController < Organizations::BaseController
     end
   end
 
+  # TODO Do we use this anywhere?
   def destroy
     if @match.destroy
       @match.withdraw_application
