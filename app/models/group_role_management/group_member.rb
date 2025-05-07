@@ -1,7 +1,7 @@
 # This is a PORO Model that encapsulates logic for modifying/retrieving associations on Person/User models
 
 # Methods in this class are delegated to the Person model via the `group_member` association.
-# This allows calls like `@person.add_role_and_group(:adopter)` to invoke logic defined here.
+# This allows calls like `@person.add_group(:adopter)` to invoke logic defined here.
 
 module GroupRoleManagement
   class GroupMember
@@ -10,16 +10,6 @@ module GroupRoleManagement
     def initialize(person)
       @person = person
     end
-
-    # def add_role_and_group(*names)
-    #   raise StandardError, "Organization not set" unless Current.organization
-    #   person.transaction do
-    #     names.each do |name|
-    #       # person.user.add_role(name, Current.organization)
-    #     end
-    #     add_group(*names)
-    #   end
-    # end
 
     def add_group(*names)
       names.map(&:to_sym).uniq.each do |name|

@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
         # how should we be handling this newly created user?
         unless Person.exists?(email: resource.email)
           person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name, email: resource.email)
-          person.add_role_and_group(:adopter)
+          person.add_group(:adopter)
         end
       end
     end

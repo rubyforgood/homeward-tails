@@ -46,7 +46,7 @@ module Organizations
           if @user.person.staff?
             redirect_to staff_staff_index_path, notice: "User is already Staff in this organization"
           else
-            @user.person.add_role_and_group(user_params[:roles])
+            @user.person.add_group(user_params[:roles])
             # TODO send notice to email
             redirect_to staff_staff_index_path, notice: t(".success")
 
@@ -74,7 +74,7 @@ module Organizations
             create_person(@user)
           end
 
-          @user.person.add_role_and_group(:adopter, :fosterer)
+          @user.person.add_group(:adopter, :fosterer)
           redirect_to staff_fosterers_path, notice: t(".success")
 
         else
