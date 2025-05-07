@@ -1,5 +1,5 @@
 class Organizations::LikePolicy < ApplicationPolicy
-  authorize :pet, optional: true
+  pre_check :verify_record_organization!
 
   def index?
     permission?(:manage_likes)
@@ -11,11 +11,5 @@ class Organizations::LikePolicy < ApplicationPolicy
 
   def destroy?
     permission?(:manage_likes)
-  end
-
-  private
-
-  def pet
-    @pet || record.pet
   end
 end

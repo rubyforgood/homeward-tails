@@ -1,12 +1,11 @@
 module Organizations
   class ActivationsPolicy < ApplicationPolicy
     authorize :group
-    pre_check :verify_organization!
-    pre_check :verify_active_staff!
+    pre_check :verify_record_organization!
 
     def update?
-      return false if record.id == user.person&.id
-      return false if record.organization_id != (user.person&.organization_id || group.organization_id)
+      return false if record.id == person.id
+      return false if record.organization_id != group.organization_id
 
       case group.name
       when "admin", "super_admin"
