@@ -105,12 +105,12 @@ module Organizations
       def after_accept_path_for(_resource)
         if allowed_to?(
           :index?, with: Organizations::DashboardPolicy,
-          context: {organization: Current.organization}
+          context: {person: Current.person}
         )
           staff_dashboard_index_path
         elsif allowed_to?(
           :index?, with: Organizations::AdopterFosterDashboardPolicy,
-          context: {organization: Current.organization}
+          context: {person: Current.person}
         )
           adopter_fosterer_dashboard_index_path
         else

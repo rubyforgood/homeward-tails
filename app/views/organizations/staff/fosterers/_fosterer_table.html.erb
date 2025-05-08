@@ -1,12 +1,5 @@
 <% can_edit_person =
-  allowed_to?(
-    :edit?,
-    Person,
-    context: {
-      organization: Current.organization,
-    },
-    with: Organizations::FostererInvitationPolicy,
-  ) %>
+  allowed_to?(:edit?, Person, with: Organizations::FostererInvitationPolicy) %>
 
 <div class="card">
   <!-- Table -->
