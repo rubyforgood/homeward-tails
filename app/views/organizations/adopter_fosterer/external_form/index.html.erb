@@ -9,7 +9,7 @@
         <% else %>
           <p><%= t(
               "organizations.adopter_fosterer.form_instructions.dashboard",
-              user_email: Current.email,
+              user_email: Current.person.email,
             ) %></p>
         <% end %>
       <% else %>
@@ -17,7 +17,7 @@
           <p class="fw-bold"><%= t(
               "organizations.adopter_fosterer.form_instructions.index",
               organization_name: Current.tenant.name,
-              email: Current.email,
+              email: Current.person.email,
             ) %></p>
           <%= link_to "Go to my dashboard",
           adopter_fosterer_dashboard_index_path,
