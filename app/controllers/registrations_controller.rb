@@ -70,13 +70,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    role = resource.roles.find_by(resource_id: Current.organization.id)
+    # people query is scoped via acts_as_tenant and will only
+    # return the single person the user has in the current org
+    person = resource.people.first
 
-    case role&.name
-    when "adopter", "fosterer"
-      adopter_fosterer_dashboard_index_path
-    when "admin", "super_admin"
+    if person&.staff_active?
       staff_dashboard_index_path
+    elsif person&.active_in_group?(:adopter) || person&.active_in_group?(:fosterer)
+      adopter_fosterer_dashboard_index_path
     else
       root_path
     end
