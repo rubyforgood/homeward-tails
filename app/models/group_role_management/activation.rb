@@ -16,7 +16,6 @@ module GroupRoleManagement
 
       begin
         person.transaction do
-          person.user.add_role(@group.name, @group.organization)
           person_group.update!(deactivated_at: nil)
         end
       rescue => e
@@ -27,10 +26,7 @@ module GroupRoleManagement
     def deactivate!(group_or_name)
       @group = find_group!(group_or_name)
       begin
-        person.transaction do
-          person.user.remove_role(@group.name, @group.organization)
-          person_group.update!(deactivated_at: Time.current)
-        end
+        person_group.update!(deactivated_at: Time.current)
       rescue => e
         "Deactivation failed: #{e.message}"
       end
