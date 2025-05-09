@@ -80,8 +80,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    # current_user is nil when the before_action is ran. Call the method
-    # here once current_user is set
+    # Devise sets `current_user` only *after* this callback runs, so we must explicitly
+    # call this here
     verify_and_set_current_person
 
     return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)

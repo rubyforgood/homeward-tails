@@ -39,14 +39,12 @@ module Organizations
             end
           end
 
-          if @user.person.nil?
-            create_person(@user)
-          end
+          @person = set_person
 
-          if @user.person.staff?
+          if @person.staff?
             redirect_to staff_staff_index_path, notice: "User is already Staff in this organization"
           else
-            @user.person.add_group(user_params[:roles])
+            @person.add_group(user_params[:roles])
             # TODO send notice to email
             redirect_to staff_staff_index_path, notice: t(".success")
 
@@ -70,13 +68,10 @@ module Organizations
             end
           end
 
-          if @user.person.nil?
-            create_person(@user)
-          end
+          @person = set_person
+          @person.add_group(:adopter, :fosterer)
 
-          @user.person.add_group(:adopter, :fosterer)
           redirect_to staff_fosterers_path, notice: t(".success")
-
         else
           authorize! User,
             with: Organizations::InvitationPolicy
@@ -103,14 +98,16 @@ module Organizations
       end
 
       def after_accept_path_for(_resource)
+        # Devise sets `current_user` only *after* this callback runs, so we must explicitly
+        # call this here
+        verify_and_set_current_person
+
         if allowed_to?(
-          :index?, with: Organizations::DashboardPolicy,
-          context: {person: Current.person}
+          :index?, with: Organizations::DashboardPolicy
         )
           staff_dashboard_index_path
         elsif allowed_to?(
-          :index?, with: Organizations::AdopterFosterDashboardPolicy,
-          context: {person: Current.person}
+          :index?, with: Organizations::AdopterFosterDashboardPolicy
         )
           adopter_fosterer_dashboard_index_path
         else
@@ -119,10 +116,14 @@ module Organizations
       end
 
       def create_person(user)
-        # TODO need to handle this error
+        # TODO do we need this condition?
         unless Person.exists?(email: user.email)
           Person.create!(user_id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email)
         end
+      end
+
+      def set_person
+        @person ||= @user.people.first || create_person(@user)
       end
     end
   end
