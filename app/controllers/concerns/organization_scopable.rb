@@ -18,11 +18,10 @@ module OrganizationScopable
   def verify_and_set_current_person
     return unless current_user
 
-    # This is scoped to the org via acts_as_tenant - Only a single record will be returned if present
+    # This is scoped to the org via acts_as_tenant - Only a single record will be returned if present.
     # ActsAsTenant.current_tenant is set prior to this, however if a query is attempted while
-    # Current.organization is present, an error with be raise via the acts_as_tenant initializer
-    # Current.person is used for authorization via Action Policy, and permission lookups
-    # in authorizable.rb
+    # Current.organization is present and current_tenant is not set, an error with be raise via the acts_as_tenant initializer.
+    # Current.person is used for authorization via Action Policy, and permission lookups in authorizable.rb
 
     person = current_user.people.first
 
