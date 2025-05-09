@@ -36,13 +36,11 @@ module OrganizationScopable
 
   def after_sign_in_path_for(resource_or_scope)
     if allowed_to?(
-      :index?, with: Organizations::DashboardPolicy,
-      context: {person: Current.person}
+      :index?, with: Organizations::DashboardPolicy
     )
       staff_dashboard_index_path
     elsif allowed_to?(
-      :index?, with: Organizations::AdopterFosterDashboardPolicy,
-      context: {person: Current.person}
+      :index?, with: Organizations::AdopterFosterDashboardPolicy
     )
       adopter_fosterer_dashboard_index_path
     else

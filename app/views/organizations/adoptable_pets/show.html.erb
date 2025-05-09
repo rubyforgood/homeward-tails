@@ -170,7 +170,7 @@
               <% unless current_user.tos_agreement? %>
                 <%= link_to "View Terms of Service before applying", edit_tos_agreement_path %>
               <% end %>
-              <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet, person: Current.person}) %>
+              <% if allowed_to?(:create?, with: AdopterApplicationPolicy, context: {pet: @pet}) %>
                 <h4 class="mb-4 mt-3"><%= t(".in_love") %></h4>
                 <%= form_with model: [:adopter_fosterer, @adoption_application] do |form| %>
                   <%= form.hidden_field :pet_id, value: @adoption_application.pet_id %>
@@ -181,7 +181,7 @@
                                 turbo: false,
                               } %>
                 <% end %>
-              <% elsif AdopterApplication.exists?(person: Current.person, pet: @pet) %>
+              <% elsif AdopterApplication.exists?(pet: @pet) %>
                 <div class='d-flex align-items-center mt-3'>
                   <h4 class="me-2 mb-0">
                     <%= "#{t("organizations.adoptable_pets.show.application_status")} #{@adoption_application.human_enum_name(:status) || t(".status.default")}" %>

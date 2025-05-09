@@ -37,9 +37,9 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def set_layout
-    if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {person: Current.person})
+    if allowed_to?(:index?, with: Organizations::DashboardPolicy)
       "dashboard"
-    elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {person: Current.person})
+    elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)
       "adopter_foster_dashboard"
     else
       "application"
@@ -69,12 +69,10 @@ class RegistrationsController < Devise::RegistrationsController
       :avatar)
   end
 
-  def after_update_path_for(resource)
-    person = Current.person || resource.people.first
-
-    if person&.staff_active?
+  def after_update_path_for(_resource)
+    if Current.person&.staff_active?
       staff_dashboard_index_path
-    elsif person&.active_in_group?(:adopter) || person&.active_in_group?(:fosterer)
+    elsif Current.person&.active_in_group?(:adopter) || Current.person&.active_in_group?(:fosterer)
       adopter_fosterer_dashboard_index_path
     else
       root_path
@@ -82,7 +80,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {person: Current.person})
+    # current_user is nil when the before_action is ran. Call the method
+    # here once current_user is set
+    verify_and_set_current_person
+
+    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)
 
     if Current.organization.external_form_url
       adopter_fosterer_external_form_index_path
