@@ -2,8 +2,6 @@ class Organizations::AdopterFosterer::DashboardController < Organizations::BaseC
   layout "adopter_foster_dashboard"
 
   def index
-    # @user = current_user
-    @organization = Current.organization
     @hide_footer = true
     @application_count = Current.person.adopter_applications.count.to_i
 
