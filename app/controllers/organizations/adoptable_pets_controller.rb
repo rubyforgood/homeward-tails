@@ -30,7 +30,7 @@ module Organizations
     def show
       @adoptable_pet_info = CustomPage.first&.adoptable_pet_info
 
-      if current_user
+      if Current.person
         @adoption_application =
           AdopterApplication.find_by(
             pet_id: @pet.id,
