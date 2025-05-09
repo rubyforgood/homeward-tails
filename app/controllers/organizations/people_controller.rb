@@ -1,6 +1,5 @@
 module Organizations
   class PeopleController < Organizations::BaseController
-    skip_before_action :verify_and_set_current_person
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist
 
