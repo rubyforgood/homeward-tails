@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   get "/cookie_policy", to: "static_pages#cookie_policy"
 
   # Contact Forms
-  resources :contacts, only: %i[new create]
   resource :organization_account_request, only: %i[new create]
   resources :feedback, only: %i[new create]
 
@@ -34,6 +33,7 @@ Rails.application.routes.draw do
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
     resources :people, only: %i[new create]
+    resources :contacts, only: %i[new create]
 
     # Staff Routes
     namespace :staff do
