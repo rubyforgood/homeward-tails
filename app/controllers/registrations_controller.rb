@@ -70,9 +70,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    # people query is scoped via acts_as_tenant and will only
-    # return the single person the user has in the current org
-    person = resource.people.first
+    person = Current.person || resource.people.first
 
     if person&.staff_active?
       staff_dashboard_index_path
