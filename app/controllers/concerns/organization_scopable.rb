@@ -5,6 +5,8 @@ module OrganizationScopable
     set_current_tenant_through_filter
     before_action :set_tenant
     before_action :verify_and_set_current_person
+    # Add current person context to policies
+    authorize :person, through: -> { Current.person }
   end
 
   def set_tenant
@@ -20,7 +22,7 @@ module OrganizationScopable
 
     # This is scoped to the org via acts_as_tenant - Only a single record will be returned if present.
     # ActsAsTenant.current_tenant is set prior to this, however if a query is attempted while
-    # Current.organization is present and current_tenant is not set, an error with be raise via the acts_as_tenant initializer.
+    # Current.organization is present and current_tenant is not set, an error with be raised via the acts_as_tenant initializer.
     # Current.person is used for authorization via Action Policy, and permission lookups in authorizable.rb
 
     person = current_user.people.first
