@@ -90,7 +90,7 @@
           <% end %>
           <% if allowed_to?(:index?, with: Organizations::DashboardPolicy ) %>
             <li class='nav-item'>
-              <%= active_link_to t(".dashboard"), staff_dashboard_index_path, class: "nav-link" %>
+              <%= active_link_to t(".admin"), staff_dashboard_index_path, class: "nav-link" %>
             </li>
           <% end %>
         <% end %>

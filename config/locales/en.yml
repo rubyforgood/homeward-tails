@@ -186,6 +186,7 @@ en:
         feedback: "Feedback"
         support: " to report a bug or request a feature."
       navbar:
+        admin: "Admin"
         sign_up: "Sign Up"
         log_in: "Log In"
         log_out: "Log Out"
