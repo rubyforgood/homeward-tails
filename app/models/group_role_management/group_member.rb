@@ -13,7 +13,9 @@ module GroupRoleManagement
 
     def add_group(*names)
       names.map(&:to_sym).uniq.each do |name|
-        next unless Group.names.key?(name)
+        unless Group.names.key?(name)
+          raise ArgumentError, "Invalid group name: #{name}"
+        end
         group = Group.find_or_create_by!(name: name)
 
         unless person.groups.exists?(id: group.id)
