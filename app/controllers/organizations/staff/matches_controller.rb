@@ -19,7 +19,7 @@ class Organizations::Staff::MatchesController < Organizations::BaseController
     end
   end
 
-  # TODO Do we use this anywhere?
+  # TODO: Do we use this anywhere?
   def destroy
     if @match.destroy
       @match.withdraw_application

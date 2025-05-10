@@ -15,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
-        # TODO Currently a person shouldn't exist without a user with the same email. If the person exists (but no user),
+        # TODO: Currently a person shouldn't exist without a user with the same email. If the person exists (but no user),
         # how should we be handling this newly created user?
         unless Person.exists?(email: resource.email)
           person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name, email: resource.email)

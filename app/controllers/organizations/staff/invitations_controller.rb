@@ -45,13 +45,13 @@ module Organizations
             redirect_to staff_staff_index_path, notice: "User is already Staff in this organization"
           else
             @person.add_group(user_params[:roles])
-            # TODO send notice to email
+            # TODO: send notice to email
             redirect_to staff_staff_index_path, notice: t(".success")
 
           end
 
         when "fosterer"
-          # TODO unpermitted param
+          # TODO: unpermitted param
           authorize! User,
             with: Organizations::FostererInvitationPolicy
 
@@ -116,7 +116,7 @@ module Organizations
       end
 
       def create_person(user)
-        # TODO do we need this condition?
+        # TODO: do we need this condition?
         unless Person.exists?(email: user.email)
           Person.create!(user_id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email)
         end

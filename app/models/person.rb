@@ -45,7 +45,7 @@ class Person < ApplicationRecord
   has_many :person_groups
   has_many :groups, through: :person_groups
 
-  # TODO add DB contraint
+  # TODO: add DB contraint
   validates_uniqueness_to_tenant :user_id
   validates :first_name, presence: true
   validates :last_name, presence: true
