@@ -5,6 +5,13 @@ class ApplicationPolicy < ActionPolicy::Base
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
   authorize :user, allow_nil: true
   authorize :organization, optional: true
+
+  # The Current.person is generally what we want to check for authorization.
+  # User's can be in many org's but only have one Person per org. Permissions
+  # are base on the active groups assigned to the person. Some public views check permissions
+  # to conditionally display links. `allow_nil` lets use check without raising an error.
+  # This authorization context must also be configured in the place where the authorization
+  # is performed (e.g., controllers)
   authorize :person, allow_nil: true
 
   pre_check :verify_authenticated!
@@ -27,15 +34,8 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # Define shared methods useful for most policies.
 
-  # def organization
-  #   return record if record.is_a?(Organization)
-  #
-  #   @organization || Current.organization
-  # end
-  #
-
   def verify_record_organization!
-    # if the record is an instance, we want to check that the record belongs the same org as the person acting on it.
+    # if the record is an instance, we want to check that the record belongs to the same org as the person acting on it.
     if record.respond_to?(:organization_id)
       deny! unless record.organization_id == person.organization_id
     end
