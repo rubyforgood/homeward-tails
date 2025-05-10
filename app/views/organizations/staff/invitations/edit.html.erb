@@ -8,8 +8,12 @@
           <div class="mb-4">
             <div class='d-flex justify-content-center'>
               <div class='d-flex flex-column align-items-center mb-3'>
-                <%= image_tag "brand/pet-rescue.png", class: 'mb-0', alt: 'logo-icon', height: 200, width: 200 %>
-                <h1 class='text-muted'><%= resource.organization.name %></h1>
+                <%= image_tag "brand/pet-rescue.png",
+                class: "mb-0",
+                alt: "logo-icon",
+                height: 200,
+                width: 200 %>
+                <h1 class='text-muted'><%= Current.organization.name %></h1>
               </div>
             </div>
             <h1 class="mb-1 fw-bold"><%= t "devise.invitations.edit.header" %></h1>
@@ -19,7 +23,7 @@
               <div class="alert alert-danger" role="alert">
                 <%= alert %>
               </div>
-            <% end%>
+            <% end %>
           </div>
           <%= bootstrap_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
           <%= f.hidden_field :invitation_token, readonly: true %>

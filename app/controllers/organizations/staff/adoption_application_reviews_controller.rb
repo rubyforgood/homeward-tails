@@ -6,8 +6,7 @@ class Organizations::Staff::AdoptionApplicationReviewsController < Organizations
   layout "dashboard"
 
   def index
-    authorize! AdopterApplication,
-      context: {organization: Current.organization}
+    authorize! AdopterApplication
 
     @q = authorized_scope(
       Pet.includes(adopter_applications: [:person])

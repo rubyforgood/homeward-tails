@@ -10,23 +10,32 @@
   </div>
   <!--container-->
 </header>
-
 <!--pet tiles-->
 <section class="pb-5" id="adoptable_pets">
   <div class="container">
     <div class="row">
       <div class="col m-2">
-      <!--filter section-->
+        <!--filter section-->
         <%= search_form_for @q, url:adoptable_pets_path do |f| %>
-          <div class='d-flex justify-content-center align-items-center flex-wrap mb-3 p-4 gap-3 rounded-5 bg-white' >
+          <div
+            class='
+              d-flex justify-content-center align-items-center flex-wrap mb-3 p-4 gap-3
+              rounded-5 bg-white
+            '
+          >
             <div class="d-flex gap-3 flex-wrap align-items-end">
               <div class="form-group">
                 <%= f.label :name_i_cont, "Name" %>
-                <%= f.text_field :name_i_cont, class: "form-control", placeholder: "Enter a few characters" %>
+                <%= f.text_field :name_i_cont,
+                             class: "form-control",
+                             placeholder: "Enter a few characters" %>
               </div>
               <div class="form-group">
                 <%= f.label :sex_eq, "Sex" %>
-                <%= f.select :sex_eq, [["Male", "male"], ["Female", "female"]], {include_blank: 'All'}, class: "form-select" %>
+                <%= f.select :sex_eq,
+                         [%w[Male male], %w[Female female]],
+                         { include_blank: "All" },
+                         class: "form-select" %>
               </div>
               <div class="form-group">
                 <%= f.label :breed_eq, "Breed" %>
@@ -37,10 +46,16 @@
               </div>
               <div class="form-group">
                 <%= f.label :ransack_birth_date, "Age" %>
-                <%= f.select :ransack_birth_date, age_ranges, {include_blank: 'All'}, class: "form-select"%>
+                <%= f.select :ransack_birth_date,
+                         age_ranges,
+                         { include_blank: "All" },
+                         class: "form-select" %>
               </div>
             </div>
-            <div class='d-flex w-md-auto flex-md-row align-items-end' style="align-self: flex-end;">
+            <div
+              class='d-flex w-md-auto flex-md-row align-items-end'
+              style="align-self: flex-end;"
+            >
               <%= hidden_field_tag "species", @species %>
               <%= f.submit class: "btn btn-primary" %>
               <%= link_to "Clear filters",
@@ -51,13 +66,13 @@
         <% end %>
       </div>
     </div>
-      
+
     <% if @pets.present? %>
       <div class="d-flex justify-content-center align-items-center mt-2">
         <%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %>
       </div>
     <% else %>
-      <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+      <%= render partial: "shared/empty_state", locals: { text: t(".empty_state") } %>
     <% end %>
 
     <div class="row">
@@ -68,12 +83,24 @@
             image_options: {src: pet.images.first, url: adoptable_pet_path(pet), height: 275}
           ) do |c| %>
             <%= c.with_badge do %>
-              <%= render BadgeComponent.new("Adoption Pending", class: "badge bg-info", when: pet.has_adoption_pending?) %>
-              <%= render BadgeComponent.new("Adopted", class: "badge bg-warning", when: pet.is_adopted?) %>
+              <%= render BadgeComponent.new(
+                "Adoption Pending",
+                class: "badge bg-info",
+                when: pet.has_adoption_pending?,
+              ) %>
+              <%= render BadgeComponent.new(
+                "Adopted",
+                class: "badge bg-warning",
+                when: pet.is_adopted?,
+              ) %>
             <% end %>
             <%= c.with_body do %>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <li
+                  class="
+                    list-group-item d-flex justify-content-between align-items-center flex-wrap
+                  "
+                >
                   <div class="d-flex align-items-center justify-content-start gap-3">
                     <%= link_to adoptable_pet_path(pet), class: 'text-decoration-none' do %>
                       <h3 class="card-title text-secondary mb-0">
@@ -84,7 +111,7 @@
                       <%= pet.species %>
                     </span>
                   </div>
-                  <% if allowed_to?(:create?, Like, context: {pet: pet}) %>
+                  <% if allowed_to?(:create?, pet, with: Organizations::LikePolicy) %>
                     <div class='text-end' id="like_button_pet_<%= pet.id %>">
                       <%= render LikeButtonComponent.new(pet: pet, like: @likes_by_id[pet.id]) %>
                     </div>
@@ -94,12 +121,16 @@
                 <%= tag.li("Age: #{time_ago_in_words(pet.birth_date).titleize}", class: li_classes) %>
                 <%= tag.li("Breed: #{pet.breed}", class: li_classes) %>
                 <%= tag.li("Sex: #{pet.sex}", class: li_classes) %>
-                <%= tag.li("Weight range: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}", class: li_classes) %>
+                <%= tag.li(
+                  "Weight range: #{[pet.weight_from, pet.weight_to].join("-")} #{pet.weight_unit}",
+                  class: li_classes,
+                ) %>
               </ul>
             <% end %>
           <% end %>
         </div>
       <% end %>
     </div>
-  </div> <!--container-->
+  </div>
+  <!--container-->
 </section>

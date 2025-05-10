@@ -3,8 +3,7 @@
   <%= render "layouts/shared/head" %>
   <body>
     <%= render "layouts/shared/flash_messages" %>
-    <%= render 'layouts/shared/navbar' %>
-
+    <%= render "layouts/shared/navbar" %>
     <!-- Page Content -->
     <main>
       <section class="pb-5">
@@ -13,11 +12,22 @@
             <!-- User info -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-12">
               <!-- Bg -->
-              <div class="rounded-top" style="background: url('<%= asset_path('background/profile-bg.jpg') %>') no-repeat; background-size: cover; height: 100px;"></div>
-              <div class="card px-4 pt-2 pb-4 shadow-sm rounded-top-0 rounded-bottom-0 rounded-bottom-md-2">
+              <div
+                class="rounded-top"
+                style="background: url('<%= asset_path('background/profile-bg.jpg') %>') no-repeat; background-size: cover; height: 100px;"
+              ></div>
+              <div
+                class="
+                  card px-4 pt-2 pb-4 shadow-sm rounded-top-0 rounded-bottom-0 rounded-bottom-md-2
+                "
+              >
                 <div class="d-flex align-items-end justify-content-between">
                   <div class="d-flex align-items-center">
-                    <div class="me-2 position-relative d-flex justify-content-end align-items-end mt-n5">
+                    <div
+                      class="
+                        me-2 position-relative d-flex justify-content-end align-items-end mt-n5
+                      "
+                    >
                       <%= render AvatarComponent.new(current_user, size: :xl) %>
                     </div>
                     <div class="lh-1">
@@ -30,7 +40,6 @@
           </div>
 
           <!-- Content -->
-
           <div class="row mt-0 mt-md-4">
             <div class="col-lg-3 col-md-4 col-12">
               <!-- Side navbar -->
@@ -38,7 +47,17 @@
                 <!-- Menu -->
                 <a class="d-xl-none d-lg-none d-md-none text-inherit fw-bold" href="#">Menu</a>
                 <!-- Button -->
-                <button class="navbar-toggler d-md-none icon-shape icon-sm rounded bg-primary text-light" type="button" data-bs-toggle="collapse" data-bs-target="#sidenav" aria-controls="sidenav" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  class="
+                    navbar-toggler d-md-none icon-shape icon-sm rounded bg-primary text-light
+                  "
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#sidenav"
+                  aria-controls="sidenav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span class="fe fe-menu"></span>
                 </button>
                 <!-- Collapse navbar -->
@@ -49,60 +68,69 @@
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_dashboard_index_path, class: "nav-link" do %>
-                          <i class="fe fe-home nav-icon"></i> My Dashboard
+                          <i class="fe fe-home nav-icon"></i>
+                          My Dashboard
                         <% end %>
                       </li>
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_adopter_applications_path, class: "nav-link" do %>
-                          <i class="fe fe-book nav-icon"></i> <%= t("views.dashboard.applications.header_title")%>
+                          <i class="fe fe-book nav-icon"></i>
+                          <%= t("views.dashboard.applications.header_title") %>
                         <% end %>
                       </li>
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_likes_path, class: "nav-link" do %>
-                          <i class="fe fe-heart nav-icon"></i> Liked Pets
+                          <i class="fe fe-heart nav-icon"></i>
+                          Liked Pets
                         <% end %>
                       </li>
-                       <!-- Nav item -->
+                      <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_adopted_pets_path, class: "nav-link" do %>
-                          <i class="fe fe-star nav-icon"></i> Adopted Pets
+                          <i class="fe fe-star nav-icon"></i>
+                          Adopted Pets
                         <% end %>
                       </li>
-                       <!-- Nav item -->
-                      <% if current_user.has_role?(:fosterer, Current.organization) %> 
+                      <!-- Nav item -->
+                      <% if Current.person.active_in_group?(:fosterer) %>
                         <li class="nav-item">
                           <%= active_link_to adopter_fosterer_fostered_pets_path, class: "nav-link" do %>
-                            <i class="fe fe-file-text nav-icon"></i> Fostered Pets
+                            <i class="fe fe-file-text nav-icon"></i>
+                            Fostered Pets
                           <% end %>
                         </li>
                       <% end %>
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to adopter_fosterer_donations_path, class: "nav-link" do %>
-                          <i class="fe fe-dollar-sign nav-icon"></i> Donate
+                          <i class="fe fe-dollar-sign nav-icon"></i>
+                          Donate
                         <% end %>
                       </li>
                       <!-- Nav item -->
                       <% if Current.organization.external_form_url.present? %>
                         <li class="nav-item">
-                        <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
-                          <i class="fe fe-clipboard nav-icon"></i> Form
-                        <% end %>
+                          <%= active_link_to adopter_fosterer_external_form_index_path(dashboard: true), class: "nav-link" do %>
+                            <i class="fe fe-clipboard nav-icon"></i>
+                            Form
+                          <% end %>
 
-                        <% if current_user.person.latest_form_submission.present? %>
-                          <li class="nav-item">
-                            <%= active_link_to adopter_fosterer_form_answers_path, class: "nav-link" do %>
-                              <i class="fe fe-clipboard nav-icon"></i> Form Responses
-                            <% end %>
-                          </li>
-                        <% end %>
-                      </li>
+                          <% if Current.person.latest_form_submission.present? %>
+                            <li class="nav-item">
+                              <%= active_link_to adopter_fosterer_form_answers_path, class: "nav-link" do %>
+                                <i class="fe fe-clipboard nav-icon"></i>
+                                Form Responses
+                              <% end %>
+                            </li>
+                          <% end %>
+                        </li>
                       <% end %>
                       <li class="nav-item">
                         <%= active_link_to new_feedback_path, class: "nav-link" do %>
-                          <i class="nav-icon fe fe-message-circle me-2"></i> Feedback
+                          <i class="nav-icon fe fe-message-circle me-2"></i>
+                          Feedback
                         <% end %>
                       </li>
                     </ul>
@@ -112,13 +140,15 @@
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= active_link_to edit_user_registration_path, class: "nav-link" do %>
-                          <i class="fe fe-settings nav-icon"></i> Edit Settings
+                          <i class="fe fe-settings nav-icon"></i>
+                          Edit Settings
                         <% end %>
                       </li>
                       <!-- Nav item -->
                       <li class="nav-item">
                         <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'nav-link' do %>
-                          <i class="fe fe-power nav-icon"></i> Log Out
+                          <i class="fe fe-power nav-icon"></i>
+                          Log Out
                         <% end %>
                       </li>
                     </ul>

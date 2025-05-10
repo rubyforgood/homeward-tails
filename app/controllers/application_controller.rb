@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   verify_authorized unless: :devise_controller?
-  before_action :set_current_user
   around_action :switch_locale
 
   KNOWN_ERRORS = [ActionPolicy::Unauthorized]
@@ -14,12 +13,8 @@ class ApplicationController < ActionController::Base
       redirect_to edit_tos_agreement_path
     else
       flash[:alert] = t("errors.authorization_error")
-      redirect_back_or_to root_path
+      redirect_to root_path
     end
-  end
-
-  def set_current_user
-    Current.user = current_user
   end
 
   def switch_locale(&action)

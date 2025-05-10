@@ -1,5 +1,4 @@
 class Organizations::Staff::DefaultPetTasksController < Organizations::BaseController
-  before_action :context_authorize!, only: %i[index new create]
   before_action :set_task, only: %i[edit update destroy]
   before_action :ensure_due_in_days_in_q_params, only: :index
   include ::Pagy::Backend
@@ -7,6 +6,7 @@ class Organizations::Staff::DefaultPetTasksController < Organizations::BaseContr
   layout "dashboard"
 
   def index
+    authorize!
     tasks = authorized_scope(DefaultPetTask.all)
 
     @q = DefaultPetTask.ransackable_tasks(tasks, params)
@@ -16,10 +16,12 @@ class Organizations::Staff::DefaultPetTasksController < Organizations::BaseContr
   end
 
   def new
+    authorize!
     @task = DefaultPetTask.new
   end
 
   def create
+    authorize!
     @task = DefaultPetTask.new(task_params)
 
     if @task.save
@@ -59,11 +61,6 @@ class Organizations::Staff::DefaultPetTasksController < Organizations::BaseContr
     authorize! @task
   rescue ActiveRecord::RecordNotFound
     redirect_to staff_default_pet_tasks_path, alert: t(".error")
-  end
-
-  def context_authorize!
-    authorize! DefaultPetTask,
-      context: {organization: Current.organization}
   end
 
   def ensure_due_in_days_in_q_params

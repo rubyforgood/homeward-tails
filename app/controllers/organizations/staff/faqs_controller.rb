@@ -1,13 +1,14 @@
 class Organizations::Staff::FaqsController < Organizations::BaseController
   layout "dashboard"
-  before_action :context_authorize!, only: %i[index new create]
   before_action :set_faq, only: %i[show edit update destroy]
 
   def index
+    authorize!
     @faqs = authorized_scope(Faq.all)
   end
 
   def new
+    authorize!
     @faq = Faq.new
   end
 
@@ -26,6 +27,7 @@ class Organizations::Staff::FaqsController < Organizations::BaseController
   end
 
   def create
+    authorize!
     @faq = Faq.new(faq_params)
 
     if @faq.save
@@ -67,10 +69,5 @@ class Organizations::Staff::FaqsController < Organizations::BaseController
 
   def faq_params
     params.require(:faq).permit(:question, :answer, :order)
-  end
-
-  def context_authorize!
-    authorize! Faq,
-      context: {organization: Current.organization}
   end
 end

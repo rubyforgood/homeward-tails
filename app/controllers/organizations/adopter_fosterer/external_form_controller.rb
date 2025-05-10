@@ -1,6 +1,6 @@
 module Organizations
   module AdopterFosterer
-    class ExternalFormController < ApplicationController
+    class ExternalFormController < Organizations::BaseController
       layout :form_layout
 
       def index

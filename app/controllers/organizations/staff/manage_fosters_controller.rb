@@ -79,7 +79,7 @@ class Organizations::Staff::ManageFostersController < Organizations::BaseControl
   end
 
   def context_authorize
-    authorize! Match, context: {organization: Current.organization}
+    authorize! Match
   end
 
   def set_foster

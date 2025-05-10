@@ -21,6 +21,6 @@ class TosAgreementsController < ApplicationController
   def set_user
     @user = current_user
 
-    authorize! @user
+    authorize! @user, context: {person: nil}
   end
 end

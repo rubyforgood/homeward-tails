@@ -1,6 +1,5 @@
 class ActiveStorage::AttachmentPolicy < ApplicationPolicy
-  pre_check :verify_organization!
-  pre_check :verify_active_staff!, only: [:purge?]
+  pre_check :verify_record_organization!
 
   def purge?
     permission?(:purge_attachments)

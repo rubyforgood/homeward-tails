@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -37,7 +36,6 @@
 #
 class User < ApplicationRecord
   include Avatarable
-  include Authorizable
   include RoleChangeable
   include Omniauthable
 
@@ -62,10 +60,6 @@ class User < ApplicationRecord
     errors.add(:email, "Email cannot be changed") if email_changed?
   end
 
-  def self.staff
-    joins(:roles).where(roles: {name: %i[admin super_admin], resource_id: Current.organization.id})
-  end
-
   def self.ransackable_attributes(auth_object = nil)
     %w[first_name last_name]
   end
@@ -79,21 +73,38 @@ class User < ApplicationRecord
     errors.where(attribute)
   end
 
+  # If a User has a Person in Org A that is deactived (no PersonGroup with deactivated_at: nil) they cannot
+  # log in while scoped to Org A. If the User has no Person in Org B or at least one active Group in Org B,
+  # they can log in while scoped to Org B.
   def active_for_authentication?
-    super && !deactivated?
-  end
-
-  def inactive_message
-    deactivated? ? :deactivated : super
-  end
-
-  def person
-    raise StandardError, "Organization not set" unless Current.organization
-
-    ActsAsTenant.with_tenant(Current.organization) do
-      people.find_by(user_id: id)
+    if Current.organization
+      # This is being ran prior to ActsAsTenant being set so we must scope the queries here
+      ActsAsTenant.with_tenant(Current.organization) do
+        person = people.first
+        super && (!person || !person.deactivated_in_org?)
+      end
+    else
+      super
     end
   end
+
+  # used with devise active_for_authentication?
+  def inactive_message
+    if Current.organization
+      ActsAsTenant.with_tenant(Current.organization) do
+        people.first.deactivated_in_org? ? :deactivated : super
+      end
+    else
+      super
+    end
+  end
+
+  #   raise StandardError, "Organization not set" unless Current.organization
+  #
+  #   ActsAsTenant.with_tenant(Current.organization) do
+  #     people.find_by(user_id: id)
+  #   end
+  # end
 
   def full_name(format = :default)
     case format
@@ -108,18 +119,6 @@ class User < ApplicationRecord
 
   def name_initials
     full_name.split.map { |part| part[0] }.join.upcase
-  end
-
-  def deactivate
-    update!(deactivated_at: Time.now) unless deactivated_at
-  end
-
-  def activate
-    update!(deactivated_at: nil) if deactivated_at
-  end
-
-  def deactivated?
-    !!deactivated_at
   end
 
   def google_oauth_user?

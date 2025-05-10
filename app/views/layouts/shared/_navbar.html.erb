@@ -2,7 +2,15 @@
   <div class="container-fluid px-4">
     <div class="d-flex align-items-center order-lg-3">
       <div>
-        <button class="navbar-toggler collapsed me-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-default3" aria-controls="navbar-default3" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler collapsed me-1"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar-default3"
+          aria-controls="navbar-default3"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="icon-bar top-bar mt-0"></span>
           <span class="icon-bar middle-bar"></span>
           <span class="icon-bar bottom-bar"></span>
@@ -10,26 +18,36 @@
       </div>
 
       <% unless user_signed_in? %>
-        <%= active_link_to t('.sign_up'), new_user_registration_path, class: 'btn btn-primary mx-2' %>
-        <%= active_link_to t('.log_in'), new_user_session_path, class: 'btn btn-primary' %>
+        <%= active_link_to t(".sign_up"),
+        new_user_registration_path,
+        class: "btn btn-primary mx-2" %>
+        <%= active_link_to t(".log_in"), new_user_session_path, class: "btn btn-primary" %>
       <% end %>
       <% if user_signed_in? %>
         <li class="nav-item d-block">
-          <%= button_to t('.log_out'), destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'ms-2 btn btn-primary' %>
+          <%= button_to t(".log_out"),
+          destroy_user_session_path,
+          method: :delete,
+          data: {
+            turbo: false,
+          },
+          class: "ms-2 btn btn-primary" %>
         </li>
       <% end %>
     </div>
 
     <div class="d-flex gap-2">
       <% if Current.organization.avatar.attached? %>
-        <%= image_tag Current.organization.avatar, alt: current_organization_name, title: current_organization_name, height: 30 %>
+        <%= image_tag Current.organization.avatar,
+        alt: current_organization_name,
+        title: current_organization_name,
+        height: 30 %>
       <% end %>
 
       <%= link_to home_index_path, class: 'navbar-brand fw-bold text-black d-none d-sm-block' do %>
         <%= Current.organization.name %>
       <% end %>
     </div>
-
     <!-- Collapse -->
     <div class="justify-content-end collapse navbar-collapse" id="navbar-default3">
       <ul class="navbar-nav">
@@ -46,29 +64,33 @@
           <ul class="dropdown-menu">
             <% adoptable_unique_species(Current.organization).each do |species| %>
               <li>
-                <%= link_to t("general.#{species.downcase}s"), adoptable_pets_path(species: "#{species.downcase}"), class: "dropdown-item" %>
+                <%= link_to t("general.#{species.downcase}s"),
+                adoptable_pets_path(species: "#{species.downcase}"),
+                class: "dropdown-item" %>
               </li>
             <% end %>
           </ul>
         </li>
         <li class='nav-item'>
-          <%= active_link_to t('.contact'), new_contact_path, class: 'nav-link' %>
+          <%= active_link_to t(".contact"), new_contact_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= active_link_to t('.donate'), donate_path, class: 'nav-link' %>
+          <%= active_link_to t(".donate"), donate_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= active_link_to t('.faq'), faq_index_path, class: 'nav-link' %>
+          <%= active_link_to t(".faq"), faq_index_path, class: "nav-link" %>
         </li>
-        <% if user_signed_in? %>
-          <% if allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization}) %>
+        <% if Current.person %>
+          <% if allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy ) %>
             <li class='nav-item'>
-              <%= active_link_to t('.dashboard'), adopter_fosterer_dashboard_index_path, class: 'nav-link' %>
+              <%= active_link_to t(".dashboard"),
+              adopter_fosterer_dashboard_index_path,
+              class: "nav-link" %>
             </li>
           <% end %>
-          <% if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {organization: Current.organization}) %>
+          <% if allowed_to?(:index?, with: Organizations::DashboardPolicy ) %>
             <li class='nav-item'>
-              <%= active_link_to t('.dashboard'), staff_dashboard_index_path, class: 'nav-link' %>
+              <%= active_link_to t(".admin"), staff_dashboard_index_path, class: "nav-link" %>
             </li>
           <% end %>
         <% end %>
@@ -76,9 +98,9 @@
     </div>
   </div>
 </nav>
-<!--  Demo banner-->
+<!-- Demo banner-->
 <% if Rails.env.staging? %>
   <div class="container-fluid m-0 p-2 text-center bg-danger-soft display-6">
-    <%= t('.demo') %>
+    <%= t(".demo") %>
   </div>
-<%  end %>
+<% end %>

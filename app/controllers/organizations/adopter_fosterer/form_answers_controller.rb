@@ -17,7 +17,7 @@ module Organizations
       end
 
       def set_latest_form_submission
-        @latest_form_submission = current_user.person.latest_form_submission
+        @latest_form_submission = Current.person.latest_form_submission
       end
     end
   end
