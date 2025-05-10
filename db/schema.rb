@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_23_233816) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_10_140218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -202,6 +202,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_23_233816) do
     t.string "phone_number", limit: 15
     t.bigint "user_id"
     t.index ["email"], name: "index_people_on_email"
+    t.index ["organization_id", "user_id"], name: "index_people_on_organization_id_and_user_id", unique: true, where: "(user_id IS NOT NULL)"
     t.index ["organization_id"], name: "index_people_on_organization_id"
     t.index ["user_id"], name: "index_people_on_user_id"
     t.check_constraint "phone_number::text ~ '^[+]?[0-9]*$'::text", name: "phone_number_valid_e164"

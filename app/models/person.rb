@@ -14,9 +14,10 @@
 #
 # Indexes
 #
-#  index_people_on_email            (email)
-#  index_people_on_organization_id  (organization_id)
-#  index_people_on_user_id          (user_id)
+#  index_people_on_email                        (email)
+#  index_people_on_organization_id              (organization_id)
+#  index_people_on_organization_id_and_user_id  (organization_id,user_id) UNIQUE WHERE (user_id IS NOT NULL)
+#  index_people_on_user_id                      (user_id)
 #
 # Foreign Keys
 #
@@ -46,7 +47,6 @@ class Person < ApplicationRecord
   has_many :groups, through: :person_groups
 
   # TODO: add DB contraint
-  validates_uniqueness_to_tenant :user_id
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: {case_sensitive: false, scope: :organization_id}
