@@ -80,17 +80,13 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    # Devise sets `current_user` only *after* this callback runs, so we must explicitly
-    # call this here
-    verify_and_set_current_person
+    # Devise sets `current_user` only after this callback runs, so we
+    # must explicitly call it here
+    set_current_person
 
     return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)
 
-    if Current.organization.external_form_url
-      adopter_fosterer_external_form_index_path
-    else
-      adopter_fosterer_dashboard_index_path
-    end
+    new_person_after_sign_up_path
   end
 
   # check for id (i.e., record saved) and send mail

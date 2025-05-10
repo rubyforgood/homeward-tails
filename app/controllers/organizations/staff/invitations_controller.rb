@@ -98,9 +98,9 @@ module Organizations
       end
 
       def after_accept_path_for(_resource)
-        # Devise sets `current_user` only *after* this callback runs, so we must explicitly
-        # call this here
-        verify_and_set_current_person
+        # Devise sets `current_user` only after this callback runs, so we
+        # must explicitly call it here
+        set_current_person
 
         if allowed_to?(
           :index?, with: Organizations::DashboardPolicy

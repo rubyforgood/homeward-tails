@@ -1,5 +1,6 @@
 module Organizations
   class PeopleController < Organizations::BaseController
+    skip_before_action :verify_person_in_org
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist
 
@@ -11,9 +12,9 @@ module Organizations
       @person = Person.new(person_params)
       if @person.save
         @person.add_group(:adopter)
-        redirect_to adopter_fosterer_dashboard_index_path, notice: "You have successfully joined the organization."
+        redirect_to new_person_after_sign_up_path, notice: t(".success")
       else
-        flash.now[:alert] = "There was an unexpected error. Please try again soon."
+        flash.now[:alert] = t(".error")
         render :new
       end
     end
@@ -21,8 +22,10 @@ module Organizations
     private
 
     def validate_person_does_not_exist
+      set_current_person
+
       if Current.person.present?
-        flash[:notice] = "You are already a member of this organization."
+        flash[:notice] = t(".already_member")
         redirect_to adopter_fosterer_dashboard_index_path
       end
     end

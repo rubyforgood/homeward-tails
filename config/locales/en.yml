@@ -749,6 +749,11 @@ en:
         success: "Attachment removed"
       purge_avatar:
         success: "Avatar removed"
+    people:
+      already_member: "You are already a member of this organization."
+      create:
+        success: "You have successfully joined the organization."
+        error: "There was an unexpected error. Please try again soon."
   contacts:
     create:
       success: "Message sent!"
