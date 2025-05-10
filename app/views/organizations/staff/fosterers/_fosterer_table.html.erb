@@ -36,7 +36,7 @@
             <td>
               <%= render "organizations/staff/shared/deactivate_toggle",
               person: fosterer,
-              person_group: fosterer.person_groups.find_sole_by(group_id: @group_id) %>
+              person_group: fosterer.person_groups.find_by(group_id: @group_id) %>
             </td>
             <td>
               <%= fosterer.phone_number %>

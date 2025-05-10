@@ -35,7 +35,7 @@ module GroupRoleManagement
     private
 
     def person_group
-      person.person_groups.find_sole_by(group_id: @group.id)
+      person.person_groups.find_by(group_id: @group.id)
     end
 
     def find_group!(group_or_name)
@@ -43,7 +43,7 @@ module GroupRoleManagement
       when Group
         group_or_name
       when String, Symbol
-        Group.find_sole_by!(name: group_or_name)
+        Group.find_by!(name: group_or_name)
       else
         raise ArgumentError, "Expected Group or Group Name, received #{group_or_name.class.name}"
       end

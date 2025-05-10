@@ -20,7 +20,7 @@
         <span><%= t(:deactivate) %></span>
         <%= render "organizations/staff/shared/deactivate_toggle",
         person: adopter,
-        person_group: adopter.person_groups.find_sole_by(group_id: @group_id) %>
+        person_group: adopter.person_groups.find_by(group_id: @group_id) %>
       </div>
     </div>
   </div>
