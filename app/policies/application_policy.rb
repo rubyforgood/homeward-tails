@@ -4,7 +4,6 @@ class ApplicationPolicy < ActionPolicy::Base
   # (`user` is added by default).
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
   authorize :user, allow_nil: true
-  authorize :organization, optional: true
 
   # The Current.person is generally what we want to check for authorization.
   # User's can be in many org's but only have one Person per org. Permissions
