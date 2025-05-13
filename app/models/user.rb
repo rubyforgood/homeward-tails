@@ -77,34 +77,17 @@ class User < ApplicationRecord
   # log in while scoped to Org A. If the User has no Person in Org B or at least one active Group in Org B,
   # they can log in while scoped to Org B.
   def active_for_authentication?
-    if Current.organization
-      # This is being ran prior to ActsAsTenant being set so we must scope the queries here
-      ActsAsTenant.with_tenant(Current.organization) do
-        person = people.first
-        super && (!person || !person.deactivated_in_org?)
-      end
-    else
-      super
-    end
+    return super unless Current.organization
+
+    super && active_for_devise?
   end
 
   # used with devise active_for_authentication?
   def inactive_message
-    if Current.organization
-      ActsAsTenant.with_tenant(Current.organization) do
-        people.first.deactivated_in_org? ? :deactivated : super
-      end
-    else
-      super
-    end
-  end
+    return super unless Current.organization
 
-  #   raise StandardError, "Organization not set" unless Current.organization
-  #
-  #   ActsAsTenant.with_tenant(Current.organization) do
-  #     people.find_by(user_id: id)
-  #   end
-  # end
+    active_for_devise? ? super : :deactivated
+  end
 
   def full_name(format = :default)
     case format
@@ -126,6 +109,15 @@ class User < ApplicationRecord
   end
 
   private
+
+  def active_for_devise?
+    # this should be used while scoped with ActsAsTenant so only one record is returned
+    ActsAsTenant.with_tenant(Current.organization) do
+      @person = people.first
+    end
+
+    !@person || !@person.deactivated_in_org?
+  end
 
   def downcase_email
     self.email = email.downcase if email.present?

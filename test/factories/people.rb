@@ -24,7 +24,6 @@ FactoryBot.define do
       after(:create) do |person, context|
         group = create(:group, :adopter)
         create(:person_group, person: person, group: group, deactivated_at: (context.deactivated ? Time.current : nil))
-        person.user.add_role(:adopter, ActsAsTenant.current_tenant) unless context.deactivated == true
       end
     end
 
@@ -32,7 +31,6 @@ FactoryBot.define do
       after(:create) do |person, context|
         group = create(:group, :fosterer)
         create(:person_group, person: person, group: group, deactivated_at: (context.deactivated ? Time.current : nil))
-        person.user.add_role(:fosterer, ActsAsTenant.current_tenant) unless context.deactivated == true
       end
     end
 
@@ -40,7 +38,6 @@ FactoryBot.define do
       after(:create) do |person, context|
         group = create(:group, :admin)
         create(:person_group, person: person, group: group, deactivated_at: (context.deactivated ? Time.current : nil))
-        person.user.add_role(:admin, ActsAsTenant.current_tenant) unless context.deactivated == true
       end
     end
 
@@ -48,7 +45,6 @@ FactoryBot.define do
       after(:create) do |person, context|
         group = create(:group, :super_admin)
         create(:person_group, person: person, group: group, deactivated_at: (context.deactivated ? Time.current : nil))
-        person.user.add_role(:super_admin, ActsAsTenant.current_tenant) unless context.deactivated == true
       end
     end
   end
