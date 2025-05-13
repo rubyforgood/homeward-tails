@@ -113,10 +113,11 @@ class User < ApplicationRecord
   def active_for_devise?
     # this should be used while scoped with ActsAsTenant so only one record is returned
     ActsAsTenant.with_tenant(Current.organization) do
-      @person = people.first
-    end
+      person = people.first
 
-    !@person || !@person.deactivated_in_org?
+      @result = !person || !person.deactivated_in_org?
+    end
+    @result
   end
 
   def downcase_email

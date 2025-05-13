@@ -12,34 +12,21 @@ module GroupRoleManagement
     end
 
     def activate!(group_or_name)
-      @group = find_group!(group_or_name)
+      person_group = find_person_group!(group_or_name)
 
-      begin
-        person.transaction do
-          person_group.update!(deactivated_at: nil)
-        end
-      rescue => e
-        "Activation failed: #{e.message}"
-      end
+      person_group.update!(deactivated_at: nil)
     end
 
     def deactivate!(group_or_name)
-      @group = find_group!(group_or_name)
-      begin
-        person_group.update!(deactivated_at: Time.current)
-      rescue => e
-        "Deactivation failed: #{e.message}"
-      end
+      person_group = find_person_group!(group_or_name)
+
+      person_group.update!(deactivated_at: Time.current)
     end
 
     private
 
-    def person_group
-      person.person_groups.find_by(group_id: @group.id)
-    end
-
-    def find_group!(group_or_name)
-      case group_or_name
+    def find_person_group!(group_or_name)
+      group = case group_or_name
       when Group
         group_or_name
       when String, Symbol
@@ -47,6 +34,7 @@ module GroupRoleManagement
       else
         raise ArgumentError, "Expected Group or Group Name, received #{group_or_name.class.name}"
       end
+      person.person_groups.find_by(group_id: group.id)
     end
   end
 end
