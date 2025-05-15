@@ -26,6 +26,8 @@ module GroupRoleManagement
     end
 
     def change_group(new_group)
+      raise ArgumentError, "Only :admin or :super_admin are valid groups" unless [:admin, :super_admin].include?(new_group.to_sym)
+
       person.transaction do
         # Remove existing admin/super_admin groups
         person.groups.where(name: [:admin, :super_admin]).each do |group|
