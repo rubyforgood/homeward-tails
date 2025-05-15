@@ -8,9 +8,12 @@ class ApplicationPolicy < ActionPolicy::Base
   # The Current.person is generally what we want to check for authorization.
   # User's can be in many org's but only have one Person per org. Permissions
   # are base on the active groups assigned to the person. Some public views check permissions
-  # to conditionally display links. `allow_nil` lets use check without raising an error.
+  # to conditionally display links. `allow_nil` lets us check without raising an error.
   # This authorization context must also be configured in the place where the authorization
-  # is performed (e.g., controllers)
+  # is performed (e.g., controllers) - `authorize :person, through: -> { Current.person }`
+  #
+  # We're using the person context instead of accessing `Current.person` directly
+  # to keep the policy classes decoupled from Rails-specific globals.
   authorize :person, allow_nil: true
 
   pre_check :verify_authenticated!
@@ -26,7 +29,7 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # Default authorized_scope; override for individual policies if necessary.
   relation_scope do |relation|
-    relation.where(organization: Current.organization)
+    relation.where(organization: person.organization)
   end
 
   private
