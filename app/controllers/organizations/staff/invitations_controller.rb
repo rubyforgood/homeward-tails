@@ -85,11 +85,7 @@ module Organizations
       def user_params
         params.require(:user)
           .permit(
-            :first_name, :last_name, :email, :roles,
-            person_attributes: [
-              :phone_number,
-              location_attributes: %i[country province_state city_town]
-            ]
+            :first_name, :last_name, :email, :roles
           )
       end
 

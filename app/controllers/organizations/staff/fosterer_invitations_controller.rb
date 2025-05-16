@@ -9,8 +9,6 @@ module Organizations
           with: Organizations::FostererInvitationPolicy
 
         @user = User.new
-        @person = Person.new
-        @person.build_location
       end
     end
   end
