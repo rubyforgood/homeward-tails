@@ -3,9 +3,10 @@ require "test_helper"
 # See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
 class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
   setup do
-    @account = create(:super_admin)
+    # record being acted on
+    @record = create(:person, :super_admin)
     @policy = -> {
-      Organizations::UserRolesPolicy.new(@account, user: @user)
+      Organizations::UserRolesPolicy.new(@record, person: @person, user: @person&.user)
     }
   end
 
@@ -16,7 +17,7 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
 
     context "when user is nil" do
       setup do
-        @user = nil
+        @person = nil
       end
 
       should "return false" do
@@ -26,7 +27,7 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       should "return false" do
@@ -36,7 +37,7 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
 
     context "when user is fosterer" do
       setup do
-        @user = create(:fosterer)
+        @person = create(:person, :fosterer)
       end
 
       should "return false" do
@@ -46,7 +47,7 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
 
     context "when user is staff" do
       setup do
-        @user = create(:admin)
+        @person = create(:person, :admin)
       end
 
       should "return false" do
@@ -56,13 +57,13 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
 
     context "when user is staff admin" do
       setup do
-        @user = create(:super_admin)
+        @person = create(:person, :super_admin)
       end
 
-      context "when account belongs to a different organization" do
+      context "when record belongs to a different organization" do
         setup do
           ActsAsTenant.with_tenant(create(:organization)) do
-            @user = create(:super_admin)
+            @record = create(:person, :super_admin)
           end
         end
 
@@ -79,7 +80,7 @@ class Organizations::UserRolesPolicyTest < ActiveSupport::TestCase
 
       context "when account is the user" do
         setup do
-          @account = @user
+          @record = @person
         end
 
         should "return false" do
