@@ -7,7 +7,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
   context "relation_scope" do
     setup do
       policy = -> {
-        AdopterApplicationPolicy.new(AdopterApplication, user: @user)
+        AdopterApplicationPolicy.new(AdopterApplication, person: @person, user: @person&.user)
       }
       target = -> { AdopterApplication.all }
       @scope = -> {
@@ -18,14 +18,14 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       context "when there are applications that do not belong to user" do
         setup do
           @user_applications = [
-            create(:adopter_application, person: @user.person),
-            create(:adopter_application, person: @user.person)
+            create(:adopter_application, person: @person),
+            create(:adopter_application, person: @person)
           ]
           @other_application = create(:adopter_application)
         end
@@ -51,14 +51,14 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
   context "#index?" do
     setup do
       @policy = -> {
-        AdopterApplicationPolicy.new(AdopterApplication, user: @user)
+        AdopterApplicationPolicy.new(AdopterApplication, person: @person, user: @person&.user)
       }
       @action = -> { @policy.call.apply(:index?) }
     end
 
     context "when user is nil" do
       setup do
-        @user = nil
+        @person = nil
       end
 
       should "return false" do
@@ -68,7 +68,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       should "return true" do
@@ -78,7 +78,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
     context "when user is fosterer" do
       setup do
-        @user = create(:fosterer)
+        @person = create(:person, :fosterer)
       end
 
       should "return false" do
@@ -91,7 +91,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
     setup do
       @pet = create(:pet)
       @policy = -> {
-        AdopterApplicationPolicy.new(AdopterApplication, user: @user,
+        AdopterApplicationPolicy.new(AdopterApplication, person: @person, user: @person&.user,
           pet: @pet)
       }
       @action = -> { @policy.call.apply(:create?) }
@@ -99,7 +99,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
     context "when user is nil" do
       setup do
-        @user = nil
+        @person = nil
       end
 
       should "return false" do
@@ -109,7 +109,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       context "when pet application is paused" do
@@ -129,7 +129,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
         context "when user already has an existing application for the pet" do
           setup do
-            _existing_app = create(:adopter_application, pet: @pet, person: @user.person)
+            _existing_app = create(:adopter_application, pet: @pet, person: @person)
           end
 
           should "return false" do
@@ -147,7 +147,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
     context "when user is fosterer" do
       setup do
-        @user = create(:fosterer)
+        @person = create(:person, :fosterer)
       end
 
       should "return false" do
@@ -158,10 +158,10 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
   context "existing record action" do
     setup do
-      @adopter = create(:adopter)
-      @adopter_application = create(:adopter_application, person: @adopter.person)
+      @adopter = create(:person, :adopter)
+      @adopter_application = create(:adopter_application, person: @adopter)
       @policy = -> {
-        AdopterApplicationPolicy.new(@adopter_application, user: @user)
+        AdopterApplicationPolicy.new(@adopter_application, person: @person, user: @person&.user)
       }
     end
 
@@ -172,7 +172,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
@@ -183,7 +183,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
       context "when adopter account does not belong to user" do
         context "when user is adopter" do
           setup do
-            @user = create(:adopter)
+            @person = create(:person, :adopter)
           end
 
           should "return false" do
@@ -193,7 +193,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
         context "when user is fosterer" do
           setup do
-            @user = create(:fosterer)
+            @person = create(:person, :fosterer)
           end
 
           should "return false" do
@@ -203,7 +203,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
         context "when user is active staff" do
           setup do
-            @user = create(:admin)
+            @person = create(:person, :admin)
           end
 
           should "return false" do
@@ -213,7 +213,7 @@ class AdopterApplicationPolicyTest < ActiveSupport::TestCase
 
         context "when user is staff admin" do
           setup do
-            @user = create(:super_admin)
+            @person = create(:person, :super_admin)
           end
 
           should "return false" do
