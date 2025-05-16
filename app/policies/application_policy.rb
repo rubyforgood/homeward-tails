@@ -3,7 +3,9 @@ class ApplicationPolicy < ActionPolicy::Base
   # Configure additional authorization contexts here
   # (`user` is added by default).
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
-  authorize :user, optional: true
+
+  # `current_user` is used specifically for pre_checks of authenticated and tos_agreement
+  authorize :user, allow_nil: true
 
   # The Current.person is generally what we want to check for authorization.
   # User's can be in many org's but only have one Person per org. Permissions
