@@ -6,17 +6,15 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
   context "#create?" do
     setup do
-      @organization = ActsAsTenant.current_tenant
       @policy = -> {
-        Organizations::MatchPolicy.new(Match, user: @user,
-          organization: @organization)
+        Organizations::MatchPolicy.new(Match, person: @person, user: @person&.user)
       }
       @action = -> { @policy.call.apply(:create?) }
     end
 
     context "when user is nil" do
       setup do
-        @user = nil
+        @person = nil
       end
 
       should "return false" do
@@ -26,7 +24,7 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       should "return false" do
@@ -36,7 +34,7 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
     context "when user is fosterer" do
       setup do
-        @user = create(:fosterer)
+        @person = create(:person, :fosterer)
       end
 
       should "return false" do
@@ -44,61 +42,33 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
       end
     end
 
-    context "when user is activated staff" do
+    context "when user is admin" do
       setup do
-        @user = create(:admin)
+        @person = create(:person, :admin)
       end
 
-      context "when organization context is a different organization" do
-        setup do
-          ActsAsTenant.with_tenant(create(:organization)) do
-            @user = create(:admin)
-          end
-        end
+      should "return true" do
+        assert_equal true, @action.call
+      end
+    end
 
-        should "return false" do
-          assert_equal false, @action.call
-        end
+    context "when user is super admin" do
+      setup do
+        @person = create(:person, :super_admin)
       end
 
-      context "when organization context is user's organization" do
-        should "return true" do
-          assert_equal true, @action.call
-        end
+      should "return true" do
+        assert_equal true, @action.call
       end
     end
 
     context "when user is deactivated staff" do
       setup do
-        @user = create(:admin, :deactivated)
+        @person = create(:person, :admin, deactivated: true)
       end
 
       should "return false" do
         assert_equal false, @action.call
-      end
-    end
-
-    context "when user is staff admin" do
-      setup do
-        @user = create(:super_admin)
-      end
-
-      context "when organization context is a different organization" do
-        setup do
-          ActsAsTenant.with_tenant(create(:organization)) do
-            @user = create(:super_admin)
-          end
-        end
-
-        should "return false" do
-          assert_equal false, @action.call
-        end
-      end
-
-      context "when organization context is user's organization" do
-        should "return true" do
-          assert_equal true, @action.call
-        end
       end
     end
   end
@@ -107,14 +77,14 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
     setup do
       @match = create(:match, match_type: :adoption)
       @policy = -> {
-        Organizations::MatchPolicy.new(@match, user: @user)
+        Organizations::MatchPolicy.new(@match, person: @person, user: @person&.user)
       }
       @action = -> { @policy.call.apply(:destroy?) }
     end
 
     context "when user is nil" do
       setup do
-        @user = nil
+        @person = nil
       end
 
       should "return false" do
@@ -124,7 +94,7 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       should "return false" do
@@ -134,7 +104,7 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
 
     context "when user is fosterer" do
       setup do
-        @user = create(:fosterer)
+        @person = create(:person, :fosterer)
       end
 
       should "return false" do
@@ -142,15 +112,15 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
       end
     end
 
-    context "when user is activated staff" do
+    context "when user is admin" do
       setup do
-        @user = create(:admin)
+        @person = create(:person, :admin)
       end
 
       context "when match belongs to a different organization" do
         setup do
           ActsAsTenant.with_tenant(create(:organization)) do
-            @user = create(:admin)
+            @match = create(:match, match_type: :adoption)
           end
         end
 
@@ -163,40 +133,26 @@ class Organizations::MatchPolicyTest < ActiveSupport::TestCase
         should "return true" do
           assert_equal true, @action.call
         end
+      end
+    end
+
+    context "when user is super admin" do
+      setup do
+        @person = create(:person, :super_admin)
+      end
+
+      should "return true" do
+        assert_equal true, @action.call
       end
     end
 
     context "when user is deactivated staff" do
       setup do
-        @user = create(:admin, :deactivated)
+        @person = create(:person, :admin, deactivated: true)
       end
 
       should "return false" do
         assert_equal false, @action.call
-      end
-    end
-
-    context "when user is staff admin" do
-      setup do
-        @user = create(:super_admin)
-      end
-
-      context "when match belongs to a different organization" do
-        setup do
-          ActsAsTenant.with_tenant(create(:organization)) do
-            @user = create(:super_admin)
-          end
-        end
-
-        should "return false" do
-          assert_equal false, @action.call
-        end
-      end
-
-      context "when match belongs to user's organization" do
-        should "return true" do
-          assert_equal true, @action.call
-        end
       end
     end
   end
