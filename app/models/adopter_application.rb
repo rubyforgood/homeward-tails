@@ -24,9 +24,9 @@
 #  fk_rails_...  (pet_id => pets.id)
 #
 class AdopterApplication < ApplicationRecord
-  acts_as_tenant(:organization)
   belongs_to :pet, touch: true
   belongs_to :person
+  acts_as_tenant(:organization)
 
   validates :pet_id, uniqueness: {scope: :person_id}
 
