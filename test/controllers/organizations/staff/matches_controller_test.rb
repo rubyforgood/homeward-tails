@@ -6,7 +6,7 @@ class Organizations::Staff::MatchesControllerTest < ActionDispatch::IntegrationT
     include ActionPolicy::TestHelper
 
     setup do
-      user = create(:admin)
+      user = create(:person, :admin).user
       sign_in user
     end
 
@@ -28,7 +28,6 @@ class Organizations::Staff::MatchesControllerTest < ActionDispatch::IntegrationT
       should "be authorized" do
         assert_authorized_to(
           :manage?, Match,
-          context: {organization: @organization},
           with: Organizations::MatchPolicy
         ) do
           post staff_matches_url, params: @params

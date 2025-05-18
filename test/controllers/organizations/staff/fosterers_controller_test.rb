@@ -4,7 +4,7 @@ require "action_policy/test_helper"
 class Organizations::Staff::FosterersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @organization = ActsAsTenant.current_tenant
-    @admin = create(:admin)
+    @admin = create(:person, :admin).user
     @fosterer = create(:person)
     sign_in @admin
   end
@@ -16,7 +16,6 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
       should "be authorized" do
         assert_authorized_to(
           :index?, Person,
-          context: {organization: @organization},
           with: Organizations::PersonPolicy
         ) do
           get staff_fosterers_url
@@ -25,7 +24,7 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
 
       context "when user is authorized" do
         setup do
-          user = create(:super_admin)
+          user = create(:person, :super_admin).user
           sign_in user
         end
 
@@ -39,8 +38,8 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
         end
 
         should "filter by email" do
-          create(:fosterer, email: "bob.cat@gmail.com")
-          create(:fosterer, email: "sally.cat@gmail.com")
+          create(:person, :fosterer, email: "bob.cat@gmail.com")
+          create(:person, :fosterer, email: "sally.cat@gmail.com")
 
           get staff_fosterers_url, params: {q: {email_cont: "sally.cat@gmail.com"}}
           assert_response :success
@@ -50,9 +49,9 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
         end
 
         should "filter by name" do
-          create(:fosterer, first_name: "Bob", last_name: "Cat")
-          create(:fosterer, first_name: "Sally", last_name: "Cat")
-          create(:fosterer, first_name: "Sally", last_name: "Smith")
+          create(:person, :fosterer, first_name: "Bob", last_name: "Cat")
+          create(:person, :fosterer, first_name: "Sally", last_name: "Cat")
+          create(:person, :fosterer, first_name: "Sally", last_name: "Smith")
 
           get staff_fosterers_url, params: {q: {first_name_or_last_name_cont: "Sally"}}
           assert_response :success
@@ -62,15 +61,12 @@ class Organizations::Staff::FosterersControllerTest < ActionDispatch::Integratio
         end
 
         should "generate CSV with fosterers' emails" do
-          fosterer = create(:fosterer)
-          # TODO: Current.organization is nulled out after the call 'get staff_fosterers_url, params: {format: :csv}'
-          # hence can't use the person method on User model on line 73.
-          person = fosterer.person
+          fosterer = create(:person, :fosterer)
 
           get staff_fosterers_url, params: {format: :csv}
           assert_response :success
           assert_includes response.header["Content-Type"], "text/csv"
-          assert_includes response.body, person.email
+          assert_includes response.body, fosterer.email
         end
       end
     end

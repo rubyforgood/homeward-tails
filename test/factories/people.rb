@@ -4,10 +4,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email }
-
-    after(:build) do |person, evaluator|
-      person.user ||= build(:user, email: person.email, password: evaluator.user_password)
-    end
+    user
 
     trait :with_phone do
       phone_number { Faker::PhoneNumber.phone_number }
@@ -21,10 +18,6 @@ FactoryBot.define do
 
     transient do
       deactivated { false }
-    end
-
-    transient do
-      user_password { "123456" }  # default password, can be overridden
     end
 
     trait :adopter do

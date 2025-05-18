@@ -4,11 +4,11 @@ require "action_policy/test_helper"
 class Organizations::Staff::InvitationsControllerTest < ActionDispatch::IntegrationTest
   context "#create" do
     setup do
-      user = create(:super_admin)
+      user = create(:person, :super_admin).user
       sign_in user
     end
 
-    should "assign admin role when admin is invited" do
+    should "assign super admin role when super admin is invited" do
       invitation_params = {
         user: attributes_for(:user)
           .except(:password, :encrypted_password, :tos_agreement)
@@ -17,13 +17,12 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
 
       post user_invitation_url, params: invitation_params
 
-      persisted_user = User.find_by(email: invitation_params[:user][:email])
-      has_role = persisted_user.has_role?(:super_admin, ActsAsTenant.current_tenant)
+      persisted_person = Person.find_by(email: invitation_params[:user][:email])
 
-      assert_equal true, has_role
+      assert_equal true, persisted_person.active_in_group?(:super_admin)
     end
 
-    should "assign staff role when staff is invited" do
+    should "assign admin role when admin is invited" do
       invitation_params = {
         user: attributes_for(:user)
           .except(:password, :encrypted_password, :tos_agreement)
@@ -32,10 +31,9 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
 
       post user_invitation_url, params: invitation_params
 
-      persisted_user = User.find_by(email: invitation_params[:user][:email])
-      has_role = persisted_user.has_role?(:admin, ActsAsTenant.current_tenant)
+      persisted_person = Person.find_by(email: invitation_params[:user][:email])
 
-      assert_equal true, has_role
+      assert_equal true, persisted_person.active_in_group?(:admin)
     end
   end
 
@@ -44,7 +42,7 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
 
     setup do
       @organization = ActsAsTenant.current_tenant
-      user = create(:super_admin)
+      user = create(:person, :super_admin).user
       sign_in user
     end
 
@@ -75,7 +73,6 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
         should "be authorized" do
           assert_authorized_to(
             :create?, User,
-            context: {organization: @organization},
             with: Organizations::StaffInvitationPolicy
           ) do
             post user_invitation_url, params: @params
@@ -91,7 +88,6 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
         should "be authorized" do
           assert_authorized_to(
             :create?, User,
-            context: {organization: @organization},
             with: Organizations::StaffInvitationPolicy
           ) do
             post user_invitation_url, params: @params
@@ -107,7 +103,6 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
         should "be authorized" do
           assert_authorized_to(
             :create?, User,
-            context: {organization: @organization},
             with: Organizations::FostererInvitationPolicy
           ) do
             post user_invitation_url, params: @params
@@ -123,7 +118,6 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
         should "be authorized" do
           assert_authorized_to(
             :create?, User,
-            context: {organization: @organization},
             with: Organizations::InvitationPolicy
           ) do
             post user_invitation_url, params: @params
@@ -135,7 +129,6 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
         should "be authorized" do
           assert_authorized_to(
             :create?, User,
-            context: {organization: @organization},
             with: Organizations::InvitationPolicy
           ) do
             post user_invitation_url, params: @params

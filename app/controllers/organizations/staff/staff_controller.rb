@@ -6,7 +6,7 @@ module Organizations
       layout "dashboard"
 
       def index
-        authorize! Staff
+        authorize! User, with: Organizations::StaffPolicy
 
         @pagy, @staff = pagy(Person.staff.includes(person_groups: :group), limit: 10)
       end

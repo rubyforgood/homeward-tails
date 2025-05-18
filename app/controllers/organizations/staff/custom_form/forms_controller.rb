@@ -1,7 +1,7 @@
 module Organizations
   module Staff
     module CustomForm
-      class FormsController < ApplicationController
+      class FormsController < Organizations::BaseController
         before_action :context_authorize!
         before_action :set_form, only: %i[show edit update destroy]
 

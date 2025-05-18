@@ -1,7 +1,7 @@
 module Organizations
   module Staff
     module CustomForm
-      class QuestionsController < ApplicationController
+      class QuestionsController < Organizations::BaseController
         before_action :context_authorize!
         before_action :set_form
         before_action :set_question, only: %i[edit update destroy]

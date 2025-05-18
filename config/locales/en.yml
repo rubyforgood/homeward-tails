@@ -754,9 +754,12 @@ en:
       create:
         success: "You have successfully joined the organization."
         error: "There was an unexpected error. Please try again soon."
+    contacts:
+      create:
+       success: "Message sent!"
   contacts:
     create:
-      success: "Message sent!"
+     success: "Message sent!"
   feedback:
     new:
       header: "Feedback"

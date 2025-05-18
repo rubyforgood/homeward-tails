@@ -11,8 +11,8 @@ module Organizations
           setup do
             @organization = ActsAsTenant.current_tenant
             @form = create(:form, organization: @organization)
+            user = create(:person, :admin).user
 
-            user = create(:admin)
             sign_in user
           end
 
@@ -20,7 +20,6 @@ module Organizations
             should "be authorized" do
               assert_authorized_to(
                 :manage?, ::CustomForm::Form,
-                context: {organization: @organization},
                 with: Organizations::CustomForm::FormPolicy
               ) do
                 get new_staff_custom_form_form_url
@@ -38,7 +37,6 @@ module Organizations
             should "be authorized" do
               assert_authorized_to(
                 :manage?, ::CustomForm::Form,
-                context: {organization: @organization},
                 with: Organizations::CustomForm::FormPolicy
               ) do
                 post staff_custom_form_forms_url, params: @params
@@ -50,7 +48,6 @@ module Organizations
             should "be authorized" do
               assert_authorized_to(
                 :manage?, ::CustomForm::Form,
-                context: {organization: @organization},
                 with: Organizations::CustomForm::FormPolicy
               ) do
                 get staff_custom_form_forms_url
@@ -125,7 +122,7 @@ module Organizations
           setup do
             @organization = ActsAsTenant.current_tenant
             @form = create(:form)
-            @user = create(:admin)
+            @user = create(:person, :admin).user
             sign_in @user
           end
 

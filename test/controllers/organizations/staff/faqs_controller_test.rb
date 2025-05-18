@@ -6,7 +6,7 @@ class Organizations::Staff::FaqsControllerTest < ActionDispatch::IntegrationTest
     @organization = ActsAsTenant.current_tenant
     @faq = create(:faq)
 
-    user = create(:admin)
+    user = create(:person, :admin).user
     sign_in user
   end
 
@@ -17,7 +17,6 @@ class Organizations::Staff::FaqsControllerTest < ActionDispatch::IntegrationTest
       should "be authorized" do
         assert_authorized_to(
           :manage?, Faq,
-          context: {organization: @organization},
           with: Organizations::FaqPolicy
         ) do
           get new_staff_faq_url
@@ -35,7 +34,6 @@ class Organizations::Staff::FaqsControllerTest < ActionDispatch::IntegrationTest
       should "be authorized" do
         assert_authorized_to(
           :manage?, Faq,
-          context: {organization: @organization},
           with: Organizations::FaqPolicy
         ) do
           post staff_faqs_url, params: @params
@@ -47,7 +45,6 @@ class Organizations::Staff::FaqsControllerTest < ActionDispatch::IntegrationTest
       should "be authorized" do
         assert_authorized_to(
           :manage?, Faq,
-          context: {organization: @organization},
           with: Organizations::FaqPolicy
         ) do
           get staff_faqs_url
