@@ -2,12 +2,12 @@ require "application_system_test_case"
 
 class AdoptionCreationTest < ApplicationSystemTestCase
   setup do
-    user = create(:admin)
-    adopter = create(:adopter)
-    @pet = create(:pet)
-    create(:adopter_application, :successful_applicant, pet_id: @pet.id, person: adopter.person)
+    person = create(:person, :admin)
+    adopter = create(:person, :adopter)
+    pet = create(:pet)
+    create(:adopter_application, :successful_applicant, pet_id: pet.id, person: adopter)
 
-    sign_in user
+    sign_in person.user
   end
 
   context "creating an adoption" do

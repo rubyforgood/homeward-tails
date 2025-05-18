@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class LoginTest < ApplicationSystemTestCase
   setup do
-    @user = create(:admin)
+    @person = create(:person, :admin)
     @organization = Current.organization
     @custom_page = create(:custom_page, :with_about_us_image, organization: @organization)
   end
@@ -12,8 +12,8 @@ class LoginTest < ApplicationSystemTestCase
       visit root_url
       click_on "Log In"
 
-      fill_in "Email", with: @user.email
-      fill_in "Password", with: @user.password
+      fill_in "Email", with: @person.user.email
+      fill_in "Password", with: @person.user.password
       click_on "Log in"
 
       assert current_path.include?(@organization.slug)
@@ -23,7 +23,7 @@ class LoginTest < ApplicationSystemTestCase
 
   context "when logging in as a fosterer" do
     setup do
-      @user = create(:fosterer)
+      @person = create(:person, :fosterer)
       @organization = Current.organization
       @custom_page = create(:custom_page, :with_about_us_image, organization: @organization)
     end
@@ -32,8 +32,8 @@ class LoginTest < ApplicationSystemTestCase
       visit root_url
       click_on "Log In"
 
-      fill_in "Email", with: @user.email
-      fill_in "Password", with: @user.password
+      fill_in "Email", with: @person.user.email
+      fill_in "Password", with: @person.user.password
       click_on "Log in"
 
       assert has_current_path?(adopter_fosterer_dashboard_index_path)
