@@ -41,7 +41,8 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
   end
 
   test "staff admin can not invite existing staff in the organization" do
-    _existing_user = create(:person, :super_admin, email: "john@example.com")
+    user = create(:user, email: "john@example.com")
+    _existing_user = create(:person, :super_admin, user: user, email: "john@example.com")
 
     post(
       user_invitation_path,
@@ -53,7 +54,8 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
   end
 
   test "staff admin can invite existing non-staff user to the organization" do
-    _existing_user = create(:user, email: "adopter@example.com")
+    user = create(:user, email: "adopter@example.com")
+    person = create(:person, :adopter, user: user, email: "adopter@example.com")
 
     post(
       user_invitation_path,
@@ -61,8 +63,6 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
     )
 
     assert_response :redirect
-    invited_person = Person.find_by(email: "adopter@example.com")
-
-    assert invited_person.active_in_group?(:super_admin)
+    assert person.active_in_group?(:super_admin)
   end
 end
