@@ -41,9 +41,9 @@ class Organizations::Staff::UserRolesControllerTest < ActionDispatch::Integratio
   context "#to_admin" do
     setup do
       @organization = ActsAsTenant.current_tenant
-      @user = create(:person, :super_admin).user
+      @person = create(:person, :super_admin)
       @account = create(:person, :super_admin)
-      sign_in @user
+      sign_in @person.user
     end
 
     should "change role from super admin to admin" do
@@ -67,7 +67,7 @@ class Organizations::Staff::UserRolesControllerTest < ActionDispatch::Integratio
     end
 
     should "not allow user to change own role" do
-      post staff_user_to_admin_url(@user), headers: {"HTTP_REFERER" => "http://www.example.com/"}
+      post staff_user_to_admin_url(@person), headers: {"HTTP_REFERER" => "http://www.example.com/"}
 
       assert_equal false, @account.active_in_group?(:admin)
     end
