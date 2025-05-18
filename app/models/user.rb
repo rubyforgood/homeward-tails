@@ -36,7 +36,6 @@
 #
 class User < ApplicationRecord
   include Avatarable
-  include RoleChangeable
   include Omniauthable
 
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
