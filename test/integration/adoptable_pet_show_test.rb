@@ -50,7 +50,7 @@ class AdoptablePetShowTest < ActionDispatch::IntegrationTest
 
   context "admin" do
     setup do
-      sign_in create(:admin)
+      sign_in create(:person, :admin).user
     end
 
     should "see an available pet" do
@@ -80,9 +80,9 @@ class AdoptablePetShowTest < ActionDispatch::IntegrationTest
 
     context "an adopter with form submission" do
       setup do
-        adopter_user = create(:adopter)
-        _form_submission = create(:form_submission, person: adopter_user.person)
-        sign_in adopter_user
+        adopter = create(:person, :adopter)
+        _form_submission = create(:form_submission, person: adopter)
+        sign_in adopter.user
       end
 
       should "see and apply to an available pet" do
