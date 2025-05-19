@@ -13,7 +13,7 @@ class Organizations::Staff::StaffControllerTest < ActionDispatch::IntegrationTes
     context "#index" do
       should "be authorized" do
         assert_authorized_to(
-          :index?, User,
+          :index?, :staff,
           with: Organizations::StaffPolicy
         ) do
           get staff_staff_index_url
