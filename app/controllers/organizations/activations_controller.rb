@@ -28,7 +28,7 @@ module Organizations
 
     def set_pg
       @pg = PersonGroup.find(params[:id])
-      @person = Person.find(@pg.person_id)
+      @person = @pg.person
       @group = @pg.group
 
       authorize! @person, with: ActivationsPolicy, context: {group: @group}
