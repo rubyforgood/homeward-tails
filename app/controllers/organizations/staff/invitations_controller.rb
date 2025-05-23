@@ -111,15 +111,13 @@ module Organizations
         end
       end
 
-      def create_person(user)
-        # TODO: do we need this condition?
-        unless Person.exists?(email: user.email)
-          Person.create!(user_id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email)
-        end
-      end
-
       def set_person
-        @person ||= @user.people.first || create_person(@user)
+        @person ||= Person.find_or_create_by!(email: @user.email) do |person|
+          person.email = @user.email
+          person.user_id = @user.id
+          person.first_name = @user.first_name
+          person.last_name = @user.last_name
+        end
       end
     end
   end
