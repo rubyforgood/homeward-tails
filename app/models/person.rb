@@ -55,24 +55,23 @@ class Person < ApplicationRecord
   delegate :activate!, :deactivate!, to: :activation
   delegate :add_group, :active_in_group?, :deactivated_in_org?, to: :group_member
   delegate :staff?, to: :staff
-
   delegate :active?, :current_group, :change_group, to: :staff, prefix: :staff
 
   scope :adopters, -> {
-    joins(:groups).where(groups: {name: "adopter"})
+    joins(:groups).where(groups: {name: :adopter})
   }
 
   scope :fosterers, -> {
-    joins(:groups).where(groups: {name: "fosterer"})
+    joins(:groups).where(groups: {name: :fosterer})
   }
 
   scope :staff, -> {
-    joins(:groups).where(groups: {name: ["admin", "super_admin"]})
+    joins(:groups).where(groups: {name: [:admin, :super_admin]})
   }
 
   scope :active_staff, -> {
     joins(groups: :person_groups)
-      .where(groups: {name: ["admin", "super_admin"]})
+      .where(groups: {name: [:admin, :super_admin]})
       .where(person_groups: {deactivated_at: nil})
   }
 

@@ -7,11 +7,12 @@ module Organizations
       return false if record.id == person&.id
       return false if record.organization_id != group.organization_id
 
-      case group.name
-      when "admin", "super_admin"
+      if group.admin? || group.super_admin?
         permission?(:activate_staff)
-      when "adopter", "fosterer"
+      elsif group.adopter? || group.fosterer?
         permission?(:activate_foster) && permission?(:activate_adopter)
+      else
+        false
       end
     end
   end

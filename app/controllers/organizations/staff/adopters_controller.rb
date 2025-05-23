@@ -10,6 +10,6 @@ class Organizations::Staff::AdoptersController < Organizations::BaseController
       @q.result,
       limit: 10
     )
-    @group_id = Group.find_by(name: "adopter")&.id
+    @group_id = Group.find_by(name: :adopter)&.id
   end
 end

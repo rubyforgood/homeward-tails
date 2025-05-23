@@ -14,11 +14,11 @@ module GroupRoleManagement
     end
 
     def staff?
-      person.groups.exists?(name: %i[admin super_admin])
+      person.groups.exists?(name: [:admin, :super_admin])
     end
 
     def current_group
-      person.groups.find_by(name: ["admin", "super_admin"])
+      person.groups.find_by(name: [:admin, :super_admin])
     end
 
     def active?

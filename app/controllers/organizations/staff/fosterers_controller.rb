@@ -12,7 +12,7 @@ class Organizations::Staff::FosterersController < Organizations::BaseController
       @q.result,
       limit: 10
     )
-    @group_id = Group.find_by(name: "fosterer")&.id
+    @group_id = Group.find_by(name: :fosterer)&.id
 
     respond_to do |format|
       format.html
