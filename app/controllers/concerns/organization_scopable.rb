@@ -53,7 +53,7 @@ module OrganizationScopable
   end
 
   def new_person_after_sign_up_path
-    if Current.organization.external_form_url
+    if Current.organization.external_form_url.present?
       adopter_fosterer_external_form_index_path
     else
       adopter_fosterer_dashboard_index_path
