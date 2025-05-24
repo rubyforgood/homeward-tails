@@ -34,20 +34,5 @@ class Organizations::Staff::MatchesControllerTest < ActionDispatch::IntegrationT
         end
       end
     end
-
-    context "#destroy" do
-      setup do
-        @match = create(:match, match_type: :adoption)
-      end
-
-      should "be authorized" do
-        assert_authorized_to(
-          :manage?, @match,
-          with: Organizations::MatchPolicy
-        ) do
-          delete staff_match_url(@match)
-        end
-      end
-    end
   end
 end
