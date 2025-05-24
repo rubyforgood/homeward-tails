@@ -1,5 +1,6 @@
 module Organizations
   class ActivationsController < Organizations::BaseController
+    # sets the PersonGroup
     before_action :set_pg
 
     def update

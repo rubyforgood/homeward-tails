@@ -40,7 +40,7 @@ class Organizations::CreateService
         args[:user][:first_name],
         args[:user][:last_name]
       )
-      add_super_admin_role_to_user
+      add_super_admin_group_to_person
       send_email
       create_custom_page
     end
@@ -85,7 +85,7 @@ class Organizations::CreateService
     end
   end
 
-  def add_super_admin_role_to_user
+  def add_super_admin_group_to_person
     ActsAsTenant.with_tenant(@organization) do
       @person.add_group(:super_admin)
       unless @person.active_in_group?(:super_admin)
