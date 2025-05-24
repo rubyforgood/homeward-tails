@@ -108,11 +108,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @adopter_three.add_group(:adopter)
 
-  Note.create!(
-    content: Faker::Lorem.paragraph(sentence_count: 2),
-    notable: @fosterer_one
-  )
-
   @user_fosterer_one = User.create!(
     email: "fosterer1@baja.com",
     first_name: "Simon",
@@ -135,7 +130,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   Note.create!(
     content: Faker::Lorem.paragraph(sentence_count: 2),
-    notable: @fosterer_two
+    notable: @fosterer_one
   )
 
   @user_fosterer_two = User.create!(
@@ -157,6 +152,11 @@ ActsAsTenant.with_tenant(@organization) do
   @fosterer_two = Person.where(email: "fosterer2@baja.com").first
 
   @fosterer_two.add_group(:adopter, :fosterer)
+
+  Note.create!(
+    content: Faker::Lorem.paragraph(sentence_count: 2),
+    notable: @fosterer_two
+  )
 
   5.times do
     DefaultPetTask.create!(
