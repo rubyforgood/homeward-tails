@@ -3,7 +3,6 @@
 # Table name: adopter_applications
 #
 #  id              :bigint           not null, primary key
-#  notes           :text
 #  profile_show    :boolean          default(TRUE)
 #  status          :integer          default("awaiting_review")
 #  created_at      :datetime         not null
@@ -27,6 +26,10 @@ class AdopterApplication < ApplicationRecord
   belongs_to :pet, touch: true
   belongs_to :person
   acts_as_tenant(:organization)
+
+  has_one :note, as: :notable, dependent: :destroy
+
+  delegate :content, to: :note, allow_nil: true
 
   validates :pet_id, uniqueness: {scope: :person_id}
 
@@ -59,6 +62,10 @@ class AdopterApplication < ApplicationRecord
 
   def withdraw
     update!(status: :withdrawn)
+  end
+
+  def note
+    super || build_note
   end
 
   ransacker :applicant_name do

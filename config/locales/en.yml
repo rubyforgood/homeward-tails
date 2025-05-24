@@ -43,6 +43,7 @@ en:
   role: "Role"
   email: "Email"
   phone: "Phone"
+  notes: "Notes"
   description: "Description"
   due_date: "Due Date"
   deactivate: "Deactivate"
@@ -690,6 +691,10 @@ en:
           submissions_added: "%{count} new form submissions were added."
           review_errors: "Review the following error(s) to ensure all form submissions are added:"
           row: "Row %{number} - %{message}"
+      notes:
+        edit_notes: "Edit Notes for"
+        update:
+          success: "Notes updated successfully"
     adopter_fosterer:
       adopter_applications:
         create:

@@ -20,6 +20,10 @@
         <span><%= t(:email) %></span>
         <span><%= fosterer.email %></span>
       </div>
+       <div class="d-flex justify-content-between border-bottom py-2" id="<%= dom_id(fosterer, :notes) %>">
+        <span><%= t(:notes) %></span>
+        <%= render 'organizations/staff/shared/notes', notable: fosterer, modal_id: 'card', context: 'fosterers' %>
+      </div>
       <div class="text-end mt-3">
         <%= link_to t("general.edit"),
         edit_staff_fosterer_path(fosterer),

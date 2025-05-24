@@ -1,0 +1,21 @@
+<%= turbo_stream.replace_all ".notes-display-#{@context}-#{@notable.id}" do %>
+  <span title="<%= @notable.content %>" class="notes-display-<%= @context %>-<%= @notable.id %>">
+    <% if @context == 'applications' %>
+      <%= @notable.content&.truncate(8) %>
+    <% else %>
+      <%= @notable.content&.truncate(20) %>
+    <% end %>
+  </span>
+<% end %>
+
+<%= turbo_stream.replace_all ".notes-textarea-#{@notable.id}" do %>
+  <%= text_area_tag "note[content]", @notable.content, class: "form-control notes-textarea-#{@notable.id}", rows: 5 %>
+<% end %>
+
+<%= turbo_stream.replace_all ".notes-last-modified-#{@notable.id}" do %>
+  <div class="text-muted small notes-last-modified-<%= @notable.id %>">
+    Last modified: <%= @notable.note.updated_at.strftime("#{@notable.note.updated_at.day.ordinalize} %B, %Y") %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>

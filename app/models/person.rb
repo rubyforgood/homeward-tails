@@ -45,6 +45,9 @@ class Person < ApplicationRecord
   has_many :matches # , dependent: :destroy
   has_many :person_groups
   has_many :groups, through: :person_groups
+  has_one :note, as: :notable, dependent: :destroy
+
+  delegate :content, to: :note, allow_nil: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -106,5 +109,9 @@ class Person < ApplicationRecord
 
   def staff
     @staff ||= GroupRoleManagement::Staff.new(self)
+  end
+
+  def note
+    super || build_note
   end
 end
