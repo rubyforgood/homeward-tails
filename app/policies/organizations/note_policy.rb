@@ -1,7 +1,6 @@
 module Organizations
   class NotePolicy < ApplicationPolicy
-    pre_check :verify_organization!
-    pre_check :verify_active_staff!
+    pre_check :verify_record_organization!
 
     def update?
       permission?(:manage_notes)

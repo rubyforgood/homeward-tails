@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -24,8 +23,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
-#  organization_id        :bigint
-#  person_id              :bigint           not null
 #
 # Indexes
 #
@@ -33,59 +30,31 @@
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
-#  index_users_on_organization_id       (organization_id)
-#  index_users_on_person_id             (person_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#
-# Foreign Keys
-#
-#  fk_rails_...  (person_id => people.id)
 #
 class User < ApplicationRecord
   include Avatarable
-  include Authorizable
-  include RoleChangeable
   include Omniauthable
-
-  acts_as_tenant(:organization)
-  default_scope do
-    #
-    # Used as a extra measure to scope down the options for devise
-    # when the Current.organization is set
-    #
-    if Current.organization
-      where(organization_id: Current.organization&.id)
-    else
-      all
-    end
-  end
 
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: {scope: :organization_id}, format: {
+  validates :email, presence: true, uniqueness: true, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
   validate :prevent_email_change, on: :update
   validates :tos_agreement, acceptance: true
 
-  belongs_to :person
-  accepts_nested_attributes_for :person
-
-  before_validation :ensure_person_exists, on: :create
-
+  has_many :people
+  has_many :organizations, through: :people
+  accepts_nested_attributes_for :people
   before_save :downcase_email
-
   delegate :latest_form_submission, to: :person
 
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
   def prevent_email_change
     errors.add(:email, "Email cannot be changed") if email_changed?
-  end
-
-  def self.staff
-    joins(:roles).where(roles: {name: %i[admin super_admin]})
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -101,24 +70,20 @@ class User < ApplicationRecord
     errors.where(attribute)
   end
 
+  # If a User has a Person in Org A that is deactived (no PersonGroup with deactivated_at: nil) they cannot
+  # log in while scoped to Org A. If the User has no Person in Org B or at least one active Group in Org B,
+  # they can log in while scoped to Org B.
   def active_for_authentication?
-    super && !deactivated?
+    return super unless Current.organization
+
+    super && active_for_devise?
   end
 
+  # used with devise active_for_authentication?
   def inactive_message
-    deactivated? ? :deactivated : super
-  end
+    return super unless Current.organization
 
-  def ensure_person_exists
-    return if person.present?
-
-    existing = Person.find_by(organization: organization, email: email)
-
-    if existing
-      self.person = existing
-    else
-      build_person(first_name:, last_name:, email:, organization:)
-    end
+    active_for_devise? ? super : :deactivated
   end
 
   def full_name(format = :default)
@@ -136,23 +101,21 @@ class User < ApplicationRecord
     full_name.split.map { |part| part[0] }.join.upcase
   end
 
-  def deactivate
-    update!(deactivated_at: Time.now) unless deactivated_at
-  end
-
-  def activate
-    update!(deactivated_at: nil) if deactivated_at
-  end
-
-  def deactivated?
-    !!deactivated_at
-  end
-
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
   end
 
   private
+
+  def active_for_devise?
+    # this should be used while scoped with ActsAsTenant so only one record is returned
+    ActsAsTenant.with_tenant(Current.organization) do
+      person = people.first
+
+      @result = !person || !person.deactivated_in_org?
+    end
+    @result
+  end
 
   def downcase_email
     self.email = email.downcase if email.present?

@@ -100,6 +100,7 @@ en:
     browse: "Browse"
     view: "View"
     about_us: "About us"
+    please_join: "Please join this organization"
   dashboard:
     index:
       header_title: Dashboard
@@ -186,6 +187,7 @@ en:
         feedback: "Feedback"
         support: " to report a bug or request a feature."
       navbar:
+        admin: "Admin"
         sign_up: "Sign Up"
         log_in: "Log In"
         log_out: "Log Out"
@@ -752,9 +754,17 @@ en:
         success: "Attachment removed"
       purge_avatar:
         success: "Avatar removed"
+    people:
+      already_member: "You are already a member of this organization."
+      create:
+        success: "You have successfully joined the organization."
+        error: "There was an unexpected error. Please try again soon."
+    contacts:
+      create:
+       success: "Message sent!"
   contacts:
     create:
-      success: "Message sent!"
+     success: "Message sent!"
   feedback:
     new:
       header: "Feedback"

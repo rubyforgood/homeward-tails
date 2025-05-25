@@ -16,7 +16,7 @@
             <td>
               <div class="d-flex align-items-center">
                 <div class="position-relative">
-                  <%= render AvatarComponent.new(staff) %>
+                  <%= render AvatarComponent.new(staff.user) %>
                   <a href="#" class="position-absolute mt-5 ms-n4">
                     <span class="status bg-success"></span>
                   </a>
@@ -25,13 +25,16 @@
               </div>
             </td>
             <td>
-              <%= render "role", staff: staff %>
+              <%= render "role", person: staff %>
             </td>
             <td>
               <%= staff.created_at.strftime("%d %B, %Y") %>
             </td>
             <td>
-              <%= render "organizations/staff/shared/deactivate_toggle", user: staff %>
+              <%= render "organizations/staff/shared/deactivate_toggle",
+              person: staff,
+              person_group:
+                staff.person_groups.find_by(group_id: staff.staff_current_group.id) %>
             </td>
           </tr>
         <% end %>

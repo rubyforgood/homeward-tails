@@ -3,7 +3,7 @@ require "application_system_test_case"
 class HomePageTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @organization = @user.organization
+    @organization = Current.organization
     set_organization(@organization)
   end
 

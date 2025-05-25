@@ -24,8 +24,8 @@
 #  fk_rails_...  (pet_id => pets.id)
 #
 class Task < ApplicationRecord
-  acts_as_tenant(:organization)
   belongs_to :pet
+  acts_as_tenant(:organization)
 
   validates :name, presence: true
   validates :description, presence: true

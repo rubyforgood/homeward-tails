@@ -9,39 +9,25 @@
       <div class="vstack gap-4">
         <!-- form group -->
         <div class="input-group">
-          <%= form.text_field :first_name, class: "form-control", wrapper_class: "w-100", required: true %>
+          <%= form.text_field :first_name,
+                          class: "form-control",
+                          wrapper_class: "w-100",
+                          required: true %>
         </div>
-
         <!-- form group -->
         <div class="input-group me-3">
-          <%= form.text_field :last_name, class: "form-control", wrapper_class: "w-100", required: true %>
+          <%= form.text_field :last_name,
+                          class: "form-control",
+                          wrapper_class: "w-100",
+                          required: true %>
         </div>
-
         <!-- form group -->
         <div class="input-group">
-          <%= form.text_field :email, class: "form-control", required: true, wrapper_class: "w-100" %>
+          <%= form.text_field :email,
+                          class: "form-control",
+                          required: true,
+                          wrapper_class: "w-100" %>
         </div>
-
-        <%= form.fields_for :person do |person_form| %>
-          <!-- form group -->
-          <div class="input-group">
-            <%= person_form.telephone_field :phone_number,
-              class: "form-control",
-              wrapper_class: "w-100",
-              required: false
-            %>
-          </div>
-
-          <!-- form group -->
-          <div class="input-group">
-            <!-- Nested Form for Locations Table -->
-            <div class="form-group bigger w-100" data-controller="country-state">
-              <%= person_form.fields_for :location, user.person.location do |location_form| %>
-                <%= render 'shared/location_fields', form: location_form %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
 
         <%= form.hidden_field :roles, value: :fosterer %>
       </div>

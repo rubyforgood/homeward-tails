@@ -30,14 +30,14 @@ module Organizations
     def show
       @adoptable_pet_info = CustomPage.first&.adoptable_pet_info
 
-      if current_user
+      if Current.person
         @adoption_application =
           AdopterApplication.find_by(
             pet_id: @pet.id,
-            person_id: current_user.person.id
+            person_id: Current.person.id
           ) ||
           @pet.adopter_applications.build(
-            person: current_user.person
+            person: Current.person
           )
       end
     end
@@ -45,7 +45,7 @@ module Organizations
     private
 
     def set_likes
-      likes = current_user.person.likes
+      likes = Current.person.likes
       @likes_by_id = likes.index_by(&:pet_id)
     end
 

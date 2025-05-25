@@ -2,7 +2,7 @@ require "test_helper"
 
 class Organizations::AdopterFosterer::ExternalFormsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    user = create(:adopter)
+    user = create(:person, :adopter).user
     sign_in user
   end
 

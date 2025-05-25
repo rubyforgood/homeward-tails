@@ -1,13 +1,15 @@
-# This controller is meant to be used in conjunction with the devise InvitationsController.
-class Organizations::Staff::FostererInvitationsController < Organizations::BaseController
-  layout "dashboard", only: %i[new]
+module Organizations
+  module Staff
+    # This controller is meant to be used in conjunction with the devise InvitationsController.
+    class FostererInvitationsController < Organizations::BaseController
+      layout "dashboard", only: %i[new]
 
-  def new
-    authorize! User, context: {organization: Current.organization},
-      with: Organizations::FostererInvitationPolicy
+      def new
+        authorize! User,
+          with: Organizations::FostererInvitationPolicy
 
-    @user = User.new
-    @user.build_person
-    @user.person.build_location
+        @user = User.new
+      end
+    end
   end
 end

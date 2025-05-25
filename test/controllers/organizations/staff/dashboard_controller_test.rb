@@ -6,9 +6,7 @@ class Organizations::Staff::DashboardControllerTest < ActionDispatch::Integratio
     include ActionPolicy::TestHelper
 
     setup do
-      @organization = ActsAsTenant.current_tenant
-
-      user = create(:admin)
+      user = create(:person, :admin).user
       sign_in user
     end
 
@@ -16,7 +14,6 @@ class Organizations::Staff::DashboardControllerTest < ActionDispatch::Integratio
       should "be authorized" do
         assert_authorized_to(
           :index?, :dashboard,
-          context: {organization: @organization},
           with: Organizations::DashboardPolicy
         ) do
           get staff_dashboard_index_url
@@ -28,7 +25,6 @@ class Organizations::Staff::DashboardControllerTest < ActionDispatch::Integratio
       should "be authorized" do
         assert_authorized_to(
           :pets_with_incomplete_tasks?, :dashboard,
-          context: {organization: @organization},
           with: Organizations::DashboardPolicy
         ) do
           get pets_with_incomplete_tasks_staff_dashboard_index_url, headers: {"Turbo-Frame" => "tasks-frame"}
@@ -46,7 +42,6 @@ class Organizations::Staff::DashboardControllerTest < ActionDispatch::Integratio
       should "be authorized" do
         assert_authorized_to(
           :pets_with_overdue_tasks?, :dashboard,
-          context: {organization: @organization},
           with: Organizations::DashboardPolicy
         ) do
           get pets_with_overdue_tasks_staff_dashboard_index_url, headers: {"Turbo-Frame" => "tasks-frame"}

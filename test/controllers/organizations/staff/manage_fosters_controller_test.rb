@@ -6,8 +6,7 @@ class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::Integr
     include ActionPolicy::TestHelper
     context "context only action" do
       setup do
-        @organization = ActsAsTenant.current_tenant
-        @adopter = create(:adopter)
+        @adopter = create(:person, :adopter).user
         sign_in @adopter
       end
 
@@ -15,7 +14,6 @@ class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::Integr
         should "be authorized" do
           assert_authorized_to(
             :manage?, Match,
-            context: {organization: @organization},
             with: Organizations::MatchPolicy
           ) do
             get new_staff_manage_foster_url
@@ -27,7 +25,6 @@ class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::Integr
         should "be authorized" do
           assert_authorized_to(
             :manage?, Match,
-            context: {organization: @organization},
             with: Organizations::MatchPolicy
           ) do
             post staff_manage_fosters_url
@@ -39,7 +36,6 @@ class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::Integr
         should "be authorized" do
           assert_authorized_to(
             :manage?, Match,
-            context: {organization: @organization},
             with: Organizations::MatchPolicy
           ) do
             get staff_manage_fosters_url
@@ -48,7 +44,7 @@ class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::Integr
 
         context "when user is authorized" do
           setup do
-            user = create(:super_admin)
+            user = create(:person, :super_admin).user
             sign_in user
           end
 
@@ -66,9 +62,9 @@ class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::Integr
 
     context "existing record actions" do
       setup do
-        fosterer = create(:fosterer)
-        @foster = create(:foster, person: fosterer.person)
-        sign_in @foster.user
+        fosterer = create(:person, :fosterer)
+        @foster = create(:foster, person: fosterer)
+        sign_in fosterer.user
       end
 
       context "#edit" do

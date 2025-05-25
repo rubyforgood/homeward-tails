@@ -1,17 +1,26 @@
-<div class="dropdown <%= dom_id(staff, :role)%>">
-  <button class="btn btn-outline-secondary dropdown-toggle <%= "disabled" if staff == current_user %>" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= staff.roles.pluck(:name).map(&:titleize).join(", ").gsub('_', ' ') %>
+<% current_group = person.staff_current_group %>
+<div class="dropdown <%= dom_id(person, :role)%>">
+  <button
+    class="
+      btn btn-outline-secondary dropdown-toggle <%= "disabled" if person == Current.person%>
+    "
+    type="button"
+    id="dropdownMenuButton"
+    data-bs-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <%= current_group.name.titleize %>
   </button>
 
-  <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton" >
-    <% if staff.has_role?(:super_admin, current_user.organization)%>
-      <%= button_to "Admin", staff_user_to_admin_path(staff), class:
-      "dropdown-item" %>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <% if current_group.super_admin? %>
+      <%= button_to "Admin", staff_user_to_admin_path(person), class: "dropdown-item" %>
     <% end %>
-    <% if staff.has_role?(:admin, current_user.organization)%>
-      <%= button_to "Super Admin", staff_user_to_super_admin_path(staff),
-        class: "dropdown-item"
-      %>
+    <% if current_group.admin? %>
+      <%= button_to "Super Admin",
+      staff_user_to_super_admin_path(person),
+      class: "dropdown-item" %>
     <% end %>
   </div>
 </div>

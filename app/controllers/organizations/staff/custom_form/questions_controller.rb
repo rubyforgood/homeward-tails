@@ -1,7 +1,7 @@
 module Organizations
   module Staff
     module CustomForm
-      class QuestionsController < ApplicationController
+      class QuestionsController < Organizations::BaseController
         before_action :context_authorize!
         before_action :set_form
         before_action :set_question, only: %i[edit update destroy]
@@ -50,7 +50,7 @@ module Organizations
         private
 
         def organization
-          current_user.organization
+          Current.organization
         end
 
         def set_form
@@ -72,7 +72,7 @@ module Organizations
         end
 
         def context_authorize!
-          authorize! ::CustomForm::Question, context: {organization: Current.organization}
+          authorize! ::CustomForm::Question
         end
       end
     end

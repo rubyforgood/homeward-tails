@@ -24,9 +24,9 @@
 #  fk_rails_...  (pet_id => pets.id)
 #
 class Match < ApplicationRecord
-  acts_as_tenant(:organization)
   belongs_to :pet, touch: true
   belongs_to :person
+  acts_as_tenant(:organization)
 
   has_one :user, through: :person # TODO: Remove this association and use person for all logic instead
 

@@ -7,10 +7,8 @@ module Organizations
 
     context "context only action" do
       setup do
-        @organization = ActsAsTenant.current_tenant
         @policy = -> {
-          Organizations::FormSubmissionPolicy.new(FormSubmission, user: @user,
-            organization: @organization)
+          Organizations::FormSubmissionPolicy.new(FormSubmission, person: @person, user: @person&.user)
         }
       end
 
@@ -21,7 +19,7 @@ module Organizations
 
         context "when user is nil" do
           setup do
-            @user = nil
+            @person = nil
           end
 
           should "return false" do
@@ -31,7 +29,7 @@ module Organizations
 
         context "when user is adopter" do
           setup do
-            @user = create(:adopter)
+            @person = create(:person, :adopter)
           end
 
           should "return false" do
@@ -41,7 +39,7 @@ module Organizations
 
         context "when user is fosterer" do
           setup do
-            @user = create(:fosterer)
+            @person = create(:person, :fosterer)
           end
 
           should "return false" do
@@ -49,31 +47,19 @@ module Organizations
           end
         end
 
-        context "when user is activated admin" do
+        context "when user is admin" do
           setup do
-            @user = create(:admin)
+            @person = create(:person, :admin)
           end
 
-          context "when organization context is a different organization" do
-            setup do
-              @organization = create(:organization)
-            end
-
-            should "return false" do
-              assert_equal false, @action.call
-            end
-          end
-
-          context "when organization context is admin organization" do
-            should "return true" do
-              assert_equal true, @action.call
-            end
+          should "return true" do
+            assert_equal true, @action.call
           end
         end
 
         context "when user is deactivated admin" do
           setup do
-            @user = create(:admin, :deactivated)
+            @person = create(:person, :admin, deactivated: true)
           end
 
           should "return false" do
@@ -81,25 +67,13 @@ module Organizations
           end
         end
 
-        context "when user is superadmin" do
+        context "when user is super admin" do
           setup do
-            @user = create(:super_admin)
+            @person = create(:person, :super_admin)
           end
 
-          context "when organization context is a different organization" do
-            setup do
-              @organization = create(:organization)
-            end
-
-            should "return false" do
-              assert_equal false, @action.call
-            end
-          end
-
-          context "when organization context is superadmin organization" do
-            should "return true" do
-              assert_equal true, @action.call
-            end
+          should "return true" do
+            assert_equal true, @action.call
           end
         end
       end
@@ -115,7 +89,7 @@ module Organizations
       setup do
         @form_submission = create(:form_submission)
         @policy = -> {
-          Organizations::FormSubmissionPolicy.new(@form_submission, user: @user)
+          Organizations::FormSubmissionPolicy.new(@form_submission, person: @person, user: @person&.user)
         }
       end
 
@@ -126,7 +100,7 @@ module Organizations
 
         context "when user is nil" do
           setup do
-            @user = nil
+            @person = nil
           end
 
           should "return false" do
@@ -136,7 +110,7 @@ module Organizations
 
         context "when user is adopter" do
           setup do
-            @user = create(:adopter)
+            @person = create(:person, :adopter)
           end
 
           should "return false" do
@@ -146,41 +120,7 @@ module Organizations
 
         context "when user is fosterer" do
           setup do
-            @user = create(:fosterer)
-          end
-
-          should "return false" do
-            assert_equal false, @action.call
-          end
-        end
-
-        context "when user is activated admin" do
-          setup do
-            @user = create(:admin)
-          end
-
-          context "when FormSubmission belongs to a different organization" do
-            setup do
-              ActsAsTenant.with_tenant(create(:organization)) do
-                @form_submission = create(:form_submission)
-              end
-            end
-
-            should "return false" do
-              assert_equal false, @action.call
-            end
-          end
-
-          context "when FAQ belongs to admin organization" do
-            should "return true" do
-              assert_equal true, @action.call
-            end
-          end
-        end
-
-        context "when user is deactivated admin" do
-          setup do
-            @user = create(:admin, :deactivated)
+            @person = create(:person, :fosterer)
           end
 
           should "return false" do
@@ -190,7 +130,7 @@ module Organizations
 
         context "when user is admin" do
           setup do
-            @user = create(:super_admin)
+            @person = create(:person, :admin)
           end
 
           context "when FormSubmission belongs to a different organization" do
@@ -211,81 +151,10 @@ module Organizations
             end
           end
         end
-      end
-    end
-
-    context "existing record action" do
-      setup do
-        @form_submission = create(:form_submission)
-        @form_answer = create(:form_answer, form_submission: @form_submission)
-        @policy = -> {
-          Organizations::FormSubmissionPolicy.new(@form_answer, user: @user)
-        }
-      end
-
-      context "#manage?" do
-        setup do
-          @action = -> { @policy.call.apply(:manage?) }
-        end
-
-        context "when user is nil" do
-          setup do
-            @user = nil
-          end
-
-          should "return false" do
-            assert_equal false, @action.call
-          end
-        end
-
-        context "when user is adopter" do
-          setup do
-            @user = create(:adopter)
-          end
-
-          should "return false" do
-            assert_equal false, @action.call
-          end
-        end
-
-        context "when user is fosterer" do
-          setup do
-            @user = create(:fosterer)
-          end
-
-          should "return false" do
-            assert_equal false, @action.call
-          end
-        end
-
-        context "when user is activated admin" do
-          setup do
-            @user = create(:admin)
-          end
-
-          context "when FormSubmission belongs to a different organization" do
-            setup do
-              ActsAsTenant.with_tenant(create(:organization)) do
-                @form_submission = create(:form_submission)
-                @form_answer = create(:form_answer, form_submission: @form_submission)
-              end
-            end
-
-            should "return false" do
-              assert_equal false, @action.call
-            end
-          end
-
-          context "when FAQ belongs to admin organization" do
-            should "return true" do
-              assert_equal true, @action.call
-            end
-          end
-        end
 
         context "when user is deactivated admin" do
           setup do
-            @user = create(:admin, :deactivated)
+            @person = create(:person, :admin, deactivated: true)
           end
 
           should "return false" do
@@ -293,16 +162,15 @@ module Organizations
           end
         end
 
-        context "when user is admin" do
+        context "when user is super admin" do
           setup do
-            @user = create(:super_admin)
+            @person = create(:person, :super_admin)
           end
 
           context "when FormSubmission belongs to a different organization" do
             setup do
               ActsAsTenant.with_tenant(create(:organization)) do
                 @form_submission = create(:form_submission)
-                @form_answer = create(:form_answer, form_submission: @form_submission)
               end
             end
 

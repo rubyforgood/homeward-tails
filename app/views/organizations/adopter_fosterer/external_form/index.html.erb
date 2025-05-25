@@ -1,31 +1,33 @@
 <section class="container d-flex flex-column py-6">
   <div class="row justify-content-center gap-6">
-  <div class="col-8">
+    <div class="col-8">
       <% if params[:dashboard] %>
-        <% if current_user.person.latest_form_submission.present? %>
-          <p class="fw-bold mb-0"><%= t('organizations.adopter_fosterer.form_instructions.previous_answers') %> <%= link_to t('general.here'), adopter_fosterer_form_answers_path %>.</p>
-          <p><%= t('organizations.adopter_fosterer.form_instructions.update_form_answers') %></p>
+        <% if Current.person.latest_form_submission.present? %>
+          <p class="fw-bold mb-0"><%= t("organizations.adopter_fosterer.form_instructions.previous_answers") %>
+            <%= link_to t("general.here"), adopter_fosterer_form_answers_path %>.</p>
+          <p><%= t("organizations.adopter_fosterer.form_instructions.update_form_answers") %></p>
         <% else %>
-          <p><%= t("organizations.adopter_fosterer.form_instructions.dashboard", user_email: current_user.email) %></p>
+          <p><%= t(
+              "organizations.adopter_fosterer.form_instructions.dashboard",
+              user_email: Current.person.email,
+            ) %></p>
         <% end %>
       <% else %>
         <div>
           <p class="fw-bold"><%= t(
               "organizations.adopter_fosterer.form_instructions.index",
               organization_name: Current.tenant.name,
-              email: current_user.email
+              email: Current.person.email,
             ) %></p>
-          <%= link_to "Go to my dashboard", adopter_fosterer_dashboard_index_path, class: "btn btn-primary" %>
+          <%= link_to "Go to my dashboard",
+          adopter_fosterer_dashboard_index_path,
+          class: "btn btn-primary" %>
         </div>
-    <% end %>
+      <% end %>
     </div>
 
     <div class="row">
-      <iframe id="external-form"
-        src=<%= @form_url%>
-        width="90%"
-        height="645"
-        >Loading…</iframe>
+      <iframe id="external-form" src=<%= @form_url%> width="90%" height="645">Loading…</iframe>
     </div>
 
   </div>

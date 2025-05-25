@@ -5,7 +5,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    user = create(:super_admin)
+    user = create(:person, :super_admin).user
     sign_in user
 
     @pet = create(:pet)

@@ -18,7 +18,9 @@
       </div>
       <div class="d-flex justify-content-between pt-2">
         <span><%= t(:deactivate) %></span>
-        <%= render "organizations/staff/shared/deactivate_toggle", user: adopter.user %>
+        <%= render "organizations/staff/shared/deactivate_toggle",
+        person: adopter,
+        person_group: adopter.person_groups.find_by(group_id: @group_id) %>
       </div>
     </div>
   </div>

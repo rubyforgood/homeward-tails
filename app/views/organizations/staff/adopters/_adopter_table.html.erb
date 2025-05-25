@@ -27,7 +27,10 @@
               <%= adopter.created_at.strftime("%d %B, %Y") %>
             </td>
             <td>
-              <%= render "organizations/staff/shared/deactivate_toggle", user: adopter.user %>
+              <%= render "organizations/staff/shared/deactivate_toggle",
+              person: adopter,
+              person_group: adopter.person_groups.find_by(group_id: @group_id) %>
+
             </td>
           </tr>
         <% end %>

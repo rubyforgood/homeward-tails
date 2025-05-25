@@ -10,7 +10,7 @@ module Organizations
         setup do
           @organization = ActsAsTenant.current_tenant
 
-          user = create(:admin)
+          user = create(:person, :admin).user
           sign_in user
         end
 

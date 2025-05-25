@@ -7,7 +7,7 @@ class Organizations::Staff::FostererInvitationsControllerTest < ActionDispatch::
 
     setup do
       @organization = ActsAsTenant.current_tenant
-      user = create(:admin)
+      user = create(:person, :admin).user
       sign_in user
     end
 
@@ -15,7 +15,6 @@ class Organizations::Staff::FostererInvitationsControllerTest < ActionDispatch::
       should "be authorized" do
         assert_authorized_to(
           :create?, User,
-          context: {organization: @organization},
           with: Organizations::FostererInvitationPolicy
         ) do
           get new_staff_fosterer_invitation_url
