@@ -358,6 +358,11 @@ ActsAsTenant.with_tenant(@organization) do
       content: Faker::Lorem.paragraph(sentence_count: 2),
       notable: adopter_application
     )
+
+    Note.create!(
+      content: Faker::Lorem.paragraph(sentence_count: 2),
+      notable: adopter_application
+    )
   end
 
   5.times do
