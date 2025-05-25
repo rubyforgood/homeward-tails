@@ -6,14 +6,13 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     post user_registration_url, params: registration_params
 
-    persisted_user = User.find_by(email: registration_params[:user][:email])
-    has_role = persisted_user.has_role?(:adopter, ActsAsTenant.current_tenant)
+    persisted_person = Person.find_by(email: registration_params[:user][:email])
 
-    assert_equal true, has_role
+    assert_equal true, persisted_person.active_in_group?(:adopter)
   end
 
   test "should get new with dashboard layout when signed in as staff" do
-    user = create(:admin)
+    user = create(:person, :admin).user
     organization = Current.organization
     sign_in user
 
@@ -22,7 +21,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new with application layout when signed in but not staff" do
-    user = create(:user)
+    user = create(:person, :adopter).user
     organization = create(:organization)
     sign_in user
 
@@ -31,7 +30,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to adopter foster dashboard when updated" do
-    user = create(:adopter_fosterer, password: "123456")
+    user = create(:person, :adopter).user
     sign_in user
 
     updated_params = {user: {first_name: "not the same name", current_password: "123456"}}
@@ -42,7 +41,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to staff dashboard when updated" do
-    user = create(:admin, password: "123456")
+    user = create(:person, :admin).user
     organization = Current.organization
     sign_in user
 

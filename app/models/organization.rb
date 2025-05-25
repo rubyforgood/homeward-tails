@@ -22,9 +22,6 @@ class Organization < ApplicationRecord
   include Avatarable
   include Phoneable
 
-  # Rolify resource
-  resourcify
-
   has_many :users, through: :people, dependent: :destroy
   has_many :pets, dependent: :destroy
   has_many :default_pet_tasks, dependent: :destroy

@@ -9,8 +9,8 @@ module Organizations
 
         setup do
           @organization = ActsAsTenant.current_tenant
-          @fosterer = create(:fosterer)
-          sign_in @fosterer
+          @fosterer = create(:person, :fosterer)
+          sign_in @fosterer.user
         end
 
         context "#index" do
@@ -33,8 +33,8 @@ module Organizations
           should "return current and upcoming foster matches for the person" do
             ActsAsTenant.with_tenant(@organization) do
               completed_foster = create(:pet, :completed_foster)
-              current_foster = create(:pet, :current_foster, foster_person: @fosterer.person)
-              future_foster = create(:pet, :future_foster, foster_person: @fosterer.person)
+              current_foster = create(:pet, :current_foster, foster_person: @fosterer)
+              future_foster = create(:pet, :future_foster, foster_person: @fosterer)
 
               get adopter_fosterer_fostered_pets_url
 

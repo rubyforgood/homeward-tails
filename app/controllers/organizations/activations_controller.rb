@@ -1,23 +1,38 @@
 module Organizations
   class ActivationsController < Organizations::BaseController
+    # sets the PersonGroup
+    before_action :set_pg
+
     def update
-      @user = User.find(params[:user_id])
-
-      authorize! @user, with: ActivationsPolicy
-
-      if @user.deactivated_at
-        @user.activate
+      result = if params[:person_group][:deactivated] == "true"
+        [@person.deactivate!(@group), t(".deactivated", staff: @person.full_name)]
+      elsif params[:person_group][:deactivated] == "false"
+        [@person.activate!(@group), t(".activated", staff: @person.full_name)]
       else
-        @user.deactivate
+        ["invalid parameter"]
       end
 
-      respond_to do |format|
-        success = @user.deactivated_at.nil? ?
-          t(".activated", staff: @user.full_name) :
-          t(".deactivated", staff: @user.full_name)
-        format.html { redirect_to staff_staff_index_path, notice: success }
-        format.turbo_stream { flash.now[:notice] = success }
+      if result[0] == true
+        respond_to do |format|
+          format.html { redirect_to staff_staff_index_path, notice: result[1] }
+          format.turbo_stream { flash.now[:notice] = result[1] }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_back_or_to staff_staff_index_path, alert: result[0] }
+          format.turbo_stream { flash.now[:alert] = result[0] }
+        end
       end
+    end
+
+    private
+
+    def set_pg
+      @pg = PersonGroup.find(params[:id])
+      @person = @pg.person
+      @group = @pg.group
+
+      authorize! @person, with: ActivationsPolicy, context: {group: @group}
     end
   end
 end

@@ -10,9 +10,9 @@ class LikeTest < ActiveSupport::TestCase
 
   context "validations" do
     setup do
-      @user = create(:adopter)
+      @person = create(:person, :adopter)
       @pet = create(:pet)
-      @like = Like.create!(person: @user.person, pet: @pet)
+      @like = Like.create!(person: @person, pet: @pet)
     end
 
     should validate_uniqueness_of(:person_id).scoped_to(:pet_id)

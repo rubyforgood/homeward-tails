@@ -1,17 +1,18 @@
 module Organizations
   class ActivationsPolicy < ApplicationPolicy
-    pre_check :verify_organization!
-    pre_check :verify_active_staff!
+    authorize :group
+    pre_check :verify_record_organization!
 
     def update?
-      return false if record.id == user.id
+      return false if record.id == person&.id
+      return false if record.organization_id != group.organization_id
 
-      record_role = record.roles.first.name
-
-      if %w[super_admin admin].include?(record_role)
+      if group.admin? || group.super_admin?
         permission?(:activate_staff)
-      else
+      elsif group.adopter? || group.fosterer?
         permission?(:activate_foster) && permission?(:activate_adopter)
+      else
+        false
       end
     end
   end

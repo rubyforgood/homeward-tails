@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -24,7 +23,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :bigint
-#  organization_id        :bigint
 #
 # Indexes
 #
@@ -32,13 +30,10 @@
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
-#  index_users_on_organization_id       (organization_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
   include Avatarable
-  include Authorizable
-  include RoleChangeable
   include Omniauthable
 
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
@@ -62,10 +57,6 @@ class User < ApplicationRecord
     errors.add(:email, "Email cannot be changed") if email_changed?
   end
 
-  def self.staff
-    joins(:roles).where(roles: {name: %i[admin super_admin], resource_id: Current.organization.id})
-  end
-
   def self.ransackable_attributes(auth_object = nil)
     %w[first_name last_name]
   end
@@ -79,20 +70,20 @@ class User < ApplicationRecord
     errors.where(attribute)
   end
 
+  # If a User has a Person in Org A that is deactived (no PersonGroup with deactivated_at: nil) they cannot
+  # log in while scoped to Org A. If the User has no Person in Org B or at least one active Group in Org B,
+  # they can log in while scoped to Org B.
   def active_for_authentication?
-    super && !deactivated?
+    return super unless Current.organization
+
+    super && active_for_devise?
   end
 
+  # used with devise active_for_authentication?
   def inactive_message
-    deactivated? ? :deactivated : super
-  end
+    return super unless Current.organization
 
-  def person
-    raise StandardError, "Organization not set" unless Current.organization
-
-    ActsAsTenant.with_tenant(Current.organization) do
-      people.find_by(user_id: id)
-    end
+    active_for_devise? ? super : :deactivated
   end
 
   def full_name(format = :default)
@@ -110,23 +101,21 @@ class User < ApplicationRecord
     full_name.split.map { |part| part[0] }.join.upcase
   end
 
-  def deactivate
-    update!(deactivated_at: Time.now) unless deactivated_at
-  end
-
-  def activate
-    update!(deactivated_at: nil) if deactivated_at
-  end
-
-  def deactivated?
-    !!deactivated_at
-  end
-
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
   end
 
   private
+
+  def active_for_devise?
+    # this should be used while scoped with ActsAsTenant so only one record is returned
+    ActsAsTenant.with_tenant(Current.organization) do
+      person = people.first
+
+      @result = !person || !person.deactivated_in_org?
+    end
+    @result
+  end
 
   def downcase_email
     self.email = email.downcase if email.present?

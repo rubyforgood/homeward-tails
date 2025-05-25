@@ -6,9 +6,8 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
   context "context only action" do
     setup do
-      @organization = ActsAsTenant.current_tenant
       @policy = -> {
-        Organizations::PetPolicy.new(Pet, user: @user,
+        Organizations::PetPolicy.new(Pet, person: @person, user: @person&.user,
           organization: @organization)
       }
     end
@@ -20,7 +19,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
@@ -30,7 +29,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is adopter" do
         setup do
-          @user = create(:adopter)
+          @person = create(:person, :adopter)
         end
 
         should "return false" do
@@ -40,41 +39,41 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is fosterer" do
         setup do
-          @user = create(:fosterer)
+          @person = create(:person, :fosterer)
         end
 
         should "return false" do
           assert_equal false, @action.call
+        end
+      end
+
+      context "when user is admin" do
+        setup do
+          @person = create(:person, :admin)
+        end
+
+        should "return true" do
+          assert_equal true, @action.call
+        end
+      end
+
+      context "when user is super admin" do
+        setup do
+          @person = create(:person, :super_admin)
+        end
+
+        should "return true" do
+          assert_equal true, @action.call
         end
       end
 
       context "when user is deactivated staff" do
         setup do
-          @user = create(:admin, :deactivated)
+          @person = create(:person, :admin, deactivated: true)
         end
 
         should "return false" do
           assert_equal false, @action.call
-        end
-      end
-
-      context "when user is active staff" do
-        setup do
-          @user = create(:admin)
-        end
-
-        should "return true" do
-          assert_equal true, @action.call
-        end
-      end
-
-      context "when user is staff admin" do
-        setup do
-          @user = create(:super_admin)
-        end
-
-        should "return true" do
-          assert_equal true, @action.call
         end
       end
     end
@@ -101,7 +100,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
   context "existing record action" do
     setup do
       @pet = create(:pet)
-      @policy = -> { Organizations::PetPolicy.new(@pet, user: @user) }
+      @policy = -> { Organizations::PetPolicy.new(@pet, person: @person, user: @person&.user) }
     end
 
     context "#manage?" do
@@ -111,7 +110,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
@@ -121,7 +120,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is adopter" do
         setup do
-          @user = create(:adopter)
+          @person = create(:person, :adopter)
         end
 
         should "return false" do
@@ -131,7 +130,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is fosterer" do
         setup do
-          @user = create(:fosterer)
+          @person = create(:person, :fosterer)
         end
 
         should "return false" do
@@ -141,7 +140,7 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
 
       context "when user is deactivated staff" do
         setup do
-          @user = create(:admin, :deactivated)
+          @person = create(:person, :admin, deactivated: true)
         end
 
         should "return false" do
@@ -149,9 +148,9 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
         end
       end
 
-      context "when user is active staff" do
+      context "when user is admin" do
         setup do
-          @user = create(:admin)
+          @person = create(:person, :admin)
         end
 
         should "return true" do
@@ -159,15 +158,15 @@ class Organizations::PetPolicyTest < ActiveSupport::TestCase
         end
       end
 
-      context "when user is staff admin" do
+      context "when user is super admin" do
         setup do
-          @user = create(:super_admin)
+          @person = create(:person, :super_admin)
         end
 
         context "when pet is from a different organization" do
           setup do
             ActsAsTenant.with_tenant(create(:organization)) do
-              @user = create(:super_admin)
+              @pet = create(:pet)
             end
           end
 

@@ -32,7 +32,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_one.id
   )
 
-  @user_staff_one.add_role(:super_admin, @organization)
+  @staff_one.add_group(:super_admin)
 
   @user_staff_two = User.create!(
     email: "staff2@alta.com",
@@ -50,7 +50,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_staff_two.id
   )
 
-  @user_staff_two.add_role(:super_admin, @organization)
+  @staff_two.add_group(:super_admin)
 
   @user_adopter_one = User.create!(
     email: "adopter1@alta.com",
@@ -70,7 +70,7 @@ ActsAsTenant.with_tenant(@organization) do
 
   @adopter_one = Person.where(email: "adopter1@alta.com").first
 
-  @user_adopter_one.add_role(:adopter, @organization)
+  @adopter_one.add_group(:adopter)
 
   @user_adopter_two = User.create!(
     email: "adopter2@alta.com",
@@ -88,7 +88,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_adopter_two.id
   )
 
-  @user_adopter_two.add_role(:adopter, @organization)
+  @adopter_two.add_group(:adopter)
 
   @user_adopter_three = User.create!(
     email: "adopter3@alta.com",
@@ -106,7 +106,7 @@ ActsAsTenant.with_tenant(@organization) do
     user_id: @user_adopter_three.id
   )
 
-  @user_adopter_three.add_role(:adopter, @organization)
+  @adopter_three.add_group(:adopter)
 
   @user_fosterer_one = User.create!(
     email: "fosterer1@alta.com",
@@ -126,8 +126,12 @@ ActsAsTenant.with_tenant(@organization) do
 
   @fosterer_one = Person.where(email: "fosterer1@alta.com").first
 
-  @user_fosterer_one.add_role(:adopter, @organization)
-  @user_fosterer_one.add_role(:fosterer, @organization)
+  @fosterer_one.add_group(:adopter, :fosterer)
+
+  Note.create!(
+    content: Faker::Lorem.paragraph(sentence_count: 2),
+    notable: @fosterer_one
+  )
 
   @user_fosterer_two = User.create!(
     email: "fosterer2@alta.com",
@@ -141,13 +145,18 @@ ActsAsTenant.with_tenant(@organization) do
   @fosterer_two = Person.create!(
     email: "fosterer2@alta.com",
     first_name: "Finn",
-    last_name: "Mertens"
+    last_name: "Mertens",
+    user_id: @user_fosterer_two.id
   )
 
   @fosterer_two = Person.where(email: "fosterer2@alta.com").first
 
-  @user_fosterer_two.add_role(:adopter, @organization)
-  @user_fosterer_two.add_role(:fosterer, @organization)
+  @fosterer_two.add_group(:adopter, :fosterer)
+
+  Note.create!(
+    content: Faker::Lorem.paragraph(sentence_count: 2),
+    notable: @fosterer_two
+  )
 
   5.times do
     DefaultPetTask.create!(
@@ -327,7 +336,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   10.times do
     adopter_application = AdopterApplication.new(
-      notes: Faker::Lorem.paragraph,
       profile_show: true,
       status: rand(0..4),
       pet: Pet.all.sample,
@@ -345,6 +353,11 @@ ActsAsTenant.with_tenant(@organization) do
     else
       redo
     end
+
+    Note.create!(
+      content: Faker::Lorem.paragraph(sentence_count: 2),
+      notable: adopter_application
+    )
   end
 
   5.times do

@@ -1,8 +1,7 @@
 class Organizations::TaskPolicy < ApplicationPolicy
   authorize :pet, optional: true
 
-  pre_check :verify_organization!
-  pre_check :verify_active_staff!
+  pre_check :verify_record_organization!
   pre_check :verify_pet!
 
   alias_rule :create?, :new?, :index?, to: :manage?
@@ -15,10 +14,6 @@ class Organizations::TaskPolicy < ApplicationPolicy
 
   def pet
     @pet || record.pet
-  end
-
-  def organization
-    @organization || pet.organization
   end
 
   def verify_pet!

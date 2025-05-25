@@ -22,9 +22,9 @@
 #  fk_rails_...  (pet_id => pets.id)
 #
 class Like < ApplicationRecord
-  acts_as_tenant(:organization)
   belongs_to :pet
   belongs_to :person
+  acts_as_tenant(:organization)
 
   validates :person_id, uniqueness: {scope: :pet_id}
 end

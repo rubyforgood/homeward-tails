@@ -15,6 +15,8 @@ class PersonTest < ActiveSupport::TestCase
   context "associations" do
     should have_many(:form_submissions).dependent(:destroy)
     should have_many(:form_answers).through(:form_submissions)
+    should have_many(:person_groups)
+    should have_many(:groups).through(:person_groups)
   end
 
   context "database validations" do
@@ -96,6 +98,51 @@ class PersonTest < ActiveSupport::TestCase
   context "factories" do
     should "generate a valid person" do
       assert build(:person).valid?
+    end
+  end
+
+  context "delegate" do
+    context "activation" do
+      should delegate_method(:activate!).to(:activation)
+      should delegate_method(:deactivate!).to(:activation)
+    end
+
+    context "group_member" do
+      should delegate_method(:add_group).to(:group_member)
+      should delegate_method(:active_in_group?).to(:group_member)
+      should delegate_method(:deactivated_in_org?).to(:group_member)
+    end
+
+    context "staff" do
+      should delegate_method(:staff?).to(:staff)
+
+      should delegate_method(:active?).to(:staff).with_prefix
+      should delegate_method(:current_group).to(:staff).with_prefix
+      should delegate_method(:change_group).to(:staff).with_prefix
+    end
+  end
+
+  context "active_staff" do
+    setup do
+      @active_admin = create(:person, :admin)
+      @active_super_admin = create(:person, :super_admin)
+      @deactivated_staff = create(:person, :admin, deactivated: true)
+      @adopter = create(:person, :adopter)
+      @fosterer = create(:person, :fosterer)
+      @result = Person.active_staff
+    end
+
+    should "return active staff" do
+      assert_includes @result, @active_admin
+      assert_includes @result, @active_super_admin
+    end
+
+    should "not return deactivated staff" do
+      refute_includes @result, @deactivated_staff
+    end
+
+    should "not return non staff" do
+      refute_includes @result, @adopter
     end
   end
 

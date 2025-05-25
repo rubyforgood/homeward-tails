@@ -1,16 +1,8 @@
 module Authorizable
   extend ActiveSupport::Concern
 
-  included do
-    rolify
-  end
-
   def permission?(name)
     permissions.include?(name)
-  end
-
-  def staff?(organization)
-    has_role?("super_admin", organization) || has_role?("admin", organization)
   end
 
   ADOPTER_PERMISSIONS = %i[
@@ -59,6 +51,7 @@ module Authorizable
       manage_faqs
       activate_adopter
       activate_foster
+      manage_notes
     ]
   ).freeze
 
@@ -82,9 +75,22 @@ module Authorizable
 
   private
 
+  # Permissions are checked based off of the person having an associated
+  # active group. The group query is scoped via acts_as_tenant which is
+  # set from the Current.organization. Only active groups from the
+  # Current.organization are returned. If Acts_as_tenant.current_tenant is
+  # not set and Current.organization is present an error will be raised
+  # via the Acts_as_tenant initializer.
+  def active_group_names
+    person_groups
+      .where(deactivated_at: nil)
+      .includes(:group)
+      .map { |pg| pg.group.name }
+  end
+
   def permissions
-    roles.where(resource_id: Current.organization.id).reduce([]) do |permissions, role|
-      permissions.concat(PERMISSIONS.fetch(role.name.to_sym))
-    end
+    active_group_names.flat_map do |role_name|
+      PERMISSIONS[role_name.to_sym] || []
+    end.uniq
   end
 end

@@ -8,7 +8,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
     setup do
       @pet = create(:pet, :with_image)
       @attachment = @pet.images.last
-      @policy = -> { ActiveStorage::AttachmentPolicy.new(@attachment, user: @user) }
+      @policy = -> { ActiveStorage::AttachmentPolicy.new(@attachment, person: @person, user: @person&.user) }
     end
 
     context "#purge?" do
@@ -18,7 +18,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
@@ -28,7 +28,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
 
       context "when user is adopter" do
         setup do
-          @user = create(:adopter)
+          @person = create(:person, :adopter)
         end
 
         should "return false" do
@@ -38,7 +38,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
 
       context "when user is fosterer" do
         setup do
-          @user = create(:fosterer)
+          @person = create(:person, :fosterer)
         end
 
         should "return false" do
@@ -48,7 +48,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
 
       context "when user is active staff" do
         setup do
-          @user = create(:admin)
+          @person = create(:person, :admin)
         end
 
         context "when attachment's record's organization matches user's" do
@@ -74,7 +74,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
 
       context "when user is deactivated staff" do
         setup do
-          @user = create(:admin, :deactivated)
+          @person = create(:person, :admin, deactivated: true)
         end
 
         should "return false" do
@@ -84,7 +84,7 @@ class ActiveStorage::AttachmentPolicyTest < ActiveSupport::TestCase
 
       context "when user is staff admin" do
         setup do
-          @user = create(:super_admin)
+          @person = create(:person, :super_admin)
         end
 
         context "when attachment's record's organization matches user's" do

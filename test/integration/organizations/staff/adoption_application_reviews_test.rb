@@ -2,7 +2,7 @@ require "test_helper"
 
 class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
   setup do
-    @adopter = create(:adopter)
+    @adopter = create(:person, :adopter)
     @awaiting_review_app = create(:adopter_application, status: :awaiting_review)
     @under_review_app = create(:adopter_application, status: :under_review)
     create(:adopter_application, :adoption_pending)
@@ -12,15 +12,15 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
 
     # Setup for show view tests
-    @form_submission = create(:form_submission, person: Person.where(user_id: @adopter.id).first)
+    @form_submission = create(:form_submission, person: @adopter)
     @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
-    @adopter_application = create(:adopter_application, person: Person.where(user_id: @adopter.id).first)
+    @adopter_application = create(:adopter_application, person: @adopter)
   end
 
   context "non-staff" do
     should "not see any applications" do
-      @user = create(:user)
-      sign_in @user
+      user = create(:person, :adopter).user
+      sign_in user
 
       get staff_adoption_application_reviews_path
 
@@ -33,7 +33,7 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
 
   context "active staff" do
     setup do
-      sign_in create(:admin)
+      sign_in create(:person, :admin).user
     end
 
     should "see all applications" do
@@ -55,20 +55,27 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     end
 
     should "be able to add a note to an application" do
-      patch staff_adoption_application_review_path(@under_review_app.id),
-        params: {adopter_application: {notes: "some notes"}},
+      patch staff_note_path,
+        params: {
+          note: {
+            content: "some notes",
+            notable_id: @under_review_app.id,
+            notable_type: @under_review_app.class.name
+          },
+          context: "default"
+        },
         headers: {"HTTP_REFERER" => "example.com"}
 
       assert_response :redirect
       follow_redirect!
 
       @under_review_app.reload
-      assert_equal("some notes", @under_review_app.notes)
+      assert_equal("some notes", @under_review_app.content)
     end
 
     context "deactivated staff" do
       setup do
-        sign_in create(:admin, :deactivated)
+        sign_in create(:person, :admin, deactivated: true).user
       end
 
       should_eventually "not see any applications" do

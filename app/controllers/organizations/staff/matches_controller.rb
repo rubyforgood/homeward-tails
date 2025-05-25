@@ -1,9 +1,8 @@
 class Organizations::Staff::MatchesController < Organizations::BaseController
   before_action :set_pet, only: %i[create]
-  before_action :set_match, only: %i[destroy]
 
   def create
-    authorize! context: {organization: @pet.organization}
+    authorize!
 
     @match = Match.new(match_params.merge(
       organization_id: @pet.organization_id
@@ -19,16 +18,6 @@ class Organizations::Staff::MatchesController < Organizations::BaseController
     end
   end
 
-  def destroy
-    if @match.destroy
-      @match.withdraw_application
-
-      redirect_to staff_pets_path, notice: t(".success")
-    else
-      redirect_to staff_pets_path, alert: t(".error")
-    end
-  end
-
   private
 
   def match_params
@@ -37,10 +26,5 @@ class Organizations::Staff::MatchesController < Organizations::BaseController
 
   def set_pet
     @pet = Pet.find(match_params[:pet_id])
-  end
-
-  def set_match
-    @match = Match.find(params[:id])
-    authorize! @match
   end
 end

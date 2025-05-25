@@ -27,8 +27,8 @@
 #  fk_rails_...  (person_id => people.id)
 #
 class FormSubmission < ApplicationRecord
-  acts_as_tenant(:organization)
   belongs_to :person
+  acts_as_tenant(:organization)
 
   has_many :form_answers, dependent: :destroy
 

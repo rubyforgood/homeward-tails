@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   get "/cookie_policy", to: "static_pages#cookie_policy"
 
   # Contact Forms
-  resources :contacts, only: %i[new create]
   resource :organization_account_request, only: %i[new create]
   resources :feedback, only: %i[new create]
 
@@ -33,6 +32,8 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
+    resources :people, only: %i[new create]
+    resources :contacts, only: %i[new create]
 
     # Staff Routes
     namespace :staff do
@@ -49,6 +50,7 @@ Rails.application.routes.draw do
       resources :adopters, only: %i[index]
       resources :staff_invitations, only: %i[new]
       resources :fosterer_invitations, only: %i[new]
+      patch "notes", to: "notes#update", as: :note
       post "user_roles/:id/to_admin", to: "user_roles#to_admin", as: "user_to_admin"
       post "user_roles/:id/to_super_admin", to: "user_roles#to_super_admin", as: "user_to_super_admin"
 
@@ -65,7 +67,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :people do
+      resources :person, only: [] do
         resources :form_submissions, only: [:index]
       end
 
@@ -109,7 +111,7 @@ Rails.application.routes.draw do
     end
 
     # Activate/Deactivate users
-    resource :activations, only: [:update]
+    resources :activations, only: [:update]
 
     # File Purging
     delete "staff/attachments/:id/purge", to: "attachments#purge", as: "staff_purge_attachment"

@@ -7,8 +7,7 @@ module Organizations
 
       context "context only action" do
         setup do
-          @organization = ActsAsTenant.current_tenant
-          @policy = -> { Organizations::CustomForm::FormPolicy.new(::CustomForm::Form, user: @user, organization: @organization) }
+          @policy = -> { Organizations::CustomForm::FormPolicy.new(::CustomForm::Form, person: @person, user: @person&.user) }
         end
 
         context "#manage?" do
@@ -18,7 +17,7 @@ module Organizations
 
           context "when user is nil" do
             setup do
-              @user = nil
+              @person = nil
             end
 
             should "return false" do
@@ -28,7 +27,7 @@ module Organizations
 
           context "when user is adopter" do
             setup do
-              @user = create(:adopter)
+              @person = create(:person, :adopter)
             end
 
             should "return false" do
@@ -38,31 +37,41 @@ module Organizations
 
           context "when user is fosterer" do
             setup do
-              @user = create(:fosterer)
+              @person = create(:person, :fosterer)
             end
 
             should "return false" do
               assert_equal false, @action.call
+            end
+          end
+
+          context "when user is admin" do
+            setup do
+              @person = create(:person, :admin)
+            end
+
+            should "return true" do
+              assert_equal true, @action.call
+            end
+          end
+
+          context "when user is super admin" do
+            setup do
+              @person = create(:person, :super_admin)
+            end
+
+            should "return true" do
+              assert_equal true, @action.call
             end
           end
 
           context "when user is deactivated staff" do
             setup do
-              @user = create(:admin, :deactivated)
+              @person = create(:person, :admin, deactivated: true)
             end
 
             should "return false" do
               assert_equal false, @action.call
-            end
-          end
-
-          context "when user is staff admin" do
-            setup do
-              @user = create(:super_admin)
-            end
-
-            should "return true" do
-              assert_equal true, @action.call
             end
           end
         end
@@ -89,7 +98,7 @@ module Organizations
       context "existing record action" do
         setup do
           @form = create(:form)
-          @policy = -> { Organizations::CustomForm::FormPolicy.new(@form, user: @user) }
+          @policy = -> { Organizations::CustomForm::FormPolicy.new(@form, person: @person, user: @person&.user) }
         end
 
         context "#manage?" do
@@ -99,7 +108,7 @@ module Organizations
 
           context "when user is nil" do
             setup do
-              @user = nil
+              @person = nil
             end
 
             should "return false" do
@@ -109,7 +118,7 @@ module Organizations
 
           context "when user is adopter" do
             setup do
-              @user = create(:adopter)
+              @person = create(:person, :adopter)
             end
 
             should "return false" do
@@ -119,31 +128,41 @@ module Organizations
 
           context "when user is fosterer" do
             setup do
-              @user = create(:fosterer)
+              @person = create(:person, :fosterer)
             end
 
             should "return false" do
               assert_equal false, @action.call
+            end
+          end
+
+          context "when user is admin" do
+            setup do
+              @person = create(:person, :admin)
+            end
+
+            should "return true" do
+              assert_equal true, @action.call
+            end
+          end
+
+          context "when user is super admin" do
+            setup do
+              @person = create(:person, :super_admin)
+            end
+
+            should "return true" do
+              assert_equal true, @action.call
             end
           end
 
           context "when user is deactivated staff" do
             setup do
-              @user = create(:admin, :deactivated)
+              @person = create(:person, :admin, deactivated: true)
             end
 
             should "return false" do
               assert_equal false, @action.call
-            end
-          end
-
-          context "when user is staff admin" do
-            setup do
-              @user = create(:super_admin)
-            end
-
-            should "return true" do
-              assert_equal true, @action.call
             end
           end
         end

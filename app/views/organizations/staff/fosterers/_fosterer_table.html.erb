@@ -1,4 +1,5 @@
-<% can_edit_person = allowed_to?(:edit?, Person, context: { organization: Current.organization }, with: Organizations::FostererInvitationPolicy) %>
+<% can_edit_person =
+  allowed_to?(:edit?, Person, with: Organizations::FostererInvitationPolicy) %>
 
 <div class="card">
   <!-- Table -->
@@ -10,6 +11,7 @@
           <th scope="col"><%= t(:email) %></th>
           <th class="text-center" scope="col"><%= t(:deactivate) %></th>
           <th scope="col"><%= t(:phone) %></th>
+          <th scope="col"><%= t(:notes) %></th>
           <% if can_edit_person %>
             <th scope="col"><%= t(:action) %></th>
           <% end %>
@@ -33,14 +35,19 @@
               <%= fosterer.email %>
             </td>
             <td>
-              <%= render "organizations/staff/shared/deactivate_toggle", user: fosterer.user %>
+              <%= render "organizations/staff/shared/deactivate_toggle",
+              person: fosterer,
+              person_group: fosterer.person_groups.find_by(group_id: @group_id) %>
             </td>
             <td>
               <%= fosterer.phone_number %>
             </td>
+              <td class="w-20 align-middle">
+    <%= render 'organizations/staff/shared/notes', notable: fosterer, modal_id: 'fosterer_table', context: 'fosterers' %>
+  </td>
             <td>
               <% if can_edit_person %>
-                <%= link_to 'Edit', edit_staff_fosterer_url(fosterer), class: 'btn btn-warning m-2' %>
+                <%= link_to "Edit", edit_staff_fosterer_url(fosterer), class: "btn btn-warning m-2" %>
               <% end %>
             </td>
           </tr>
@@ -49,4 +56,3 @@
     </table>
   </div>
 </div>
-

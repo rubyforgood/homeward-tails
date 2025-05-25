@@ -2,8 +2,8 @@ require "test_helper"
 
 class AdopterApplicationTest < ActiveSupport::TestCase
   setup do
-    @user = create(:adopter)
-    @application = create(:adopter_application, person: @user.person)
+    @person = create(:person, :adopter)
+    @application = create(:adopter_application, person: @person)
   end
 
   context "associations" do
@@ -23,7 +23,7 @@ class AdopterApplicationTest < ActiveSupport::TestCase
           create(:adopter_application, pet_id: @application.pet_id)
         end
         @unselected_applications = Array.new(2) {
-          create(:adopter_application, person: @user.person)
+          create(:adopter_application, person: @person)
         }
       end
 

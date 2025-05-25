@@ -92,9 +92,6 @@ gem "pagy"
 # Adds a simple way to fetch with Javascript
 gem "requestjs-rails", "~> 0.0.12"
 
-# Add ability to set user roles
-gem "rolify"
-
 # Add breadcrumb management
 gem "gretel", "~> 5.0"
 
@@ -107,7 +104,7 @@ gem "rails-controller-testing"
 gem "action_policy", "~> 0.7.4"
 
 # Use ViewComponent for our presenter pattern framework
-gem "view_component", "~> 3.21"
+gem "view_component", "~> 3.22"
 
 # Use dry-types for defining types
 gem "dry-types", "~> 1.8"

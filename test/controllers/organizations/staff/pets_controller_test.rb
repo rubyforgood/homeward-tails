@@ -9,7 +9,7 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
       @organization = ActsAsTenant.current_tenant
       @pet = create(:pet, :adoption_pending, sex: "Female", species: "Dog")
 
-      user = create(:admin)
+      user = create(:person, :admin).user
       sign_in user
     end
 
@@ -17,7 +17,6 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
       should "be authorized" do
         assert_authorized_to(
           :manage?, Pet,
-          context: {organization: @organization},
           with: Organizations::PetPolicy
         ) do
           get staff_pets_url
@@ -118,7 +117,6 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
       should "be authorized" do
         assert_authorized_to(
           :manage?, Pet,
-          context: {organization: @organization},
           with: Organizations::PetPolicy
         ) do
           get new_staff_pet_url
@@ -136,7 +134,6 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
       should "be authorized" do
         assert_authorized_to(
           :manage?, Pet,
-          context: {organization: @organization},
           with: Organizations::PetPolicy
         ) do
           post staff_pets_url, params: @params
@@ -225,7 +222,7 @@ class Organizations::PetsControllerTest < ActionDispatch::IntegrationTest
 
   context "controller" do
     setup do
-      @user = create(:admin)
+      @user = create(:person, :admin).user
       @pet = create(:pet)
       @default_pet_tasks = create(:default_pet_task)
       sign_in @user
