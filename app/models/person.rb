@@ -97,6 +97,10 @@ class Person < ApplicationRecord
     end
   end
 
+  def note
+    super || build_note
+  end
+
   private
 
   def activation
@@ -109,9 +113,5 @@ class Person < ApplicationRecord
 
   def staff
     @staff ||= GroupRoleManagement::Staff.new(self)
-  end
-
-  def note
-    super || build_note
   end
 end
