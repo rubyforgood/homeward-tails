@@ -39,13 +39,11 @@
           <%= form.hidden_field :notable_type, value: notable.class.name %>
           <%= form.hidden_field :context, value: context %>        
           <div class="d-flex align-items-center justify-content-between mt-2">
-            <% if notable.note&.persisted? %>
-              <div class="text-muted small notes-last-modified-<%= notable.id %>">
+            <div class="text-muted small notes-last-modified-<%= notable.id %>">
+              <% if notable.note&.persisted? %> 
                 Last modified: <%= notable.note.updated_at.strftime("#{notable.note.updated_at.day.ordinalize} %B, %Y") %>
-              </div>
-            <% else %>
-              <div></div>
-            <% end %>
+              <% end %>
+            </div>
             <%= form.submit t("general.save"), 
                   class: "btn btn-primary position-relative" ,
                   data: { bs_dismiss: "modal" } %>
