@@ -646,6 +646,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "WernerPetrick",
+      "name": "Werner",
+      "avatar_url": "https://avatars.githubusercontent.com/u/128157845?v=4",
+      "profile": "https://github.com/WernerPetrick",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
