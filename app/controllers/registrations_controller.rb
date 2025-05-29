@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
       # how should we be handling this newly created user?
       if resource.persisted? && !Person.exists?(email: resource.email)
         person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name,
-                                email: resource.email)
+          email: resource.email)
         person.add_group(:adopter)
       end
     end
@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_resource(resource, params)
     if resource.google_oauth_user?
-      params.delete('current_password')
+      params.delete("current_password")
       resource.update_without_password(params)
     else
       resource.update_with_password(params)
@@ -37,35 +37,35 @@ class RegistrationsController < Devise::RegistrationsController
 
   def set_layout
     if allowed_to?(:index?, with: Organizations::DashboardPolicy)
-      'dashboard'
+      "dashboard"
     elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)
-      'adopter_foster_dashboard'
+      "adopter_foster_dashboard"
     else
-      'application'
+      "application"
     end
   end
 
   def sign_up_params
     params.require(:user).permit(:username,
-                                 :first_name,
-                                 :last_name,
-                                 :email,
-                                 :password,
-                                 :signup_role,
-                                 :tos_agreement,
-                                 adopter_foster_account_attributes: [:user_id])
+      :first_name,
+      :last_name,
+      :email,
+      :password,
+      :signup_role,
+      :tos_agreement,
+      adopter_foster_account_attributes: [:user_id])
   end
 
   def account_update_params
     params.require(:user).permit(:username,
-                                 :first_name,
-                                 :last_name,
-                                 :email,
-                                 :password,
-                                 :password_confirmation,
-                                 :signup_role,
-                                 :current_password,
-                                 :avatar)
+      :first_name,
+      :last_name,
+      :email,
+      :password,
+      :password_confirmation,
+      :signup_role,
+      :current_password,
+      :avatar)
   end
 
   def after_update_path_for(_resource)
