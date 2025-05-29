@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   include OrganizationScopable
-  layout :set_layout, only: [:edit, :update, :new]
+  layout :set_layout, only: %i[edit update new create]
 
   after_action :send_email, only: :create
 
