@@ -14,12 +14,13 @@ class RegistrationsController < Devise::RegistrationsController
   # MARK: only adopters are created through this route.
   def create
     super do |resource|
-      # TODO: Currently a person shouldn't exist without a user with the same email. If the person exists (but no user),
-      # how should we be handling this newly created user?
-      if resource.persisted? && !Person.exists?(email: resource.email)
-        person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name,
-          email: resource.email)
-        person.add_group(:adopter)
+      if resource.persisted?
+        # TODO: Currently a person shouldn't exist without a user with the same email. If the person exists (but no user),
+        # how should we be handling this newly created user?
+        unless Person.exists?(email: resource.email)
+          person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name, email: resource.email)
+          person.add_group(:adopter)
+        end
       end
     end
   end
