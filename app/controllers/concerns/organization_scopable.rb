@@ -4,7 +4,7 @@ module OrganizationScopable
   included do
     set_current_tenant_through_filter
     before_action :set_tenant
-    before_action :verify_person_in_org
+    before_action :verify_person_in_org, unless: -> { is_a?(Users::SessionsController) && action_name == "destroy" }
     # Add current person context to policies
     authorize :person, through: -> { Current.person }
   end
