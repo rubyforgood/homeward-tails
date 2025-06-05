@@ -3,13 +3,10 @@
     <!-- Brand logo -->
     <p class="navbar-brand flex-column">
       <%= link_to home_index_path, class: "nav-link" do %>
-        <% if Current.organization.avatar.attached? && Current.organization.avatar.persisted? %>
-          <%= image_tag Current.organization.avatar,
-          alt: current_organization_name,
-          title: current_organization_name %>
-        <% else %>
-          <%= current_organization_name %>
-        <% end %>
+        <%= image_tag Current.organization.avatar,
+        alt: current_organization_name,
+        title: current_organization_name if Current.organization.avatar.attached? && Current.organization.avatar.persisted? %>
+        <%= current_organization_name %>
       <% end %>
     </p>
     <!-- Navbar nav -->
