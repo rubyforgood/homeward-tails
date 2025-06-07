@@ -7,29 +7,48 @@ module Omniauthable
 
   class_methods do
     def from_omniauth(auth)
-      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-        user.assign_attributes_from_auth(auth)
-        user.set_adopter_role
+      user_was_created = false
+
+      user = where(provider: auth.provider, uid: auth.uid).first_or_create do |new_user|
+        new_user.assign_attributes_from_auth(auth)
+        user_was_created = true
       end
+
+      if user.persisted?
+        user.set_adopter_role(auth)
+      end
+
+      # Add flag to track if user was just created
+      user.instance_variable_set(:@was_just_created, user_was_created)
+      user
     end
   end
 
   def assign_attributes_from_auth(auth)
     self.email = auth.info.email
     self.password = Devise.friendly_token[0, 20]
-    self.first_name = auth.info.first_name if respond_to?(:first_name)
-    self.last_name = auth.info.last_name if respond_to?(:last_name)
   end
 
-  def set_adopter_role
-    # TODO: Verify this works
+  def set_adopter_role(auth)
+    # Create person record in current organization context
+    if ActsAsTenant.current_tenant
+      person = Person.find_or_create_by(
+        user: self,
+        organization: ActsAsTenant.current_tenant
+      ) do |p|
+        p.email = email
+        p.first_name = auth.info.first_name || ""
+        p.last_name = auth.info.last_name || ""
+      end
 
-    person = Person.find_or_create_by!(email: email) do |person|
-      person.user_id = id
-      person.first_name = first_name
-      person.last_name = last_name
+      # Add adopter role if person doesn't have any groups
+      if person.groups.empty?
+        person.add_group(:adopter)
+      end
     end
+  end
 
-    person.add_group(:adopter)
+  def was_just_created?
+    @was_just_created || false
   end
 end
