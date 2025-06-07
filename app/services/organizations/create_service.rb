@@ -78,7 +78,7 @@ class Organizations::CreateService
   def create_user(email, password = nil)
     @user = User.create!(
       email: email,
-      password: password || SecureRandom.hex(3)[0, 6]
+      password: SecureRandom.hex(3)[0, 6]
     )
   end
 
