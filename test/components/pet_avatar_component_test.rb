@@ -14,7 +14,7 @@ class PetAvatarComponentTest < ViewComponent::TestCase
       @pet_without_image = create(:pet)
     end
 
-    should "has and image" do
+    should "have an image" do
       url = "/example.png"
       stub(:url_for, url) do
         render_inline(@component)

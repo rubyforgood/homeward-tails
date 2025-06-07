@@ -27,12 +27,19 @@
                                 autocomplete: "email", class: 'form-control' %>
             </div>
 
+            <!-- Person name fields -->
             <div class="form-group mb-3 bigger">
-              <%= f.text_field :first_name, required: true, class: 'form-control' %>
+              <%= text_field_tag "person[first_name]", params.dig(:person, :first_name), 
+                                 placeholder: "First Name", 
+                                 required: true, 
+                                 class: 'form-control' %>
             </div>
 
             <div class="form-group mb-3 bigger">
-              <%= f.text_field :last_name, required: true, class: 'form-control' %>
+              <%= text_field_tag "person[last_name]", params.dig(:person, :last_name), 
+                                 placeholder: "Last Name", 
+                                 required: true, 
+                                 class: 'form-control' %>
             </div>
 
             <div class="form-group mb-3 bigger">

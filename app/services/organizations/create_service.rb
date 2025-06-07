@@ -17,6 +17,9 @@
 #   },
 #   user: {
 #     email: 'test@test.lol',
+#     password: 'password123'
+#   },
+#   person: {
 #     first_name: 'Jimmy',
 #     last_name: 'Hendrix'
 #   }
@@ -37,12 +40,17 @@ class Organizations::CreateService
       )
       create_user(
         args[:user][:email],
-        args[:user][:first_name],
-        args[:user][:last_name]
+        args[:user][:password]
+      )
+      create_person(
+        args[:person][:first_name],
+        args[:person][:last_name]
       )
       add_super_admin_group_to_person
       send_email
       create_custom_page
+
+      {organization: @organization, user: @user}
     end
   rescue => e
     raise "An error occurred: #{e.message}"
@@ -67,20 +75,20 @@ class Organizations::CreateService
     )
   end
 
-  def create_user(email, first_name, last_name)
-    ActsAsTenant.with_tenant(@organization) do
-      @user = User.create!(
-        email: email,
-        first_name: first_name,
-        last_name: last_name,
-        password: SecureRandom.hex(3)[0, 6]
-      )
+  def create_user(email, password = nil)
+    @user = User.create!(
+      email: email,
+      password: password || SecureRandom.hex(3)[0, 6]
+    )
+  end
 
+  def create_person(first_name, last_name)
+    ActsAsTenant.with_tenant(@organization) do
       @person = Person.create!(
         user: @user,
         first_name: first_name,
         last_name: last_name,
-        email: email
+        email: @user.email
       )
     end
   end
@@ -104,7 +112,16 @@ class Organizations::CreateService
 
   def create_custom_page
     ActsAsTenant.with_tenant(@organization) do
-      CustomPage.create!
+      if @organization.respond_to?(:create_custom_page!)
+        @organization.create_custom_page!
+      elsif @organization.respond_to?(:custom_page)
+        @organization.build_custom_page.save!
+      else
+        CustomPage.create!
+      end
     end
+  rescue => e
+    Rails.logger.error "Failed to create CustomPage: #{e.message}"
+    raise e
   end
 end

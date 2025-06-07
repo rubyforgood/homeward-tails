@@ -6,6 +6,11 @@ module Organizations
 
     def new
       @person = Person.new
+      if current_user.present?
+        name_data = current_user.first_person_name
+        @person.first_name = name_data[:first_name]
+        @person.last_name = name_data[:last_name]
+      end
     end
 
     def create

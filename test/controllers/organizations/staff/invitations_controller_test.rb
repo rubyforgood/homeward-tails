@@ -12,7 +12,11 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
       invitation_params = {
         user: attributes_for(:user)
           .except(:password, :encrypted_password, :tos_agreement)
-          .merge(roles: "super_admin")
+          .merge(roles: "super_admin"),
+        person: {
+          first_name: "John",
+          last_name: "Doe"
+        }
       }
 
       post user_invitation_url, params: invitation_params
@@ -20,13 +24,19 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
       persisted_person = Person.find_by(email: invitation_params[:user][:email])
 
       assert_equal true, persisted_person.active_in_group?(:super_admin)
+      assert_equal "John", persisted_person.first_name
+      assert_equal "Doe", persisted_person.last_name
     end
 
     should "assign admin role when admin is invited" do
       invitation_params = {
         user: attributes_for(:user)
           .except(:password, :encrypted_password, :tos_agreement)
-          .merge(roles: "admin")
+          .merge(roles: "admin"),
+        person: {
+          first_name: "Jane",
+          last_name: "Smith"
+        }
       }
 
       post user_invitation_url, params: invitation_params
@@ -34,6 +44,8 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
       persisted_person = Person.find_by(email: invitation_params[:user][:email])
 
       assert_equal true, persisted_person.active_in_group?(:admin)
+      assert_equal "Jane", persisted_person.first_name
+      assert_equal "Smith", persisted_person.last_name
     end
   end
 
@@ -58,9 +70,11 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
       setup do
         @params = {
           user: {
-            first_name: "John",
-            last_name: "Doe",
             email: "john@example.com"
+          },
+          person: {
+            first_name: "John",
+            last_name: "Doe"
           }
         }
       end

@@ -2,13 +2,21 @@ require "test_helper"
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should assign adopter role when user is persisted" do
-    registration_params = {user: attributes_for(:user)}
+    registration_params = {
+      user: attributes_for(:user),
+      person: {
+        first_name: "John",
+        last_name: "Doe"
+      }
+    }
 
     post user_registration_url, params: registration_params
 
     persisted_person = Person.find_by(email: registration_params[:user][:email])
 
     assert_equal true, persisted_person.active_in_group?(:adopter)
+    assert_equal "John", persisted_person.first_name
+    assert_equal "Doe", persisted_person.last_name
   end
 
   test "should get new with dashboard layout when signed in as staff" do
@@ -33,7 +41,10 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     user = create(:person, :adopter).user
     sign_in user
 
-    updated_params = {user: {first_name: "not the same name", current_password: "123456"}}
+    updated_params = {
+      user: {current_password: "123456"},
+      person: {first_name: "not the same name"}
+    }
 
     put user_registration_url, params: updated_params
 
@@ -45,7 +56,10 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     organization = Current.organization
     sign_in user
 
-    updated_params = {user: {first_name: "Sean", current_password: "123456"}}
+    updated_params = {
+      user: {current_password: "123456"},
+      person: {first_name: "Sean"}
+    }
 
     put user_registration_url(script_name: "/#{organization.slug}"), params: updated_params
 

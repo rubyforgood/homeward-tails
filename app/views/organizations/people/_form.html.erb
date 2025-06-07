@@ -13,12 +13,12 @@
 
       <div class='form-group'>
         <%= form.text_field :first_name,
-                        value: current_user.first_name,
                         class: "form-control" %>
       </div>
 
       <div class='form-group'>
-        <%= form.text_field :last_name, value: current_user.last_name, class: "form-control" %>
+        <%= form.text_field :last_name,
+                        class: "form-control" %>
       </div>
 
       <div class='form-group'>
@@ -29,4 +29,3 @@
     <% end %>
   </div>
 </div>
-<!--row-->

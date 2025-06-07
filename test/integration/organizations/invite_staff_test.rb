@@ -7,19 +7,23 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
 
     @user_invitation_one_params = {
       user: {
-        first_name: "John",
-        last_name: "Doe",
         email: "john@example.com",
         roles: "super_admin"
+      },
+      person: {
+        first_name: "John",
+        last_name: "Doe"
       }
     }
 
     @user_invitation_two_params = {
       user: {
-        first_name: "John",
-        last_name: "Doe",
         email: "adopter@example.com",
         roles: "super_admin"
+      },
+      person: {
+        first_name: "John",
+        last_name: "Doe"
       }
     }
   end
@@ -36,6 +40,8 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
 
     assert invited_person.user.invited_to_sign_up?
     assert invited_person.active_in_group?(:super_admin)
+    assert_equal "John", invited_person.first_name
+    assert_equal "Doe", invited_person.last_name
 
     assert_equal 1, ActionMailer::Base.deliveries.count
   end
@@ -63,6 +69,6 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
     )
 
     assert_response :redirect
-    assert person.active_in_group?(:super_admin)
+    assert person.reload.active_in_group?(:super_admin)
   end
 end
