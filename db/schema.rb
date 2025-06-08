@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_19_000340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -131,6 +131,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
     t.index ["organization_id"], name: "index_forms_on_organization_id"
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.integer "name", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "organization_id"], name: "index_groups_on_name_and_organization_id", unique: true
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.bigint "organization_id", null: false
@@ -201,9 +210,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "phone_number", limit: 15
+    t.bigint "user_id"
     t.index ["email"], name: "index_people_on_email"
+    t.index ["organization_id", "user_id"], name: "index_people_on_organization_id_and_user_id", unique: true, where: "(user_id IS NOT NULL)"
     t.index ["organization_id"], name: "index_people_on_organization_id"
+    t.index ["user_id"], name: "index_people_on_user_id"
     t.check_constraint "phone_number::text ~ '^[+]?[0-9]*$'::text", name: "phone_number_valid_e164"
+  end
+
+  create_table "person_groups", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "deactivated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_person_groups_on_group_id"
+    t.index ["person_id", "group_id"], name: "index_person_groups_on_person_id_and_group_id", unique: true
+    t.index ["person_id"], name: "index_person_groups_on_person_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -243,16 +266,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
     t.index ["form_id"], name: "index_questions_on_form_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "resource_type"
-    t.bigint "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
-  end
-
   create_table "tasks", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -279,7 +292,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "tos_agreement"
-    t.bigint "organization_id"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -288,25 +300,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.bigint "person_id", null: false
-    t.datetime "deactivated_at"
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
-    t.index ["organization_id"], name: "index_users_on_organization_id"
-    t.index ["person_id"], name: "index_users_on_person_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "users_roles", id: false, force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "role_id"
-    t.index ["role_id"], name: "index_users_roles_on_role_id"
-    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
-    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -323,6 +323,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
   add_foreign_key "form_submissions", "organizations"
   add_foreign_key "form_submissions", "people"
   add_foreign_key "forms", "organizations"
+  add_foreign_key "groups", "organizations"
   add_foreign_key "likes", "organizations"
   add_foreign_key "likes", "people"
   add_foreign_key "likes", "pets"
@@ -330,8 +331,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_225455) do
   add_foreign_key "matches", "pets"
   add_foreign_key "notes", "organizations"
   add_foreign_key "people", "organizations"
+  add_foreign_key "people", "users"
+  add_foreign_key "person_groups", "groups"
+  add_foreign_key "person_groups", "people", on_delete: :cascade
   add_foreign_key "pets", "organizations"
   add_foreign_key "questions", "forms"
   add_foreign_key "tasks", "pets"
-  add_foreign_key "users", "people"
 end

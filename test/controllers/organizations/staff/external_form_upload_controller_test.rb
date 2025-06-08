@@ -6,7 +6,7 @@ module Organizations
       setup do
         file = fixture_file_upload("google_form_sample.csv", "text/csv")
         @params = {csv: file}
-        admin = create(:admin)
+        admin = create(:person, :admin).user
         sign_in admin
       end
 

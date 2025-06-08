@@ -6,7 +6,7 @@ class Organizations::Staff::DefaultPetTasksControllerTest < ActionDispatch::Inte
     @organization = ActsAsTenant.current_tenant
     @default_pet_task = create(:default_pet_task)
 
-    user = create(:admin)
+    user = create(:person, :admin).user
     sign_in user
   end
 
@@ -17,7 +17,6 @@ class Organizations::Staff::DefaultPetTasksControllerTest < ActionDispatch::Inte
       should "be authorized" do
         assert_authorized_to(
           :manage?, DefaultPetTask,
-          context: {organization: @organization},
           with: Organizations::DefaultPetTaskPolicy
         ) do
           get new_staff_default_pet_task_url
@@ -35,7 +34,6 @@ class Organizations::Staff::DefaultPetTasksControllerTest < ActionDispatch::Inte
       should "be authorized" do
         assert_authorized_to(
           :manage?, DefaultPetTask,
-          context: {organization: @organization},
           with: Organizations::DefaultPetTaskPolicy
         ) do
           post staff_default_pet_tasks_url, params: @params
@@ -47,7 +45,6 @@ class Organizations::Staff::DefaultPetTasksControllerTest < ActionDispatch::Inte
       should "be authorized" do
         assert_authorized_to(
           :manage?, DefaultPetTask,
-          context: {organization: @organization},
           with: Organizations::DefaultPetTaskPolicy
         ) do
           get staff_default_pet_tasks_url

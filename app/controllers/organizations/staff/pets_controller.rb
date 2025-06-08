@@ -7,7 +7,7 @@ class Organizations::Staff::PetsController < Organizations::BaseController
   layout "dashboard"
 
   def index
-    authorize! Pet, context: {organization: Current.organization}
+    authorize!
 
     @q = Pet.ransack(params[:q])
     @pagy, @pets = pagy(
@@ -17,7 +17,7 @@ class Organizations::Staff::PetsController < Organizations::BaseController
   end
 
   def new
-    authorize! Pet, context: {organization: Current.organization}
+    authorize!
 
     @pet = Pet.new
   end
@@ -32,7 +32,7 @@ class Organizations::Staff::PetsController < Organizations::BaseController
   def create
     @pet = Pet.new(pet_params)
 
-    authorize! Pet, context: {organization: @pet.organization}
+    authorize!
 
     ActiveRecord::Base.transaction do
       @pet.save!

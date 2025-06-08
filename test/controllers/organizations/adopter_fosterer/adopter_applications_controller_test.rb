@@ -6,8 +6,8 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
     include ActionPolicy::TestHelper
 
     setup do
-      @user = create(:adopter)
-      sign_in @user
+      @person = create(:person, :adopter)
+      sign_in @person.user
     end
 
     context "#index" do
@@ -28,7 +28,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
       end
 
       should "count the total number of applications" do
-        create_list(:adopter_application, 2, person: @user.person)
+        create_list(:adopter_application, 2, person: @person)
 
         get adopter_fosterer_dashboard_index_path
 
@@ -46,7 +46,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
         @pet = create(:pet)
         @params = {adopter_application: {
           pet_id: @pet.id,
-          person_id: @user.person.id
+          person_id: @person.id
         }}
       end
 
@@ -63,7 +63,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsControllerTest < Action
 
     context "#update" do
       setup do
-        @adopter_application = create(:adopter_application, person: @user.person)
+        @adopter_application = create(:adopter_application, person: @person)
         @params = {adopter_application: {
           status: "withdrawn"
         }}

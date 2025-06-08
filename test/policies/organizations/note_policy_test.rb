@@ -1,14 +1,13 @@
 require "test_helper"
 
 # See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
-class Organizations::UserPolicyTest < ActiveSupport::TestCase
+class Organizations::NotePolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   setup do
     @organization = ActsAsTenant.current_tenant
     @policy = -> {
-      Organizations::NotePolicy.new(Note, user: @user,
-        organization: @organization)
+      Organizations::NotePolicy.new(Note, person: @person, user: @person&.user)
     }
   end
 
@@ -19,7 +18,7 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
 
     context "when user is nil" do
       setup do
-        @user = nil
+        @person = nil
       end
 
       should "return false" do
@@ -29,7 +28,7 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
 
     context "when user is adopter" do
       setup do
-        @user = create(:adopter)
+        @person = create(:person, :adopter)
       end
 
       should "return false" do
@@ -39,7 +38,7 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
 
     context "when user is fosterer" do
       setup do
-        @user = create(:fosterer)
+        @person = create(:person, :fosterer)
       end
 
       should "return false" do
@@ -49,11 +48,11 @@ class Organizations::UserPolicyTest < ActiveSupport::TestCase
 
     context "when user is staff" do
       setup do
-        @user = create(:admin)
+        @person = create(:person, :admin)
       end
 
-      should "return false" do
-        assert_equal false, @action.call
+      should "return true" do
+        assert_equal true, @action.call
       end
     end
   end

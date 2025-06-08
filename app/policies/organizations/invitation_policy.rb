@@ -1,7 +1,4 @@
 class Organizations::InvitationPolicy < ApplicationPolicy
-  pre_check :verify_organization!
-  pre_check :verify_active_staff!
-
   # This policy denies all requests.
   # The sub InvitationPolicies should be used to authz where necessary.
   def create?

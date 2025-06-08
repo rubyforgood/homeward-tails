@@ -2,7 +2,7 @@ require "test_helper"
 
 class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::IntegrationTest
   setup do
-    @adopter = create(:adopter)
+    @adopter = create(:person, :adopter)
     @awaiting_review_app = create(:adopter_application, status: :awaiting_review)
     @under_review_app = create(:adopter_application, status: :under_review)
     create(:adopter_application, :adoption_pending)
@@ -12,15 +12,15 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
     @custom_page = create(:custom_page, organization: ActsAsTenant.current_tenant)
 
     # Setup for show view tests
-    @form_submission = create(:form_submission, person: @adopter.person)
+    @form_submission = create(:form_submission, person: @adopter)
     @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
-    @adopter_application = create(:adopter_application, person: @adopter.person)
+    @adopter_application = create(:adopter_application, person: @adopter)
   end
 
   context "non-staff" do
     should "not see any applications" do
-      @user = create(:user)
-      sign_in @user
+      user = create(:person, :adopter).user
+      sign_in user
 
       get staff_adoption_application_reviews_path
 
@@ -33,7 +33,7 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
 
   context "active staff" do
     setup do
-      sign_in create(:admin)
+      sign_in create(:person, :admin).user
     end
 
     should "see all applications" do
@@ -75,7 +75,7 @@ class Organizations::Staff::AdoptionApplicationReviewsTest < ActionDispatch::Int
 
     context "deactivated staff" do
       setup do
-        sign_in create(:admin, :deactivated)
+        sign_in create(:person, :admin, deactivated: true).user
       end
 
       should_eventually "not see any applications" do

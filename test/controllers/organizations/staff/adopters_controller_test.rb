@@ -8,7 +8,7 @@ class Organizations::Staff::AdoptersControllerTest < ActionDispatch::Integration
     setup do
       @organization = ActsAsTenant.current_tenant
 
-      user = create(:admin)
+      user = create(:person, :admin).user
       sign_in user
     end
 
@@ -16,7 +16,6 @@ class Organizations::Staff::AdoptersControllerTest < ActionDispatch::Integration
       should "be authorized" do
         assert_authorized_to(
           :index?, Person,
-          context: {organization: @organization},
           with: Organizations::PersonPolicy
         ) do
           get staff_adopters_url
@@ -32,8 +31,8 @@ class Organizations::Staff::AdoptersControllerTest < ActionDispatch::Integration
       end
 
       should "filter by email" do
-        create(:adopter, email: "bob.cat@gmail.com")
-        create(:adopter, email: "sally.cat@gmail.com")
+        create(:person, :adopter, email: "bob.cat@gmail.com")
+        create(:person, :adopter, email: "sally.cat@gmail.com")
 
         get staff_adopters_url, params: {q: {email_cont: "sally.cat@gmail.com"}}
         assert_response :success
@@ -43,9 +42,9 @@ class Organizations::Staff::AdoptersControllerTest < ActionDispatch::Integration
       end
 
       should "filter by name" do
-        create(:adopter, first_name: "Bob", last_name: "Cat")
-        create(:adopter, first_name: "Sally", last_name: "Cat")
-        create(:adopter, first_name: "Sally", last_name: "Smith")
+        create(:person, :adopter, first_name: "Bob", last_name: "Cat")
+        create(:person, :adopter, first_name: "Sally", last_name: "Cat")
+        create(:person, :adopter, first_name: "Sally", last_name: "Smith")
 
         get staff_adopters_url, params: {q: {first_name_or_last_name_cont: "Sally"}}
         assert_response :success

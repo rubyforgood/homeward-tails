@@ -4,9 +4,8 @@ require "csv"
 module Organizations
   class CsvImportServiceTest < ActiveSupport::TestCase
     setup do
-      @adopter = create(:adopter)
-      Current.organization = @adopter.organization
-
+      @adopter = create(:person, :adopter)
+      @current_user = create(:person, :super_admin).user
       @file = Tempfile.new(["test", ".csv"])
 
       headers = ["Timestamp", "First name", "Last name", "Email", "Address", "Phone number", *Faker::Lorem.questions]
@@ -40,7 +39,7 @@ module Organizations
       )
       assert_difference "FormSubmission.count" do
         assert_difference("FormAnswer.count", + 7) do
-          Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
+          Organizations::Importers::CsvImportService.new(blob, @current_user.id).call
         end
       end
     end
@@ -56,7 +55,7 @@ module Organizations
         filename: "file.csv"
       )
       assert_no_difference "FormSubmission.count" do
-        Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
+        Organizations::Importers::CsvImportService.new(blob, @current_user.id).call
       end
     end
 
@@ -71,7 +70,7 @@ module Organizations
         filename: "file.csv"
       )
       assert_difference "FormSubmission.count", 1 do
-        Organizations::Importers::CsvImportService.new(blob, @adopter.id).call
+        Organizations::Importers::CsvImportService.new(blob, @current_user.id).call
       end
     end
 
@@ -83,11 +82,11 @@ module Organizations
         io: @file.open,
         filename: "file.csv"
       )
-      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service = Organizations::Importers::CsvImportService.new(blob, @current_user.id)
       service.call
       errors = service.instance_variable_get(:@errors)
 
-      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @current_user]
 
       assert_equal "File successfully scanned", turbo_stream.first.at_css(".alert-heading").text.strip
       assert errors.empty?
@@ -102,11 +101,11 @@ module Organizations
         io: @file.open,
         filename: "file.csv"
       )
-      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service = Organizations::Importers::CsvImportService.new(blob, @current_user.id)
       service.call
       errors = service.instance_variable_get(:@errors)
 
-      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @current_user]
 
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
       assert_equal "mon out of range", errors.first[1].message
@@ -118,12 +117,12 @@ module Organizations
         filename: "file.png",
         content_type: "image/png"
       )
-      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service = Organizations::Importers::CsvImportService.new(blob, @current_user.id)
       service.call
       errors = service.instance_variable_get(:@errors)
 
-      assert_turbo_stream_broadcasts ["csv_import", @adopter]
-      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      assert_turbo_stream_broadcasts ["csv_import", @current_user]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @current_user]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
       assert_equal "Invalid File Type: File type must be CSV", errors.first[1].message
     end
@@ -139,12 +138,12 @@ module Organizations
         io: file.open,
         filename: "file.csv"
       )
-      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service = Organizations::Importers::CsvImportService.new(blob, @current_user.id)
       service.call
       errors = service.instance_variable_get(:@errors)
 
-      assert_turbo_stream_broadcasts ["csv_import", @adopter]
-      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      assert_turbo_stream_broadcasts ["csv_import", @current_user]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @current_user]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
       assert_equal 'The column header "Email" was not found in the attached csv', errors.first[1].message
     end
@@ -160,12 +159,12 @@ module Organizations
         io: file.open,
         filename: "file.csv"
       )
-      service = Organizations::Importers::CsvImportService.new(blob, @adopter.id)
+      service = Organizations::Importers::CsvImportService.new(blob, @current_user.id)
       service.call
       errors = service.instance_variable_get(:@errors)
 
-      assert_turbo_stream_broadcasts ["csv_import", @adopter]
-      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @adopter]
+      assert_turbo_stream_broadcasts ["csv_import", @current_user]
+      turbo_stream = capture_turbo_stream_broadcasts ["csv_import", @current_user]
       assert_equal "File scanned: 1 error(s) present", turbo_stream.first.at_css(".alert-heading").text.strip
       assert_equal 'The column header "Timestamp" was not found in the attached csv', errors.first[1].message
     end

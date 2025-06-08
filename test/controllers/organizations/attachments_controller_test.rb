@@ -12,7 +12,7 @@ class Organizations::AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
     context "#purge" do
       should "be authorized" do
-        user = create(:admin)
+        user = create(:person, :admin).user
         sign_in user
         assert_authorized_to(
           :purge?, @attachment,
@@ -26,7 +26,8 @@ class Organizations::AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
     context "#adopter_purge_avatar" do
       should "be authorized" do
-        user = create(:adopter, :with_avatar)
+        user = create(:user, :with_avatar)
+        create(:person, :adopter, user: user)
         sign_in user
         assert_authorized_to(
           :purge_avatar?, user.avatar_attachment,
@@ -40,7 +41,8 @@ class Organizations::AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
     context "#fosterer_purge_avatar" do
       should "be authorized" do
-        user = create(:fosterer, :with_avatar)
+        user = create(:user, :with_avatar)
+        create(:person, :fosterer, user: user)
         sign_in user
         assert_authorized_to(
           :purge_avatar?, user.avatar_attachment,
@@ -54,7 +56,8 @@ class Organizations::AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
     context "#staff_purge_avatar" do
       should "be authorized" do
-        user = create(:admin, :with_avatar)
+        user = create(:user, :with_avatar)
+        create(:person, :admin, user: user)
         sign_in user
         assert_authorized_to(
           :purge_avatar?, user.avatar_attachment,
@@ -73,7 +76,7 @@ class Organizations::AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
   context "DELETE #purge" do
     setup do
-      @user = create(:admin)
+      @user = create(:person, :admin).user
       @pet = create(:pet)
 
       sign_in @user
@@ -103,8 +106,11 @@ class Organizations::AttachmentsControllerTest < ActionDispatch::IntegrationTest
 
   context "#purge_avatar" do
     setup do
-      @user1 = create(:adopter, :with_avatar)
-      @user2 = create(:adopter, :with_avatar)
+      @user1 = create(:user, :with_avatar)
+      create(:person, :adopter, user: @user1)
+
+      @user2 = create(:user, :with_avatar)
+      create(:person, :adopter, user: @user2)
 
       sign_in @user1
     end

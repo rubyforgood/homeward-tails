@@ -7,10 +7,12 @@ module Omniauthable
 
   class_methods do
     def from_omniauth(auth)
-      where(provider: auth.provider, uid: auth.uid, organization_id: Current.organization.id).first_or_create do |user|
-        user.assign_attributes_from_auth(auth)
-        user.set_adopter_role
+      user = where(provider: auth.provider, uid: auth.uid).first_or_create do |u|
+        u.assign_attributes_from_auth(auth)
       end
+
+      user.set_adopter_role if user.persisted?
+      user
     end
   end
 
@@ -22,6 +24,14 @@ module Omniauthable
   end
 
   def set_adopter_role
-    add_role("adopter", Current.organization)
+    # TODO: Verify this works
+
+    person = Person.find_or_create_by!(email: email) do |person|
+      person.user_id = id
+      person.first_name = first_name
+      person.last_name = last_name
+    end
+
+    person.add_group(:adopter)
   end
 end

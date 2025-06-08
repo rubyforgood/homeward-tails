@@ -4,7 +4,7 @@ require "action_policy/test_helper"
 class Organizations::Staff::CustomPagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @org = ActsAsTenant.current_tenant
-    admin = create(:super_admin, organization: @org)
+    admin = create(:person, :super_admin).user
     sign_in admin
     @custom_page = create(:custom_page, organization: @org)
   end

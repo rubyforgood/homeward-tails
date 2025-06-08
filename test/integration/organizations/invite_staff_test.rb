@@ -2,14 +2,23 @@ require "test_helper"
 
 class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
   setup do
-    admin = create(:super_admin)
+    admin = create(:person, :super_admin).user
     sign_in admin
 
-    @user_invitation_params = {
+    @user_invitation_one_params = {
       user: {
         first_name: "John",
         last_name: "Doe",
         email: "john@example.com",
+        roles: "super_admin"
+      }
+    }
+
+    @user_invitation_two_params = {
+      user: {
+        first_name: "John",
+        last_name: "Doe",
+        email: "adopter@example.com",
         roles: "super_admin"
       }
     }
@@ -18,28 +27,42 @@ class Organizations::InviteStaffTest < ActionDispatch::IntegrationTest
   test "staff admin can invite other staffs to the organization" do
     post(
       user_invitation_path,
-      params: @user_invitation_params
+      params: @user_invitation_one_params
     )
 
     assert_response :redirect
 
-    invited_user = User.find_by(email: "john@example.com")
+    invited_person = Person.find_by(email: "john@example.com")
 
-    assert invited_user.invited_to_sign_up?
-    assert invited_user.has_role?(:super_admin, invited_user.organization)
-    assert_not invited_user.deactivated?
+    assert invited_person.user.invited_to_sign_up?
+    assert invited_person.active_in_group?(:super_admin)
 
     assert_equal 1, ActionMailer::Base.deliveries.count
   end
 
-  test "staff admin can not invite existing user to the organization" do
-    _existing_user = create(:user, email: "john@example.com")
+  test "staff admin can not invite existing staff in the organization" do
+    user = create(:user, email: "john@example.com")
+    _existing_user = create(:person, :super_admin, user: user, email: "john@example.com")
 
     post(
       user_invitation_path,
-      params: @user_invitation_params
+      params: @user_invitation_one_params
+    )
+    assert_response :redirect
+    follow_redirect!
+    assert_equal "User is already Staff in this organization", flash[:notice]
+  end
+
+  test "staff admin can invite existing non-staff user to the organization" do
+    user = create(:user, email: "adopter@example.com")
+    person = create(:person, :adopter, user: user, email: "adopter@example.com")
+
+    post(
+      user_invitation_path,
+      params: @user_invitation_two_params
     )
 
-    assert_response :unprocessable_entity
+    assert_response :redirect
+    assert person.active_in_group?(:super_admin)
   end
 end

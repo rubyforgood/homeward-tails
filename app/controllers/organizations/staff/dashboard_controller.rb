@@ -6,8 +6,6 @@ class Organizations::Staff::DashboardController < Organizations::BaseController
   layout "dashboard"
 
   def index
-    @user = current_user
-    @organization = Current.organization
     @hide_footer = true
     @not_completed_not_overdue_tasks_count = Task.is_not_completed.not_overdue.count
     @not_completed_overdue_tasks_count = Task.is_not_completed.overdue.count
@@ -40,8 +38,7 @@ class Organizations::Staff::DashboardController < Organizations::BaseController
   private
 
   def context_authorize!
-    authorize! :dashboard,
-      context: {organization: Current.organization}
+    authorize! :dashboard
   end
 
   def set_pets_with_overdue_tasks

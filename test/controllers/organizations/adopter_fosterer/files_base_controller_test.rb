@@ -9,7 +9,7 @@ module Organizations
 
         setup do
           @organization = ActsAsTenant.current_tenant
-          @adopter = create(:adopter)
+          @adopter = create(:person, :adopter).user
           sign_in @adopter
           @pet = create(:pet)
         end

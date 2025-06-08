@@ -40,7 +40,7 @@ class Organizations::CreateService
         args[:user][:first_name],
         args[:user][:last_name]
       )
-      add_super_admin_role_to_user
+      add_super_admin_group_to_person
       send_email
       create_custom_page
     end
@@ -75,14 +75,22 @@ class Organizations::CreateService
         last_name: last_name,
         password: SecureRandom.hex(3)[0, 6]
       )
+
+      @person = Person.create!(
+        user: @user,
+        first_name: first_name,
+        last_name: last_name,
+        email: email
+      )
     end
   end
 
-  def add_super_admin_role_to_user
-    @user.add_role(:super_admin, @organization)
-
-    if !@user.has_role?(:super_admin, @organization)
-      raise StandardError, "Failed to add super admin role"
+  def add_super_admin_group_to_person
+    ActsAsTenant.with_tenant(@organization) do
+      @person.add_group(:super_admin)
+      unless @person.active_in_group?(:super_admin)
+        raise StandardError, "Failed to add super admin role"
+      end
     end
   end
 

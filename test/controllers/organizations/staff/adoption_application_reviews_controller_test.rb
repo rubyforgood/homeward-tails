@@ -6,11 +6,11 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
     include ActionPolicy::TestHelper
 
     setup do
-      @user = create(:admin)
-      @adopter = create(:adopter)
+      @user = create(:person, :admin).user
+      @adopter = create(:person, :adopter)
       @organization = ActsAsTenant.current_tenant
       @form_submission = create(:form_submission)
-      @adopter_application = create(:adopter_application, person: @adopter.person)
+      @adopter_application = create(:adopter_application, person: @adopter)
 
       sign_in @user
     end
@@ -19,7 +19,6 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
       should "be authorized" do
         assert_authorized_to(
           :manage?, AdopterApplication,
-          context: {organization: @organization},
           with: Organizations::AdopterApplicationPolicy
         ) do
           get staff_adoption_application_reviews_url
@@ -76,8 +75,8 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
 
   context "Filtering adoption applications" do
     setup do
-      @adopter = create(:adopter)
-      @user = create(:admin)
+      @adopter = create(:person, :adopter)
+      @user = create(:person, :admin).user
       sign_in @user
     end
 
@@ -89,8 +88,8 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
       setup do
         pet1 = create(:pet, name: "Pango")
         pet2 = create(:pet, name: "Tycho")
-        create(:adopter_application, pet: pet1, person: @adopter.person)
-        create(:adopter_application, pet: pet2, person: @adopter.person)
+        create(:adopter_application, pet: pet1, person: @adopter)
+        create(:adopter_application, pet: pet2, person: @adopter)
       end
 
       should "return applications for a specific pet name" do
@@ -119,8 +118,8 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
 
     context "Filtering by application status" do
       setup do
-        @application_under_review = create(:adopter_application, status: :under_review, person: @adopter.person)
-        @application_awaiting_review = create(:adopter_application, status: :awaiting_review, person: @adopter.person)
+        @application_under_review = create(:adopter_application, status: :under_review, person: @adopter)
+        @application_awaiting_review = create(:adopter_application, status: :awaiting_review, person: @adopter)
       end
 
       should "return pets only with applications of the specified status" do
@@ -134,13 +133,13 @@ class Organizations::Staff::AdoptionApplicationReviewsControllerTest < ActionDis
 
   context "Viewing application details" do
     setup do
-      @user = create(:admin)
+      @user = create(:person, :admin).user
       sign_in @user
 
-      @adopter = create(:adopter)
-      @form_submission = create(:form_submission, person: @adopter.person)
+      @adopter = create(:person, :adopter)
+      @form_submission = create(:form_submission, person: @adopter)
       @form_answers = create_list(:form_answer, 3, form_submission: @form_submission)
-      @adopter_application = create(:adopter_application, person: @adopter.person)
+      @adopter_application = create(:adopter_application, person: @adopter)
     end
   end
 end

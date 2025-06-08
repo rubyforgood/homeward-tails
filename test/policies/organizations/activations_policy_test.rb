@@ -4,29 +4,30 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   setup do
-    @policy = -> { Organizations::ActivationsPolicy.new(@user_being_updated, user: @user) }
+    @policy = -> { Organizations::ActivationsPolicy.new(@person_being_updated, person: @person, user: @person&.user, group: @group) }
   end
 
   context "when resource being updated is admin" do
     context "#update?" do
       setup do
-        @user_being_updated = create(:admin)
+        @person_being_updated = create(:person, :admin)
+        @group = @person_being_updated.groups.find_by(name: :admin)
         @action = -> { @policy.call.apply(:update?) }
       end
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
-          assert_equal false, @action.call
+          assert_equal false, @policy.call.apply(:update?)
         end
       end
 
       context "when user is adopter" do
         setup do
-          @user = create(:adopter)
+          @person = create(:person, :adopter)
         end
 
         should "return false" do
@@ -36,7 +37,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is fosterer" do
         setup do
-          @user = create(:fosterer)
+          @person = create(:person, :fosterer)
         end
 
         should "return false" do
@@ -46,7 +47,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is admin" do
         setup do
-          @user = create(:admin)
+          @person = create(:person, :admin)
         end
 
         should "return false" do
@@ -56,7 +57,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is super admin" do
         setup do
-          @user = create(:super_admin)
+          @person = create(:person, :super_admin)
         end
 
         should "return true" do
@@ -65,7 +66,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
         context "when staff is self" do
           setup do
-            @user_being_updated = @user
+            @person_being_updated = @person
           end
 
           should "return false" do
@@ -79,13 +80,14 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
   context "when resource being updated is fosterer" do
     context "#update?" do
       setup do
-        @user_being_updated = create(:fosterer)
+        @person_being_updated = create(:person, :fosterer)
+        @group = @person_being_updated.groups.find_by(name: :fosterer)
         @action = -> { @policy.call.apply(:update?) }
       end
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
@@ -95,7 +97,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is adopter" do
         setup do
-          @user = create(:adopter)
+          @person = create(:person, :adopter)
         end
 
         should "return false" do
@@ -105,7 +107,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is fosterer" do
         setup do
-          @user = create(:fosterer)
+          @person = create(:person, :fosterer)
         end
 
         should "return false" do
@@ -115,7 +117,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is admin" do
         setup do
-          @user = create(:admin)
+          @person = create(:person, :admin)
         end
 
         should "return true" do
@@ -125,7 +127,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is super admin" do
         setup do
-          @user = create(:super_admin)
+          @person = create(:person, :super_admin)
         end
 
         should "return true" do
@@ -138,13 +140,14 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
   context "when resource being updated is adopter" do
     context "#update?" do
       setup do
-        @user_being_updated = create(:adopter)
+        @person_being_updated = create(:person, :adopter)
+        @group = @person_being_updated.groups.find_by(name: :adopter)
         @action = -> { @policy.call.apply(:update?) }
       end
 
       context "when user is nil" do
         setup do
-          @user = nil
+          @person = nil
         end
 
         should "return false" do
@@ -154,7 +157,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is adopter" do
         setup do
-          @user = create(:adopter)
+          @person = create(:person, :adopter)
         end
 
         should "return false" do
@@ -164,7 +167,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is fosterer" do
         setup do
-          @user = create(:fosterer)
+          @person = create(:person, :fosterer)
         end
 
         should "return false" do
@@ -174,7 +177,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is admin" do
         setup do
-          @user = create(:admin)
+          @person = create(:person, :admin)
         end
 
         should "return true" do
@@ -184,7 +187,7 @@ class Organizations::ActivationsPolicyTest < ActiveSupport::TestCase
 
       context "when user is super admin" do
         setup do
-          @user = create(:super_admin)
+          @person = create(:person, :super_admin)
         end
 
         should "return true" do

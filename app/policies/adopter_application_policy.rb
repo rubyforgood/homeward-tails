@@ -1,9 +1,10 @@
 class AdopterApplicationPolicy < ApplicationPolicy
   authorize :pet, optional: true
+  pre_check :verify_record_organization!, only: %i[update?]
   pre_check :verify_pet_appliable!, only: %i[create?]
 
   relation_scope do |relation|
-    relation.where(person_id: user.person.id)
+    relation.where(person_id: person.id)
   end
 
   def update?
@@ -21,11 +22,11 @@ class AdopterApplicationPolicy < ApplicationPolicy
   private
 
   def applicant?
-    user.person_id == record.person.id
+    person.id == record.person.id
   end
 
   def already_applied?
-    user.person.adopter_applications.any? do |application|
+    person.adopter_applications.any? do |application|
       application.pet_id == pet.id
     end
   end

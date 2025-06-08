@@ -2,9 +2,9 @@ require "test_helper"
 
 class NoteTest < ActiveSupport::TestCase
   def setup
-    @user = create(:fosterer)
-    @notable = @user.person
-    @note = Note.new(notable: @notable, content: "This is a test note")
+    @person = create(:person, :fosterer)
+    notable = @person
+    @note = Note.new(notable: notable, content: "This is a test note")
   end
 
   test "should be valid" do
@@ -17,7 +17,7 @@ class NoteTest < ActiveSupport::TestCase
   end
 
   test "should allow different notable types" do
-    @application = create(:adopter_application, person: @user.person)
+    @application = create(:adopter_application, person: @person)
     note_for_application = Note.new(notable: @application, content: "Application note")
     assert note_for_application.valid?
   end

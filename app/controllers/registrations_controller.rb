@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   include OrganizationScopable
-  layout :set_layout, only: [:edit, :update, :new]
+  layout :set_layout, only: %i[edit update new create]
 
   after_action :send_email, only: :create
 
@@ -11,11 +11,16 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
-  # MARK: only adopters are created through this route. Adopters need both the adoper role and a form submission to attach their applications to
+  # MARK: only adopters are created through this route.
   def create
     super do |resource|
       if resource.persisted?
-        resource.add_role(:adopter, Current.organization)
+        # TODO: Currently a person shouldn't exist without a user with the same email. If the person exists (but no user),
+        # how should we be handling this newly created user?
+        unless Person.exists?(email: resource.email)
+          person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name, email: resource.email)
+          person.add_group(:adopter)
+        end
       end
     end
   end
@@ -32,9 +37,9 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def set_layout
-    if allowed_to?(:index?, with: Organizations::DashboardPolicy, context: {organization: Current.organization})
+    if allowed_to?(:index?, with: Organizations::DashboardPolicy)
       "dashboard"
-    elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
+    elsif allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)
       "adopter_foster_dashboard"
     else
       "application"
@@ -64,27 +69,24 @@ class RegistrationsController < Devise::RegistrationsController
       :avatar)
   end
 
-  def after_update_path_for(resource)
-    role = resource.roles.find_by(resource_id: Current.organization.id)
-
-    case role&.name
-    when "adopter", "fosterer"
-      adopter_fosterer_dashboard_index_path
-    when "admin", "super_admin"
+  def after_update_path_for(_resource)
+    if Current.person&.staff_active?
       staff_dashboard_index_path
+    elsif Current.person&.active_in_group?(:adopter) || Current.person&.active_in_group?(:fosterer)
+      adopter_fosterer_dashboard_index_path
     else
       root_path
     end
   end
 
   def after_sign_up_path_for(resource)
-    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy, context: {organization: Current.organization})
+    # Devise sets `current_user` only after this callback runs, so we
+    # must explicitly call it here
+    set_current_person
 
-    if Current.organization.external_form_url
-      adopter_fosterer_external_form_index_path
-    else
-      adopter_fosterer_dashboard_index_path
-    end
+    return root_path unless allowed_to?(:index?, with: Organizations::AdopterFosterDashboardPolicy)
+
+    new_person_after_sign_up_path
   end
 
   # check for id (i.e., record saved) and send mail

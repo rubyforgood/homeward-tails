@@ -3,8 +3,20 @@ class ApplicationPolicy < ActionPolicy::Base
   # Configure additional authorization contexts here
   # (`user` is added by default).
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
+
+  # `current_user` is used specifically for pre_checks of authenticated and tos_agreement
   authorize :user, allow_nil: true
-  authorize :organization, optional: true
+
+  # The Current.person is generally what we want to check for authorization.
+  # User's can be in many org's but only have one Person per org. Permissions
+  # are base on the active groups assigned to the person. Some public views check permissions
+  # to conditionally display links. `allow_nil` lets us check without raising an error.
+  # This authorization context must also be configured in the place where the authorization
+  # is performed (e.g., controllers) - `authorize :person, through: -> { Current.person }`
+  #
+  # We're using the person context instead of accessing `Current.person` directly
+  # to keep the policy classes decoupled from Rails-specific globals.
+  authorize :person, allow_nil: true
 
   pre_check :verify_authenticated!
   pre_check :verify_tos_agreement!
@@ -19,32 +31,24 @@ class ApplicationPolicy < ActionPolicy::Base
 
   # Default authorized_scope; override for individual policies if necessary.
   relation_scope do |relation|
-    relation.where(organization: user.organization)
+    relation.where(organization: person.organization)
   end
 
   private
 
   # Define shared methods useful for most policies.
 
-  def organization
-    return record if record.is_a?(Organization)
-
-    @organization || record.organization
-  end
-
-  def verify_organization!
-    deny! unless user.organization_id == organization.id
-  end
-
-  def verify_active_staff!
-    deny! unless user.staff?(organization)
-    deny! if user.deactivated?
+  def verify_record_organization!
+    # if the record is an instance, we want to check that the record belongs to the same org as the person acting on it.
+    if record.respond_to?(:organization_id)
+      deny! unless record.organization_id == person.organization_id
+    end
   end
 
   def permission?(name)
-    return false unless user
+    return false unless person
 
-    user.permission?(name)
+    person.permission?(name)
   end
 
   def authenticated? = user.present?

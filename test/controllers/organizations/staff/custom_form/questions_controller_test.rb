@@ -10,7 +10,7 @@ module Organizations
           @question = create(:question, organization: @organization)
           @form = @question.form
 
-          user = create(:admin)
+          user = create(:person, :admin).user
           sign_in user
         end
 
@@ -21,7 +21,6 @@ module Organizations
             should "be authorized" do
               assert_authorized_to(
                 :manage?, ::CustomForm::Question,
-                context: {organization: @organization},
                 with: Organizations::CustomForm::QuestionPolicy
               ) do
                 get new_staff_custom_form_form_question_url(@form)
@@ -39,7 +38,6 @@ module Organizations
             should "be authorized" do
               assert_authorized_to(
                 :manage?, ::CustomForm::Question,
-                context: {organization: @organization},
                 with: Organizations::CustomForm::QuestionPolicy
               ) do
                 post staff_custom_form_form_questions_url(@form), params: @params
