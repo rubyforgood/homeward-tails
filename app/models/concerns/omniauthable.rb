@@ -7,19 +7,11 @@ module Omniauthable
 
   class_methods do
     def from_omniauth(auth)
-      user_was_created = false
-
-      user = where(provider: auth.provider, uid: auth.uid).first_or_create do |new_user|
-        new_user.assign_attributes_from_auth(auth)
-        user_was_created = true
+      user = where(provider: auth.provider, uid: auth.uid).first_or_create do |u|
+        u.assign_attributes_from_auth(auth)
       end
 
-      if user.persisted?
-        user.set_adopter_role(auth)
-      end
-
-      # Add flag to track if user was just created
-      user.instance_variable_set(:@was_just_created, user_was_created)
+      user.set_adopter_role if user.persisted?
       user
     end
   end

@@ -49,7 +49,7 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
-    active_storage_validations (2.0.4)
+    active_storage_validations (3.0.0)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -87,7 +87,7 @@ GEM
       rails (>= 6.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    annotaterb (4.14.0)
+    annotaterb (4.15.0)
     ast (2.4.3)
     azure-storage-blob (2.0.3)
       azure-storage-common (~> 2.0)

@@ -36,7 +36,7 @@ module Organizations
     end
 
     def person_params
-      params.require(:person).permit(:email, :first_name, :last_name, :phone_number, :user_id)
+      params.require(:person).permit(:email, :first_name, :last_name, :user_id)
     end
   end
 end
