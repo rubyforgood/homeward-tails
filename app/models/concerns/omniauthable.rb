@@ -11,7 +11,9 @@ module Omniauthable
         u.assign_attributes_from_auth(auth)
       end
 
-      user.set_adopter_role if user.persisted?
+      if user.persisted?
+        user.set_adopter_role(auth)
+      end
       user
     end
   end
