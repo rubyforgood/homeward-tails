@@ -1,2 +1,2 @@
-ruby 3.3.0
-postgres 12.12
+ruby     3.3.0
+postgres 16
