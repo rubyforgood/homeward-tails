@@ -68,8 +68,8 @@ gem "dartsass-rails"
 # Active storage validations
 gem "active_storage_validations"
 
-# Use Azure Blob Storage for Active Storage
-gem "azure-storage-blob", "~> 2.0", require: false
+# Use Azure Blob for Active Storage
+gem "azure-blob", require: false
 
 # validate adopter phone numbers
 gem "phonelib"
