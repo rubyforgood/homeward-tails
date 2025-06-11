@@ -36,7 +36,7 @@ namespace :db do
 
     dump_file = Dir["/tmp/*.dump"].sort.last
 
-    unless dump_file && File.exist?(dump_file)
+    unless File.exist?(dump_file)
       puts "No backup file found in /tmp"
       exit 1
     end
