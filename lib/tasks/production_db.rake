@@ -4,6 +4,8 @@
 # Settings > Networking > Firewall rules
 # Click "Add current client IP address" or enter manually
 
+PASSWORD_REPLACEMENT = "123456"
+
 namespace :db do
   desc "Back up the production DB to local /tmp folder"
   task :backup_production_to_local do
@@ -27,14 +29,13 @@ namespace :db do
   end
 
   desc "Restore latest production backup to local development database"
-  PASSWORD_REPLACEMENT = "123456"
 
   task restore_production_to_local: :environment do
     if ENV["RAILS_ENV"] == "production"
       raise "You may not run this backup script in production!"
     end
 
-    dump_file = Dir["/tmp/*.dump"].sort.last
+    dump_file = Dir["/tmp/*.dump"].max
 
     unless File.exist?(dump_file)
       puts "No backup file found in /tmp"
