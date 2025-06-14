@@ -85,8 +85,12 @@ module Organizations
       def user_params
         params.require(:user)
           .permit(
-            :first_name, :last_name, :email, :roles
+            :email, :roles
           )
+      end
+
+      def person_params
+        params.require(:person).permit(:first_name, :last_name) if params[:person].present?
       end
 
       def configure_permitted_parameters
@@ -115,8 +119,13 @@ module Organizations
         @person ||= Person.find_or_create_by!(email: @user.email) do |person|
           person.email = @user.email
           person.user_id = @user.id
-          person.first_name = @user.first_name
-          person.last_name = @user.last_name
+          if person_params.present?
+            person.first_name = person_params[:first_name] || ""
+            person.last_name = person_params[:last_name] || ""
+          else
+            person.first_name = ""
+            person.last_name = ""
+          end
         end
       end
     end

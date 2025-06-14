@@ -5,7 +5,6 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  first_name             :string           not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_limit       :integer
@@ -13,7 +12,6 @@
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
 #  invited_by_type        :string
-#  last_name              :string           not null
 #  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -38,8 +36,6 @@ class User < ApplicationRecord
 
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
@@ -86,15 +82,22 @@ class User < ApplicationRecord
     active_for_devise? ? super : :deactivated
   end
 
+  def first_person_name
+    # Use unscoped to get people from all organizations, not just current tenant
+    first_person = ActsAsTenant.without_tenant { people.first }
+    return {first_name: "", last_name: ""} unless first_person
+
+    {
+      first_name: first_person.first_name,
+      last_name: first_person.last_name
+    }
+  end
+
   def full_name(format = :default)
-    case format
-    when :default
-      "#{first_name} #{last_name}"
-    when :last_first
-      "#{last_name}, #{first_name}"
-    else
-      raise ArgumentError, "Unsupported format: #{format}"
-    end
+    current_person = Current.person || people.first
+    return "" unless current_person
+
+    current_person.full_name(format)
   end
 
   def name_initials

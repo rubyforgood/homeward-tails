@@ -14,7 +14,9 @@ class Organizations::CreateServiceTest < ActiveSupport::TestCase
         email: "baja@email.com"
       },
       user: {
-        email: "test@test.lol",
+        email: "test@test.lol"
+      },
+      person: {
         first_name: "Jimmy",
         last_name: "Hendrix"
       }

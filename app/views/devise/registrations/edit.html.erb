@@ -33,14 +33,18 @@
                                         class: 'form-control', label: 'Confirm new password' %>
                 </div>
               <% end %>
-              <div class="form-group mb-3">
-                <%= f.text_field :first_name,
-                                  class: 'form-control' %>
-              </div>
-              <div class="form-group mb-3">
-                <%= f.text_field :last_name,
-                                  class: 'form-control' %>
-              </div>
+              <% if Current.person %>
+              <%= f.fields_for :person, Current.person do |person_form| %>
+                <div class="row">
+                  <div class="col-md-6">
+                    <%= person_form.text_field :first_name %>
+                  </div>
+                  <div class="col-md-6">
+                    <%= person_form.text_field :last_name %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
               <% unless resource.google_oauth_user? %>
                 <div class="form-group mb-3">
                   <%= f.password_field :current_password,

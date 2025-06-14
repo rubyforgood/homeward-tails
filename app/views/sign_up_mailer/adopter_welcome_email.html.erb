@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <h1><%= @user.first_name %>, thank you for signing up with <%= @organization.name %></h1>
+      <h1><%= @person&.first_name || "Hello" %>, thank you for signing up with <%= @organization.name %></h1>
 
       <p>Please complete the following steps if you would like to adopt a pet.</p>
 
