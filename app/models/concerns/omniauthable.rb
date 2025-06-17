@@ -11,7 +11,9 @@ module Omniauthable
         u.assign_attributes_from_auth(auth)
       end
 
-      user.set_adopter_role if user.persisted?
+      if user.persisted?
+        user.set_adopter_role(auth)
+      end
       user
     end
   end
@@ -19,19 +21,28 @@ module Omniauthable
   def assign_attributes_from_auth(auth)
     self.email = auth.info.email
     self.password = Devise.friendly_token[0, 20]
-    self.first_name = auth.info.first_name if respond_to?(:first_name)
-    self.last_name = auth.info.last_name if respond_to?(:last_name)
   end
 
-  def set_adopter_role
-    # TODO: Verify this works
+  def set_adopter_role(auth)
+    # Create person record in current organization context
+    if ActsAsTenant.current_tenant
+      person = Person.find_or_create_by(
+        user: self,
+        organization: ActsAsTenant.current_tenant
+      ) do |p|
+        p.email = email
+        p.first_name = auth.info.first_name || ""
+        p.last_name = auth.info.last_name || ""
+      end
 
-    person = Person.find_or_create_by!(email: email) do |person|
-      person.user_id = id
-      person.first_name = first_name
-      person.last_name = last_name
+      # Add adopter role if person doesn't have any groups
+      if person.groups.empty?
+        person.add_group(:adopter)
+      end
     end
+  end
 
-    person.add_group(:adopter)
+  def was_just_created?
+    @was_just_created || false
   end
 end

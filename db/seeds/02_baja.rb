@@ -18,8 +18,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_staff_one = User.create!(
     email: "staff@baja.com",
-    first_name: "Andy",
-    last_name: "Peters",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -29,15 +27,14 @@ ActsAsTenant.with_tenant(@organization) do
     email: "staff@baja.com",
     first_name: "Andy",
     last_name: "Peters",
-    user_id: @user_staff_one.id
+    user_id: @user_staff_one.id,
+    organization: @organization
   )
 
   @staff_one.add_group(:super_admin)
 
   @user_staff_two = User.create!(
     email: "staff2@baja.com",
-    first_name: "Randy",
-    last_name: "Peterson",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -47,15 +44,14 @@ ActsAsTenant.with_tenant(@organization) do
     email: "staff2@baja.com",
     first_name: "Randy",
     last_name: "Peterson",
-    user_id: @user_staff_two.id
+    user_id: @user_staff_two.id,
+    organization: @organization
   )
 
   @staff_two.add_group(:super_admin)
 
   @user_adopter_one = User.create!(
     email: "adopter1@baja.com",
-    first_name: "Joe",
-    last_name: "Brando",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -65,7 +61,8 @@ ActsAsTenant.with_tenant(@organization) do
     email: "adopter1@baja.com",
     first_name: "Joe",
     last_name: "Brando",
-    user_id: @user_adopter_one.id
+    user_id: @user_adopter_one.id,
+    organization: @organization
   )
 
   @adopter_one = Person.where(email: "adopter1@baja.com").first
@@ -74,8 +71,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_adopter_two = User.create!(
     email: "adopter2@baja.com",
-    first_name: "Kamala",
-    last_name: "Lolsworth",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -85,15 +80,14 @@ ActsAsTenant.with_tenant(@organization) do
     email: "adopter2@baja.com",
     first_name: "Kamala",
     last_name: "Lolsworth",
-    user_id: @user_adopter_two.id
+    user_id: @user_adopter_two.id,
+    organization: @organization
   )
 
   @adopter_two.add_group(:adopter)
 
   @user_adopter_three = User.create!(
     email: "adopter3@baja.com",
-    first_name: "Bad",
-    last_name: "Address",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -103,15 +97,14 @@ ActsAsTenant.with_tenant(@organization) do
     email: "adopter3@baja.com",
     first_name: "Bad",
     last_name: "Address",
-    user_id: @user_adopter_three.id
+    user_id: @user_adopter_three.id,
+    organization: @organization
   )
 
   @adopter_three.add_group(:adopter)
 
   @user_fosterer_one = User.create!(
     email: "fosterer1@baja.com",
-    first_name: "Simon",
-    last_name: "Petrikov",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -121,7 +114,8 @@ ActsAsTenant.with_tenant(@organization) do
     email: "fosterer1@baja.com",
     first_name: "Simon",
     last_name: "Petrikov",
-    user_id: @user_fosterer_one.id
+    user_id: @user_fosterer_one.id,
+    organization: @organization
   )
 
   @fosterer_one = Person.where(email: "fosterer1@baja.com").first
@@ -135,8 +129,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_fosterer_two = User.create!(
     email: "fosterer2@baja.com",
-    first_name: "Finn",
-    last_name: "Mertens",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -146,7 +138,8 @@ ActsAsTenant.with_tenant(@organization) do
     email: "fosterer2@baja.com",
     first_name: "Finn",
     last_name: "Mertens",
-    user_id: @user_fosterer_two.id
+    user_id: @user_fosterer_two.id,
+    organization: @organization
   )
 
   @fosterer_two = Person.where(email: "fosterer2@baja.com").first

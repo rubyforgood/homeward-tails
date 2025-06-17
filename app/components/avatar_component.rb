@@ -20,11 +20,12 @@ class AvatarComponent < ApplicationComponent
   end
 
   def initials
-    "#{user.first_name[0]}#{user.last_name[0]}".upcase
+    user.name_initials
   end
 
   def alt
-    "#{user.first_name.capitalize}'s avatar"
+    name = user.full_name
+    name.present? ? "#{name}'s avatar" : "User avatar"
   end
 
   def container_classes
