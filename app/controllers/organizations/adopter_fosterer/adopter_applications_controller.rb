@@ -22,7 +22,7 @@ class Organizations::AdopterFosterer::AdopterApplicationsController < Organizati
       @org_staff = Person.active_staff
       StaffApplicationNotificationMailer.with(pet: @pet,
         organization_staff: @org_staff)
-        .new_adoption_application.deliver_now
+        .new_adoption_application.deliver_later
     else
       redirect_to adoptable_pet_path(@pet),
         alert: t(".error")
