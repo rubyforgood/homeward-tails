@@ -9,7 +9,7 @@ class Organizations::Staff::MatchesController < Organizations::BaseController
     ))
 
     if @match.save
-      AdoptionMailer.new_adoption(@match).deliver_now
+      AdoptionMailer.new_adoption(@match).deliver_later
       @match.retire_applications
 
       redirect_back_or_to staff_dashboard_index_path, notice: t(".success")

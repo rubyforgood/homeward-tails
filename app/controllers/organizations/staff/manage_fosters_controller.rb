@@ -16,7 +16,7 @@ class Organizations::Staff::ManageFostersController < Organizations::BaseControl
     @foster = Match.new(match_params.merge(match_type: :foster))
 
     if @foster.save
-      FosterMailer.new_foster(@foster).deliver_now
+      FosterMailer.new_foster(@foster).deliver_later
       flash[:success] = t(".success", name: @foster.pet.name)
       redirect_to action: :index
     else

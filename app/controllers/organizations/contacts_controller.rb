@@ -13,7 +13,7 @@ module Organizations
 
       if @contact.valid?
         ContactsMailer.with(contacts_params)
-          .send_message(Current.organization).deliver_now
+          .send_message(Current.organization).deliver_later
         redirect_to root_path, notice: t(".success")
       else
         render :new, status: :unprocessable_entity
