@@ -114,6 +114,7 @@ en:
   root:
     index:
       title: "Homeward Tails"
+      sub_title: "A Ruby For Good project"
       about: "About"
       partners: "Partners"
       pet: "Pets"
