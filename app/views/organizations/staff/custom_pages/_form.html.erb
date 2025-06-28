@@ -68,7 +68,7 @@
       <p><%= t(".changes_must_be_saved") %>
       </p>
       <div class="col-10 shadow-lg mb-auto" style="max-width: 500px">
-        <%= link_to root_path, class: "d-inline-block",
+        <%= link_to home_index_path, class: "d-inline-block",
                                 data: { turbo_method: :get,
                                         turbo_confirm: t(".unsaved_changes") } do %>
           <%= image_tag(
@@ -81,6 +81,9 @@
         <% end %>
 
         <%= image_tag("custom_page_adopt.png", class: "w-100") %>
+
+        <%# Using turbo confirm strips the anchor from the url. %>
+        <%# This is resolved by disabling turbo and adding the onclick to display the confirm message %>
         <%= link_to home_index_path(anchor: "about_us"), 
                                     class: "d-inline-block",
                                     data: { turbo: :false},
