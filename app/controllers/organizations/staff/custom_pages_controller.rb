@@ -28,7 +28,7 @@ module Organizations
       end
 
       def example_pet
-        @example_pet ||= Pet.first
+        @example_pet ||= Pet.unadopted.first
       end
     end
   end
