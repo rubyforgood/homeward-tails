@@ -3,6 +3,8 @@ module Organizations
     class CustomPagesController < Organizations::BaseController
       layout "dashboard"
       before_action :set_custom_page, only: %i[edit update]
+      before_action :example_pet, only: %i[edit]
+
       def edit
       end
 
@@ -23,6 +25,10 @@ module Organizations
       def set_custom_page
         @custom_page = CustomPage.first
         authorize! @custom_page
+      end
+
+      def example_pet
+        @example_pet ||= Pet.first
       end
     end
   end

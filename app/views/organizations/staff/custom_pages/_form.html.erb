@@ -89,7 +89,20 @@
             onmouseout: "this.style.filter='brightness(100%)'",
           ) %>
         <% end %>
-        <%= link_to root_path, class: "d-inline-block", data: { turbo_method: :get, turbo_confirm: "Unsaved changes will be lost. Are you sure you want to leave this page?" } do %>
+
+        <% pet_show_message =
+          (
+            if @example_pet
+              "Unsaved changes will be lost. Are you sure you want to leave this page?"
+            else
+              "Unsaved changes will be lost. You must create at least one Pet to view these changes live. Are you sure you want to leave this page?"
+            end
+          ) %>
+        <% pet_show_path =
+          @example_pet ? adoptable_pet_path(@example_pet) : staff_pets_path %>
+
+        <%= link_to pet_show_path, class: "d-inline-block", 
+          data: { turbo_method: :get, turbo_confirm: pet_show_message } do %>
           <%= image_tag(
             "custom_page_adoptable_pet.png",
             class: "w-100 mt-5",
@@ -97,8 +110,13 @@
             onmouseover: "this.style.filter='brightness(70%)'",
             onmouseout: "this.style.filter='brightness(100%)'",
           ) %>
+
         <% end %>
       </div>
+      <%= render partial: "organizations/shared/tooltip",
+      locals: {
+        text: "You must create at least one Pet to view these changes live",
+      } %>
 
     </div>
   </div>
