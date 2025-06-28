@@ -68,18 +68,24 @@
         <%= image_tag(
           "custom_page_hero.png",
           class: "w-100",
-          style: "border: 3px solid #754FFE;",
+          style: "border: 3px solid #754FFE; transition: filter 0.3s;",
+          onmouseover: "this.style.filter='brightness(70%)'",
+          onmouseout: "this.style.filter='brightness(100%)'",
         ) %>
         <%= image_tag("custom_page_adopt.png", class: "w-100") %>
         <%= image_tag(
           "custom_page_about_us.png",
           class: "w-100",
-          style: "border: 3px solid #754FFE;",
+          style: "border: 3px solid #754FFE; transition: filter 0.3s;",
+          onmouseover: "this.style.filter='brightness(70%)'",
+          onmouseout: "this.style.filter='brightness(100%)'",
         ) %>
         <%= image_tag(
           "custom_page_adoptable_pet.png",
           class: "w-100 mt-5",
-          style: "border: 3px solid #754FFE;",
+          style: "border: 3px solid #754FFE; transition: filter 0.3s;",
+          onmouseover: "this.style.filter='brightness(70%)'",
+          onmouseout: "this.style.filter='brightness(100%)'",
         ) %>
       </div>
 
