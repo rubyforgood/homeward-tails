@@ -66,8 +66,7 @@ Rails.application.routes.draw do
           get :pets_with_overdue_tasks
         end
       end
-
-      resources :person, only: [] do
+      resources :people, only: %i[index show], controller: "/organizations/people" do
         resources :form_submissions, only: [:index]
       end
 

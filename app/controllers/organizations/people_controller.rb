@@ -2,7 +2,12 @@ module Organizations
   class PeopleController < Organizations::BaseController
     skip_before_action :verify_person_in_org
     skip_verify_authorized only: %i[new create]
-    before_action :validate_person_does_not_exist
+    before_action :validate_person_does_not_exist, only: %i[new create]
+
+    def index
+      authorize!
+      @people = Person.all
+    end
 
     def new
       @person = Person.new
