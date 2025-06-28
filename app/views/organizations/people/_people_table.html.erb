@@ -1,0 +1,42 @@
+<div class="card">
+  <!-- Table -->
+  <div class="table-responsive">
+    <table class="table mb-0 text-nowrap table-hover table-centered">
+      <thead>
+        <tr>
+          <th scope="col"><%= t(:name) %></th>
+          <th scope="col"><%= t(:joined_at) %></th>
+          <th class="text-center" scope="col"><%= t(:deactivate) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% people_accounts.each do |person| %>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="position-relative">
+                  <%= render AvatarComponent.new(person.user) %>
+                  <a href="#" class="position-absolute mt-5 ms-n4">
+                    <span class="status bg-success"></span>
+                  </a>
+                </div>
+                <%= link_to staff_person_path(person) do  %>
+                <h5 class="mb-0 ms-3"><%= "#{person.user.full_name}" %></h5>
+                <% end %>
+              </div>
+            </td>
+            <td>
+              <%= person.created_at.strftime("%d %B, %Y") %>
+            </td>
+            <td>
+              <%# render "organizations/staff/shared/deactivate_toggle",
+              person: person,
+              person_group: person.person_groups.find_by(group_id: @group_id) %>
+
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

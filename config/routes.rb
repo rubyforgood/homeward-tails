@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
-    resources :people, only: %i[new create]
+    resources :people, only: %i[new create edit update]
     resources :contacts, only: %i[new create]
 
     # Staff Routes
@@ -67,6 +67,7 @@ Rails.application.routes.draw do
         end
       end
       resources :people, only: %i[index show], controller: "/organizations/people" do
+        resources :user_roles, only: [:index]
         resources :form_submissions, only: [:index]
       end
 

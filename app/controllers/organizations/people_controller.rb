@@ -1,6 +1,6 @@
 module Organizations
   class PeopleController < Organizations::BaseController
-    layout "dashboard", only: %i[index]
+    layout "dashboard", only: %i[index show]
     include ::Pagy::Backend
 
     skip_before_action :verify_person_in_org, only: %i[new create]
@@ -30,6 +30,16 @@ module Organizations
         flash.now[:alert] = t(".error")
         render :new
       end
+    end
+
+    def edit
+      authorize!
+      @person = Person.find(params[:id])
+    end
+
+    def show
+      authorize!
+      @person = Person.find(params[:id])
     end
 
     private

@@ -1,0 +1,27 @@
+<%= render DashboardPageComponent.new(crumb: :people) do |c| %>
+  <% c.with_header_title { t(:people) } %>
+  <% c.with_body do %>
+    <!-- Ransack Search Form -->
+    <div class="mx-1 row p-4 border rounded-5 mb-5 bg-white">
+      <div class="col-xl-12">
+
+        <%= turbo_frame_tag "profile_details", target: "profile" do %>
+          <%= link_to "Details", staff_person_path(@person), class: "px-4" %>
+        <% end %>
+        <%= turbo_frame_tag "profile_submissions", target: "profile" do %>
+          <%= link_to "Form Submissions",
+          staff_person_form_submissions_path(@person),
+          class: "px-4" %>
+        <% end %>
+        <%= turbo_frame_tag "profile_groups", target: "profile" do %>
+          <%= link_to "Groups",
+          staff_person_user_roles_path(person_id: @person.id),
+          class: "px-4" %>
+        <% end %>
+      </div>
+    </div>
+    <%= turbo_frame_tag "profile" do %>
+      <%= render "form", person: @person %>
+    <% end %>
+  <% end %>
+<% end %>
