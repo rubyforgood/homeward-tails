@@ -59,14 +59,13 @@
               </div>
             </div>
           <% end %>
-
-          <div class="mt-2 d-flex justify-content-end align-items-end gap-1 ">
-            <div class="fst-italic text-black pb-2">Powered By</div>
-            <%= link_to "/", target: "_blank", class: 'btn btn-outline-primary border-0' do %>
+          <div class="mt-5 d-flex justify-content-end align-items-end gap-3 ">
+            <div class="fst-italic text-black">Powered By</div>
+            <%= link_to "/", target: "_blank", class: 'link-primary link-opacity-25-hover border-0' do %>
               <div class="fs-3">
                 <%= t("root.index.title") %>
               </div>
-              <div class="fw-light text-secondary"><%= t("root.index.sub_title") %></div>
+              <div class="fw-light"><%= t("root.index.sub_title") %></div>
             <% end %>
           </div>
         </div>
