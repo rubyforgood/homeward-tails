@@ -89,13 +89,12 @@
             onmouseout: "this.style.filter='brightness(100%)'",
           ) %>
         <% end %>
-
         <% pet_show_message =
           (
             if @example_pet
-              "Unsaved changes will be lost. Are you sure you want to leave this page?"
+              t(".unsaved_changes")
             else
-              "Unsaved changes will be lost. You must create at least one Pet to view these changes live. Are you sure you want to leave this page?"
+              "#{t(".pet_show_info")} #{t(".unsaved_changes")}"
             end
           ) %>
         <% pet_show_path =
@@ -115,7 +114,7 @@
       </div>
       <%= render partial: "organizations/shared/tooltip",
       locals: {
-        text: "You must create at least one Pet to view these changes live",
+        text: t(".pet_show_info"),
       } %>
 
     </div>

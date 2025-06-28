@@ -449,6 +449,9 @@ en:
       custom_pages:
         update:
           success: "Page text updated successfully!"
+        form:
+          unsaved_changes: "Unsaved changes will be lost. Are you sure you want to leave this page?"
+          pet_show_info: "You must create at least one Pet to view these changes live."
       matches:
         create:
           success: "Pet successfully adopted."
