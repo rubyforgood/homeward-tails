@@ -2,7 +2,8 @@
   <div class="row mt-3">
     <div class="col-lg-6 ">
 
-      <h3 class="my-3">Landing page details</h3>
+      <h3 class="my-3"><%= t(".details_header") %>
+      </h3>
 
       <div class="card p-3">
         <div class="mb-6">
@@ -17,7 +18,7 @@
             <%= form.file_field :hero_image, label: "Hero Image", class: "form-control" %>
           </div>
           <small class="form-text text-muted">
-            Image must be .png or .jpeg under 2MB
+            <%= t(".image_requirements") %>
           </small>
         </div>
 
@@ -37,9 +38,9 @@
             <% @custom_page.about_us_images.each do |image| %>
               <%= form.hidden_field :about_us_images, multiple: true, value: image.signed_id %>
             <% end %>
-            <small class="form-text text-muted">You can upload up to 2 images.
+            <small class="form-text text-muted"><%= t(".upload_limit") %>
               <br>
-              Images must be .png or .jpeg under 2MB
+              <%= t(".image_requirements") %>
             </small>
           </div>
         </div>
@@ -62,11 +63,14 @@
     </div>
 
     <div class=" col-lg-6 col-12 d-none d-lg-flex flex-column align-items-center">
-      <h4>Click each section to view your changes live
+      <h4><%= t(".view_changes") %>
       </h4>
-      <p>*Changes must be saved before viewing</p>
+      <p><%= t(".changes_must_be_saved") %>
+      </p>
       <div class="col-10 shadow-lg mb-auto" style="max-width: 500px">
-        <%= link_to root_path, class: "d-inline-block", data: { turbo_method: :get, turbo_confirm: "Unsaved changes will be lost. Are you sure you want to leave this page?" } do %>
+        <%= link_to root_path, class: "d-inline-block",
+                                data: { turbo_method: :get,
+                                        turbo_confirm: t(".unsaved_changes") } do %>
           <%= image_tag(
             "custom_page_hero.png",
             class: "w-100",
@@ -76,11 +80,11 @@
           ) %>
         <% end %>
 
+        <%= image_tag("custom_page_adopt.png", class: "w-100") %>
         <%= link_to home_index_path(anchor: "about_us"), 
                                     class: "d-inline-block",
                                     data: { turbo: :false},
-                                    onclick: "return confirm('Unsaved changes will be lost. Are you sure you want to leave this page?');" do %>
-          <%= image_tag("custom_page_adopt.png", class: "w-100") %>
+                                    onclick: "return confirm('#{t(".unsaved_changes")}' );" do %>
           <%= image_tag(
             "custom_page_about_us.png",
             class: "w-100",
