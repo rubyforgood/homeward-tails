@@ -1,12 +1,20 @@
 module Organizations
   class PeopleController < Organizations::BaseController
-    skip_before_action :verify_person_in_org
+    layout "dashboard", only: %i[index]
+    include ::Pagy::Backend
+
+    skip_before_action :verify_person_in_org, only: %i[new create]
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist, only: %i[new create]
 
     def index
       authorize!
-      @people = Person.all
+
+      @q = authorized_scope(Person.all).ransack(params[:q])
+      @pagy, @people_accounts = pagy(
+        @q.result,
+        limit: 10
+      )
     end
 
     def new
