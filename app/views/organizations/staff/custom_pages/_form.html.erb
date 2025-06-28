@@ -65,28 +65,38 @@
 
     <div class="col-lg-6 col-12 d-none d-lg-flex justify-content-center">
       <div class="col-10 shadow-lg mb-auto" style="max-width: 500px">
-        <%= image_tag(
-          "custom_page_hero.png",
-          class: "w-100",
-          style: "border: 3px solid #754FFE; transition: filter 0.3s;",
-          onmouseover: "this.style.filter='brightness(70%)'",
-          onmouseout: "this.style.filter='brightness(100%)'",
-        ) %>
-        <%= image_tag("custom_page_adopt.png", class: "w-100") %>
-        <%= image_tag(
-          "custom_page_about_us.png",
-          class: "w-100",
-          style: "border: 3px solid #754FFE; transition: filter 0.3s;",
-          onmouseover: "this.style.filter='brightness(70%)'",
-          onmouseout: "this.style.filter='brightness(100%)'",
-        ) %>
-        <%= image_tag(
-          "custom_page_adoptable_pet.png",
-          class: "w-100 mt-5",
-          style: "border: 3px solid #754FFE; transition: filter 0.3s;",
-          onmouseover: "this.style.filter='brightness(70%)'",
-          onmouseout: "this.style.filter='brightness(100%)'",
-        ) %>
+        <%= link_to root_path, class: "d-inline-block", data: { turbo_method: :get, turbo_confirm: "Unsaved changes will be lost. Are you sure you want to leave this page?" } do %>
+          <%= image_tag(
+            "custom_page_hero.png",
+            class: "w-100",
+            style: "border: 3px solid #754FFE; transition: filter 0.3s;",
+            onmouseover: "this.style.filter='brightness(70%)'",
+            onmouseout: "this.style.filter='brightness(100%)'",
+          ) %>
+        <% end %>
+
+        <%= link_to home_index_path(anchor: "about_us"), 
+                                    class: "d-inline-block",
+                                    data: { turbo: :false},
+                                    onclick: "return confirm('Unsaved changes will be lost. Are you sure you want to leave this page?');" do %>
+          <%= image_tag("custom_page_adopt.png", class: "w-100") %>
+          <%= image_tag(
+            "custom_page_about_us.png",
+            class: "w-100",
+            style: "border: 3px solid #754FFE; transition: filter 0.3s;",
+            onmouseover: "this.style.filter='brightness(70%)'",
+            onmouseout: "this.style.filter='brightness(100%)'",
+          ) %>
+        <% end %>
+        <%= link_to root_path, class: "d-inline-block", data: { turbo_method: :get, turbo_confirm: "Unsaved changes will be lost. Are you sure you want to leave this page?" } do %>
+          <%= image_tag(
+            "custom_page_adoptable_pet.png",
+            class: "w-100 mt-5",
+            style: "border: 3px solid #754FFE; transition: filter 0.3s;",
+            onmouseover: "this.style.filter='brightness(70%)'",
+            onmouseout: "this.style.filter='brightness(100%)'",
+          ) %>
+        <% end %>
       </div>
 
     </div>
