@@ -10,13 +10,17 @@
             <div class='d-flex justify-content-center'>
               <div class='d-flex flex-column align-items-center mb-3'>
                 <% if Current.organization.avatar.attached? %>
-                  <%= image_tag Current.organization.avatar, alt: current_organization_name, title: current_organization_name, height: 75 %>
+                  <%= image_tag Current.organization.avatar,
+                  alt: current_organization_name,
+                  title: current_organization_name,
+                  height: 75 %>
                 <% end %>
                 <h1><%= Current.tenant.name %></h1>
               </div>
             </div>
             <h1 class="mb-1 fw-bold">Log in</h1>
-            <span>Don’t have an account? <%= link_to "Sign up", new_user_registration_path, class: 'small fw-bold' %></span>
+            <span>Don’t have an account?
+              <%= link_to "Sign up", new_user_registration_path, class: "small fw-bold" %></span>
           </div>
 
           <%= render "devise/shared/google_oauth_button" %>
@@ -26,29 +30,44 @@
               <div class="alert alert-danger" role="alert">
                 <%= alert %>
               </div>
-            <% end%>
+            <% end %>
           </div>
           <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+            <%= f.email_field :email,
+                          autofocus: true,
+                          autocomplete: "email",
+                          class: "form-control" %>
 
-            <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
-
+            <%= f.password_field :password,
+                             autocomplete: "current-password",
+                             class: "form-control" %>
             <!-- Checkbox -->
             <div class="d-lg-flex justify-content-between align-items-center mb-4">
               <div>
                 <%= f.check_box :remember_me %>
               </div>
               <div>
-                <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'small text-end' %>
+                <%= link_to "Forgot your password?",
+                new_password_path(resource_name),
+                class: "small text-end" %>
               </div>
             </div>
             <div class='mb-1'>
               <div class="d-grid">
-                <%= f.submit "Log in", class: 'btn btn-primary' %>
-               
+                <%= f.submit "Log in", class: "btn btn-primary" %>
+
               </div>
             </div>
           <% end %>
+          <div class="mt-5 d-flex justify-content-end align-items-end gap-3">
+            <div class="fst-italic text-black">Powered By</div>
+            <%= link_to "/", target: "_blank", class: "link-primary link-opacity-25-hover" do %>
+              <div class="fs-3">
+                <%= t("root.index.title") %>
+              </div>
+              <div class="fw-light"><%= t("root.index.sub_title") %></div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
