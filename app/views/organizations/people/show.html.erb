@@ -1,7 +1,9 @@
 <%= render DashboardPageComponent.new(crumb: :people) do |c| %>
   <% c.with_header_title { t(:people) } %>
   <% c.with_body do %>
+    <h3 class="m-2"><%= @person.user.full_name %></h3>  
     <nav>
+
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button
           class="nav-link active"
@@ -25,7 +27,7 @@
         >Form Submissions</button>
       </div>
     </nav>
-    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-content p-3" id="nav-tabContent">
       <%= turbo_frame_tag "details",
         class: "tab-pane fade show active", 
         role:"tabpanel",
