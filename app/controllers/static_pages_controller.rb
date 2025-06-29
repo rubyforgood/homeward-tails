@@ -1,7 +1,7 @@
 class StaticPagesController < ApplicationController
   skip_before_action :authenticate_user!
   skip_verify_authorized only: %i[about_us cookie_policy donate partners
-    privacy_policy terms_and_conditions]
+    privacy_policy terms_and_conditions organizations]
 
   before_action :require_no_tenant, only: [:about_us, :partners]
 
@@ -27,6 +27,10 @@ class StaticPagesController < ApplicationController
   end
 
   def cookie_policy
+  end
+
+  def organizations
+    @organizations = Organization.all
   end
 
   private

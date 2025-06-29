@@ -1,0 +1,67 @@
+<section class="pt-5 pb-5 bg-light">
+
+  <div class="container mb-md-5 mt-md-5">
+    <h1 class="text-center fw-bold">Welcome to Homeward Tails</h1>
+    <p class="lead text-center mt-3">
+      One account. Endless tail wags. Discover pets, connect with
+      organizations, and apply to adopt — all in one place.
+    </p>
+  </div>
+</section>
+<!-- Account Features -->
+<section class="container my-5">
+  <h2 class="mb-4">What You Can Do with Your Homeward Tails Account</h2>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      Sign up once, access many organizations</li>
+    <li class="list-group-item">
+      View, like, and apply to adopt pets</li>
+    <li class="list-group-item">
+      Join as many organizations as you like</li>
+    <li class="list-group-item">
+      Keep your profile private or share it selectively</li>
+  </ul>
+</section>
+<!-- Organization Cards -->
+<section class="container my-5">
+  <h2 class="mb-4">Explore Partner Organizations</h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4 ">
+    <% @organizations.each do |org| %>
+      <div class="col">
+        <div class="card h-100 shadow-lg">
+
+          <div class="d-flex justify-content-between p-2 card-header">
+            <div class="d-flex flex-column">
+
+              <h5 class="card-title fs-3"><%= org.name %></h5>
+              <%# height: 40px; %>
+
+              <h6 class="card-subtitle"><%= org.locations.last&.city_town %>,
+                <%= org.locations.last&.province_state %>
+                <%= org.locations.last&.country %></h6>
+            </div>
+
+            <% if org.avatar.attached? %>
+              <%= image_tag(
+                org.avatar,
+                class: "rounded",
+                style: "height:65px;aspect-ratio: 1 / 1;",
+                alt: "#{org.name} logo",
+              ) %>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <h6 class="card-subtitle">About</h6>
+            <p
+              class="card-text flex-grow-1 overflow-hidden"
+              style="height: 100px; text-overflow: ellipsis;"
+            >
+              Short text here.
+            </p>
+            <%= link_to "Visit & Explore", organization_home_path(org), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
