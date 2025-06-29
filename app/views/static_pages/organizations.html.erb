@@ -10,22 +10,34 @@
 </section>
 <!-- Account Features -->
 <section class="container my-5">
-  <h2 class="mb-4">What You Can Do with Your Homeward Tails Account</h2>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      Sign up once, access many organizations</li>
-    <li class="list-group-item">
-      View, like, and apply to adopt pets</li>
-    <li class="list-group-item">
-      Join as many organizations as you like</li>
-    <li class="list-group-item">
-      Keep your profile private or share it selectively</li>
-  </ul>
+  <div class="row justify-content-center">
+    <div class="col col-lg-6 text-center text-lg-start">
+      <h3 class="mb-4">What You Can Do with Your Homeward Tails Account</h3>
+      <ul class="list-group list-group-flush pe-lg-16">
+
+        <li class="list-group-item">
+          Sign up once, access many organizations</li>
+        <li class="list-group-item">
+          View, like, and apply to adopt pets</li>
+        <li class="list-group-item">
+          Join as many organizations as you like</li>
+      </ul>
+    </div>
+
+    <div class="col-3 rounded shadow-lg d-none d-lg-block">
+      <%= image_tag "adopter_dashboard.png", alt: "hero", class: "img-fluid" %>
+    </div>
+  </div>
 </section>
 <!-- Organization Cards -->
 <section class="container my-5">
-  <h2 class="mb-4">Explore Partner Organizations</h2>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4 ">
+  <h2 class="mb-4 text-center">Explore Partner Organizations</h2>
+  <div
+    class="
+      row justify-content-center row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4
+      g-4
+    "
+  >
     <% @organizations.each do |org| %>
       <div class="col">
         <div class="card h-100 shadow-lg">
