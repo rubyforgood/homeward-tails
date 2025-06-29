@@ -4,9 +4,9 @@
     <h3 class="m-2"><%= @person.user.full_name %></h3>  
     <nav>
 
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <div class="nav nav-tabs d-flex-inline flex-column flex-sm-row" id="nav-tab" role="tablist">
         <button
-          class="nav-link active"
+          class="nav-link active text-sm-center"
           id="nav-details"
           data-bs-toggle="tab"
           data-bs-target="#details"
@@ -16,7 +16,7 @@
           aria-selected="true"
         >Details</button>
         <button
-          class="nav-link"
+          class="nav-link text-sm-center"
           id="nav-form-submissions"
           data-bs-toggle="tab"
           data-bs-target="#form_submissions"
