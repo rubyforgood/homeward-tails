@@ -59,14 +59,8 @@
               </div>
             </div>
           <% end %>
-          <div class="mt-5 d-flex justify-content-end align-items-end gap-3">
-            <div class="fst-italic text-black">Powered By</div>
-            <%= link_to "/", target: "_blank", class: "link-primary link-opacity-25-hover" do %>
-              <div class="fs-3">
-                <%= t("root.index.title") %>
-              </div>
-              <div class="fw-light"><%= t("root.index.sub_title") %></div>
-            <% end %>
+          <div class="mt-5 d-flex justify-content-end">
+            <%= render "shared/powered_by", url: "/info", target: "_blank" %>
           </div>
         </div>
       </div>
