@@ -66,11 +66,8 @@
           </div>
           <div class="card-body">
             <h6 class="card-subtitle">About</h6>
-            <p
-              class="card-text flex-grow-1 overflow-hidden"
-              style="height: 100px; text-overflow: ellipsis;"
-            >
-              Short text here.
+            <p class="card-text flex-grow-1 overflow-hidden" style="height: 125px;">
+              <%= truncate(org.custom_page.about, length: 170) %>
             </p>
             <%= link_to "Visit & Explore", organization_home_path(org), class: "btn btn-primary" %>
           </div>

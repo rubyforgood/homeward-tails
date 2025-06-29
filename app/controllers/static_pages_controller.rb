@@ -30,7 +30,8 @@ class StaticPagesController < ApplicationController
   end
 
   def organizations
-    @organizations = Organization.all
+    @organizations = Organization
+      .includes(:custom_page, :locations)
   end
 
   private
