@@ -67,7 +67,6 @@ Rails.application.routes.draw do
         end
       end
       resources :people, only: %i[index show], controller: "/organizations/people" do
-        resources :user_roles, only: [:index]
         resources :form_submissions, only: [:index]
       end
 
