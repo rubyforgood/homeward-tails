@@ -22,20 +22,13 @@
       <li class='nav-link'>
         <%= active_link_to t('root.index.partners'), partners_path %>
       </li>
-  
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarBrowse", data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-display="static">
-          <%= t('.dropdown_title') %>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-arrow" aria-labelledby="navbarBrowse">
-          <% Organization.all.each do |org| %>
-            <li>
-              <%= link_to org.name, organization_home_path(org), class: 'dropdown-item' %>
-            </li>
-          <% end %>
-        </ul>
+
+
+      <li class='nav-link'>
+        <%= active_link_to t('.dropdown_title'), organization_info_path %>
       </li>
+  
     </ul>
-  </div>
+    </div>
   </div>
 </nav>
