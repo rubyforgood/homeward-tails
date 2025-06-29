@@ -1,11 +1,9 @@
 <div class="row">
   <div class="col-md-8 mx-auto card p-5 bigger">
-    <h4>Email:
-      <%= person.email %>
-    </h4>
     <%= bootstrap_form_with model: person do |form| %>
 
       <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :email, value: current_user.email %>
 
       <div class='form-group'>
         <%= form.text_field :first_name, value: person.first_name, class: "form-control" %>
