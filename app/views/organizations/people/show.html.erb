@@ -1,27 +1,48 @@
 <%= render DashboardPageComponent.new(crumb: :people) do |c| %>
   <% c.with_header_title { t(:people) } %>
   <% c.with_body do %>
-    <!-- Ransack Search Form -->
-    <div class="mx-1 row p-4 border rounded-5 mb-5 bg-white">
-      <div class="col-xl-12">
-
-        <%= turbo_frame_tag "profile_details", target: "profile" do %>
-          <%= link_to "Details", staff_person_path(@person), class: "px-4" %>
-        <% end %>
-        <%= turbo_frame_tag "profile_submissions", target: "profile" do %>
-          <%= link_to "Form Submissions",
-          staff_person_form_submissions_path(@person),
-          class: "px-4" %>
-        <% end %>
-        <%= turbo_frame_tag "profile_groups", target: "profile" do %>
-          <%= link_to "Groups",
-          staff_person_user_roles_path(person_id: @person.id),
-          class: "px-4" %>
-        <% end %>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button
+          class="nav-link active"
+          id="nav-details"
+          data-bs-toggle="tab"
+          data-bs-target="#details"
+          type="button"
+          role="tab"
+          aria-controls="nav-details"
+          aria-selected="true"
+        >Details</button>
+        <button
+          class="nav-link"
+          id="nav-form-submissions"
+          data-bs-toggle="tab"
+          data-bs-target="#form_submissions"
+          type="button"
+          role="tab"
+          aria-controls="nav-details"
+          aria-selected="true"
+        >Form Submissions</button>
       </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <%= turbo_frame_tag "details",
+        class: "tab-pane fade show active", 
+        role:"tabpanel",
+        aria_labelledby:"details",
+        tabindex:"0" do %>
+        <%= render "form", person: @person %>
+      <% end %>
+      <%= turbo_frame_tag "form_submissions",
+        src: staff_person_form_submissions_path(@person),
+        loading: "lazy",
+        class: "tab-pane fade", 
+        role:"tabpanel",
+        aria_labelledby:"form_subbmissions",
+        tabindex:"0" do %>
+      <% end %>
     </div>
-    <%= turbo_frame_tag "profile" do %>
-      <%= render "form", person: @person %>
-    <% end %>
+    </div>
+
   <% end %>
 <% end %>
