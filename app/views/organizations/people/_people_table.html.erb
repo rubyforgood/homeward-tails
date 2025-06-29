@@ -13,26 +13,19 @@
         <% people_accounts.each do |person| %>
           <tr>
             <td>
-              <div class="d-flex align-items-center">
-                <div class="position-relative">
-                  <%= render AvatarComponent.new(person.user) %>
-                  <a href="#" class="position-absolute mt-5 ms-n4">
-                    <span class="status bg-success"></span>
-                  </a>
+              <%= link_to staff_person_path(person) do %>
+                <div class="d-flex align-items-center">
+                  <div class="position-relative">
+                    <%= render AvatarComponent.new(person.user) %>
+                  </div>
+                  <h5 class="mb-0 ms-3"><%= "#{person.user.full_name}" %></h5>
                 </div>
-                <%= link_to staff_person_path(person) do  %>
-                <h5 class="mb-0 ms-3"><%= "#{person.user.full_name}" %></h5>
-                <% end %>
-              </div>
+              <% end %>
             </td>
             <td>
               <%= person.created_at.strftime("%d %B, %Y") %>
             </td>
             <td>
-              <%# render "organizations/staff/shared/deactivate_toggle",
-              person: person,
-              person_group: person.person_groups.find_by(group_id: @group_id) %>
-
             </td>
           </tr>
         <% end %>
