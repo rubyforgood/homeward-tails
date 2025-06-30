@@ -14,7 +14,7 @@ class FeedbackController < ApplicationController
     @feedback = Feedback.new(feedback_params)
 
     if @feedback.valid?
-      FeedbackMailer.with(feedback_params).send_feedback.deliver_now
+      FeedbackMailer.with(feedback_params).send_feedback.deliver_later
       redirect_to path, notice: I18n.t("contacts.create.success")
     else
       render :new, status: :unprocessable_entity

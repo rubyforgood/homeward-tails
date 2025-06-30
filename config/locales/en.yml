@@ -114,6 +114,7 @@ en:
   root:
     index:
       title: "Homeward Tails"
+      sub_title: "A Ruby For Good project"
       about: "About"
       partners: "Partners"
       pet: "Pets"
@@ -449,6 +450,14 @@ en:
       custom_pages:
         update:
           success: "Page text updated successfully!"
+        form:
+          details_header: "Landing page details"
+          unsaved_changes: "Unsaved changes will be lost. Are you sure you want to leave this page?"
+          pet_show_info: "You must create at least one Pet to view these changes live."
+          view_changes: "Click each section to view your changes live"
+          changes_must_be_saved: "*Changes must be saved before viewing" 
+          image_requirements: "Image must be .png or .jpeg under 2MB"
+          upload_limit: "You can upload up to 2 images."
       matches:
         create:
           success: "Pet successfully adopted."

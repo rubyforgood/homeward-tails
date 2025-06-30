@@ -1,17 +1,26 @@
 <section id="hero">
-  <div class="bg-image" style="background-image: url('<%= Current.organization.custom_page&.hero_image&.attached? ? url_for(Current.organization.custom_page.hero_image) : asset_path('dog-run.png') %>'); background-position: center; background-size: cover;">
-    <div class="mask py-lg-16 py-5" style="background-color: rgba(255, 255, 255, 0.8);">
+  <div
+    class="bg-image"
+    style="background-image: url('<%= Current.organization.custom_page&.hero_image&.attached? ? url_for(Current.organization.custom_page.hero_image) : asset_path('dog-run.png') %>'); background-position: center; background-size: cover;"
+  >
+    <div
+      class="mask py-lg-16 py-5"
+      style="background-color: rgba(255, 255, 255, 0.8);"
+    >
       <div class="container">
         <div class="d-flex row justify-content-center align-items-center">
           <div class="d-flex justify-content-center">
             <h1 class="display-2 fw-bold mb-1 text-primary "><%= Current.organization.name %></h1>
           </div>
           <div class="d-flex justify-content-center">
-            <p class="lead mb-4 text-black"><%= Current.organization.custom_page&.hero || t('.every_paw') %></p>
+            <p class="lead mb-4 text-black"><%= Current.organization.custom_page&.hero || t(".every_paw") %></p>
           </div>
           <div class="d-flex justify-content-center">
             <% if user_signed_in? %>
-              <%= render partial: "organizations/shared/unique_species", locals: { adoptable_unique_species: @adoptable_unique_species } %>
+              <%= render partial: "organizations/shared/unique_species",
+              locals: {
+                adoptable_unique_species: @adoptable_unique_species,
+              } %>
             <% else %>
               <%= link_to t("general.become_an_adopter"),
               new_user_registration_path,
@@ -23,32 +32,51 @@
     </div>
   </div>
 </section>
-
 <!--//? ADOPTION -->
 <section class="pt-5 pb-5" id="adopt">
   <div class="container mb-md-5 mt-md-5 d-flex flex-column align-items-center">
-
     <!--//? section heading -->
     <div class="mb-5">
       <h2 class="section-heading text-uppercase text-xl">
-        <%= t('.adopt')%>
+        <%= t(".adopt") %>
       </h2>
     </div>
     <!--//? bootstrap cards -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4 w-100 justify-content-center">
+    <div
+      class="
+        row row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4 w-100 justify-content-center
+      "
+    >
       <% @pets.each do |pet| %>
         <%= link_to adoptable_pet_path(pet) do %>
           <div class="col">
             <div class="card featured-pets h-100 mt-4 mt-lg-0">
-              <%= image_tag(pet.images.first, alt: pet.name, height: 275, style: "object-fit: cover;") %>
+              <%= image_tag(
+                pet.images.first,
+                alt: pet.name,
+                height: 275,
+                style: "object-fit: cover;",
+              ) %>
               <div class="card-img-overlay p-0"></div>
               <div class="card-footer">
                 <p class="card-text text-black">
-                  <%= t('.adopt')%> <%= pet.name %>
+                  <%= t(".adopt") %>
+                  <%= pet.name %>
                 </p>
-                <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 448 512">
-                  <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                  <path fill="#5E3FCB" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="22"
+                  width="22"
+                  viewBox="0 0 448 512"
+                >
+                  <!--!Font Awesome Free 6.5.1 by @fontawesome -
+                  https://fontawesome.com License -
+                  https://fontawesome.com/license/free Copyright 2024
+                  Fonticons, Inc.-->
+                  <path
+                    fill="#5E3FCB"
+                    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                  />
                 </svg>
               </div>
             </div>
@@ -58,60 +86,79 @@
     </div>
   </div>
 </section>
-
 <!--//? how to apply section ?//-->
 <section class="pt-5 pb-5" id="how-to-apply">
   <div class="container mb-md-5 mt-md-5">
     <!--//? section header -->
     <div class="text-center mb-5">
       <h2 class="section-heading text-uppercase text-xl">
-        <%= t('.how_to_apply') %>
+        <%= t(".how_to_apply") %>
       </h2>
     </div>
-    <!--//? cards section - info (not bootstrap card)  -->
-    <div class="row justify-content-center text-center row-cols-1 row-cols-md-2 row-cols-lg-4 mt-4">
+    <!--//? cards section - info (not bootstrap card) -->
+    <div
+      class="
+        row justify-content-center text-center row-cols-1 row-cols-md-2 row-cols-lg-4
+        mt-4
+      "
+    >
       <div class="col">
         <div class="h-100 mt-4 mt-lg-0">
-          <%= image_tag('paw-account.svg', class: 'w-50 px-4 px-lg-0',
-          style: "object-fit: cover;", alt: "Create an account") %>
+          <%= image_tag(
+            "paw-account.svg",
+            class: "w-50 px-4 px-lg-0",
+            style: "object-fit: cover;",
+            alt: "Create an account",
+          ) %>
           <p class="card-text text-black fs-5 mt-2">
-            <%= t('.create_account') %>
+            <%= t(".create_account") %>
           </p>
         </div>
       </div>
       <div class="col">
         <div class="h-100 mt-4 mt-lg-0">
-          <%= image_tag('paw-profile.svg', class: 'w-50 px-4 px-lg-0',
-          style: "object-fit: cover;", alt: "Complete questionnaire") %>
+          <%= image_tag(
+            "paw-profile.svg",
+            class: "w-50 px-4 px-lg-0",
+            style: "object-fit: cover;",
+            alt: "Complete questionnaire",
+          ) %>
           <p class="card-text text-black fs-5 mt-2">
-            <%= t('.complete_questionaire') %>
+            <%= t(".complete_questionaire") %>
           </p>
         </div>
       </div>
       <div class="col">
         <div class="h-100 mt-4 mt-lg-0">
-          <%= image_tag('paw-account.svg', class: 'w-50 px-4 px-lg-0',
-          style: "object-fit: cover;", alt: "Browse pets") %>
+          <%= image_tag(
+            "paw-account.svg",
+            class: "w-50 px-4 px-lg-0",
+            style: "object-fit: cover;",
+            alt: "Browse pets",
+          ) %>
           <p class="card-text text-black fs-5 mt-2">
-            <%= t('.browse_pets') %>
+            <%= t(".browse_pets") %>
           </p>
         </div>
       </div>
       <div class="col">
         <div class="h-100 mt-4 mt-lg-0">
-          <%= image_tag('paw-account.svg', class: 'w-50 px-4 px-lg-0',
-          style: "object-fit: cover;", alt: "Click apply") %>
+          <%= image_tag(
+            "paw-account.svg",
+            class: "w-50 px-4 px-lg-0",
+            style: "object-fit: cover;",
+            alt: "Click apply",
+          ) %>
           <p class="card-text text-black fs-5 mt-2">
-            <%= t('.click_apply') %>
+            <%= t(".click_apply") %>
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-
 <!-- ABOUT US-->
+<%= tag.a name: "about_us" %>
 <section class="bg-light pt-5 pb-5" id="about_us">
   <div class="container mb-md-5 mt-md-5">
     <div class="text-center mb-5">
@@ -123,33 +170,50 @@
       <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
         <span class="ratio ratio-1x1 w-100 border border-0">
           <% if Current.organization.custom_page.about_us_images.attached? && Current.organization.custom_page.about_us_images.count > 0 %>
-            <%= image_tag(Current.organization.custom_page.about_us_images.first,
-          class: 'rounded-5 w-100 px-4 px-lg-0', style: "object-fit: cover;") %>
+            <%= image_tag(
+              Current.organization.custom_page.about_us_images.first,
+              class: "rounded-5 w-100 px-4 px-lg-0",
+              style: "object-fit: cover;",
+            ) %>
           <% else %>
-            <%= image_tag('danielle_2.jpg', class: 'rounded-5 w-100 px-4 px-lg-0',
-          style: "object-fit: cover;") %>
+            <%= image_tag(
+              "danielle_2.jpg",
+              class: "rounded-5 w-100 px-4 px-lg-0",
+              style: "object-fit: cover;",
+            ) %>
           <% end %>
         </span>
       </div>
       <div class="col-lg-4 px-4 order-last order-lg-0">
         <p class='justify bigger'>
-          <%= simple_format(Current.organization.custom_page&.about) || "#{Current.organization.name} was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations." %>
+          <%= simple_format(Current.organization.custom_page&.about) ||
+            "#{Current.organization.name} was founded by an incredible group of ladies in April of 2020. Our initial goal was to have both a rescue and a spay/neuter clinic, however, we quickly realized that it would be more efficient to separate into two organizations." %>
         </p>
       </div>
       <div class="col-lg-4 col-md-6 d-none d-md-block mb-4 mb-lg-0">
         <span class="ratio ratio-1x1 w-100 border border-0">
           <% if Current.organization.custom_page.about_us_images.attached? && Current.organization.custom_page.about_us_images.count >= 2 %>
-            <%= image_tag(Current.organization.custom_page.about_us_images.second,
-          class: 'w-100 rounded-5 px-4 px-lg-0', style: "object-fit: cover;") %>
+            <%= image_tag(
+              Current.organization.custom_page.about_us_images.second,
+              class: "w-100 rounded-5 px-4 px-lg-0",
+              style: "object-fit: cover;",
+            ) %>
           <% else %>
 
-            <%= image_tag('danielle_3.jpg', class: 'rounded-5 px-4
-                          px-lg-0', style: "object-fit: cover;") %>
+            <%= image_tag(
+              "danielle_3.jpg",
+              class:
+                "rounded-5 px-4
+                                      px-lg-0",
+              style: "object-fit: cover;",
+            ) %>
           <% end %>
         </span>
       </div>
-    </div> <!--row-->
-  </div> <!--container-->
+    </div>
+    <!--row-->
+  </div>
+  <!--container-->
 </section>
 
 <% unless user_signed_in? %>
@@ -157,11 +221,9 @@
   <section class="pt-5 pb-5 bg-light" id="cta">
     <div class="container mb-md-5 mt-md-5">
       <div class="row text-center">
-        <div class="col-8 offset-2 border p-5 shadow-sm
-                    rounded bg-white">
-          <h3 class='mb-4'><%= t('.become_adopter_now') %></h3>
-          <%= link_to 'Sign Up', new_user_registration_path ,
-                      class: 'btn btn-primary' %>
+        <div class="col-8 offset-2 border p-5 shadow-sm rounded bg-white">
+          <h3 class='mb-4'><%= t(".become_adopter_now") %></h3>
+          <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>

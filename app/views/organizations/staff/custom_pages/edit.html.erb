@@ -1,4 +1,3 @@
-
 <%= render DashboardPageComponent.new(crumb: :custom_page) do |c| %>
   <% c.with_header_title { "Custom Page" } %>
   <% c.with_body do %>
@@ -6,6 +5,14 @@
       <div>
         <div>
           <%= render "form", custom_page: @custom_page %>
+
+          <div class="mt-6">
+            <div class="mt-6">
+              <div class="mt-6">
+                <%= render ImageAttachmentTableComponent.new(images: @custom_page.images) %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

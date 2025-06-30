@@ -107,7 +107,7 @@ class Organizations::CreateService
       user: @user,
       organization: @organization
     )
-      .create_new_org_and_admin.deliver_now
+      .create_new_org_and_admin.deliver_later
   end
 
   def create_custom_page

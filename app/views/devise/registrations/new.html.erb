@@ -9,7 +9,10 @@
             <div class='d-flex justify-content-center'>
               <div class='d-flex flex-column align-items-center mb-3'>
                 <% if Current.organization.avatar.attached? %>
-                  <%= image_tag Current.organization.avatar, alt: current_organization_name, title: current_organization_name, height: 75 %>
+                  <%= image_tag Current.organization.avatar,
+                  alt: current_organization_name,
+                  title: current_organization_name,
+                  height: 75 %>
                 <% end %>
                 <h1><%= Current.tenant.name %></h1>
               </div>
@@ -22,9 +25,10 @@
           <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <div class="form-group mb-3 bigger">
               <%= f.email_field :email,
-                                autofocus: true,
-                                required: true,
-                                autocomplete: "email", class: 'form-control' %>
+                            autofocus: true,
+                            required: true,
+                            autocomplete: "email",
+                            class: "form-control" %>
             </div>
 
             <!-- Person name fields -->
@@ -46,29 +50,43 @@
 
             <div class="form-group mb-3 bigger">
               <%= f.password_field :password,
-                                  required: true,
-                                  autocomplete: "new-password",
-                                  class: 'form-control' %>
+                               required: true,
+                               autocomplete: "new-password",
+                               class: "form-control" %>
               <% if @minimum_password_length %>
-                <em>(<%= @minimum_password_length %> characters minimum)</em>
-              <% end %><br />
+                <em>(<%= @minimum_password_length %>
+                  characters minimum)</em>
+              <% end %><br/>
             </div>
 
             <%= f.check_box :tos_agreement, required: true do %>
-              <span>I agree to the </span>
-              <%= link_to 'Terms and Conditions', terms_and_conditions_path,
-                          target: '_blank', class: 'text-decoration-none' %>
-              <span>& </span>
-              <%= link_to 'Privacy Policy', privacy_policy_path,
-                          target: '_blank', class: 'text-decoration-none' %>
+              <span>I agree to the
+              </span>
+              <%= link_to "Terms and Conditions",
+              terms_and_conditions_path,
+              target: "_blank",
+              class: "text-decoration-none" %>
+              <span>&
+              </span>
+              <%= link_to "Privacy Policy",
+              privacy_policy_path,
+              target: "_blank",
+              class: "text-decoration-none" %>
             <% end %>
 
             <div class="actions">
-              <%= f.submit "Create Account", class: 'btn btn-outline-dark mb-3 bigger',
-                          data: { turbo: false } %>
+              <%= f.submit "Create Account",
+                       class: "btn btn-outline-dark mb-3 bigger",
+                       data: {
+                         turbo: false,
+                       } %>
             </div>
             <%= render "devise/shared/links" %>
           <% end %>
+
+          <div class="d-flex justify-content-end">
+            <%= render "shared/powered_by", url: "/info", target: "_blank" %>
+          </div>
         </div>
       </div>
     </div>

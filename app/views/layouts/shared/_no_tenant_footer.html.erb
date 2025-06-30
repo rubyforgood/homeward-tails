@@ -1,36 +1,41 @@
 <!-- footer -->
 <footer class="pt-lg-10 pt-5 footer bg-white">
   <div class="container">
-    <div class="row align-items-center">
-        <div class="col-12 col-sm-auto px-3">
-          <h3 class="fw-bold" style="color: #000000;"><%= t('.title') %></h3>
-        </div>
-        <div class="col-12 col-md col-sm ms-sm-2 ms-2">
-          <ul class="list-unstyled d-flex flex-column flex-sm-row justify-content-start mb-0">
-            <li class="mb-2 mb-sm-0 mx-sm-3">
-              <%= active_link_to t('root.index.about'), about_us_path, class: 'nav-link p-0' %>
-            </li>
-            <li class="mb-2 mb-sm-0 mx-sm-3">
-              <%= active_link_to t('root.index.partners'), partners_path, class: 'nav-link p-0' %>
-            </li>
-            </ul>
-        </div>
+    <div class="row align-items-end p-2">
+      <div class="col-12 col-sm-auto">
+        <%= render "shared/powered_by" %>
+      </div>
+      <div class="col-12 col-md col-sm ms-sm-2 ms-2">
+        <ul
+          class="
+            list-unstyled d-flex flex-column flex-sm-row justify-content-start mb-0
+          "
+        >
+          <li class="mb-2 mb-sm-0 mx-sm-3">
+            <%= active_link_to t("root.index.about"), about_us_path, class: "nav-link p-0" %>
+          </li>
+          <li class="mb-2 mb-sm-0 mx-sm-3">
+            <%= active_link_to t("root.index.partners"), partners_path, class: "nav-link p-0" %>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="row align-items-center g-0 border-top py-2">
-             <!-- Desc -->
-             <div class="col-md-6 col-12 text-center text-md-start">
-                 <span>© <span id="copyright">
-                     <%= Time.now.year %>
-                 </span><%= t('.rights') %></span>
-             </div>
-               <!-- Links -->
-             <div class="col-12 col-md-6">
-                 <nav class="nav nav-footer justify-content-center justify-content-md-end">
-                     <a class="nav-link" href="#"><%= t('.policy') %></a>
-                     <a class="nav-link" href="#"><%= t('.cookie') %></a>
-                     <a class="nav-link" href="#"><%= t('.terms') %></a>
-                 </nav>
-             </div>
+      <!-- Desc -->
+      <div class="col-md-6 col-12 text-center text-md-start">
+        <span>©
+          <span id="copyright">
+            <%= Time.now.year %>
+          </span><%= t(".rights") %></span>
       </div>
+      <!-- Links -->
+      <div class="col-12 col-md-6">
+        <nav class="nav nav-footer justify-content-center justify-content-md-end">
+          <a class="nav-link" href="#"><%= t(".policy") %></a>
+          <a class="nav-link" href="#"><%= t(".cookie") %></a>
+          <a class="nav-link" href="#"><%= t(".terms") %></a>
+        </nav>
+      </div>
+    </div>
   </div>
 </footer>

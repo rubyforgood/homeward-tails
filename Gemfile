@@ -68,8 +68,8 @@ gem "dartsass-rails"
 # Active storage validations
 gem "active_storage_validations"
 
-# Use Azure Blob Storage for Active Storage
-gem "azure-storage-blob", "~> 2.0", require: false
+# Use Azure Blob for Active Storage
+gem "azure-blob", require: false
 
 # validate adopter phone numbers
 gem "phonelib"
@@ -113,7 +113,7 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.3"
+gem "strong_migrations", "~> 2.4"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.27"
