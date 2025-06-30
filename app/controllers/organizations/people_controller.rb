@@ -1,8 +1,21 @@
 module Organizations
   class PeopleController < Organizations::BaseController
-    skip_before_action :verify_person_in_org
+    layout "dashboard", only: %i[index show]
+    include ::Pagy::Backend
+
+    skip_before_action :verify_person_in_org, only: %i[new create]
     skip_verify_authorized only: %i[new create]
-    before_action :validate_person_does_not_exist
+    before_action :validate_person_does_not_exist, only: %i[new create]
+
+    def index
+      authorize!
+
+      @q = authorized_scope(Person.all).ransack(params[:q])
+      @pagy, @people_accounts = pagy(
+        @q.result,
+        limit: 10
+      )
+    end
 
     def new
       @person = Person.new
@@ -17,6 +30,16 @@ module Organizations
         flash.now[:alert] = t(".error")
         render :new
       end
+    end
+
+    def edit
+      authorize!
+      @person = Person.find(params[:id])
+    end
+
+    def show
+      authorize!
+      @person = Person.find(params[:id])
     end
 
     private
