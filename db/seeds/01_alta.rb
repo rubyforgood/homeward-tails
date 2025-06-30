@@ -27,8 +27,7 @@ ActsAsTenant.with_tenant(@organization) do
     email: "staff@alta.com",
     first_name: "Andy",
     last_name: "Peters",
-    user_id: @user_staff_one.id,
-    organization: @organization
+    user_id: @user_staff_one.id
   )
 
   @staff_one.add_group(:super_admin)

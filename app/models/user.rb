@@ -93,17 +93,6 @@ class User < ApplicationRecord
     }
   end
 
-  def full_name(format = :default)
-    current_person = Current.person || people.first
-    return "" unless current_person
-
-    current_person.full_name(format)
-  end
-
-  def name_initials
-    full_name.split.map { |part| part[0] }.join.upcase
-  end
-
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
   end

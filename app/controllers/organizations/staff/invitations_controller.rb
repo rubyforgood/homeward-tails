@@ -120,11 +120,8 @@ module Organizations
           person.email = @user.email
           person.user_id = @user.id
           if person_params.present?
-            person.first_name = person_params[:first_name] || ""
-            person.last_name = person_params[:last_name] || ""
-          else
-            person.first_name = ""
-            person.last_name = ""
+            person.first_name = person_params[:first_name]
+            person.last_name = person_params[:last_name]
           end
         end
       end

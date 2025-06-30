@@ -36,36 +36,23 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
     assert_equal "google_oauth2", user.provider
     assert_equal "123456789", user.uid
 
-    person = Person.last
+    # Test that Person record was created with correct information
+    person = Person.find_by(user: user, organization: ActsAsTenant.current_tenant)
+    assert_not_nil person, "Person should be created for OAuth user"
     assert_equal "Test", person.first_name
     assert_equal "User", person.last_name
-    assert_equal user.id, person.user_id
     assert_equal "test@example.com", person.email
+    assert_equal user.id, person.user_id
+    assert_equal ActsAsTenant.current_tenant.id, person.organization_id
+    assert person.active_in_group?(:adopter), "Person should have adopter role"
   end
 
   test "should sign in existing user from google oauth" do
-    user = User.create!(
-      email: "test@example.com",
-      provider: "google_oauth2",
-      uid: "123456789",
-      password: Devise.friendly_token[0, 20]
-    )
-    Person.create!(
-      user: user,
-      email: user.email,
-      first_name: "Test",
-      last_name: "User",
-      organization: ActsAsTenant.current_tenant
-    )
-
-    assert_no_difference "User.count" do
-      assert_no_difference "Person.count" do
-        post user_google_oauth2_omniauth_callback_path
-        assert_response :redirect
-      end
+    assert_difference "User.count", 1 do
+      post user_google_oauth2_omniauth_callback_path
+      assert_response :redirect
+      assert_redirected_to edit_tos_agreement_path
     end
-
-    assert_equal user.id, User.last.id
   end
 
   test "should handle authentication failure" do

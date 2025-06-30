@@ -10,7 +10,7 @@ class ContactsMailerTest < ActionMailer::TestCase
     Current.stubs(:person).returns(person)
 
     assert_emails 1 do
-      @contact_email = ContactsMailer.with(name: sender.full_name,
+      @contact_email = ContactsMailer.with(name: person.full_name,
         email: sender.email,
         message: message)
         .send_message(organization).deliver_now

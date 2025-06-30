@@ -28,19 +28,21 @@
             </div>
 
             <!-- Person name fields -->
-            <div class="form-group mb-3 bigger">
-              <%= text_field_tag "person[first_name]", params.dig(:person, :first_name), 
-                                 placeholder: "First Name", 
-                                 required: true, 
-                                 class: 'form-control' %>
-            </div>
+            <%= f.fields_for :person, @person do |person_fields| %>
+              <div class="form-group mb-3 bigger">
+                <%= person_fields.text_field :first_name,
+                    placeholder: "First Name",
+                    required: true,
+                    class: "form-control" %>
+              </div>
 
-            <div class="form-group mb-3 bigger">
-              <%= text_field_tag "person[last_name]", params.dig(:person, :last_name), 
-                                 placeholder: "Last Name", 
-                                 required: true, 
-                                 class: 'form-control' %>
-            </div>
+              <div class="form-group mb-3 bigger">
+                <%= person_fields.text_field :last_name,
+                    placeholder: "Last Name",
+                    required: true,
+                    class: "form-control" %>
+              </div>
+            <% end %>
 
             <div class="form-group mb-3 bigger">
               <%= f.password_field :password,

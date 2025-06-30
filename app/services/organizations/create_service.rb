@@ -50,7 +50,7 @@ class Organizations::CreateService
       send_email
       create_custom_page
 
-      {organization: @organization, user: @user}
+      {organization: @organization, user: @user, person: @person}
     end
   rescue => e
     raise "An error occurred: #{e.message}"

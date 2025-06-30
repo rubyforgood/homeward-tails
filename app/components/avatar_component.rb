@@ -20,12 +20,15 @@ class AvatarComponent < ApplicationComponent
   end
 
   def initials
-    user.name_initials
+    name = user.first_person_name
+    [name[:first_name], name[:last_name]]
+      .map { |n| n.to_s[0] }
+      .join
+      .upcase
   end
 
   def alt
-    name = user.full_name
-    name.present? ? "#{name}'s avatar" : "User avatar"
+    "User avatar"
   end
 
   def container_classes

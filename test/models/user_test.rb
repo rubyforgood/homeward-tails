@@ -15,52 +15,6 @@ class UserTest < ActiveSupport::TestCase
     should validate_presence_of(:email)
   end
 
-  context "#full_name" do
-    setup do
-      @organization = create(:organization)
-      @user = create(:user)
-      @person = create(:person, user: @user, organization: @organization, first_name: "First", last_name: "Last")
-    end
-
-    context "format is :default" do
-      should "return `First Last` from current person" do
-        Current.stubs(:person).returns(@person)
-
-        assert_equal "First Last", @user.full_name
-      end
-
-      should "return `First Last` from first person when no current person" do
-        Current.stubs(:person).returns(nil)
-        @user.stubs(:people).returns([@person])
-
-        assert_equal "First Last", @user.full_name
-      end
-
-      should "return empty string when no person exists" do
-        Current.stubs(:person).returns(nil)
-        @user.stubs(:people).returns([])
-
-        assert_equal "", @user.full_name
-      end
-    end
-
-    context "format is :last_first" do
-      should "return `Last, First` from current person" do
-        Current.stubs(:person).returns(@person)
-
-        assert_equal "Last, First", @user.full_name(:last_first)
-      end
-    end
-
-    context "format is unsupported" do
-      should "delegate to person and raise ArgumentError" do
-        Current.stubs(:person).returns(@person)
-
-        assert_raises(ArgumentError) { @user.full_name(:foobar) }
-      end
-    end
-  end
-
   context "#first_person_name" do
     should "return name from first person record" do
       organization = create(:organization)
@@ -79,38 +33,6 @@ class UserTest < ActiveSupport::TestCase
       result = user.first_person_name
       assert_equal "", result[:first_name]
       assert_equal "", result[:last_name]
-    end
-  end
-
-  context "#name_initials" do
-    should "return initials from current person" do
-      organization = create(:organization)
-      user = create(:user)
-      person = create(:person, user: user, organization: organization, first_name: "John", last_name: "Doe")
-
-      Current.stubs(:person).returns(person)
-
-      assert_equal "JD", user.name_initials
-    end
-
-    should "return initials from first person when no current person" do
-      organization = create(:organization)
-      user = create(:user)
-      person = create(:person, user: user, organization: organization, first_name: "Jane", last_name: "Smith")
-
-      Current.stubs(:person).returns(nil)
-      user.stubs(:people).returns([person])
-
-      assert_equal "JS", user.name_initials
-    end
-
-    should "return empty string when no person exists" do
-      user = create(:user)
-
-      Current.stubs(:person).returns(nil)
-      user.stubs(:people).returns([])
-
-      assert_equal "", user.name_initials
     end
   end
 

@@ -14,7 +14,7 @@
               <!-- Bg -->
               <div
                 class="rounded-top"
-                style="background: url('<%= asset_path('background/profile-bg.jpg') %>') no-repeat; background-size: cover; height: 100px;"
+                style="background: url(<%= asset_path("background/profile-bg.jpg") %>) no-repeat; background-size: cover; height: 100px;"
               ></div>
               <div
                 class="
@@ -31,7 +31,7 @@
                       <%= render AvatarComponent.new(current_user, size: :xl) %>
                     </div>
                     <div class="lh-1">
-                      <h2 class="mb-0"><%= "#{current_user.full_name}" %></h2>
+                      <h2 class="mb-0"><%= Current.person&.full_name || "User" %></h2>
                     </div>
                   </div>
                 </div>

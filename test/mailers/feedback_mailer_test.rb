@@ -10,7 +10,7 @@ class FeedbackMailerTest < ActionMailer::TestCase
     Current.stubs(:person).returns(person)
 
     assert_emails 1 do
-      @feedback_email = FeedbackMailer.with(name: sender.full_name,
+      @feedback_email = FeedbackMailer.with(name: person.full_name,
         email: sender.email,
         message: message)
         .send_feedback.deliver_now

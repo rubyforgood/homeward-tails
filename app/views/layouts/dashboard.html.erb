@@ -29,7 +29,7 @@
                       <div class="d-flex">
                         <%= render AvatarComponent.new(current_user) %>
                         <div class="ms-3 lh-1">
-                          <h5 class="mb-1"><%= "#{current_user.full_name}" %></h5>
+                          <h5 class="mb-1"><%= "#{Current.person&.full_name}" %></h5>
                           <p class="mb-0 text-muted"><%= current_user.email %></p>
                         </div>
                       </div>
@@ -48,7 +48,7 @@
                       </li>
                       <li>
                         <%= button_to destroy_user_session_path, method: :delete, class: 'dropdown-item', form: {data: {turbo: false}} do %>
-                          <i class= 'fe fe-power me-2'></i> Sign Out
+                          <i class='fe fe-power me-2'></i> Sign Out
                         <% end %>
                       </li>
                     </ul>

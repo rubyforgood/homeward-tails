@@ -7,13 +7,19 @@ module Omniauthable
 
   class_methods do
     def from_omniauth(auth)
+      user_was_created = false
+
       user = where(provider: auth.provider, uid: auth.uid).first_or_create do |u|
         u.assign_attributes_from_auth(auth)
+        user_was_created = true
       end
 
-      if user.persisted?
+      if user.persisted? && user_was_created
         user.set_adopter_role(auth)
       end
+
+      # Add flag to track if user was just created
+      user.instance_variable_set(:@was_just_created, user_was_created)
       user
     end
   end
@@ -21,6 +27,8 @@ module Omniauthable
   def assign_attributes_from_auth(auth)
     self.email = auth.info.email
     self.password = Devise.friendly_token[0, 20]
+    self.provider = auth.provider
+    self.uid = auth.uid
   end
 
   def set_adopter_role(auth)
