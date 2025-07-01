@@ -1,12 +1,7 @@
-<%= render DashboardPageComponent.new(crumb: :people) do |c| %>
+<%= render DashboardPageComponent.new(crumb: :person, crumb_options: @person) do |c| %>
   <% c.with_header_title { t(:people) } %>
   <% c.with_body do %>
-    <div class="m-3">
-    <h3> <%= @person.user.full_name %></h3>  
-    <h4><%= @person.email  %></h4>
-    </div>
     <nav>
-
       <div class="nav nav-tabs d-flex-inline flex-column flex-sm-row" id="nav-tab" role="tablist">
         <button
           class="nav-link active text-sm-center"

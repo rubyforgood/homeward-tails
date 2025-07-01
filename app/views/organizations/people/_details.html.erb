@@ -37,8 +37,26 @@
       </div>
 
     </div>
-    <p>I am an Innovation designer focussing on UX/UI based in Berlin. As a
-      creative resident at Figma explored the city of the future and how new
-      technologies.</p>
+    <h5>Notes</h5>
+        <%= bootstrap_form_with url: staff_note_path,  model: person.note, method: "patch", data: { turbo: true } do |form| %>
+          <%= form.text_area :content,
+              hide_label: true,
+              rows: 5,
+              value: person.content,
+              class: "form-control notes-textarea-#{person.id}" %>
+          <%= form.hidden_field :person_id, value: person.id %>
+          <%= form.hidden_field :notable_type, value: person.class.name %>
+          <%= form.hidden_field :context, value: "default" %>        
+          <div class="d-flex align-items-center justify-content-between mt-2">
+            <div class="text-muted small notes-last-modified-<%= person.id %>">
+              <% if person.note&.persisted? %> 
+                Last modified: <%= person.note.updated_at.strftime("#{person.note.updated_at.day.ordinalize} %B, %Y") %>
+              <% end %>
+            </div>
+            <%= form.submit t("general.save"), 
+                  class: "btn btn-primary position-relative"
+                   %>
+          </div>
+        <% end %>
   </div>
 </div>

@@ -96,6 +96,12 @@ crumb :invite_fosterer do |fosterer|
   link "Invite Fosterer", new_staff_fosterer_invitation_path
   parent :fosterers
 end
+
+crumb :person do |person|
+  link person.user.full_name, person
+  parent :people
+end
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end
