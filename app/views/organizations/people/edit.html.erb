@@ -1,0 +1,35 @@
+<%= render DashboardPageComponent.new do |c| %>
+  <% c.with_header_title { "Edit #{@person.user.full_name}" } %>
+  <% c.with_body do %>
+    <div class="row">
+      <div class="col-md-8 mx-auto card p-5 bigger">
+        <%= bootstrap_form_with model: @person do |form| %>
+
+          <%= form.hidden_field :user_id, value: current_user.id %>
+          <%= form.hidden_field :email, value: current_user.email %>
+
+          <div class='form-group'>
+            <%= form.text_field :first_name, value: @person.first_name, class: "form-control" %>
+          </div>
+
+          <div class='form-group'>
+            <%= form.text_field :last_name, value: @person.last_name, class: "form-control" %>
+          </div>
+
+          <div class='form-group'>
+            <%= turbo_frame_tag "phone_number" do %>
+              <%= form.telephone_field :phone_number,
+                                   value: @person.phone_number,
+                                   hide_label: true,
+                                   class: "form-control" %>
+              <%= link_to "Cancel", staff_person_path(@person) %>
+              <%= form.submit t("general.save"), class: "btn btn-primary" %>
+            <% end %>
+          </div>
+          <%= form.submit t("general.save"), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
+<% end %>

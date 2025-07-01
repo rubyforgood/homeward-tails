@@ -37,6 +37,15 @@ module Organizations
       @person = Person.find(params[:id])
     end
 
+    def update
+      authorize!
+      @person = Person.find(params[:id])
+      debugger
+      if @person.update(person_params)
+        render partial: "organizations/people/details", formats: [:html], locals: {person: @person}
+      end
+    end
+
     def show
       authorize!
       @person = Person.find(params[:id])
@@ -54,7 +63,7 @@ module Organizations
     end
 
     def person_params
-      params.require(:person).permit(:email, :first_name, :last_name, :user_id)
+      params.require(:person).permit(:email, :first_name, :last_name, :user_id, :phone_number)
     end
   end
 end

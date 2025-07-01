@@ -3,60 +3,78 @@
   <div class="card-body">
     <div class="d-flex align-items-center">
       <div class="position-relative">
-        <% if person.user.avatar.attached?  %>
-        <%= image_tag person.user.avatar,
-        alt: person.user.full_name,
-        title: person.user.full_name,
-        class: "rounded-circle avatar-xl" %>
-      <% end %>
+        <% if person.user.avatar.attached? %>
+          <%= image_tag person.user.avatar,
+          alt: person.user.full_name,
+          title: person.user.full_name,
+          class: "rounded-circle avatar-xl" %>
+        <% end %>
       </div>
       <div class="ms-4">
-        <h4 class="mb-0"><%= person.first_name%> <%= person.last_name%> </h4>
-        <p class="mb-1 fs-6"><%= person.groups.map(&:name).join(', ') %> </p>
-        </span>
+        <h4 class="mb-0"><%= person.first_name %>
+          <%= person.last_name %>
+        </h4>
+        <p class="mb-1 fs-6"><%= person.groups.map(&:name).join(", ") %>
+        </p>
       </div>
     </div>
     <div class="border-top row mt-3 border-bottom mb-3 g-0">
       <div class="col">
         <div class="pe-1 ps-2 py-3">
-          <h5 class="mb-0"> Email </h5>
-          <span><%= person.email  %> </span>
+          <h5 class="mb-0">
+            Email
+          </h5>
+          <span><%= person.email %>
+          </span>
         </div>
       </div>
       <div class="col">
         <div class="pe-1 ps-2 py-3">
-          <h5 class="mb-0"> Phone </h5>
-          <span><%= person.phone_number  %> </span>
+          <h5 class="mb-0">
+            Phone
+          </h5>
+          <%= form_with model: @person, data: {turbo_frame: "phone_number"} do %>
+            <%= turbo_frame_tag "phone_number" do %>
+              <span><%= person.phone_number %>
+              </span>
+              <%= link_to "edit",
+              edit_person_path(@person),
+              class: "btn btn-outline-primary border border-0" %>
+            <% end %>
+          <% end %>
         </div>
       </div>
       <div class="col">
         <div class="pe-1 ps-2 py-3">
-          <h5 class="mb-0"> Location </h5>
-          <span><%= person.location  %> </span>
+          <h5 class="mb-0">
+            Location
+          </h5>
+          <span><%= person.location %>
+          </span>
         </div>
       </div>
-
     </div>
     <h5>Notes</h5>
-        <%= bootstrap_form_with url: staff_note_path,  model: person.note, method: "patch", data: { turbo: true } do |form| %>
-          <%= form.text_area :content,
-              hide_label: true,
-              rows: 5,
-              value: person.content,
-              class: "form-control notes-textarea-#{person.id}" %>
-          <%= form.hidden_field :person_id, value: person.id %>
-          <%= form.hidden_field :notable_type, value: person.class.name %>
-          <%= form.hidden_field :context, value: "default" %>        
-          <div class="d-flex align-items-center justify-content-between mt-2">
-            <div class="text-muted small notes-last-modified-<%= person.id %>">
-              <% if person.note&.persisted? %> 
-                Last modified: <%= person.note.updated_at.strftime("#{person.note.updated_at.day.ordinalize} %B, %Y") %>
-              <% end %>
-            </div>
-            <%= form.submit t("general.save"), 
-                  class: "btn btn-primary position-relative"
-                   %>
-          </div>
-        <% end %>
+    <%= bootstrap_form_with url: staff_note_path,  model: person.note, method: "patch", data: { turbo: true } do |form| %>
+      <%= form.text_area :content,
+                     hide_label: true,
+                     rows: 5,
+                     value: person.content,
+                     class: "form-control notes-textarea-#{person.id}" %>
+      <%= form.hidden_field :person_id, value: person.id %>
+      <%= form.hidden_field :notable_type, value: person.class.name %>
+      <%= form.hidden_field :context, value: "default" %>
+      <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="text-muted small notes-last-modified-<%= person.id %>">
+          <% if person.note&.persisted? %>
+            Last modified:
+            <%= person.note.updated_at.strftime(
+              "#{person.note.updated_at.day.ordinalize} %B, %Y",
+            ) %>
+          <% end %>
+        </div>
+      </div>
+      <%= form.submit t("general.save"), class: "btn btn-primary position-relative" %>
+    <% end %>
   </div>
 </div>
