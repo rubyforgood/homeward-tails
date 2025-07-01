@@ -2,7 +2,11 @@
   <% c.with_header_title { t(:people) } %>
   <% c.with_body do %>
     <nav>
-      <div class="nav nav-tabs d-flex-inline flex-column flex-sm-row" id="nav-tab" role="tablist">
+      <div
+        class="nav nav-tabs d-flex-inline flex-column flex-sm-row"
+        id="nav-tab"
+        role="tablist"
+      >
         <button
           class="nav-link active text-sm-center"
           id="nav-details"
@@ -23,6 +27,16 @@
           aria-controls="nav-details"
           aria-selected="true"
         >Form Submissions</button>
+        <button
+          class="nav-link text-sm-center"
+          id="nav-location"
+          data-bs-toggle="tab"
+          data-bs-target="#location"
+          type="button"
+          role="tab"
+          aria-controls="nav-location"
+          aria-selected="true"
+        >Location</button>
       </div>
     </nav>
     <div class="tab-content p-3" id="nav-tabContent">
@@ -41,7 +55,14 @@
         aria_labelledby:"form_subbmissions",
         tabindex:"0" do %>
       <% end %>
-    </div>
+      <%= turbo_frame_tag "location",
+        src: staff_person_location_path(@person),
+        loading: "lazy",
+        class: "tab-pane fade", 
+        role:"tabpanel",
+        aria_labelledby:"location",
+        tabindex:"0" do %>
+      <% end %>
     </div>
 
   <% end %>
