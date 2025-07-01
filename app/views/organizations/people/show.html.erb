@@ -36,7 +36,7 @@
         role:"tabpanel",
         aria_labelledby:"details",
         tabindex:"0" do %>
-        <%= render "form", person: @person %>
+        <%= render "details", person: @person %>
       <% end %>
       <%= turbo_frame_tag "form_submissions",
         src: staff_person_form_submissions_path(@person),

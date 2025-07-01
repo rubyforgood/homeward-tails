@@ -1,0 +1,44 @@
+<div class="card">
+  <!-- Card Body -->
+  <div class="card-body">
+    <div class="d-flex align-items-center">
+      <div class="position-relative">
+        <% if person.user.avatar.attached?  %>
+        <%= image_tag person.user.avatar,
+        alt: person.user.full_name,
+        title: person.user.full_name,
+        class: "rounded-circle avatar-xl" %>
+      <% end %>
+      </div>
+      <div class="ms-4">
+        <h4 class="mb-0"><%= person.first_name%> <%= person.last_name%> </h4>
+        <p class="mb-1 fs-6"><%= person.groups.map(&:name).join(', ') %> </p>
+        </span>
+      </div>
+    </div>
+    <div class="border-top row mt-3 border-bottom mb-3 g-0">
+      <div class="col">
+        <div class="pe-1 ps-2 py-3">
+          <h5 class="mb-0"> Email </h5>
+          <span><%= person.email  %> </span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="pe-1 ps-2 py-3">
+          <h5 class="mb-0"> Phone </h5>
+          <span><%= person.phone_number  %> </span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="pe-1 ps-2 py-3">
+          <h5 class="mb-0"> Location </h5>
+          <span><%= person.location  %> </span>
+        </div>
+      </div>
+
+    </div>
+    <p>I am an Innovation designer focussing on UX/UI based in Berlin. As a
+      creative resident at Figma explored the city of the future and how new
+      technologies.</p>
+  </div>
+</div>
