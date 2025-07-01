@@ -33,8 +33,9 @@
           <h5 class="mb-0">
             Phone
           </h5>
-          <%= form_with model: @person, data: {turbo_frame: "phone_number"} do %>
-            <%= turbo_frame_tag "phone_number" do %>
+          <% frame_id = dom_id(@person, "phone_turbo_frame") %>
+          <%= form_with model: @person, data: {turbo_frame: frame_id } do %>
+            <%= turbo_frame_tag frame_id do %>
               <span><%= person.phone_number %>
               </span>
               <%= link_to "edit",
