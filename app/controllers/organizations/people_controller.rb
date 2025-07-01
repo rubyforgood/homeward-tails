@@ -11,7 +11,7 @@ module Organizations
       authorize!
 
       @q = authorized_scope(Person.all).ransack(params[:q])
-      @pagy, @people_accounts = pagy(
+      @pagy, @people = pagy(
         @q.result,
         limit: 10
       )
