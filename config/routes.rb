@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get "/terms_and_conditions", to: "static_pages#terms_and_conditions"
   get "/cookie_policy", to: "static_pages#cookie_policy"
 
+  get "/info", to: "static_pages#organizations", as: "organization_info"
+
   # Contact Forms
   resource :organization_account_request, only: %i[new create]
   resources :feedback, only: %i[new create]

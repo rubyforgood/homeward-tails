@@ -115,10 +115,11 @@ en:
   root:
     index:
       title: "Homeward Tails"
+      sub_title: "A Ruby For Good project"
       about: "About"
       partners: "Partners"
       pet: "Pets"
-      description: "A free-to-use application built for pet rescue organizations that enables you to manage pets, people, adoptions, and fosters with ease. "
+      description: "Manage pets, people, adoptions, and fosters with ease, for free."
       btn_title: Request a free account
       btn_subtitle: "Free for all rescues, forever."
       img_sub: "Manage your operation with ease"
@@ -450,6 +451,14 @@ en:
       custom_pages:
         update:
           success: "Page text updated successfully!"
+        form:
+          details_header: "Landing page details"
+          unsaved_changes: "Unsaved changes will be lost. Are you sure you want to leave this page?"
+          pet_show_info: "You must create at least one Pet to view these changes live."
+          view_changes: "Click each section to view your changes live"
+          changes_must_be_saved: "*Changes must be saved before viewing" 
+          image_requirements: "Image must be .png or .jpeg under 2MB"
+          upload_limit: "You can upload up to 2 images."
       matches:
         create:
           success: "Pet successfully adopted."
