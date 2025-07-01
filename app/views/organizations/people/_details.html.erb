@@ -33,16 +33,11 @@
           <h5 class="mb-0">
             Phone
           </h5>
-          <% frame_id = dom_id(@person, "phone_turbo_frame") %>
-          <%= form_with model: @person, data: {turbo_frame: frame_id } do %>
-            <%= turbo_frame_tag frame_id do %>
-              <span><%= person.phone_number %>
-              </span>
-              <%= link_to "edit",
-              edit_person_path(@person),
-              class: "btn btn-outline-primary border border-0" %>
-            <% end %>
+          <%= render "inline_edit", model: person, attribute: :phone_number do %>
+            <span><%= person.phone_number %>
+            </span>
           <% end %>
+
         </div>
       </div>
       <div class="col">
@@ -50,8 +45,8 @@
           <h5 class="mb-0">
             Location
           </h5>
-          <span><%= person.location %>
-          </span>
+          <%= render "inline_edit", model: person, attribute: :city_town do %>
+          <% end %>
         </div>
       </div>
     </div>

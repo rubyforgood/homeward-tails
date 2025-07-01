@@ -1,0 +1,9 @@
+<% frame_id = dom_id(model, "#{attribute}_turbo_frame") %>
+<%= form_with model: model, data: { turbo_frame: frame_id } do |form| %>
+  <%= turbo_frame_tag frame_id do %>
+    <%= yield %>
+    <%= link_to "Edit",
+    edit_person_path(model),
+    class: "btn btn-outline-primary border border-0" %>
+  <% end %>
+<% end %>
