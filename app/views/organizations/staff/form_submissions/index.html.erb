@@ -25,7 +25,7 @@
           <div class="card text-center mx-auto">
             <div class="card-body">
               <p class="mb-0"><%= t(".empty_state", person_name: @person.full_name) %>
-                <%= link_to t("general.here"), staff_external_form_upload_index_path %>.</p>
+                <%= link_to t("general.here"), staff_external_form_upload_index_path, target: "_top" %>.</p>
             </div>
           </div>
         <% end %>
