@@ -17,18 +17,12 @@
                                class: "form-control" %>
         <% end %>
       </div>
-      <%= form.fields_for :location do |location_form| %>
-        <%= location_form.text_field :city_town,
-                                 value: @person.location.city_town,
-                                 class: "form-control" %>
-      <% end %>
-      <%= render "inline_fields", form: form, attribute: :city_town do %>
-
-        <%= form.fields_for :location do |location_form| %>
-          <%= location_form.text_field :city_town,
-                                   value: @person.location.city_town,
-                                   class: "form-control" %>
-        <% end %>
+      <%= render "inline_fields", form: form, attribute: :location do %>
+        <div class="form-group bigger" data-controller="country-state">
+          <%= form.fields_for :location do |location_form| %>
+            <%= render "shared/location_fields", form: location_form %>
+          <% end %>
+        </div>
       <% end %>
 
       <%= form.submit t("general.save"), class: "btn btn-primary" %>

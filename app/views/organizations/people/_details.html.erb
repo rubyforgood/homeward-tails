@@ -45,7 +45,28 @@
           <h5 class="mb-0">
             Location
           </h5>
-          <%= render "inline_edit", model: person, attribute: :city_town do %>
+          <%= render "inline_edit", model: person, attribute: :location do %>
+            <% if person.location.present? %>
+              <div class="card shadow-sm mb-3" style="max-width: 400px;">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Location</h5>
+                  <p class="card-text mb-1">
+                    <strong>City/Town:</strong>
+                    <%= person.location.city_town || "N/A" %>
+                  </p>
+                  <p class="card-text mb-1">
+                    <strong>Province/State:</strong>
+                    <%= person.location.province_state || "N/A" %>
+                  </p>
+                  <p class="card-text">
+                    <strong>Country:</strong>
+                    <%= person.location.country || "N/A" %>
+                  </p>
+                </div>
+              </div>
+            <% else %>
+              <p class="text-muted">No location available.</p>
+            <% end %>
           <% end %>
         </div>
       </div>

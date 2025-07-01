@@ -41,7 +41,6 @@ module Organizations
     def update
       authorize!
       @person = Person.find(params[:id])
-      debugger
       if @person.update(person_params)
         render partial: "organizations/people/details", locals: {person: @person}
       end
@@ -64,7 +63,7 @@ module Organizations
     end
 
     def person_params
-      params.expect(person: [:email, :first_name, :last_name, :user_id, :phone_number, location_attributes: [:id, :city_town]])
+      params.expect(person: [:email, :first_name, :last_name, :user_id, :phone_number, location_attributes: [:id, :city_town, :province_state, :country]])
     end
   end
 end
