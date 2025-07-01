@@ -63,6 +63,7 @@ module Authorizable
       manage_custom_page
       manage_staff
       change_user_roles
+      edit_people_names
     ]
   ).freeze
 

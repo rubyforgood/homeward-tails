@@ -11,8 +11,15 @@
         <% end %>
       </div>
       <div class="ms-4">
-        <h4 class="mb-0"><%= person.first_name %>
-          <%= person.last_name %>
+        <h4 class="mb-0">
+
+          <% if allowed_to?(:edit_names?, person) %>
+            <%= render "inline_edit", model: person, attribute: :full_name, confirm: "are you sure" do %>
+              <%= person.first_name %>
+              <%= person.last_name %>
+            <% end %>
+          <% end %>
+
         </h4>
         <p class="mb-1 fs-6"><%= person.groups.map(&:name).join(", ") %>
         </p>

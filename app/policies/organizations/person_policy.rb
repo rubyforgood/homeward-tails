@@ -11,6 +11,10 @@ class Organizations::PersonPolicy < ApplicationPolicy
     permission?(:view_people)
   end
 
+  def edit_names?
+    permission?(:edit_people_names)
+  end
+
   def update?
     permission?(:view_people)
   end
