@@ -74,7 +74,7 @@
                      rows: 5,
                      value: person.content,
                      class: "form-control notes-textarea-#{person.id}" %>
-      <%= form.hidden_field :person_id, value: person.id %>
+      <%= form.hidden_field :notable_id, value: person.id %>
       <%= form.hidden_field :notable_type, value: person.class.name %>
       <%= form.hidden_field :context, value: "default" %>
       <div class="d-flex align-items-center justify-content-between mt-2">
