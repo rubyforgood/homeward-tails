@@ -57,11 +57,11 @@
           </h5>
           <%= render "inline_edit", model: person, attribute: :location do %>
             <% if @person&.location&.city_town %>
-              <p class=" mb-1">
+              <span class=" mb-1">
                 <%= @person.location.city_town %>,
                 <%= @person.location.province_state %>
                 <%= @person.location.country %>
-              </p>
+              </span>
             <% end %>
           <% end %>
         </div>
