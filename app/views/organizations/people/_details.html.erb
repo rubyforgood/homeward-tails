@@ -69,8 +69,10 @@
     </div>
     <h5>Notes</h5>
     <%= bootstrap_form_with url: staff_note_path,  model: person.note, method: "patch", data: { turbo: true } do |form| %>
+      <%# autocomplete off required for value to be present in firefox %>
       <%= form.text_area :content,
                      hide_label: true,
+                     autocomplete: "off",
                      rows: 5,
                      value: person.content,
                      class: "form-control notes-textarea-#{person.id}" %>
