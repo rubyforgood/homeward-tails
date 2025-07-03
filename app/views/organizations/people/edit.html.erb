@@ -1,6 +1,14 @@
 <%= bootstrap_form_with model: @person do |form| %>
   <%= render "inline_fields", form: form, attribute: :full_name do %>
     <div class='form-group'>
+      <strong>WARNING:</strong>
+
+      <p>
+        Please exercise caution when changing a person’s name. Such changes are
+        visible to them and should only be made if absolutely necessary and
+        with their permission. Only Super Admins can change names other than
+        their own.
+      </p>
       <%= form.text_field :first_name, value: @person.first_name, class: "form-control" %>
     </div>
 
