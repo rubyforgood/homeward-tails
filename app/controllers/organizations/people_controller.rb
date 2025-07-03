@@ -43,6 +43,9 @@ module Organizations
       @person = Person.find(params[:id])
       if @person.update(person_params)
         render partial: "organizations/people/details", locals: {person: @person}
+      else
+        flash.now[:alert] = @person.errors.full_messages.to_sentence
+        render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
       end
     end
 
