@@ -66,7 +66,6 @@ module Authorizable
       manage_staff
       manage_people_attributes
       change_user_roles
-      edit_people_names
     ]
   ).freeze
 
