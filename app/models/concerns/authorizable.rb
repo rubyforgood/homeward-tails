@@ -17,12 +17,14 @@ module Authorizable
     read_pet_tasks
     view_external_form
     view_form_answers
+    edit_own_person_attributes
   ].freeze
 
   FOSTERER_PERMISSIONS = %i[
     view_adopter_foster_dashboard
     view_adopter_foster_matches
     purge_avatar
+    edit_own_person_attributes
   ].freeze
 
   ADMIN_PERMISSIONS = (
@@ -62,6 +64,7 @@ module Authorizable
       manage_organization
       manage_custom_page
       manage_staff
+      manage_people_attributes
       change_user_roles
       edit_people_names
     ]

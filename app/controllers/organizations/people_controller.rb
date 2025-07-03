@@ -6,6 +6,7 @@ module Organizations
     skip_before_action :verify_person_in_org, only: %i[new create]
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist, only: %i[new create]
+    before_action :set_person, only: %i[show edit update]
 
     def index
       authorize!
@@ -15,6 +16,9 @@ module Organizations
         @q.result,
         limit: 10
       )
+    end
+
+    def show
     end
 
     def new
@@ -33,25 +37,16 @@ module Organizations
     end
 
     def edit
-      authorize!
-      @person = Person.find(params[:id])
       @location = @person.location || @person.build_location
     end
 
     def update
-      authorize!
-      @person = Person.find(params[:id])
       if @person.update(person_params)
         render partial: "organizations/people/details", locals: {person: @person}
       else
         flash.now[:alert] = @person.errors.full_messages.to_sentence
         render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
       end
-    end
-
-    def show
-      authorize!
-      @person = Person.find(params[:id])
     end
 
     private
@@ -63,6 +58,11 @@ module Organizations
         flash[:notice] = t(".already_member")
         redirect_to adopter_fosterer_dashboard_index_path
       end
+    end
+
+    def set_person
+      @person = Person.find(params[:id])
+      authorize! @person
     end
 
     def person_params
