@@ -56,11 +56,11 @@
             Location
           </h5>
           <%= render "inline_edit", model: person, attribute: :location do %>
-            <% if @person&.location&.city_town %>
+            <% if location = @person.location %>
               <span class=" mb-1">
-                <%= @person.location.city_town %>,
-                <%= @person.location.province_state %>
-                <%= @person.location.country %>
+                <%= location.city_town %>,
+                <%= location.province_state %>
+                <%= location.country %>
               </span>
             <% end %>
           <% end %>
