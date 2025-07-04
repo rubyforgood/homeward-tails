@@ -62,7 +62,13 @@ module Organizations
 
     def set_person
       @person = Person.find(params[:id])
-      authorize! @person
+      turbo_frame_id = request.headers["Turbo-Frame"]
+
+      if turbo_frame_id&.starts_with?("full_name")
+        authorize! @person, to: :edit_name?
+      else
+        authorize! @person
+      end
     end
 
     def person_params

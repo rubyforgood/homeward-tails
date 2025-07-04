@@ -17,4 +17,8 @@ class Organizations::PersonPolicy < ApplicationPolicy
       permission?(:manage_people_attributes)
     end
   end
+
+  def edit_name?
+    permission?(:edit_names)
+  end
 end

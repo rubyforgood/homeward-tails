@@ -47,6 +47,7 @@ module Authorizable
       manage_matches
       manage_pets
       manage_tasks
+      manage_people_attributes
       view_organization_dashboard
       view_people
       view_form_submissions
@@ -64,8 +65,8 @@ module Authorizable
       manage_organization
       manage_custom_page
       manage_staff
-      manage_people_attributes
       change_user_roles
+      edit_names
     ]
   ).freeze
 
