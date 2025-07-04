@@ -143,16 +143,8 @@ class Organizations::PersonPolicyTest < ActiveSupport::TestCase
           @person = create(:person, :admin)
         end
 
-        should "return false" do
-          assert_equal false, @action.call
-        end
-
-        context "when record is the person's" do
-          should "return true" do
-            @record = @person
-
-            assert_equal true, @action.call
-          end
+        should "return true" do
+          assert_equal true, @action.call
         end
       end
 
@@ -255,6 +247,86 @@ class Organizations::PersonPolicyTest < ActiveSupport::TestCase
 
         should "return true" do
           assert_equal true, @action.call
+        end
+      end
+
+      context "when person is deactivated staff" do
+        setup do
+          @person = create(:person, :admin, deactivated: true)
+        end
+
+        should "return false" do
+          assert_equal false, @action.call
+        end
+      end
+    end
+
+    context "#edit_name?" do
+      setup do
+        @action = -> { @policy.call.apply(:edit_name?) }
+      end
+
+      context "when person is nil" do
+        setup do
+          @person = nil
+        end
+
+        should "return false" do
+          assert_equal false, @action.call
+        end
+      end
+
+      context "when person is adopter" do
+        setup do
+          @person = create(:person, :adopter)
+        end
+
+        should "return false" do
+          assert_equal false, @action.call
+        end
+      end
+
+      context "when perosn is fosterer" do
+        setup do
+          @person = create(:person, :fosterer)
+        end
+
+        should "return false" do
+          assert_equal false, @action.call
+        end
+      end
+
+      context "when person is admin" do
+        setup do
+          @person = create(:person, :admin)
+        end
+
+        should "return false" do
+          assert_equal false, @action.call
+        end
+      end
+
+      context "when person is super admin" do
+        setup do
+          @person = create(:person, :super_admin)
+        end
+
+        context "when person belongs to a different organization" do
+          setup do
+            ActsAsTenant.with_tenant(create(:organization)) do
+              @person = create(:person)
+            end
+          end
+
+          should "return false" do
+            assert_equal false, @action.call
+          end
+        end
+
+        context "when person belongs to user's organization" do
+          should "return true" do
+            assert_equal true, @action.call
+          end
         end
       end
 
