@@ -3,12 +3,7 @@
   <div class="card-body">
     <div class="d-flex align-items-center">
       <div class="position-relative">
-        <% if person.user.avatar.attached? %>
-          <%= image_tag person.user.avatar,
-          alt: person.user.full_name,
-          title: person.user.full_name,
-          class: "rounded-circle avatar-xl" %>
-        <% end %>
+        <%= render AvatarComponent.new(person.user, size: :xl) %>
       </div>
       <div class="ms-4">
         <h4 class="mb-0">
@@ -24,7 +19,7 @@
           <% end %>
 
         </h4>
-        <p class="mb-1 fs-6"><%= person.groups.map(&:name).join(", ") %>
+        <p class="mb-1 fs-6"><%= person.groups.pluck(:name).map(&:titleize).join(", ") %>
         </p>
       </div>
     </div>
