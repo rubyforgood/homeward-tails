@@ -98,7 +98,7 @@ crumb :invite_fosterer do |fosterer|
 end
 
 crumb :person do |person|
-  link person.user.full_name, person
+  link person.full_name, person
   parent :people
 end
 

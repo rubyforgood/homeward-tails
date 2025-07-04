@@ -23,7 +23,7 @@
             <td>
               <div class="d-flex align-items-center">
                 <div class="position-relative">
-                  <%= render AvatarComponent.new(fosterer.user) %>
+                  <%= render AvatarComponent.new(fosterer) %>
                   <a href="#" class="position-absolute mt-5 ms-n4">
                     <span class="status bg-success"></span>
                   </a>
@@ -42,9 +42,12 @@
             <td>
               <%= fosterer.phone_number %>
             </td>
-              <td class="w-20 align-middle">
-    <%= render 'organizations/staff/shared/notes', notable: fosterer, modal_id: 'fosterer_table', context: 'fosterers' %>
-  </td>
+            <td class="w-20 align-middle">
+              <%= render "organizations/staff/shared/notes",
+              notable: fosterer,
+              modal_id: "fosterer_table",
+              context: "fosterers" %>
+            </td>
             <td>
               <% if can_edit_person %>
                 <%= link_to "Edit", edit_staff_fosterer_url(fosterer), class: "btn btn-warning m-2" %>

@@ -82,21 +82,6 @@ class User < ApplicationRecord
     active_for_devise? ? super : :deactivated
   end
 
-  def full_name(format = :default)
-    case format
-    when :default
-      "#{first_name} #{last_name}"
-    when :last_first
-      "#{last_name}, #{first_name}"
-    else
-      raise ArgumentError, "Unsupported format: #{format}"
-    end
-  end
-
-  def name_initials
-    full_name.split.map { |part| part[0] }.join.upcase
-  end
-
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
   end

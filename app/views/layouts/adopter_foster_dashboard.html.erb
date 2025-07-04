@@ -28,17 +28,16 @@
                         me-2 position-relative d-flex justify-content-end align-items-end mt-n5
                       "
                     >
-                      <%= render AvatarComponent.new(current_user, size: :xl) %>
+                      <%= render AvatarComponent.new(Current.person, size: :xl) %>
                     </div>
                     <div class="lh-1">
-                      <h2 class="mb-0"><%= "#{current_user.full_name}" %></h2>
+                      <h2 class="mb-0"><%= "#{Current.person.full_name}" %></h2>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Content -->
           <div class="row mt-0 mt-md-4">
             <div class="col-lg-3 col-md-4 col-12">

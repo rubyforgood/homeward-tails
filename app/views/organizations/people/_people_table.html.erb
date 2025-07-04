@@ -16,9 +16,9 @@
               <%= link_to staff_person_path(person) do %>
                 <div class="d-flex align-items-center">
                   <div class="position-relative">
-                    <%= render AvatarComponent.new(person.user) %>
+                    <%= render AvatarComponent.new(person) %>
                   </div>
-                  <h5 class="mb-0 ms-3"><%= "#{person.user.full_name}" %></h5>
+                  <h5 class="mb-0 ms-3"><%= "#{person.full_name}" %></h5>
                 </div>
               <% end %>
             </td>
