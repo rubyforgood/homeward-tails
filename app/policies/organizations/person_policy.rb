@@ -1,6 +1,5 @@
 class Organizations::PersonPolicy < ApplicationPolicy
   pre_check :verify_record_organization!
-
   alias_rule :edit?, :update?, to: :manage?
 
   def index?
