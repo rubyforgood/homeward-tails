@@ -4,9 +4,23 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <h1><%= @user.first_name %>, thank you for signing up with <%= @organization.name %></h1>
+    <h1>Welcome to Homeward Tails, <%= @user.first_name %>!</h1>
 
-      <p>Please complete the following steps if you would like to adopt a pet.</p>
+    <p>We're excited to have you join our community of pet lovers and organizations working together to help animals find loving homes.</p>
+
+    <p>
+      You joined <strong><%= @organization.name %></strong>.<br>
+      Visit their page here:
+      <a href="https://www.homewardtails.org/<%= @organization.slug %>/home">
+        https://www.homewardtails.org/<%= @organization.slug %>/home
+      </a>
+    </p>
+
+    <p>
+      By signing up for Homeward Tails, you can also explore and join other organizations, browse available pets, and manage your applications all in one place.
+    </p>
+
+    <p>Please complete the following steps if you would like to adopt a pet.</p>
 
     <ol>
       <li>Complete the adopter questionnaire</li>
@@ -17,12 +31,12 @@
     </ol>
 
     <strong>Still have questions?</strong>
-    <p>Check out the <%= link_to "FAQ page", faq_index_url(script_name: "/#{@organization.slug}"), target: "_blank" %>.</p>
+    <p>Check out the <%= link_to "FAQ page", "https://www.homewardtails.org/#{@organization.slug}/faq", target: "_blank" %>.</p>
     <p>Again, thank you for signing up! People like you help these pets live their best life.</p>
+    <p>
+      Together, we're making a difference!
+    </p>
 
-    <br>
-    <a href=<% @org_root %>>www.homewardtails.org/<%= @organization.slug %></a>
-    <br>
     <br>
     <strong>Please do not reply directly to this email. You must contact <%= @organization.name %> directly at <a href="mailto:<%= @organization.email %>"><%= @organization.email %></a></strong>
   </body>
