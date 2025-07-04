@@ -19,6 +19,7 @@ module Organizations
     end
 
     def show
+      authorize! @person
     end
 
     def new
@@ -37,10 +38,16 @@ module Organizations
     end
 
     def edit
+      edit_name = request.headers["Turbo-Frame"]&.starts_with?("full_name")
+      authorize! @person, context: {edit_name: edit_name}
+
       @location = @person.location || @person.build_location
     end
 
     def update
+      edit_name = person_params.key?(:first_name) || person_params.key?(:last_name)
+      authorize! @person, context: {edit_name: edit_name}
+
       if @person.update(person_params)
         render partial: "organizations/people/details", locals: {person: @person}
       else
@@ -62,13 +69,6 @@ module Organizations
 
     def set_person
       @person = Person.find(params[:id])
-      turbo_frame_id = request.headers["Turbo-Frame"]
-
-      if turbo_frame_id&.starts_with?("full_name")
-        authorize! @person, to: :edit_name?
-      else
-        authorize! @person
-      end
     end
 
     def person_params

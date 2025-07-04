@@ -11,8 +11,12 @@ class Organizations::PersonPolicy < ApplicationPolicy
   end
 
   def manage?
+    edit_name ||= false
+
     if record == person
       permission?(:edit_own_person_attributes)
+    elsif edit_name
+      edit_name?
     else
       permission?(:manage_people_attributes)
     end
