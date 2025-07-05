@@ -33,6 +33,7 @@ en:
   content_type_invalid: "must be PNG or JPEG"
   adopters: "Adopters"
   fosters: "Fosters"
+  people: "People"
   fosterer: "Fosterer"
   rescues: "Rescues"
   staff: "Staff"
@@ -768,6 +769,12 @@ en:
       create:
         success: "You have successfully joined the organization."
         error: "There was an unexpected error. Please try again soon."
+      inline_fields:
+        warning: WARNING
+        warning_statement: "Please exercise caution when changing a person’s name. Such changes are visible to them and should only be made if absolutely necessary and with their permission. Only Super Admins can change names other than their own."
+      show:
+        details: Details
+        form_submissions: "Form Submissions"
     contacts:
       create:
        success: "Message sent!"
