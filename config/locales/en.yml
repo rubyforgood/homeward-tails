@@ -775,6 +775,8 @@ en:
       show:
         details: Details
         form_submissions: "Form Submissions"
+      update:
+        success: "Profile name updated!"
     contacts:
       create:
        success: "Message sent!"

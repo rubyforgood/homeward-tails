@@ -54,8 +54,7 @@ module Organizations
         if turbo_frame_request_id == "details"
           render partial: "organizations/people/details", locals: {person: @person}
         else
-          flash[:notice] = "success"
-          redirect_to after_update_path
+          redirect_to after_update_path, notice: t(".success")
         end
       else
         flash.now[:alert] = @person.errors.full_messages.to_sentence
