@@ -1,6 +1,9 @@
 <% frame_id = dom_id(form.object, "#{attribute}_turbo_frame") %>
 <%= turbo_frame_tag frame_id do %>
   <%= yield %>
-  <%= form.submit t("general.save"), class: "btn btn-primary" %>
-  <%= link_to "Cancel", staff_person_path(form.object) %>
+
+  <% unless turbo_frame_request_id == "edit_person_form" %>
+    <%= form.submit t("general.save"), class: "btn btn-primary" %>
+    <%= link_to "Cancel", staff_person_path(form.object) %>
+  <% end %>
 <% end %>
