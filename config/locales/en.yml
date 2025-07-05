@@ -339,10 +339,6 @@ en:
               invalid: "invalid"
             password:
               blank: "Password can't be blank"
-            first_name:
-              blank: "First name can't be blank"
-            last_name:
-              blank: "Last name can't be blank"
     models:
       location: Location
     attributes:
