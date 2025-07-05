@@ -23,7 +23,9 @@ module Organizations
     end
 
     def new
-      @person = Person.new
+      @person = current_user.people.build(
+        current_user.default_person&.slice(:first_name, :last_name)
+      )
     end
 
     def create

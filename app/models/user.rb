@@ -86,6 +86,12 @@ class User < ApplicationRecord
     provider == "google_oauth2" && uid.present?
   end
 
+  def default_person
+    ActsAsTenant.without_tenant do
+      people.first
+    end
+  end
+
   private
 
   def active_for_devise?
