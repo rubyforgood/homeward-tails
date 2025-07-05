@@ -8,6 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
   # no attributes need to be accepted, just create new account with user_id reference
   def new
     build_resource({})
+    @person = Person.new
     respond_with resource
   end
 
@@ -17,9 +18,11 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.persisted?
         # TODO: Currently a person shouldn't exist without a user with the same email. If the person exists (but no user),
         # how should we be handling this newly created user?
+        #
         unless Person.exists?(email: resource.email)
-          person = Person.create!(user_id: resource.id, first_name: resource.first_name, last_name: resource.last_name, email: resource.email)
-          person.add_group(:adopter)
+          @person = resource.people.create!(
+            person_sign_up_params[:person].merge(email: resource.email)
+          ).tap { |p| p.add_group(:adopter) }
         end
       end
     end
@@ -47,14 +50,17 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def sign_up_params
-    params.require(:user).permit(:username,
-      :first_name,
-      :last_name,
-      :email,
-      :password,
-      :signup_role,
-      :tos_agreement,
-      adopter_foster_account_attributes: [:user_id])
+    params.expect(user:
+      [:email,
+        :password,
+        :signup_role,
+        :tos_agreement,
+        adopter_foster_account_attributes: [:user_id]])
+  end
+
+  def person_sign_up_params
+    params.expect(user:
+    [person: [:first_name, :last_name]])
   end
 
   def account_update_params

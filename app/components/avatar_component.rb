@@ -2,7 +2,8 @@
 
 # Renders a User's avatar as image or user's initials
 class AvatarComponent < ApplicationComponent
-  param :user, Types::Instance(User)
+  # param :user, Types::Instance(User)
+  param :person, Types::Instance(Person)
   option :size, Types::Size, default: -> { :md }
 
   private
@@ -16,15 +17,15 @@ class AvatarComponent < ApplicationComponent
   end
 
   def image_url
-    @user.avatar.attached? ? url_for(@user.avatar) : nil
+    person.user.avatar.attached? ? url_for(person.user.avatar) : nil
   end
 
   def initials
-    "#{user.first_name[0]}#{user.last_name[0]}".upcase
+    "#{person.first_name[0]}#{person.last_name[0]}".upcase
   end
 
   def alt
-    "#{user.first_name.capitalize}'s avatar"
+    "#{person.first_name.capitalize}'s avatar"
   end
 
   def container_classes
