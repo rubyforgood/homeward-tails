@@ -6,7 +6,7 @@ module Organizations
     before_action :set_person, only: %i[show]
 
     def show
-      authorize! @person
+      authorize! @person, with: AccountPolicy
     end
 
     private
