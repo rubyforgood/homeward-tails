@@ -9,7 +9,7 @@
         <h4 class="mb-0">
 
           <% if allowed_to?(:edit_name?, person) %>
-            <%= render "inline_edit", model: person, attribute: :full_name, confirm: "are you sure" do %>
+            <%= render "inline_edit", model: person, attribute: :full_name do %>
               <%= person.first_name %>
               <%= person.last_name %>
             <% end %>
