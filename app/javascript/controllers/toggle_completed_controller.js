@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus";
 export default class ToggleCompletedController extends Controller {
   connect() {
     this.completedTasks = document.querySelectorAll('.bg-success-subtle');
-    this.hideCompletedTasks();
   }
 
   toggleCompletedTasks() {
