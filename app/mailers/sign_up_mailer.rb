@@ -1,8 +1,8 @@
 class SignUpMailer < ApplicationMailer
-  def adopter_welcome_email(current_tenant)
-    @organization = current_tenant
-    @user = params[:user]
+  def adopter_welcome_email
+    @person = params[:person]
+    @organization = @person.organization
 
-    mail(to: @user.email, subject: "No Reply: Welcome to #{@organization.name}")
+    mail(to: @person.email, subject: "No Reply: Welcome to #{@organization.name}")
   end
 end
