@@ -3,11 +3,6 @@
 require "test_helper"
 
 class PetAvatarComponentTest < ViewComponent::TestCase
-  setup do
-    @user = create(:user)
-    @component = AvatarComponent.new(@user)
-  end
-
   context "when pet does and does not exists" do
     setup do
       @pet_with_image = create(:pet, :with_image)
