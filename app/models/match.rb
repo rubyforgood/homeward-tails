@@ -80,11 +80,6 @@ class Match < ApplicationRecord
     %w[pet user person]
   end
 
-  def fosterer_name(format = :default)
-    # FIXME
-    user.full_name(format)
-  end
-
   def status
     return :not_applicable if start_date.nil? || end_date.nil?
 

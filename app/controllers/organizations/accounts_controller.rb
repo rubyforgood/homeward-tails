@@ -1,7 +1,5 @@
 module Organizations
   class AccountsController < Organizations::BaseController
-    include ::Pagy::Backend
-
     layout :set_layout, only: %i[show]
     before_action :set_person, only: %i[show]
 

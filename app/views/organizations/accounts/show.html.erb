@@ -6,8 +6,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 mx-auto card p-5">
-            <%= turbo_frame_tag "edit_person_form", src: edit_person_path(@person) do %>
-            <% end %>
+            <%= turbo_frame_tag "edit_person_form", src: edit_person_path(@person) %>
           </div>
           <!--col-->
         </div>
@@ -19,8 +18,8 @@
         <h3>Edit Homeward Tails login settings</h3>
         <div class="row">
           <div class="col-md-12 mx-auto card p-5">
-            <%= turbo_frame_tag "user_registration_edit", src: edit_user_registration_path(current_user) do %>
-            <% end %>
+            <%= turbo_frame_tag "user_registration_edit",
+            src: edit_user_registration_path(current_user) %>
           </div>
           <!--col-->
         </div>
