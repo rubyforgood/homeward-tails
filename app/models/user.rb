@@ -78,6 +78,9 @@ class User < ApplicationRecord
     provider == "google_oauth2" && uid.present?
   end
 
+  # Generally we want person data to stay scoped within its associated organization
+  # This is a rare exception where we want to reduce friction for a user when they
+  # join a new organization by prefilling the name values in the form.
   def default_person
     ActsAsTenant.without_tenant do
       people.first
