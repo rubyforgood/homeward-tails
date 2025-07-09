@@ -48,6 +48,10 @@ crumb :people do
   link "People", staff_people_path
 end
 
+crumb :people do
+  link "People", staff_people_path
+end
+
 crumb :fosterers do
   link "Fosterers", staff_fosterers_path
 end

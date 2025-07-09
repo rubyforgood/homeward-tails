@@ -4,6 +4,10 @@ module Organizations
     include ::Pagy::Backend
 
     skip_before_action :verify_person_in_org, only: %i[new create]
+    layout "dashboard", only: %i[index show]
+    include ::Pagy::Backend
+
+    skip_before_action :verify_person_in_org, only: %i[new create]
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist, only: %i[new create]
     before_action :set_person, only: %i[show edit update]

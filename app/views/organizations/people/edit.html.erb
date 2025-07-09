@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%= turbo_frame_tag "edit_person_form" do %>
   <%= bootstrap_form_with model: @person do |form| %>
     <%= render "inline_fields", form: form, attribute: :full_name do %>
@@ -41,4 +42,38 @@
                   turbo_frame: "_top",
                 } %>
   <% end %>
+=======
+<%= bootstrap_form_with model: @person do |form| %>
+  <%= render "inline_fields", form: form, attribute: :full_name do %>
+    <div class='form-group'>
+      <strong><%= t(".warning") %>:</strong>
+
+      <p>
+        <%= t(".warning_statement") %>
+      </p>
+      <%= form.text_field :first_name, value: @person.first_name, class: "form-control" %>
+    </div>
+
+    <div class='form-group'>
+      <%= form.text_field :last_name, value: @person.last_name, class: "form-control" %>
+    </div>
+  <% end %>
+  <div class='form-group'>
+    <%= render "inline_fields", form: form, attribute: :phone_number do %>
+      <%= form.telephone_field :phone_number,
+                           value: @person.phone_number,
+                           hide_label: true,
+                           class: "form-control" %>
+    <% end %>
+  </div>
+  <%= render "inline_fields", form: form, attribute: :location do %>
+    <div class="form-group bigger" data-controller="country-state">
+      <%= form.fields_for :location do |location_form| %>
+        <%= render "shared/location_fields", form: location_form %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form.submit t("general.save"), class: "btn btn-primary" %>
+>>>>>>> main
 <% end %>
