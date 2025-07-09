@@ -1,18 +1,25 @@
-<%= @user.first_name %>, thank you for signing up with Baja Pet Rescue!
-===============================================
+Welcome to Homeward Tails, <%= @user.first_name %>!
 
-We are a grassroots organization helping to rehome pets from Baja, Mexico to Canada/USA.
-Now that you have registered as an adopter, getting your adoption application 
-in is a straightforward process.
+We're excited to have you join our community of pet lovers and organizations working together to help animals find loving homes.
 
-First you should complete your profile, and the browse available pets and click the 'Apply' button to submit
-your application. Then you can check your Applications page for a summary of applications and wait for us
-to contact you about your application.
+You joined <%= @organization.name %>.
+Visit their page here: https://www.homewardtails.org/<%= @organization.slug %>/home
+
+By signing up for Homeward Tails, you can also explore and join other organizations, browse available pets, and manage your applications all in one place.
+
+Please complete the following steps if you would like to adopt a pet.
+
+1. Complete the adopter questionnaire
+2. Browse available pets and find one that is a good fit for you
+3. Click on the 'Apply' button on your favourite pet's page
+4. Check your Dashboard > Applications page for a summary of your applications
+5. Await contact from us for a conversation about you, the pet, and the process
 
 Still have questions?
-Check out the FAQ page: <%= @faq_url %>
+Check out the FAQ page: https://www.homewardtails.org/<%= @organization.slug %>/faq
+
 Again, thank you for signing up! People like you help these pets live their best life.
 
-- Baja Pet Rescue Team
+Together, we're making a difference!
 
-<%= @home_url %>
+Please do not reply directly to this email. You must contact <%= @organization.name %> directly at <%= @organization.email %>
