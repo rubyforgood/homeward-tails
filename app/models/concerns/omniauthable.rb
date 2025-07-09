@@ -7,12 +7,9 @@ module Omniauthable
 
   class_methods do
     def from_omniauth(auth)
-      user = where(provider: auth.provider, uid: auth.uid).first_or_create do |u|
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |u|
         u.assign_attributes_from_auth(auth)
       end
-
-      user.set_adopter_role if user.persisted?
-      user
     end
   end
 
