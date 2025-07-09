@@ -1,82 +1,84 @@
 <%= render DashboardPageComponent.new do |c| %>
   <% c.with_header_title { "Edit my user settings" } %>
   <% c.with_body do %>
-    <!--main section-->
-    <!--form-->
+    <!--main section--> <!--form-->
     <section class="pb-5" id="registration_new">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mx-auto card p-5">
-            <%= bootstrap_form_for(resource, as: resource_name,
+            <%= turbo_frame_tag "user_registration_edit" do %>
+              <%= bootstrap_form_for(resource, as: resource_name,
                                   url: registration_path(resource_name),
                                   html: { method: :put }) do |f| %>
-              <div class="form-group mb-3">
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", disabled: true,
-                                  class: 'form-control' %>
-              </div>
-              <% if devise_mapping.confirmable? &&
+                <div class="form-group mb-3">
+                  <%= f.email_field :email, disabled: true, class: "form-control" %>
+                </div>
+                <% if devise_mapping.confirmable? &&
                     resource.pending_reconfirmation? %>
-                <div>Currently waiting confirmation for:
+                  <div>Currently waiting confirmation for:
                     <%= resource.unconfirmed_email %></div>
-              <% end %>
-              <% unless resource.google_oauth_user? %>
-                <div class="form-group mb-3">
-                  <%= f.password_field :password, autocomplete: "new-password",
-                                        class: 'form-control', label: 'New password' %>
-                  <i>(leave blank if you don't want to change it)</i><br />
-                  <% if @minimum_password_length %>
-                    <em><%= @minimum_password_length %> characters minimum</em>
-                  <% end %>
-                </div>
-                <div class="form-group mb-3">
-                  <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                                        class: 'form-control', label: 'Confirm new password' %>
-                </div>
-              <% end %>
-              <div class="form-group mb-3">
-                <%= f.text_field :first_name,
-                                  class: 'form-control' %>
-              </div>
-              <div class="form-group mb-3">
-                <%= f.text_field :last_name,
-                                  class: 'form-control' %>
-              </div>
-              <% unless resource.google_oauth_user? %>
-                <div class="form-group mb-3">
-                  <%= f.password_field :current_password,
-                                      autocomplete: "current-password",
-                                      required: true,
-                                      class: 'form-control' %>
-                  <i>(we need your current password to confirm your changes)</i><br/>
-                </div>
-              <% end %>  
-              <% if resource.avatar.id %>
-                <div class='form-group mt-3'>
-                  <label class="form-label">
-                    Current picture
-                  </label>
-                  <div class='d-flex flex-column align-items-center'>
-                    <%= image_tag resource.avatar, class: 'avatar-xxl rounded-circle' %>
-                    <%= link_to t('general.delete'),
-                                purge_avatar_path(resource.avatar.id),
-                                data: { turbo_method: "delete" },
-                                class: 'delete-button' %>
+                <% end %>
+                <% unless resource.google_oauth_user? %>
+                  <div class="form-group mb-3">
+                    <%= f.password_field :password,
+                                     autocomplete: "new-password",
+                                     class: "form-control",
+                                     label: "New password" %>
+                    <i>(leave blank if you don't want to change it)</i><br/>
+                    <% if @minimum_password_length %>
+                      <em><%= @minimum_password_length %>
+                        characters minimum</em>
+                    <% end %>
                   </div>
-                </div>
-              <% else %>
-                <div class='form-group mt-3'>
-                  <%= f.file_field :avatar, 
-                                      class: "custom-attachments",
-                                      label: 'Attach picture' %>
+                  <div class="form-group mb-3">
+                    <%= f.password_field :password_confirmation,
+                                     autocomplete: "new-password",
+                                     class: "form-control",
+                                     label: "Confirm new password" %>
+                  </div>
+                <% end %>
+                <% unless resource.google_oauth_user? %>
+                  <div class="form-group mb-3">
+                    <%= f.password_field :current_password,
+                                     autocomplete: "current-password",
+                                     required: true,
+                                     class: "form-control" %>
+                    <i>(we need your current password to confirm your changes)</i><br/>
+                  </div>
+                <% end %>
+                <% if resource.avatar.id %>
+                  <div class='form-group mt-3'>
+                    <label class="form-label">
+                      Current picture
+                    </label>
+                    <div class='d-flex flex-column align-items-center'>
+                      <%= image_tag resource.avatar, class: "avatar-xxl rounded-circle" %>
+                      <%= link_to t("general.delete"),
+                      purge_avatar_path(resource.avatar.id),
+                      data: {
+                        turbo_method: "delete",
+                      },
+                      class: "delete-button" %>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class='form-group mt-3'>
+                    <%= f.file_field :avatar, class: "custom-attachments", label: "Attach picture" %>
+                  </div>
+                <% end %>
+                <div class="actions">
+                  <%= f.submit "Update",
+                           class: "btn btn-outline-dark mt-3 mb-3",
+                           data: {
+                             turbo: false,
+                           } %>
                 </div>
               <% end %>
-              <div class="actions">
-                <%= f.submit "Update", class: 'btn btn-outline-dark mt-3 mb-3',
-                                      data: { turbo: false } %>
-              </div>
             <% end %>
-          </div> <!--col-->
-        </div> <!--row-->
+          </div>
+          <!--col-->
+        </div>
+        <!--row-->
       </div><!--container-->
     </section>
   <% end %>

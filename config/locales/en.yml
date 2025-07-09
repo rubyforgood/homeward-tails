@@ -34,6 +34,7 @@ en:
   adopters: "Adopters"
   fosters: "Fosters"
   people: "People"
+  people: "People"
   fosterer: "Fosterer"
   rescues: "Rescues"
   staff: "Staff"
@@ -339,10 +340,6 @@ en:
               invalid: "invalid"
             password:
               blank: "Password can't be blank"
-            first_name:
-              blank: "First name can't be blank"
-            last_name:
-              blank: "Last name can't be blank"
     models:
       location: Location
     attributes:
@@ -456,7 +453,7 @@ en:
           unsaved_changes: "Unsaved changes will be lost. Are you sure you want to leave this page?"
           pet_show_info: "You must create at least one Pet to view these changes live."
           view_changes: "Click each section to view your changes live"
-          changes_must_be_saved: "*Changes must be saved before viewing" 
+          changes_must_be_saved: "*Changes must be saved before viewing"
           image_requirements: "Image must be .png or .jpeg under 2MB"
           upload_limit: "You can upload up to 2 images."
       matches:
@@ -775,6 +772,8 @@ en:
       show:
         details: Details
         form_submissions: "Form Submissions"
+      update:
+        success: "Profile name updated!"
     contacts:
       create:
        success: "Message sent!"

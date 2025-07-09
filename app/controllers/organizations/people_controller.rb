@@ -23,7 +23,9 @@ module Organizations
     end
 
     def new
-      @person = Person.new
+      @person = current_user.people.build(
+        current_user.default_person&.slice(:first_name, :last_name)
+      )
     end
 
     def create
@@ -49,7 +51,11 @@ module Organizations
       authorize! @person, context: {edit_name: edit_name}
 
       if @person.update(person_params)
-        render partial: "organizations/people/details", locals: {person: @person}
+        if turbo_frame_request_id == "details"
+          render partial: "organizations/people/details", locals: {person: @person}
+        else
+          redirect_to after_update_path, notice: t(".success")
+        end
       else
         flash.now[:alert] = @person.errors.full_messages.to_sentence
         render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
@@ -73,6 +79,16 @@ module Organizations
 
     def person_params
       params.expect(person: [:email, :first_name, :last_name, :user_id, :phone_number, location_attributes: [:id, :city_town, :province_state, :country]])
+    end
+
+    def after_update_path
+      if Current.person&.staff_active?
+        staff_dashboard_index_path
+      elsif Current.person&.active_in_group?(:adopter) || Current.person&.active_in_group?(:fosterer)
+        adopter_fosterer_dashboard_index_path
+      else
+        root_path
+      end
     end
   end
 end

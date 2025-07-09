@@ -6,9 +6,9 @@
       <div class="card-body">
         <div class="text-center">
           <div class="position-relative">
-            <%= render AvatarComponent.new(person.user, size: :xl) %>
+            <%= render AvatarComponent.new(person, size: :xl) %>
           </div>
-          <h4 class="mb-0"><%= "#{person.user.full_name}" %></h4>
+          <h4 class="mb-0"><%= "#{person.full_name}" %></h4>
         </div>
         <div class="d-flex justify-content-between border-bottom py-2">
           <span><%= t(:joined) %></span>

@@ -1,12 +1,8 @@
 class Organizations::PersonPolicy < ApplicationPolicy
   pre_check :verify_record_organization!
-  alias_rule :edit?, :update?, to: :manage?
+  alias_rule :show?, :edit?, :update?, to: :manage?
 
   def index?
-    permission?(:view_people)
-  end
-
-  def show?
     permission?(:view_people)
   end
 

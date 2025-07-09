@@ -31,13 +31,20 @@
                             class: "form-control" %>
             </div>
 
-            <div class="form-group mb-3 bigger">
-              <%= f.text_field :first_name, required: true, class: "form-control" %>
-            </div>
-
-            <div class="form-group mb-3 bigger">
-              <%= f.text_field :last_name, required: true, class: "form-control" %>
-            </div>
+            <%= f.fields_for @person do |person| %>
+              <div class="form-group mb-3 bigger">
+                <%= person.text_field :first_name,
+                                  placeholder: "First Name",
+                                  required: true,
+                                  class: "form-control" %>
+              </div>
+              <div class="form-group mb-3 bigger">
+                <%= person.text_field :last_name,
+                                  placeholder: "First Name",
+                                  required: true,
+                                  class: "form-control" %>
+              </div>
+            <% end %>
 
             <div class="form-group mb-3 bigger">
               <%= f.password_field :password,
