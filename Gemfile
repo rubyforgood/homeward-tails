@@ -116,7 +116,7 @@ gem "dry-initializer", "~> 3.2"
 gem "strong_migrations", "~> 2.4"
 
 # Track errors in prod
-gem "bugsnag", "~> 6.27"
+gem "bugsnag", "~> 6.28"
 
 # Google OAuth
 gem "omniauth"
