@@ -44,6 +44,10 @@ crumb :faqs_index do
   link "FAQs", staff_faqs_path
 end
 
+crumb :people do
+  link "People", staff_people_path
+end
+
 crumb :fosterers do
   link "Fosterers", staff_fosterers_path
 end
@@ -92,6 +96,12 @@ crumb :invite_fosterer do |fosterer|
   link "Invite Fosterer", new_staff_fosterer_invitation_path
   parent :fosterers
 end
+
+crumb :person do |person|
+  link person.user.full_name, person
+  parent :people
+end
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end

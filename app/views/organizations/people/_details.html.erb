@@ -1,0 +1,90 @@
+<div class="card">
+  <!-- Card Body -->
+  <div class="card-body">
+    <div class="d-flex align-items-center">
+      <div class="position-relative">
+        <%= render AvatarComponent.new(person.user, size: :xl) %>
+      </div>
+      <div class="ms-4">
+        <h4 class="mb-0">
+
+          <% if allowed_to?(:edit_name?, person) %>
+            <%= render "inline_edit", model: person, attribute: :full_name do %>
+              <%= person.first_name %>
+              <%= person.last_name %>
+            <% end %>
+          <% else %>
+            <%= person.first_name %>
+            <%= person.last_name %>
+          <% end %>
+
+        </h4>
+        <p class="mb-1 fs-6"><%= person.groups.pluck(:name).map(&:titleize).join(", ") %>
+        </p>
+      </div>
+    </div>
+    <div class="border-top row mt-3 border-bottom mb-3 g-0">
+      <div class="col">
+        <div class="pe-1 ps-2 py-3">
+          <h5 class="mb-0">
+            Email
+          </h5>
+          <span><%= person.email %>
+          </span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="pe-1 ps-2 py-3">
+          <h5 class="mb-0">
+            Phone
+          </h5>
+          <%= render "inline_edit", model: person, attribute: :phone_number do %>
+            <span><%= person.phone_number %>
+            </span>
+          <% end %>
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="pe-1 ps-2 py-3">
+          <h5 class="mb-0">
+            Location
+          </h5>
+          <%= render "inline_edit", model: person, attribute: :location do %>
+            <% if location = @person.location %>
+              <span class=" mb-1">
+                <%= location.city_town %>,
+                <%= location.province_state %>
+                <%= location.country %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <h5>Notes</h5>
+    <%= bootstrap_form_with url: staff_note_path,  model: person.note, method: "patch", data: { turbo: true } do |form| %>
+      <%# autocomplete off required for value to be present in firefox %>
+      <%= form.text_area :content,
+                     hide_label: true,
+                     autocomplete: "off",
+                     rows: 5,
+                     value: person.content,
+                     class: "form-control notes-textarea-#{person.id}" %>
+      <%= form.hidden_field :notable_id, value: person.id %>
+      <%= form.hidden_field :notable_type, value: person.class.name %>
+      <%= form.hidden_field :context, value: "default" %>
+      <div class="d-flex align-items-center justify-content-between mt-2">
+        <div class="text-muted small notes-last-modified-<%= person.id %>">
+          <% if person.note&.persisted? %>
+            Last modified:
+            <%= person.note.updated_at.strftime(
+              "#{person.note.updated_at.day.ordinalize} %B, %Y",
+            ) %>
+          <% end %>
+        </div>
+      </div>
+      <%= form.submit t("general.save"), class: "btn btn-primary position-relative" %>
+    <% end %>
+  </div>
+</div>

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     resources :home, only: [:index]
     resources :adoptable_pets, only: %i[index show]
     resources :faq, only: [:index]
-    resources :people, only: %i[new create]
+    resources :people, only: %i[new create edit update]
     resources :contacts, only: %i[new create]
 
     # Staff Routes
@@ -68,8 +68,7 @@ Rails.application.routes.draw do
           get :pets_with_overdue_tasks
         end
       end
-
-      resources :person, only: [] do
+      resources :people, only: %i[index show], controller: "/organizations/people" do
         resources :form_submissions, only: [:index]
       end
 
