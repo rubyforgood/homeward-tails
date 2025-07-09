@@ -2,7 +2,6 @@
 
 # Renders a User's avatar as image or user's initials
 class AvatarComponent < ApplicationComponent
-  # param :user, Types::Instance(User)
   param :person, Types::Instance(Person)
   option :size, Types::Size, default: -> { :md }
 
