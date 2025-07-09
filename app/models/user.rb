@@ -53,14 +53,6 @@ class User < ApplicationRecord
     errors.add(:email, "Email cannot be changed") if email_changed?
   end
 
-  # def self.ransackable_attributes(auth_object = nil)
-  #   %w[first_name last_name]
-  # end
-
-  # def self.ransackable_associations(auth_object = nil)
-  #   %w[matches]
-  # end
-
   # used in views to show only the custom error msg without leading attribute
   def custom_messages(attribute)
     errors.where(attribute)
