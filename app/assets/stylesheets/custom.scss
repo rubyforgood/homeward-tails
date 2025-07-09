@@ -47,10 +47,10 @@ label.required:after {
 
 
 // Custom styling for only-child psuedo class
-.list-group .only-child-block:not(:only-child) {
+.only-child-block:not(:only-child) {
   display: none;
 }
 
-.list-group .only-child-block:only-child {
+.only-child-block:only-child {
   display: block;
 }
