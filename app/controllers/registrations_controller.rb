@@ -99,7 +99,7 @@ class RegistrationsController < Devise::RegistrationsController
   def send_email
     return unless resource.id
 
-    SignUpMailer.with(person: @person).adopter_welcome_email.deliver_now
+    SignUpMailer.with(person: @person).adopter_welcome_email.deliver_later
   end
 end
 
