@@ -1,52 +1,24 @@
 <%= render DashboardPageComponent.new(crumb: :person, crumb_options: @person) do |c| %>
   <% c.with_header_title { t(:people) } %>
   <% c.with_body do %>
-    <nav>
-      <div
-        class="nav nav-tabs d-flex-inline flex-column flex-sm-row"
-        id="nav-tab"
-        role="tablist"
-      >
-        <button
-          class="nav-link active text-sm-center"
-          id="nav-details"
-          data-bs-toggle="tab"
-          data-bs-target="#details"
-          type="button"
-          role="tab"
-          aria-controls="nav-details"
-          aria-selected="true"
-        ><%= t(".details") %>
-        </button>
-        <button
-          class="nav-link text-sm-center"
-          id="nav-form-submissions"
-          data-bs-toggle="tab"
-          data-bs-target="#form_submissions"
-          type="button"
-          role="tab"
-          aria-controls="nav-details"
-          aria-selected="true"
-        ><%= t(".form_submissions") %>
-        </button>
-      </div>
-    </nav>
-    <div class="tab-content p-3" id="nav-tabContent">
-      <%= turbo_frame_tag "details",
-        class: "tab-pane fade show active", 
-        role:"tabpanel",
-        aria_labelledby:"details",
-        tabindex:"0" do %>
-        <%= render "details", person: @person %>
-      <% end %>
-      <%= turbo_frame_tag "form_submissions",
-        src: staff_person_form_submissions_path(@person),
-        loading: "lazy",
-        class: "tab-pane fade", 
-        role:"tabpanel",
-        aria_labelledby:"form_subbmissions",
-        tabindex:"0" do %>
-      <% end %>
-    </div>
+
+    <%= render TabsComponent.new(
+      tabs: [
+        {
+          id: "details",
+          label: t(".details"),
+          partial: "details",
+          locals: {
+            person: @person,
+          },
+          active: true,
+        },
+        {
+          id: "form_submissions",
+          label: t(".form_submissions"),
+          src: staff_person_form_submissions_path(@person),
+        },
+      ],
+    ) %>
   <% end %>
 <% end %>

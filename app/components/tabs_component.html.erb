@@ -1,0 +1,41 @@
+<nav>
+  <div
+    class="nav nav-tabs d-flex-inline flex-column flex-sm-row"
+    id="nav-tab"
+    role="tablist"
+  >
+    <% tabs.each_with_index do |tab, i| %>
+      <button
+        class="nav-link text-sm-center <%= 'active' if tab[:active] || i == 0 %>"
+        id="nav-<%= tab[:id] %>"
+        data-bs-toggle="tab"
+        data-bs-target="#<%= tab[:id] %>"
+        type="button"
+        role="tab"
+        aria-controls="<%= tab[:id] %>"
+        aria-selected="<%= (tab[:active] || i == 0).to_s %>"
+      >
+        <%= tab[:label] %>
+      </button>
+    <% end %>
+  </div>
+</nav>
+
+<div class="tab-content p-3" id="nav-tabContent">
+  <% tabs.each_with_index do |tab, i| %>
+    <% classes = "tab-pane fade" %>
+    <% classes += " show active" if tab[:active] || i == 0 %>
+
+    <%= turbo_frame_tag "#{tab[:id]}",
+          src: tab[:src],
+          class: classes,
+          role: "tabpanel",
+          aria_labelledby: tab[:id], 
+          tabindex: 0,
+          loading: tab[:src] ? "lazy" : nil do %>
+      <% if tab[:partial] %>
+        <%= render partial: tab[:partial], locals: tab[:locals] || {} %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
