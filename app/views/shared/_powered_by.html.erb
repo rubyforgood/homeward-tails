@@ -1,12 +1,12 @@
 <% url ||= "/" %>
 <% target ||= "_self" %>
 
-<div class="d-flex align-items-end gap-3">
+<div class="d-flex align-items-end gap-2">
   <div class="fst-italic text-black fs-6">Powered By</div>
   <%= link_to url, target: target , class: "link-primary link-opacity-25-hover" do %>
     <div class="fs-4 fw-medium">
       <%= t("root.index.title") %>
     </div>
-    <div class="fw-light fs-6"><%= t("root.index.sub_title") %></div>
+    <div class="fw-light fs-6 mt-n1"><%= t("root.index.sub_title") %></div>
   <% end %>
 </div>
