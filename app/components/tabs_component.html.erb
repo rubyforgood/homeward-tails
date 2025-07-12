@@ -4,37 +4,36 @@
     id="nav-tab"
     role="tablist"
   >
-    <% tabs.each_with_index do |tab, i| %>
+    <% tabs.each_with_index do |(tab, value), i| %>
       <button
-        class="nav-link text-sm-center <%= 'active' if tab[:active] || i == 0 %>"
-        id="nav-<%= tab[:id] %>"
+        class="nav-link text-sm-center <%= 'active' if value[:active] || i == 0 %>"
+        id="nav-<%= tab %>"
         data-bs-toggle="tab"
-        data-bs-target="#<%= tab[:id] %>"
+        data-bs-target="#<%= tab %>"
         type="button"
         role="tab"
-        aria-controls="<%= tab[:id] %>"
-        aria-selected="<%= (tab[:active] || i == 0).to_s %>"
+        aria-controls="<%= tab %>"
+        aria-selected="<%= (value[:active] || i == 0).to_s %>"
       >
-        <%= tab[:label] %>
+        <%= value[:label] %>
       </button>
     <% end %>
   </div>
 </nav>
 
 <div class="tab-content p-3" id="nav-tabContent">
-  <% tabs.each_with_index do |tab, i| %>
+  <% tabs.each_with_index do |(tab, value), i| %>
     <% classes = "tab-pane fade" %>
-    <% classes += " show active" if tab[:active] || i == 0 %>
+    <% classes += " show active" if value[:active] || i == 0 %>
 
-    <%= turbo_frame_tag "#{tab[:id]}",
-          src: tab[:src],
+    <%= turbo_frame_tag "#{tab}",
+          src: value[:src],
           class: classes,
           role: "tabpanel",
-          aria_labelledby: tab[:id], 
           tabindex: 0,
-          loading: tab[:src] ? "lazy" : nil do %>
-      <% if tab[:partial] %>
-        <%= render partial: tab[:partial], locals: tab[:locals] || {} %>
+          loading: value[:src] ? "lazy" : nil do %>
+      <% if value[:partial] %>
+        <%= render partial: value[:partial], locals: value[:locals] || {} %>
       <% end %>
     <% end %>
   <% end %>

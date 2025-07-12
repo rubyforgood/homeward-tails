@@ -3,9 +3,8 @@
   <% c.with_body do %>
 
     <%= render TabsComponent.new(
-      tabs: [
-        {
-          id: "details",
+      tabs: {
+        details: {
           label: t(".details"),
           partial: "details",
           locals: {
@@ -13,12 +12,12 @@
           },
           active: true,
         },
-        {
+        form_submissions: {
           id: "form_submissions",
           label: t(".form_submissions"),
           src: staff_person_form_submissions_path(@person),
         },
-      ],
+      },
     ) %>
   <% end %>
 <% end %>
