@@ -180,9 +180,9 @@ en:
     shared:
       footer:
         organization_name: "%{name}"
-        call: "If you are a pet adoption or foster organization and want a website like this one, for free,"
+        call: "If you want a website like this one, for free,"
         action: "Click Here"
-        company: "Company"
+        socials: "Socials"
         rights: "Pet-Rescue, Inc. All Rights Reserved"
         policy: "Privacy Policy"
         cookie: "Cookie Notice"
