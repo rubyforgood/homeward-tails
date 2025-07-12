@@ -3,6 +3,7 @@
 # Table name: organizations
 #
 #  id                :bigint           not null, primary key
+#  active            :boolean          default(TRUE), not null
 #  donation_url      :text
 #  email             :string           not null
 #  external_form_url :text
@@ -16,7 +17,8 @@
 #
 # Indexes
 #
-#  index_organizations_on_slug  (slug) UNIQUE
+#  index_organizations_on_active  (active)
+#  index_organizations_on_slug    (slug) UNIQUE
 #
 class Organization < ApplicationRecord
   include Avatarable
@@ -45,4 +47,6 @@ class Organization < ApplicationRecord
   validates :facebook_url, url: true, allow_blank: true
   validates :instagram_url, url: true, allow_blank: true
   validates :donation_url, url: true, allow_blank: true
+
+  scope :active, -> { where(active: true) }
 end

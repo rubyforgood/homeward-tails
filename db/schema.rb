@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_04_224628) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_12_211752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -199,6 +199,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_224628) do
     t.text "facebook_url"
     t.text "instagram_url"
     t.text "external_form_url"
+    t.boolean "active", default: true, null: false
+    t.index ["active"], name: "index_organizations_on_active"
     t.index ["slug"], name: "index_organizations_on_slug", unique: true
   end
 
