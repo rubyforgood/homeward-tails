@@ -2,7 +2,7 @@
   <div class="container mt-md-5">
     <h1 class="text-center fw-bold">Welcome to Homeward Tails</h1>
     <p class="lead text-center mt-3">
-      Adopt pets from all <%= @organizations.count %> Homeward Tails organizations with a single account
+      Adopt pets from all <%= @organizations.count > 1 ? @organizations.count : nil %> Homeward Tails organizations with a single account
     </p>
   </div>
 </section>
