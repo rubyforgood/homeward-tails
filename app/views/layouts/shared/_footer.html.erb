@@ -8,9 +8,8 @@
           <h3>
             <%= t(".organization_name", name: Current.tenant.name) %>
           </h3>
-          <%= render "shared/powered_by" %>
-          <div class="mt-2">
 
+          <div class="mt-2">
             <p>
               <%= t(".call") %>
               <%= link_to t(".action"),
@@ -30,7 +29,7 @@
       <div class="offset-lg-1 col-lg-2 col-md-3 col-6">
         <div class="mb-4">
           <!-- list -->
-          <h3 class="fw-bold mb-3"><%= t(".company") %></h3>
+          <h3 class="fw-bold mb-3"><%= t(".socials") %></h3>
           <ul class="list-unstyled nav nav-footer flex-column nav-x-0">
             <% if Current.tenant&.facebook_url.present? || Current.tenant&.instagram_url.present? %>
               <li class="d-flex gap-3">
@@ -97,9 +96,17 @@
         </div>
       </div>
     </div>
-    <div class="row align-items-center g-0 border-top py-2">
-      <!-- Desc -->
-      <div class="col-lg-4 col-md-5 col-12">
+    <div class="row flex align-items-center border-top py-2 justify-content-between">
+      <!-- Links -->
+      <div class="col-12 col-lg-4">
+        <nav class="nav nav-footer justify-content-start w-100 my-lg-0 my-2">
+          <%= link_to t(".policy"), privacy_policy_path, target: "_blank", class: "nav-link ps-0" %>
+          <%= link_to t(".cookie"), cookie_policy_path, target: "_blank", class: "nav-link ps-0" %>
+          <%= link_to t(".terms"), terms_and_conditions_path, target: "_blank", class: "nav-link ps-0" %>
+        </nav>
+      </div>
+
+      <div class="col-12 col-lg-4 d-flex justify-content-start justify-content-lg-center">
         <span>
           ©
           <span id="copyright">
@@ -108,16 +115,9 @@
           <%= t(".rights") %>
         </span>
       </div>
-      <!-- Links -->
-      <div class="col-12 col-md-7 col-lg-8 d-md-flex justify-content-end">
-        <nav class="nav nav-footer">
-          <%= link_to t(".policy"), privacy_policy_path, target: "_blank", class: "nav-link" %>
-          <%= link_to t(".cookie"), cookie_policy_path, target: "_blank", class: "nav-link" %>
-          <%= link_to t(".terms"),
-          terms_and_conditions_path,
-          target: "_blank",
-          class: "nav-link" %>
-        </nav>
+
+      <div class="col-12 col-lg-4 d-flex justify-content-end">
+        <%= render "shared/powered_by" %>
       </div>
     </div>
   </div>
