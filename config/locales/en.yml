@@ -633,6 +633,8 @@ en:
               draft: "Draft"
           photos:
             empty_state: "No photos exist for this pet"
+          files:
+            empty_state: "No files exist for this pet"
       custom_form:
         forms:
           set_form:
