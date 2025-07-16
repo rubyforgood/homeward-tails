@@ -132,6 +132,7 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.3)
     crass (1.0.6)
+    csv (3.3.5)
     cuprite (0.17)
       capybara (~> 3.0)
       ferrum (~> 0.17.0)
@@ -654,6 +655,7 @@ DEPENDENCIES
   brakeman
   bugsnag (~> 6.28)
   capybara
+  csv (~> 3.3)
   cuprite
   dartsass-rails
   debug
@@ -702,7 +704,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.4.4p34
 
 BUNDLED WITH
    2.5.7
