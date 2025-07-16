@@ -13,7 +13,7 @@ class Organizations::CreateServiceTest < ActiveSupport::TestCase
         slug: "baja",
         email: "baja@email.com"
       },
-      user: {
+      super_admin: {
         email: "test@test.lol",
         first_name: "Jimmy",
         last_name: "Hendrix"

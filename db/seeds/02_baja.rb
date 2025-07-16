@@ -18,8 +18,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_staff_one = User.create!(
     email: "staff@baja.com",
-    first_name: "Andy",
-    last_name: "Peters",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -36,8 +34,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_staff_two = User.create!(
     email: "staff2@baja.com",
-    first_name: "Randy",
-    last_name: "Peterson",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -54,8 +50,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_adopter_one = User.create!(
     email: "adopter1@baja.com",
-    first_name: "Joe",
-    last_name: "Brando",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -74,8 +68,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_adopter_two = User.create!(
     email: "adopter2@baja.com",
-    first_name: "Kamala",
-    last_name: "Lolsworth",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -92,8 +84,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_adopter_three = User.create!(
     email: "adopter3@baja.com",
-    first_name: "Bad",
-    last_name: "Address",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -110,8 +100,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_fosterer_one = User.create!(
     email: "fosterer1@baja.com",
-    first_name: "Simon",
-    last_name: "Petrikov",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1
@@ -135,8 +123,6 @@ ActsAsTenant.with_tenant(@organization) do
 
   @user_fosterer_two = User.create!(
     email: "fosterer2@baja.com",
-    first_name: "Finn",
-    last_name: "Mertens",
     password: "123456",
     password_confirmation: "123456",
     tos_agreement: 1

@@ -2,6 +2,7 @@ require "dry-initializer"
 require "dry-types"
 
 class ApplicationComponent < ViewComponent::Base
+  include Turbo::FramesHelper
   extend Dry::Initializer
 
   module Types

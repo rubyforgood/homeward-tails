@@ -4,14 +4,15 @@ require "test_helper"
 
 class AvatarComponentTest < ViewComponent::TestCase
   setup do
-    @user = create(:user)
-    @component = AvatarComponent.new(@user)
+    @person = create(:person)
+    @component = AvatarComponent.new(@person)
   end
 
   context "when user has attached avatar image" do
     setup do
       user = create(:user, :with_avatar)
-      @component = AvatarComponent.new(user)
+      person = create(:person, user: user)
+      @component = AvatarComponent.new(person)
     end
 
     should "use the image_url as image src" do
@@ -28,15 +29,15 @@ class AvatarComponentTest < ViewComponent::TestCase
     should "use user's initials as avatar" do
       render_inline(@component)
 
-      assert_text("#{@user.first_name[0]}#{@user.last_name[0]}".upcase)
+      assert_text("#{@person.first_name[0]}#{@person.last_name[0]}".upcase)
       assert_selector("span.avatar-initials", count: 1)
     end
   end
 
   context "when rendered with size :md" do
     setup do
-      user = create(:user)
-      @component = AvatarComponent.new(user, size: :md)
+      person = create(:person)
+      @component = AvatarComponent.new(person, size: :md)
     end
 
     should "use md container classes" do
@@ -48,8 +49,8 @@ class AvatarComponentTest < ViewComponent::TestCase
 
   context "when rendered with size :xl" do
     setup do
-      user = create(:user)
-      @component = AvatarComponent.new(user, size: :xl)
+      person = create(:person)
+      @component = AvatarComponent.new(person, size: :xl)
     end
 
     should "use xl container classes" do

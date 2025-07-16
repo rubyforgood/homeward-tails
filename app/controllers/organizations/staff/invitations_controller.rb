@@ -30,7 +30,8 @@ module Organizations
 
           if @user.nil?
             @user = User.new(
-              user_params.merge(password: SecureRandom.hex(8)).except(:roles)
+              email: user_params[:email],
+              password: SecureRandom.hex(8)
             )
             if @user.save
               @user.invite!(current_user)
@@ -59,7 +60,8 @@ module Organizations
 
           if @user.nil?
             @user = User.new(
-              user_params.merge(password: SecureRandom.hex(8)).except(:roles)
+              email: user_params[:email],
+              password: SecureRandom.hex(8)
             )
             if @user.save
               @user.invite!(current_user)
@@ -115,8 +117,8 @@ module Organizations
         @person ||= Person.find_or_create_by!(email: @user.email) do |person|
           person.email = @user.email
           person.user_id = @user.id
-          person.first_name = @user.first_name
-          person.last_name = @user.last_name
+          person.first_name = user_params[:first_name]
+          person.last_name = user_params[:last_name]
         end
       end
     end

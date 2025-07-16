@@ -72,7 +72,7 @@ class PersonTest < ActiveSupport::TestCase
 
     context "format is :default" do
       should "return `First Last`" do
-        person = build(:user, first_name: "First", last_name: "Last")
+        person = build(:person, first_name: "First", last_name: "Last")
 
         assert_equal "First Last", person.full_name(:default)
       end
@@ -80,7 +80,7 @@ class PersonTest < ActiveSupport::TestCase
 
     context "format is :last_first" do
       should "return `Last, First`" do
-        person = build(:user, first_name: "First", last_name: "Last")
+        person = build(:person, first_name: "First", last_name: "Last")
 
         assert_equal "Last, First", person.full_name(:last_first)
       end
@@ -88,7 +88,7 @@ class PersonTest < ActiveSupport::TestCase
 
     context "format is unsupported" do
       should "raise ArgumentError" do
-        person = build(:user, first_name: "First", last_name: "Last")
+        person = build(:person, first_name: "First", last_name: "Last")
 
         assert_raises(ArgumentError) { person.full_name(:foobar) }
       end

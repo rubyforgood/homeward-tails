@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :faq, only: [:index]
     resources :people, only: %i[new create edit update]
     resources :contacts, only: %i[new create]
+    resources :accounts, only: %i[show]
 
     # Staff Routes
     namespace :staff do

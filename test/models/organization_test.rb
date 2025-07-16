@@ -54,4 +54,21 @@ class OrganizationTest < ActiveSupport::TestCase
       subject.save
     end
   end
+
+  context "defaults" do
+    should "have active default to true" do
+      organization = Organization.new
+      assert organization.active
+    end
+  end
+
+  context "scopes" do
+    should "return only active organizations" do
+      active_org = create(:organization, active: true)
+      inactive_org = create(:organization, active: false)
+
+      assert_includes Organization.active, active_org
+      refute_includes Organization.active, inactive_org
+    end
+  end
 end

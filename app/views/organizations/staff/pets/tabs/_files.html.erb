@@ -1,4 +1,8 @@
 <div class="mb-4">
   <%= render "organizations/staff/shared/attachment_form", multiple: true, instance: @pet, title: 'Files', url: attach_files_staff_pet_path(@pet), attachment_type: 'files' %>
-  <%= render "organizations/shared/file_attachment_table", pet: @pet %>
+  <% if @pet.files.present? %>
+    <%= render "organizations/shared/file_attachment_table", pet: @pet %>
+  <% else %>
+    <%= render partial: "shared/empty_state", locals: {text: t(".empty_state")} %>
+  <% end %>
 </div>
