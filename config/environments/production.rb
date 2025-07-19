@@ -74,7 +74,9 @@ Rails.application.configure do
 
   # devise mailer (e.g. reset password)
   config.action_mailer.default_url_options = {host: "https://www.homewardtails.org"}
-  config.action_mailer.default_options = {from: "homewardtails@gmail.com"}
+  config.action_mailer.default_options = {from: Rails.application.credentials.dig(:gmail, :user_name)}
+  config.action_mailer.default = { from: Rails.application.credentials.dig(:gmail, :user_name) }
+
   # Replace the default in-process memory cache store with a durable alternative.
   # config.cache_store = :mem_cache_store
 
@@ -117,7 +119,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.from_email = Rails.application.credentials.homeward_tails_email_address
+  config.from_email = Rails.application.credentials.dig(:gmail, :user_name)
   config.app_url = "https://www.homewardtails.org"
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [:id]
