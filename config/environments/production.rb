@@ -75,7 +75,7 @@ Rails.application.configure do
   # devise mailer (e.g. reset password)
   config.action_mailer.default_url_options = {host: "https://www.homewardtails.org"}
   config.action_mailer.default_options = {from: Rails.application.credentials.dig(:gmail, :user_name)}
-  config.action_mailer.default = { from: Rails.application.credentials.dig(:gmail, :user_name) }
+  config.action_mailer.default = {from: Rails.application.credentials.dig(:gmail, :user_name)}
 
   # Replace the default in-process memory cache store with a durable alternative.
   # config.cache_store = :mem_cache_store
