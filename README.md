@@ -1,6 +1,6 @@
 # Homeward Tails Adoption Application
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-75-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-76-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Application](https://github.com/kasugaijin/baja-pet-rescue/tree/main) created by @kasugaijin who wanted to give back to the grassroots organization from where he adopted his dog in Mexico by building them a web application. Homeward Tails is an application that makes it easy to connect shelters with people who are looking to adopt or foster pets.
@@ -352,6 +352,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/stefaanbeernaert"><img src="https://avatars.githubusercontent.com/u/90693025?v=4?s=100" width="100px;" alt="stefaanbeernaert"/><br /><sub><b>stefaanbeernaert</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=stefaanbeernaert" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://nascenia.com/"><img src="https://avatars.githubusercontent.com/u/45825058?v=4?s=100" width="100px;" alt="Md Shafayet Jamil"/><br /><sub><b>Md Shafayet Jamil</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=ShafayetEmon" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/binarygit"><img src="https://avatars.githubusercontent.com/u/87677429?v=4?s=100" width="100px;" alt="binarygit"/><br /><sub><b>binarygit</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=binarygit" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/MikeRose151"><img src="https://avatars.githubusercontent.com/u/72466799?v=4?s=100" width="100px;" alt="Mike Rose"/><br /><sub><b>Mike Rose</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=MikeRose151" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
