@@ -11,9 +11,10 @@
         </tr>
       </thead>
       <tbody>
-        <% fosters.each do |foster|%>
-          <%= render "organizations/staff/pets/tabs/partials/foster_table_row", foster: foster %>
-        <% end %>
+        <%= 
+          render(partial: "organizations/staff/pets/tabs/partials/foster_table_row", collection: fosters, as: :foster) ||  
+            tag.tr { tag.td { link_to( 'There are no fosters for this pet. To make a new foster, click here', staff_manage_fosters_path) } }
+        %>
       </tbody>
     </table>
   </div>
