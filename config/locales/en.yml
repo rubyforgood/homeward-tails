@@ -321,7 +321,7 @@ en:
             images:
               content_type_invalid: "Image must be PNG or JPEG"
               limit_out_of_range: "5 maximum"
-              file_size_out_of_range: "Image size must be between 10kb and 1Mb"
+              file_size_out_of_range: "Image size must not be larger than 2MB"
         task:
           attributes:
             pet:
