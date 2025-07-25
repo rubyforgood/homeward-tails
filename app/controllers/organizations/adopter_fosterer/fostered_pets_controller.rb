@@ -6,13 +6,13 @@ module Organizations
 
       def index
         # TODO: adopter can visit this page
-        @fostered_pets = authorized_scope(Match.fosters.current.or(Match.fosters.upcoming), with: Organizations::AdopterFosterer::MatchPolicy)
+        @fostered_pets = authorized_scope(Match.fosters.current.or(Match.fosters.upcoming), with: Organizations::AdopterFosterer::MatchPolicy, context: { page: "fostered_pets" })
       end
 
       private
 
       def context_authorize!
-        authorize! with: Organizations::AdopterFosterer::MatchPolicy
+        authorize! with: Organizations::AdopterFosterer::MatchPolicy, context: { page: "fostered_pets" }
       end
     end
   end
