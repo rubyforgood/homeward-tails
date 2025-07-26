@@ -22,7 +22,7 @@ module Authorizable
 
   FOSTERER_PERMISSIONS = %i[
     view_adopter_foster_dashboard
-    view_adopter_foster_matches
+    view_foster_adopter_matches
     purge_avatar
     edit_own_person_attributes
   ].freeze
