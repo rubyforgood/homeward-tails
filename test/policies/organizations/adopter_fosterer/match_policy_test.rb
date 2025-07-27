@@ -6,7 +6,7 @@ class Organizations::AdopterFosterer::MatchPolicyTest < ActiveSupport::TestCase
   setup do
     @policy = -> {
       Organizations::AdopterFosterer::MatchPolicy.new(
-        Match, person: @person, user: @person&.user
+        Match, person: @person, user: @person&.user, type: "adoption"
       )
     }
   end

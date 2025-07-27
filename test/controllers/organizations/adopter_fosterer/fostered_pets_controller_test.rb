@@ -23,7 +23,7 @@ module Organizations
             ActsAsTenant.with_tenant(@organization) do
               assert_have_authorized_scope(
                 type: :active_record_relation,
-                with: Organizations::AdopterFosterer::MatchPolicy
+                with: Organizations::AdopterFosterer::MatchPolicy, context: {type: "foster"}
               ) do
                 get adopter_fosterer_fostered_pets_url
               end
