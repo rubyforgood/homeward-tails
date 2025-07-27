@@ -4,9 +4,9 @@ class Organizations::AdopterFosterer::MatchPolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   setup do
-    @policy = ->(page = "adopted_pets") {
+    @policy = ->() {
       Organizations::AdopterFosterer::MatchPolicy.new(
-        Match, person: @person, user: @person&.user, page: page
+        Match, person: @person, user: @person&.user, type: "adoption"
       )
     }
   end
