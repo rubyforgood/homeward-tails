@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   get "/up", to: "root#up" # Health check endpoint to let Kamal know the app is up
   get "/about_us", to: "static_pages#about_us"
   get "/partners", to: "static_pages#partners"
-  get "/donate", to: "static_pages#donate"
   get "/privacy_policy", to: "static_pages#privacy_policy"
   get "/terms_and_conditions", to: "static_pages#terms_and_conditions"
   get "/cookie_policy", to: "static_pages#cookie_policy"
@@ -37,6 +36,7 @@ Rails.application.routes.draw do
     resources :people, only: %i[new create edit update]
     resources :contacts, only: %i[new create]
     resources :accounts, only: %i[show]
+    resources :donate, only: [:index]
 
     # Staff Routes
     namespace :staff do

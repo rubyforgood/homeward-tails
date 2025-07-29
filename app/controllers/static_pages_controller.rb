@@ -4,7 +4,6 @@ class StaticPagesController < ApplicationController
   skip_verify_authorized only: %i[
     about_us
     cookie_policy
-    donate
     partners
     privacy_policy
     terms_and_conditions
@@ -23,9 +22,6 @@ class StaticPagesController < ApplicationController
   end
 
   def partners
-  end
-
-  def donate
   end
 
   def privacy_policy

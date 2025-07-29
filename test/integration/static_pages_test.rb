@@ -15,13 +15,6 @@ class StaticPagesTest < ActionDispatch::IntegrationTest
     # assert_select "h1", "Frequently Asked Questions"
   end
 
-  test "Donate page can be accessed" do
-    skip("while new ui is implemented")
-    # get "/donate"
-    # assert_response :success
-    # assert_select "h1", "Donate"
-  end
-
   test "Contact Us page can be accessed" do
     skip("while new ui is implemented")
     # get "/contacts/new"
