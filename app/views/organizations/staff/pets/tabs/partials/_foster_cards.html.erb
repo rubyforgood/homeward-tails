@@ -54,5 +54,11 @@
     </div>
   <% end %>
 <% else %>
-  <%= link_to('There are no fosters for this pet. To make a new foster, click here', staff_manage_fosters_path) %>
+  <div class="card">
+    <p class="card-body">
+      There are no fosters for this pet. To make a new foster,
+      <%= link_to("click here", staff_manage_fosters_path) %>
+    </p>
+  </div>
+
 <% end %>
