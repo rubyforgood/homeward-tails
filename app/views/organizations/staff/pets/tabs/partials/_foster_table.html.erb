@@ -11,10 +11,19 @@
         </tr>
       </thead>
       <tbody>
-        <%= 
-          render(partial: "organizations/staff/pets/tabs/partials/foster_table_row", collection: fosters, as: :foster) ||  
-            tag.tr { tag.td { link_to( 'There are no fosters for this pet. To make a new foster, click here', staff_manage_fosters_path) } }
-        %>
+        <% if fosters.present? %>
+          <%= render partial: "organizations/staff/pets/tabs/partials/foster_table_row",
+          collection: fosters,
+          as: :foster %>
+        <% else %>
+          <%= tag.tr do %>
+            <%= tag.td do %>
+              There are no fosters for this pet. To make a new foster,
+              <%= link_to "click here", staff_manage_fosters_path %>
+            <% end %>
+          <% end %>
+        <% end %>
+
       </tbody>
     </table>
   </div>
