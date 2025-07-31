@@ -16,7 +16,7 @@ gem "propshaft"
 gem "figaro"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.6"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.6.0"
@@ -113,7 +113,7 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.4"
+gem "strong_migrations", "~> 2.5"
 
 # Track errors in prod
 gem "bugsnag", "~> 6.28"

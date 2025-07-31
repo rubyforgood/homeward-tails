@@ -1,54 +1,64 @@
-<% fosters.each do |foster| %>
-  <%# Grid cell %>
-  <div class="col-lg-4 col-md-6 p-0">
-    <%# Card %>
-    <div class="card card-hover m-4" style='overflow: hidden'>
-      <%# Card body %>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <ul class="list-group list-group-flush d-flex flex-column justify-content-between">
-            <li class="list-group-item">
-              <span>Fosterer:</span>
-              <div>
-                <%= link_to foster.person.full_name, staff_person_form_submissions_path(foster.person)%>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <div class="badge <%= status_classes(foster.status) %>">
-                <%= foster.status.to_s.titleize %>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <span>Start date:</span>
-              <%= turbo_frame_tag dom_id(foster, :start_date) do %>
-                <%= link_to foster.start_date.strftime("%m/%d/%Y"),
-                  edit_staff_manage_foster_path(foster, page: params[:page]),
-                  class: "btn btn-outline-primary mb-2"
+<% if fosters.any? %>
+  <% fosters.each do |foster| %>
+    <%# Grid cell %>
+    <div class="col-lg-4 col-md-6 p-0">
+      <%# Card %>
+      <div class="card card-hover m-4" style='overflow: hidden'>
+        <%# Card body %>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <ul class="list-group list-group-flush d-flex flex-column justify-content-between">
+              <li class="list-group-item">
+                <span>Fosterer:</span>
+                <div>
+                  <%= link_to foster.person.full_name, staff_person_form_submissions_path(foster.person)%>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="badge <%= status_classes(foster.status) %>">
+                  <%= foster.status.to_s.titleize %>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <span>Start date:</span>
+                <%= turbo_frame_tag dom_id(foster, :start_date) do %>
+                  <%= link_to foster.start_date.strftime("%m/%d/%Y"),
+                    edit_staff_manage_foster_path(foster, page: params[:page]),
+                    class: "btn btn-outline-primary mb-2"
+                  %>
+                <% end %>
+              </li>
+              <li class="list-group-item">
+                <span>End date:</span>
+                <%= turbo_frame_tag dom_id(foster, :end_date) do %>
+                  <%= link_to foster.end_date.strftime("%m/%d/%Y"),
+                    edit_staff_manage_foster_path(foster, page: params[:page]),
+                    class: "btn btn-outline-primary mb-2"
+                  %>
+                <% end %>
+              </li>
+              <li class="list-group-item d-flex justify-content-end">
+                <%= button_to t('general.delete'),
+                  staff_manage_foster_path(foster, page: params[:page]),
+                  method: :delete,
+                  class: "btn btn-outline-danger",
+                  data: {
+                    turbo_confirm: "Click OK to delete this foster."
+                  }
                 %>
-              <% end %>
-            </li>
-            <li class="list-group-item">
-              <span>End date:</span>
-              <%= turbo_frame_tag dom_id(foster, :end_date) do %>
-                <%= link_to foster.end_date.strftime("%m/%d/%Y"),
-                  edit_staff_manage_foster_path(foster, page: params[:page]),
-                  class: "btn btn-outline-primary mb-2"
-                %>
-              <% end %>
-            </li>
-            <li class="list-group-item d-flex justify-content-end">
-              <%= button_to t('general.delete'),
-                staff_manage_foster_path(foster, page: params[:page]),
-                method: :delete,
-                class: "btn btn-outline-danger",
-                data: {
-                  turbo_confirm: "Click OK to delete this foster."
-                }
-              %>
-            </li>
-          </ul>
-        </li>
-      </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
+  <% end %>
+<% else %>
+  <div class="card">
+    <p class="card-body">
+      There are no fosters for this pet. To make a new foster,
+      <%= link_to("click here", staff_manage_fosters_path) %>
+    </p>
   </div>
+
 <% end %>

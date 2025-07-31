@@ -21,7 +21,7 @@ class Organizations::AdopterFosterer::AdoptedPetsControllerTest < ActionDispatch
         ActsAsTenant.with_tenant(@organization) do
           assert_have_authorized_scope(
             type: :active_record_relation,
-            with: Organizations::AdopterFosterer::MatchPolicy
+            with: Organizations::AdopterFosterer::MatchPolicy, context: {type: "adoption"}
           ) do
             get adopter_fosterer_adopted_pets_url
           end

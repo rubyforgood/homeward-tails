@@ -57,7 +57,7 @@ class Pet < ApplicationRecord
   # active storage validations gem
   validates :images, content_type: {in: ["image/png", "image/jpeg"]},
     limit: {max: 5},
-    size: {between: 10.kilobyte..1.megabytes}
+    size: {less_than_or_equal_to: 2.megabytes}
 
   validates :files, content_type: {in: ["image/png", "image/jpeg", "application/pdf"]},
     limit: {max: 15, message: "- 15 maximum"},
