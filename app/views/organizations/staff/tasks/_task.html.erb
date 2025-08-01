@@ -1,4 +1,4 @@
-<%= turbo_frame_tag task do %>
+<%= turbo_frame_tag task, data: { toggle_completed_target: "taskFrame" } do %>
   <li class="list-group-item <%= class_names({ 'bg-danger-subtle': task.overdue?, 'bg-success-subtle': task.completed }) %>">
     <div class="d-flex justify-content-between
               align-items-center">
