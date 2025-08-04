@@ -17,6 +17,6 @@ class DashboardPageComponent < ViewComponent::Base
   private
 
   def before_render
-    breadcrumb crumb, *crumb_options if crumb
+    helpers.breadcrumb crumb, *crumb_options if crumb
   end
 end
