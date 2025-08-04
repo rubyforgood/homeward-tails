@@ -54,8 +54,10 @@ class DashboardPageComponentTest < ViewComponent::TestCase
       end
 
       should "call breadcrumb with crumb" do
-        @component.expects(:breadcrumb).with(@crumb)
-
+        view_context = mock('view_context')
+        view_context.expects(:breadcrumb).with(@crumb)
+        view_context.stubs(:breadcrumbs).returns('')
+        ViewComponent::Base.any_instance.stubs(:helpers).returns(view_context)
         render_inline(@component)
       end
     end
@@ -68,16 +70,24 @@ class DashboardPageComponentTest < ViewComponent::TestCase
       end
 
       should "call breadcrumb with crumb and options" do
-        @component.expects(:breadcrumb).with(@crumb, *@options)
-
+        view_context = mock('view_context')
+        view_context.expects(:breadcrumb).with(@crumb, *@options)
+        view_context.stubs(:breadcrumbs).returns('')
+        ViewComponent::Base.any_instance.stubs(:helpers).returns(view_context)
         render_inline(@component)
       end
     end
 
     context "when no crumb is passed" do
-      should "not call breadcrumb" do
-        @component.expects(:breadcrumb).never
+      setup do
+        @component = DashboardPageComponent.new
+      end
 
+      should "not call breadcrumb" do
+        view_context = mock('view_context')
+        view_context.expects(:breadcrumb).never
+        view_context.stubs(:breadcrumbs).returns('')
+        ViewComponent::Base.any_instance.stubs(:helpers).returns(view_context)
         render_inline(@component)
       end
     end
