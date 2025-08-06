@@ -21,4 +21,8 @@ class Organizations::PersonPolicy < ApplicationPolicy
   def edit_name?
     permission?(:edit_names)
   end
+
+  def add_group?
+    true
+  end
 end

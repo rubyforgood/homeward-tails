@@ -1,12 +1,13 @@
 <% case status %>
-<% when :missing %>
-  <p style="color:red;">&#10008;</p>
-<% when :deactivated %>
-  <p>Deactivated</p>
 <% when :active %>
-  <% if @group_names.length == 1 %>
-    <p style="color:green;">&#10004;</p>
-  <% else %>
-    <p><%= group_name %></p>
+  <p style="color:green;">&#10004;</p>
+
+<% when :deactivated %>
+  <p style="color:red;">&#10008;</p>
+
+<% when :missing %>
+
+  <%= form_with url: add_group_staff_person_path(id: @person.id, group: group_name_to_add), method: :post, data: { turbo_frame: "_top" } do %>
+    <%= button_tag "+", class: "btn btn-sm btn-outline-primary" %>
   <% end %>
 <% end %>

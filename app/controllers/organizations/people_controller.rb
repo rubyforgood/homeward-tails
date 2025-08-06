@@ -6,7 +6,7 @@ module Organizations
     skip_before_action :verify_person_in_org, only: %i[new create]
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist, only: %i[new create]
-    before_action :set_person, only: %i[show edit update]
+    before_action :set_person, only: %i[show edit update add_group]
 
     def index
       authorize!
@@ -65,6 +65,16 @@ module Organizations
         flash.now[:alert] = @person.errors.full_messages.to_sentence
         render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
       end
+    end
+
+    def add_group
+      authorize!
+
+      group = params[:group]&.to_sym
+
+      @person.add_group(group)
+
+      redirect_back_or_to root_path, notice: "#{group.to_s.titleize} group added."
     end
 
     private

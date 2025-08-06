@@ -31,9 +31,11 @@
             <td class="text-center">
               <%= render(GroupStatusComponent.new(person: person, group_names: :adopter)) %>
             </td>
+
             <td class="text-center">
               <%= render(GroupStatusComponent.new(person: person, group_names: :fosterer)) %>
             </td>
+
             <td class="text-center">
               <%= render(
                 GroupStatusComponent.new(person: person, group_names: %i[admin super_admin]),

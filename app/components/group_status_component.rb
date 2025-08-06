@@ -13,8 +13,8 @@ class GroupStatusComponent < ApplicationComponent
     @group_names.map { |name| @group_map[name] }.compact.first
   end
 
-  def group_name
-    group&.name&.titleize
+  def group_name_to_add
+    @group_names.first
   end
 
   def deactivated?
