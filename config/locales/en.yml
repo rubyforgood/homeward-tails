@@ -164,7 +164,7 @@ en:
       give_ur_furr_ball: 'Give your fur balls what they deserve'
       give_ur_furr_ball_description: 'As a Ruby For Good open source project, this app will always be 100% free and volunteer supported'
       learn_more_about: 'Learn more about Ruby For Good'
-      learn_more_about_description: 'Ruby for Good is a skills-based volunteer organization focused on is to delivering specialized software development solutions to non-profit organizations to bolster their critical missions, build an inclusive technology community, and provide technology-focused educational opportunities to underserved communities.'
+      learn_more_about_description: 'Ruby for Good is a skills-based volunteer organization focused on delivering specialized software development solutions to non-profit organizations to bolster their critical missions, build an inclusive technology community, and provide technology-focused educational opportunities to underserved communities.'
   views:
     dashboard:
       index:
