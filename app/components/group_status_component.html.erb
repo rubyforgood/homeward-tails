@@ -1,0 +1,12 @@
+<% case status %>
+<% when :missing %>
+  <p style="color:red;">&#10008;</p>
+<% when :deactivated %>
+  <p>Deactivated</p>
+<% when :active %>
+  <% if @group_names.length == 1 %>
+    <p style="color:green;">&#10004;</p>
+  <% else %>
+    <p><%= group_name %></p>
+  <% end %>
+<% end %>
