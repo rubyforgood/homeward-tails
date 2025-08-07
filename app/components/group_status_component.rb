@@ -9,16 +9,8 @@ class GroupStatusComponent < ApplicationComponent
     @deactivated_map = @person.person_groups.index_by(&:group_id)
   end
 
-  def group
-    @group_names.map { |name| @group_map[name] }.compact.first
-  end
-
   def group_name_to_add
     @group_names.first
-  end
-
-  def deactivated?
-    @deactivated_map[group.id]&.deactivated_at.present?
   end
 
   def status
@@ -30,4 +22,14 @@ class GroupStatusComponent < ApplicationComponent
       :active
     end
   end
+end
+
+private
+
+def group
+  @group_names.map { |name| @group_map[name] }.compact.first
+end
+
+def deactivated?
+  @deactivated_map[group.id]&.deactivated_at.present?
 end
