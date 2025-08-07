@@ -5,7 +5,7 @@
 <% when :deactivated %>
   <p style="color:red;">&#10008;</p>
 
-<% when :missing %>
+<% when :not_present %>
 
   <%= form_with url: add_group_staff_person_path(id: @person.id, group: group_name_to_add),
     method: :post,

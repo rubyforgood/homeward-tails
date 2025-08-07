@@ -23,7 +23,7 @@ class GroupStatusComponent < ApplicationComponent
 
   def status
     if group.nil?
-      :missing
+      :not_present
     elsif deactivated?
       :deactivated
     else
