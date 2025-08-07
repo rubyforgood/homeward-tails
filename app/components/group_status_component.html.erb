@@ -12,7 +12,9 @@
   <% if helpers.allowed_to?(:add_group?, @person, with: Organizations::GroupManagementPolicy, context: {group: group_name_to_add}) %>
     <%= form_with url: add_group_staff_person_path(id: @person.id, group: group_name_to_add),
     method: :post,
-    data: { turbo_confirm: "Confirm: Add #{group_name_to_add.to_s.titleize} group to #{@person.full_name}?" } do %>
+    data: { turbo_confirm: t( ".confirm",
+                             group: group_name_to_add.to_s.titleize,
+                             person: @person.full_name ) } do %>
       <%= button_tag "+", class: "btn btn-sm btn-outline-primary" %>
     <% end %>
   <% else %>
