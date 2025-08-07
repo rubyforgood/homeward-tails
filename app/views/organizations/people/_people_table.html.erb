@@ -37,6 +37,8 @@
             </td>
 
             <td class="text-center">
+              <%# This component defaults to the first group name given when building the "add group" button %>
+              <%# We set the defualt to "admin" here  as it's the least privileged. %>
               <%= render(
                 GroupStatusComponent.new(person: person, group_names: %i[admin super_admin]),
               ) %>
