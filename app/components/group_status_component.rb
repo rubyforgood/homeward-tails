@@ -22,14 +22,14 @@ class GroupStatusComponent < ApplicationComponent
       :active
     end
   end
-end
 
-private
+  private
 
-def group
-  @group_names.map { |name| @group_map[name] }.compact.first
-end
+  def group
+    @group_names.map { |name| @group_map[name] }.compact.first
+  end
 
-def deactivated?
-  @deactivated_map[group.id]&.deactivated_at.present?
+  def deactivated?
+    @deactivated_map[group.id]&.deactivated_at.present?
+  end
 end
