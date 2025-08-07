@@ -68,10 +68,9 @@ module Organizations
     end
 
     def add_group
-      authorize!
-
       group = params[:group]&.to_sym
 
+      authorize! @person, with: GroupManagementPolicy, context: {group: group}
       @person.add_group(group)
 
       redirect_back_or_to root_path, notice: "#{group.to_s.titleize} group added."
