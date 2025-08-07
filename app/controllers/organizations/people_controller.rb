@@ -6,16 +6,21 @@ module Organizations
     skip_before_action :verify_person_in_org, only: %i[new create]
     skip_verify_authorized only: %i[new create]
     before_action :validate_person_does_not_exist, only: %i[new create]
-    before_action :set_person, only: %i[show edit update]
+    before_action :set_person, only: %i[show edit update add_group]
 
     def index
       authorize!
 
-      @q = authorized_scope(Person.all).ransack(params[:q])
-      @pagy, @people = pagy(
-        @q.result,
-        limit: 10
+      base_relation = authorized_scope(
+        Person.includes(
+          :user,
+          :person_groups,
+          :groups
+        )
       )
+
+      @q = base_relation.ransack(params[:q])
+      @pagy, @people = pagy(@q.result, limit: 10)
     end
 
     def show
@@ -60,6 +65,15 @@ module Organizations
         flash.now[:alert] = @person.errors.full_messages.to_sentence
         render turbo_stream: turbo_stream.replace("flash", partial: "layouts/shared/flash_messages")
       end
+    end
+
+    def add_group
+      group = params[:group]&.to_sym
+
+      authorize! @person, with: GroupManagementPolicy, context: {group: group}
+      @person.add_group(group)
+
+      redirect_to staff_people_path, notice: "#{group.to_s.titleize} group added."
     end
 
     private
