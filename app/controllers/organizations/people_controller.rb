@@ -73,7 +73,7 @@ module Organizations
       authorize! @person, with: GroupManagementPolicy, context: {group: group}
       @person.add_group(group)
 
-      redirect_back_or_to root_path, notice: "#{group.to_s.titleize} group added."
+      redirect_to staff_people_path, notice: "#{group.to_s.titleize} group added."
     end
 
     private

@@ -1,8 +1,10 @@
 <% case status %>
 <% when :active %>
+  <%# "check mark" symbol %>
   <p style="color:green;">&#10004;</p>
 
 <% when :deactivated %>
+  <%# "x" symbol %>
   <p style="color:red;">&#10008;</p>
 
 <% when :not_present %>
