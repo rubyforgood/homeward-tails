@@ -44,13 +44,3 @@ label.required:after {
     }
   }
 }
-
-
-// Custom styling for only-child psuedo class
-.only-child-block:not(:only-child) {
-  display: none;
-}
-
-.only-child-block:only-child {
-  display: block;
-}

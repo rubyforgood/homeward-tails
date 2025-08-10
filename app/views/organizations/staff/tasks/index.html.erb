@@ -8,33 +8,43 @@
               <h4 class="mb-0">Tasks</h4>
               <%= link_to new_staff_pet_task_path(@pet), class: 'btn btn-outline-primary m-3', data: { turbo_frame: dom_id(Task.new) } do %>
                 <div class="d-flex align-items-center">
-                  <i class="fe fe-plus fw-bolder me-2" aria-label="add new task" style="font-size: 22px;"></i>
-                  <%= t('.new_task')%>
+                  <i
+                    class="fe fe-plus fw-bolder me-2"
+                    aria-label="add new task"
+                    style="font-size: 22px;"
+                  ></i>
+                  <%= t(".new_task") %>
                 </div>
               <% end %>
             </div>
-              <div class="checkbox d-flex flex-column flex-sm-row align-items-end">
-                <label class="form-check-label text-end me-2 mb-2 mb-sm-0" for="flexSwitchCheckChecked">
-                  <%= t('.complete?') %>
-                </label>
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckChecked"
-                    checked
-                    data-controller="toggle-completed"
-                    data-toggle-completed-show-class="d-block"
-                    data-action="change->toggle-completed#toggleCompletedTasks">
-                </div>
+            <div class="checkbox d-flex flex-column flex-sm-row align-items-end">
+              <label
+                class="form-check-label text-end me-2 mb-2 mb-sm-0"
+                for="flexSwitchCheckChecked"
+              >
+                <%= t(".complete?") %>
+              </label>
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="flexSwitchCheckChecked"
+                  checked
+                  data-controller="toggle-completed"
+                  data-action="change->toggle-completed#toggleCompletedTasks"
+                >
               </div>
+            </div>
           </div>
           <%= turbo_frame_tag Task.new %>
         </div>
-        <ul class="list-group task-list">
-          <%= render @tasks %>
-          <li class="only-child-block text-center px-2 py-4">There are no active tasks for this pet.</li>
+        <ul class="list-group">
+          <% if @tasks.any? %>
+            <%= render @tasks %>
+          <% else %>
+            <li class="list-group-item">There are no active tasks for this pet.</li>
+          <% end %>
         </ul>
       </div>
     </div>

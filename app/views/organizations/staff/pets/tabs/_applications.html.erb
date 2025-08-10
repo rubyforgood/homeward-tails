@@ -5,48 +5,61 @@
       <%= link_to staff_pet_path(pet) do %>
         <%= render PetAvatarComponent.new(pet) %>
       <% end %>
-      <h4 class="mb-0 ms-3"><%= link_to pet.name, staff_pet_path(pet), class: "link-underline link-underline-opacity-0" %></h4>
+      <h4 class="mb-0 ms-3"><%= link_to pet.name,
+        staff_pet_path(pet),
+        class: "link-underline link-underline-opacity-0" %></h4>
     </div>
   <% end %>
   <div class="card-body px-5">
     <table class="table mb-0 text-nowrap table-hover table-centered">
-        <thead>
-          <tr>
-            <th scope="col">
-              <%= t("organizations.staff.pets.applications.applicant")%>
-            </th>
-            <th scope="col">
-              <%= t("organizations.staff.pets.applications.status")%>
-            </th>
-            <th scope="col"></th>
-            <th scope="col">
-              <%= t("organizations.staff.pets.applications.notes")%>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% applications.each do |app|%>
-            <%= render 'organizations/staff/pets/tabs/partials/application_info_table_row', app: app %>
+      <thead>
+        <tr>
+          <th scope="col">
+            <%= t("organizations.staff.pets.applications.applicant") %>
+          </th>
+          <th scope="col">
+            <%= t("organizations.staff.pets.applications.status") %>
+          </th>
+          <th scope="col"></th>
+          <th scope="col">
+            <%= t("organizations.staff.pets.applications.notes") %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if applications.any? %>
+          <% applications.each do |app| %>
+            <%= render "organizations/staff/pets/tabs/partials/application_info_table_row",
+            app: app %>
           <% end %>
-          <tr class="only-child-block">
+        <% else %>
+          <tr>
             <td>
-              There are no applications for this pet... yet!
+              There are no applications for this pet.
             </td>
           </tr>
-        </tbody>
+        <% end %>
+      </tbody>
     </table>
   </div>
 </div>
 
 <%# Card %>
 <div class="col-lg-5 d-xl-none">
-  <div class="card card-hover m-2 m-sm-4" style='overflow: hidden; max-width: 350px;'>
+  <div
+    class="card card-hover m-2 m-sm-4"
+    style='overflow: hidden; max-width: 350px;'
+  >
     <%# Card image %>
     <%= link_to staff_pet_path(pet) do %>
       <% if pet.images.attached? %>
-        <%= image_tag pet.images.first, class: "img-fluid card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
+        <%= image_tag pet.images.first,
+        class: "img-fluid card-img-top",
+        style: "width: 100%; height: 200px; object-fit: cover;" %>
       <% else %>
-        <%= image_tag "coming_soon.jpg", class: "img-fluid card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
+        <%= image_tag "coming_soon.jpg",
+        class: "img-fluid card-img-top",
+        style: "width: 100%; height: 200px; object-fit: cover;" %>
       <% end %>
     <% end %>
     <%# Card header %>
@@ -57,7 +70,7 @@
     </div>
     <%# Card body %>
     <% applications.each do |app| %>
-      <%= render 'organizations/staff/pets/tabs/partials/application_info_card', app: app %>
+      <%= render "organizations/staff/pets/tabs/partials/application_info_card", app: app %>
     <% end %>
   </div>
 </div>
