@@ -16,10 +16,10 @@ gem "propshaft"
 gem "figaro"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.6"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 6.6.0"
+gem "puma", "~> 6.6.1"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -104,7 +104,7 @@ gem "rails-controller-testing"
 gem "action_policy", "~> 0.7.4"
 
 # Use ViewComponent for our presenter pattern framework
-gem "view_component", "~> 3.22"
+gem "view_component", "~> 4.0.0"
 
 # Use dry-types for defining types
 gem "dry-types", "~> 1.8"
@@ -113,10 +113,10 @@ gem "dry-types", "~> 1.8"
 gem "dry-initializer", "~> 3.2"
 
 # Catch unsafe migrations
-gem "strong_migrations", "~> 2.4"
+gem "strong_migrations", "~> 2.5"
 
 # Track errors in prod
-gem "bugsnag", "~> 6.27"
+gem "bugsnag", "~> 6.28"
 
 # Google OAuth
 gem "omniauth"
@@ -188,4 +188,4 @@ end
 
 gem "solid_cable", "~> 3.0"
 
-gem "solid_queue", "~> 1.1"
+gem "solid_queue", "~> 1.2"

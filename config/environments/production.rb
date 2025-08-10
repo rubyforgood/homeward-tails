@@ -74,7 +74,9 @@ Rails.application.configure do
 
   # devise mailer (e.g. reset password)
   config.action_mailer.default_url_options = {host: "https://www.homewardtails.org"}
-  config.action_mailer.default_options = {from: "homewardtails@gmail.com"}
+  config.action_mailer.default_options = {from: Rails.application.credentials.dig(:gmail, :user_name)}
+  config.action_mailer.default = {from: Rails.application.credentials.dig(:gmail, :user_name)}
+
   # Replace the default in-process memory cache store with a durable alternative.
   # config.cache_store = :mem_cache_store
 
@@ -86,13 +88,16 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
-  # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
-  #   address: "smtp.example.com",
-  #   port: 587,
-  #   authentication: :plain
-  # }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "gmail.com",
+    user_name: Rails.application.credentials.dig(:gmail, :user_name),
+    password: Rails.application.credentials.dig(:gmail, :password),
+    authentication: "plain",
+    enable_starttls_auto: true
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -114,7 +119,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.from_email = Rails.application.credentials.homeward_tails_email_address
+  config.from_email = Rails.application.credentials.dig(:gmail, :user_name)
   config.app_url = "https://www.homewardtails.org"
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [:id]

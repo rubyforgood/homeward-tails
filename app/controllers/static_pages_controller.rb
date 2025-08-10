@@ -1,13 +1,20 @@
 class StaticPagesController < ApplicationController
   skip_before_action :authenticate_user!
-  skip_verify_authorized only: %i[about_us cookie_policy donate partners
-    privacy_policy terms_and_conditions organizations]
 
-  before_action :require_no_tenant, only: [:about_us, :partners]
+  skip_verify_authorized only: %i[
+    about_us
+    cookie_policy
+    partners
+    privacy_policy
+    terms_and_conditions
+    organizations
+  ]
+
+  before_action :require_no_tenant, only: [:about_us, :partners, :organizations]
 
   def home
-    if !current_tenant
-      render :no_tenant and return
+    if Current.organization.blank?
+      render :no_tenant
     end
   end
 
@@ -15,9 +22,6 @@ class StaticPagesController < ApplicationController
   end
 
   def partners
-  end
-
-  def donate
   end
 
   def privacy_policy
@@ -30,15 +34,14 @@ class StaticPagesController < ApplicationController
   end
 
   def organizations
-    @organizations = Organization
-      .includes(:custom_page, :locations)
+    @organizations = Organization.active.includes(:custom_page, :locations)
   end
 
   private
 
   def require_no_tenant
-    unless Current.organization.blank?
-      render "errors/not_found", status: :not_found and return
+    if Current.organization.present?
+      render "errors/not_found", status: :not_found
     end
   end
 end

@@ -33,7 +33,6 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
 
     user = User.last
     assert_equal "test@example.com", user.email
-    assert_equal "Test", user.first_name
     assert_equal "google_oauth2", user.provider
     assert_equal "123456789", user.uid
   end
@@ -47,10 +46,15 @@ class Users::OmniauthCallbacksTest < ActionDispatch::IntegrationTest
   end
 
   test "should handle authentication failure" do
+    original_logger = OmniAuth.config.logger
+    OmniAuth.config.logger = Logger.new(nil) # silence the logger for this test
+
     OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
 
     post user_google_oauth2_omniauth_callback_path
     assert_response :redirect
     assert_redirected_to root_path
+  ensure
+    OmniAuth.config.logger = original_logger
   end
 end

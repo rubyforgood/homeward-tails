@@ -34,6 +34,7 @@ en:
   adopters: "Adopters"
   fosters: "Fosters"
   people: "People"
+  people: "People"
   fosterer: "Fosterer"
   rescues: "Rescues"
   staff: "Staff"
@@ -163,7 +164,7 @@ en:
       give_ur_furr_ball: 'Give your fur balls what they deserve'
       give_ur_furr_ball_description: 'As a Ruby For Good open source project, this app will always be 100% free and volunteer supported'
       learn_more_about: 'Learn more about Ruby For Good'
-      learn_more_about_description: 'Ruby for Good is a skills-based volunteer organization focused on is to delivering specialized software development solutions to non-profit organizations to bolster their critical missions, build an inclusive technology community, and provide technology-focused educational opportunities to underserved communities.'
+      learn_more_about_description: 'Ruby for Good is a skills-based volunteer organization focused on delivering specialized software development solutions to non-profit organizations to bolster their critical missions, build an inclusive technology community, and provide technology-focused educational opportunities to underserved communities.'
   views:
     dashboard:
       index:
@@ -179,9 +180,9 @@ en:
     shared:
       footer:
         organization_name: "%{name}"
-        call: "If you are a pet adoption or foster organization and want a website like this one, for free,"
+        call: "If you want a website like this one, for free,"
         action: "Click Here"
-        company: "Company"
+        socials: "Socials"
         rights: "Pet-Rescue, Inc. All Rights Reserved"
         policy: "Privacy Policy"
         cookie: "Cookie Notice"
@@ -320,7 +321,7 @@ en:
             images:
               content_type_invalid: "Image must be PNG or JPEG"
               limit_out_of_range: "5 maximum"
-              file_size_out_of_range: "Image size must be between 10kb and 1Mb"
+              file_size_out_of_range: "Image size must not be larger than 2MB"
         task:
           attributes:
             pet:
@@ -339,10 +340,6 @@ en:
               invalid: "invalid"
             password:
               blank: "Password can't be blank"
-            first_name:
-              blank: "First name can't be blank"
-            last_name:
-              blank: "Last name can't be blank"
     models:
       location: Location
     attributes:
@@ -456,7 +453,7 @@ en:
           unsaved_changes: "Unsaved changes will be lost. Are you sure you want to leave this page?"
           pet_show_info: "You must create at least one Pet to view these changes live."
           view_changes: "Click each section to view your changes live"
-          changes_must_be_saved: "*Changes must be saved before viewing" 
+          changes_must_be_saved: "*Changes must be saved before viewing"
           image_requirements: "Image must be .png or .jpeg under 2MB"
           upload_limit: "You can upload up to 2 images."
       matches:
@@ -636,6 +633,8 @@ en:
               draft: "Draft"
           photos:
             empty_state: "No photos exist for this pet"
+          files:
+            empty_state: "No files exist for this pet"
       custom_form:
         forms:
           set_form:
@@ -775,6 +774,8 @@ en:
       show:
         details: Details
         form_submissions: "Form Submissions"
+      update:
+        success: "Profile name updated!"
     contacts:
       create:
        success: "Message sent!"

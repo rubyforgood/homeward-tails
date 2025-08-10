@@ -12,7 +12,7 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
       invitation_params = {
         user: attributes_for(:user)
           .except(:password, :encrypted_password, :tos_agreement)
-          .merge(roles: "super_admin")
+          .merge(roles: "super_admin", first_name: "john", last_name: "doe")
       }
 
       post user_invitation_url, params: invitation_params
@@ -26,7 +26,7 @@ class Organizations::Staff::InvitationsControllerTest < ActionDispatch::Integrat
       invitation_params = {
         user: attributes_for(:user)
           .except(:password, :encrypted_password, :tos_agreement)
-          .merge(roles: "admin")
+          .merge(roles: "admin", first_name: "john", last_name: "doe")
       }
 
       post user_invitation_url, params: invitation_params

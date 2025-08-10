@@ -5,12 +5,12 @@
     <div class="card-body">
       <div class="text-center">
         <div class="position-relative">
-          <%= render AvatarComponent.new(fosterer.user, size: :xl) %>
+          <%= render AvatarComponent.new(fosterer, size: :xl) %>
           <a href="#" class="position-absolute mt-10 ms-n5">
             <span class="status bg-success"></span>
           </a>
         </div>
-        <h4 class="mb-0"><%= "#{fosterer.user.full_name}" %></h4>
+        <h4 class="mb-0"><%= "#{fosterer.full_name}" %></h4>
       </div>
       <div class="d-flex justify-content-between border-bottom py-2">
         <span><%= t(:phone) %></span>
@@ -20,9 +20,15 @@
         <span><%= t(:email) %></span>
         <span><%= fosterer.email %></span>
       </div>
-       <div class="d-flex justify-content-between border-bottom py-2" id="<%= dom_id(fosterer, :notes) %>">
+      <div
+        class="d-flex justify-content-between border-bottom py-2"
+        id="<%= dom_id(fosterer, :notes) %>"
+      >
         <span><%= t(:notes) %></span>
-        <%= render 'organizations/staff/shared/notes', notable: fosterer, modal_id: 'card', context: 'fosterers' %>
+        <%= render "organizations/staff/shared/notes",
+        notable: fosterer,
+        modal_id: "card",
+        context: "fosterers" %>
       </div>
       <div class="text-end mt-3">
         <%= link_to t("general.edit"),

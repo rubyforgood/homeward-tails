@@ -15,7 +15,7 @@
 #     slug: 'baja',
 #     email: "lol@test.lol"
 #   },
-#   user: {
+#   super_admin: {
 #     email: 'test@test.lol',
 #     first_name: 'Jimmy',
 #     last_name: 'Hendrix'
@@ -35,12 +35,11 @@ class Organizations::CreateService
         args[:location][:city_town],
         args[:location][:province_state]
       )
-      create_user(
-        args[:user][:email],
-        args[:user][:first_name],
-        args[:user][:last_name]
+      create_super_admin(
+        args[:super_admin][:email],
+        args[:super_admin][:first_name],
+        args[:super_admin][:last_name]
       )
-      add_super_admin_group_to_person
       send_email
       create_custom_page
     end
@@ -67,28 +66,21 @@ class Organizations::CreateService
     )
   end
 
-  def create_user(email, first_name, last_name)
+  def create_super_admin(email, first_name, last_name)
     ActsAsTenant.with_tenant(@organization) do
       @user = User.create!(
         email: email,
-        first_name: first_name,
-        last_name: last_name,
         password: SecureRandom.hex(3)[0, 6]
       )
 
-      @person = Person.create!(
+      person = Person.create!(
         user: @user,
         first_name: first_name,
         last_name: last_name,
         email: email
       )
-    end
-  end
-
-  def add_super_admin_group_to_person
-    ActsAsTenant.with_tenant(@organization) do
-      @person.add_group(:super_admin)
-      unless @person.active_in_group?(:super_admin)
+      person.add_group(:super_admin)
+      unless person.active_in_group?(:super_admin)
         raise StandardError, "Failed to add super admin role"
       end
     end

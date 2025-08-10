@@ -48,6 +48,10 @@ crumb :people do
   link "People", staff_people_path
 end
 
+crumb :people do
+  link "People", staff_people_path
+end
+
 crumb :fosterers do
   link "Fosterers", staff_fosterers_path
 end
@@ -98,7 +102,7 @@ crumb :invite_fosterer do |fosterer|
 end
 
 crumb :person do |person|
-  link person.user.full_name, person
+  link person.full_name, person
   parent :people
 end
 

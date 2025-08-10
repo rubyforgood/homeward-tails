@@ -22,15 +22,15 @@
                 <!-- List -->
                 <li class="dropdown ms-2">
                   <a class="rounded-circle" href="#" role="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                    <%= render AvatarComponent.new(current_user) %>
+                    <%= render AvatarComponent.new(Current.person) %>
                   </a>
                   <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
                     <div class="dropdown-item">
                       <div class="d-flex">
-                        <%= render AvatarComponent.new(current_user) %>
+                        <%= render AvatarComponent.new(Current.person) %>
                         <div class="ms-3 lh-1">
-                          <h5 class="mb-1"><%= "#{current_user.full_name}" %></h5>
-                          <p class="mb-0 text-muted"><%= current_user.email %></p>
+                          <h5 class="mb-1"><%= "#{Current.person.full_name}" %></h5>
+                          <p class="mb-0 text-muted"><%= Current.person.email %></p>
                         </div>
                       </div>
                     </div>
@@ -42,7 +42,7 @@
                         <% end %>
                       </li>
                       <li>
-                        <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+                        <%= link_to account_path(Current.person), class: "dropdown-item" do %>
                           <i class="fe fe-settings me-2"></i> Account Settings
                         <% end %>
                       </li>

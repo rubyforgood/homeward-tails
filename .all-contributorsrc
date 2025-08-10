@@ -673,6 +673,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "binarygit",
+      "name": "binarygit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/87677429?v=4",
+      "profile": "https://github.com/binarygit",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "MikeRose151",
+      "name": "Mike Rose",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72466799?v=4",
+      "profile": "https://github.com/MikeRose151",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Jberma23",
+      "name": "Jesse Berman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51378950?v=4",
+      "profile": "https://github.com/Jberma23",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

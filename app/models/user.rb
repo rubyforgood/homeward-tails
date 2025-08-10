@@ -5,7 +5,6 @@
 #  id                     :bigint           not null, primary key
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  first_name             :string           not null
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_limit       :integer
@@ -13,7 +12,6 @@
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
 #  invited_by_type        :string
-#  last_name              :string           not null
 #  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -38,8 +36,6 @@ class User < ApplicationRecord
 
   devise :invitable, :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: {
     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   }
@@ -55,14 +51,6 @@ class User < ApplicationRecord
   # we do not allow updating of email on User because we also store email on Person, however there is a need for the values to be the same
   def prevent_email_change
     errors.add(:email, "Email cannot be changed") if email_changed?
-  end
-
-  def self.ransackable_attributes(auth_object = nil)
-    %w[first_name last_name]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    %w[matches]
   end
 
   # used in views to show only the custom error msg without leading attribute
@@ -86,23 +74,17 @@ class User < ApplicationRecord
     active_for_devise? ? super : :deactivated
   end
 
-  def full_name(format = :default)
-    case format
-    when :default
-      "#{first_name} #{last_name}"
-    when :last_first
-      "#{last_name}, #{first_name}"
-    else
-      raise ArgumentError, "Unsupported format: #{format}"
-    end
-  end
-
-  def name_initials
-    full_name.split.map { |part| part[0] }.join.upcase
-  end
-
   def google_oauth_user?
     provider == "google_oauth2" && uid.present?
+  end
+
+  # Generally we want person data to stay scoped within its associated organization
+  # This is a rare exception where we want to reduce friction for a user when they
+  # join a new organization by prefilling the name values in the form.
+  def default_person
+    ActsAsTenant.without_tenant do
+      people.first
+    end
   end
 
   private
