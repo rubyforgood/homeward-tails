@@ -5,9 +5,7 @@
       <%= link_to staff_pet_path(pet) do %>
         <%= render PetAvatarComponent.new(pet) %>
       <% end %>
-      <h4 class="mb-0 ms-3"><%= link_to pet.name,
-        staff_pet_path(pet),
-        class: "link-underline link-underline-opacity-0" %></h4>
+      <h4 class="mb-0 ms-3"><%= link_to pet.name, staff_pet_path(pet), class: "link-underline link-underline-opacity-0" %></h4>
     </div>
   <% end %>
   <div class="card-body px-5">
@@ -29,8 +27,7 @@
       <tbody>
         <% if applications.any? %>
           <% applications.each do |app| %>
-            <%= render "organizations/staff/pets/tabs/partials/application_info_table_row",
-            app: app %>
+            <%= render "organizations/staff/pets/tabs/partials/application_info_table_row", app: app %>
           <% end %>
         <% else %>
           <tr>
@@ -46,20 +43,13 @@
 
 <%# Card %>
 <div class="col-lg-5 d-xl-none">
-  <div
-    class="card card-hover m-2 m-sm-4"
-    style='overflow: hidden; max-width: 350px;'
-  >
+  <div class="card card-hover m-2 m-sm-4" style='overflow: hidden; max-width: 350px;'>
     <%# Card image %>
     <%= link_to staff_pet_path(pet) do %>
       <% if pet.images.attached? %>
-        <%= image_tag pet.images.first,
-        class: "img-fluid card-img-top",
-        style: "width: 100%; height: 200px; object-fit: cover;" %>
+        <%= image_tag pet.images.first, class: "img-fluid card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
       <% else %>
-        <%= image_tag "coming_soon.jpg",
-        class: "img-fluid card-img-top",
-        style: "width: 100%; height: 200px; object-fit: cover;" %>
+        <%= image_tag "coming_soon.jpg", class: "img-fluid card-img-top", style: "width: 100%; height: 200px; object-fit: cover;" %>
       <% end %>
     <% end %>
     <%# Card header %>
