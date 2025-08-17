@@ -3,7 +3,7 @@ module Organizations
     authorize :group
     pre_check :verify_record_organization!
 
-    def add_group?
+    def create?
       case group
       when :adopter
         permission?(:activate_adopter)

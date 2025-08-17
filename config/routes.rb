@@ -70,7 +70,7 @@ Rails.application.routes.draw do
         end
       end
       resources :people, only: %i[index show], controller: "/organizations/people" do
-        post :add_group, on: :member
+        resource :group_management, only: [:create, :update]
         resources :form_submissions, only: [:index]
       end
 
