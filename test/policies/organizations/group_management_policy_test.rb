@@ -1,7 +1,7 @@
 require "test_helper"
 
 # See https://actionpolicy.evilmartians.io/#/testing?id=testing-policies
-class Organizations::PersonPolicyTest < ActiveSupport::TestCase
+class Organizations::GroupManagementPolicyTest < ActiveSupport::TestCase
   include PetRescue::PolicyAssertions
 
   context "existing record action" do
@@ -12,9 +12,9 @@ class Organizations::PersonPolicyTest < ActiveSupport::TestCase
           Organizations::GroupManagementPolicy.new(@record, person: @person, user: @person&.user, group: :adopter)
         }
       end
-      context "#add_group?" do
+      context "#create?" do
         setup do
-          @action = -> { @policy.call.apply(:add_group?) }
+          @action = -> { @policy.call.apply(:create?) }
         end
 
         context "when person is nil" do
@@ -98,9 +98,9 @@ class Organizations::PersonPolicyTest < ActiveSupport::TestCase
           Organizations::GroupManagementPolicy.new(@record, person: @person, user: @person&.user, group: :fosterer)
         }
       end
-      context "#add_group?" do
+      context "#create?" do
         setup do
-          @action = -> { @policy.call.apply(:add_group?) }
+          @action = -> { @policy.call.apply(:create?) }
         end
 
         context "when person is adopter" do
@@ -152,9 +152,9 @@ class Organizations::PersonPolicyTest < ActiveSupport::TestCase
           Organizations::GroupManagementPolicy.new(@record, person: @person, user: @person&.user, group: :admin)
         }
       end
-      context "#add_group?" do
+      context "#create?" do
         setup do
-          @action = -> { @policy.call.apply(:add_group?) }
+          @action = -> { @policy.call.apply(:create?) }
         end
 
         context "when person is adopter" do
@@ -206,9 +206,9 @@ class Organizations::PersonPolicyTest < ActiveSupport::TestCase
           Organizations::GroupManagementPolicy.new(@record, person: @person, user: @person&.user, group: :super_admin)
         }
       end
-      context "#add_group?" do
+      context "#create?" do
         setup do
-          @action = -> { @policy.call.apply(:add_group?) }
+          @action = -> { @policy.call.apply(:create?) }
         end
 
         context "when person is adopter" do
