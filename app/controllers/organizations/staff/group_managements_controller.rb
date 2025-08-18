@@ -2,7 +2,7 @@ module Organizations
   module Staff
     class GroupManagementsController < Organizations::BaseController
       before_action :set_person, only: %i[create update]
-      before_action :set_target
+      before_action :set_group, only: %I[update]
 
       def create
         group = params[:group]&.to_sym
@@ -43,9 +43,7 @@ module Organizations
         @person = Person.find(params[:person_id])
       end
 
-      def set_target
-        @person = Person.find(params[:person_id])
-
+      def set_group
         if params[:action_type] == "activation"
           @pg = PersonGroup.find(params[:person_group_id])
           @group = @pg.group
