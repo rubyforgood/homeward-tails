@@ -2,6 +2,7 @@ module Organizations
   module Staff
     class GroupManagementsController < Organizations::BaseController
       before_action :set_person, only: %i[create update]
+      before_action :set_target
 
       def create
         group = params[:group]&.to_sym
@@ -14,7 +15,7 @@ module Organizations
 
       def update
         success, message =
-          case management_params[:action_type]
+          case params[:action_type]
           when "activation"
             handle_activation
           when "group_change"
@@ -56,10 +57,10 @@ module Organizations
       end
 
       def handle_activation
-        if params[:activate].to_b == true
-          [true, t(".activated", staff: @person.full_name)] if @person.activate(@group)
-        elsif params[:activate].to_b == false
-          [true, t(".deactivated", staff: @person.full_name)] if @person.deactivate(@group)
+        if deactivate == true
+          [true, t(".deactivated", person: @person.full_name)] if @person.deactivate(@group)
+        elsif deactivate == false
+          [true, t(".activated", person: @person.full_name)] if @person.activate(@group)
         else
           [false, "Error toggling activation!"]
         end
@@ -71,6 +72,10 @@ module Organizations
         else
           [false, "Unable to change group"]
         end
+      end
+
+      def deactivate
+        ActiveModel::Type::Boolean.new.cast(params[:person_group][:deactivated])
       end
     end
   end

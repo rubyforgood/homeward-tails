@@ -104,14 +104,14 @@ class Person < ApplicationRecord
   private
 
   def activation
-    @activation ||= GroupRoleManagement::Activation.new(self)
+    @activation ||= GroupManagement::Activation.new(self)
   end
 
   def group_member
-    @group_member ||= GroupRoleManagement::GroupMember.new(self)
+    @group_member ||= GroupManagement::GroupMember.new(self)
   end
 
   def staff
-    @staff ||= GroupRoleManagement::Staff.new(self)
+    @staff ||= GroupManagement::Staff.new(self)
   end
 end

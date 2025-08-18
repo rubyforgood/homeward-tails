@@ -1,5 +1,5 @@
 <div class=<%= "user_deactivate_toggle_#{person.id}" %>>
-  <%= form_with model: person_group, url: activation_path(person_group.id) do |form| %>
+  <%= form_with model: person_group, url: staff_person_group_management_path(person, action_type: "activation", person_group_id: person_group.id) do |form| %>
     <div class='form-group d-flex justify-content-center'>
       <div class="form-check form-switch">
         <%= form.hidden_field "deactivated", value: false %>

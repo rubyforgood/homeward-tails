@@ -1,0 +1,9 @@
+<%= turbo_stream.replace_all ".user_deactivate_toggle_#{@person.id}",
+                         partial:
+                           "organizations/staff/shared/deactivate_toggle",
+                         locals: {
+                           person: @person,
+                           person_group: @pg.reload,
+                         } %>
+
+<%= turbo_stream.replace "flash", partial: "layouts/shared/flash_messages" %>

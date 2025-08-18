@@ -373,10 +373,6 @@ en:
     authorization_error: "You are not authorized to perform this action."
     try_again: "Error. Please try again."
   organizations:
-    activations:
-      update:
-        activated: "%{staff} was activated."
-        deactivated: "%{staff} was deactivated."
     home:
       index:
         every_paw: "Where every paw finds a home"
@@ -411,6 +407,10 @@ en:
         login: "Log in"
         important_info: "Important Information"
     staff:
+      group_managements:
+        update:
+          activated: "%{person} was activated."
+          deactivated: "%{person} was deactivated."
       form_submissions:
         action: "Action"
         form_submitted: "Form Submitted"
