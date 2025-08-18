@@ -4,16 +4,15 @@ module Organizations
     pre_check :verify_record_organization!
 
     def create?
-      # group == name
       permission_by_group
     end
 
     def update?
-      # group == object
       return false if record.id == person&.id
-      return false if record.organization_id != group.organization_id
-
-      @group = group.name.to_sym
+      if group.is_a?(Group)
+        return false if record.organization_id != group.organization_id
+        @group = group.name.to_sym
+      end
       permission_by_group
     end
 

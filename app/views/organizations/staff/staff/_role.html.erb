@@ -15,11 +15,23 @@
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <% if current_group.super_admin? %>
-      <%= button_to "Admin", staff_user_to_admin_path(person), class: "dropdown-item" %>
+      <%= button_to "Admin",
+      staff_person_group_management_path(
+        person,
+        action_type: "group_change",
+        group: :admin,
+      ),
+      method: :patch,
+      class: "dropdown-item" %>
     <% end %>
     <% if current_group.admin? %>
       <%= button_to "Super Admin",
-      staff_user_to_super_admin_path(person),
+      staff_person_group_management_path(
+        person,
+        action_type: "group_change",
+        group: :super_admin,
+      ),
+      method: :patch,
       class: "dropdown-item" %>
     <% end %>
   </div>

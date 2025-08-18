@@ -65,8 +65,8 @@ module Organizations
       end
 
       def handle_group_change
-        if @person.change_group(params[:group])
-          [true, t(".activated", staff: @person.full_name)]
+        if @person.staff_change_group(@group)
+          [true, t(".activated", person: @person.full_name)]
         else
           [false, "Unable to change group"]
         end
