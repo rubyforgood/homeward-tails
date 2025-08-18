@@ -7,7 +7,7 @@ module GroupManagement
       @group = person.groups.find_by(name: :adopter)
       @person_group = person.person_groups.find_by(group_id: @group.id)
 
-      @activation = GroupRoleManagement::Activation.new(person)
+      @activation = GroupManagement::Activation.new(person)
     end
 
     context "#activate" do

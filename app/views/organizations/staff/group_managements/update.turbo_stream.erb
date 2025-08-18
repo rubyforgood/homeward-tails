@@ -9,8 +9,8 @@
 <% else %>
   <% pg = @person.person_groups.find_by(group_id: @person.staff_current_group.id) %>
 
-  <%= turbo_stream.replace_all ".#{dom_id(@person, :role)}",
-                           partial: "organizations/staff/staff/role",
+  <%= turbo_stream.replace_all ".#{dom_id(@person, :group)}",
+                           partial: "organizations/staff/staff/group",
                            locals: {
                              person: @person,
                            } %>

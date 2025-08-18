@@ -1,5 +1,5 @@
 <% current_group = person.staff_current_group %>
-<div class="dropdown <%= dom_id(person, :role)%>">
+<div class="dropdown <%= dom_id(person, :group)%>">
   <button
     class="
       btn btn-outline-secondary dropdown-toggle <%= "disabled" if person == Current.person%>

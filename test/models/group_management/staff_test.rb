@@ -3,7 +3,7 @@ require "test_helper"
 module GroupManagement
   class StaffTest < ActiveSupport::TestCase
     def setup
-      @staff_management = -> { GroupRoleManagement::Staff.new(@person) }
+      @staff_management = -> { GroupManagement::Staff.new(@person) }
     end
 
     context "#staff?" do
