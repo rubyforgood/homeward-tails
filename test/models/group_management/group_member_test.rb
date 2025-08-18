@@ -1,6 +1,6 @@
 require "test_helper"
 
-module GroupRoleManagement
+module GroupManagement
   class GroupMemberTest < ActiveSupport::TestCase
     def setup
       @person = create(:person)

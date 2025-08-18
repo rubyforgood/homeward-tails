@@ -3,7 +3,7 @@
 # Methods in this class are delegated to the Person model via the `group_member` association.
 # This allows calls like `@person.add_group(:adopter)` to invoke logic defined here.
 
-module GroupRoleManagement
+module GroupManagement
   class GroupMember
     attr_reader :person
 

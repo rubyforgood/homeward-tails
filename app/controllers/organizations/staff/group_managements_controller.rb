@@ -13,12 +13,64 @@ module Organizations
       end
 
       def update
+        success, message =
+          case management_params[:action_type]
+          when "activation"
+            handle_activation
+          when "group_change"
+            handle_group_change
+          else
+            [false, "Invalid parameters"]
+          end
+
+        if success
+          respond_to do |format|
+            format.html { redirect_back_or_to staff_staff_index_path, notice: message }
+            format.turbo_stream { flash.now[:notice] = message }
+          end
+        else
+          respond_to do |format|
+            format.html { redirect_back_or_to staff_staff_index_path, alert: message }
+            format.turbo_stream { flash.now[:alert] = message }
+          end
+        end
       end
 
       private
 
       def set_person
         @person = Person.find(params[:person_id])
+      end
+
+      def set_target
+        @person = Person.find(params[:person_id])
+
+        if params[:action_type] == "activation"
+          @pg = PersonGroup.find(params[:person_group_id])
+          @group = @pg.group
+        else # group_change
+          @group = params[:group]&.to_sym
+        end
+
+        authorize! @person, with: GroupManagementPolicy, to: :update?, context: {group: @group}
+      end
+
+      def handle_activation
+        if params[:activate].to_b == true
+          [true, t(".activated", staff: @person.full_name)] if @person.activate(@group)
+        elsif params[:activate].to_b == false
+          [true, t(".deactivated", staff: @person.full_name)] if @person.deactivate(@group)
+        else
+          [false, "Error toggling activation!"]
+        end
+      end
+
+      def handle_group_change
+        if @person.change_group(params[:group])
+          [true, t(".activated", staff: @person.full_name)]
+        else
+          [false, "Unable to change group"]
+        end
       end
     end
   end
