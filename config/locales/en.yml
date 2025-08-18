@@ -31,9 +31,9 @@
 
 en:
   content_type_invalid: "must be PNG or JPEG"
+  adopter: "Adopter"
   adopters: "Adopters"
   fosters: "Fosters"
-  people: "People"
   people: "People"
   fosterer: "Fosterer"
   rescues: "Rescues"
@@ -373,10 +373,6 @@ en:
     authorization_error: "You are not authorized to perform this action."
     try_again: "Error. Please try again."
   organizations:
-    activations:
-      update:
-        activated: "%{staff} was activated."
-        deactivated: "%{staff} was deactivated."
     home:
       index:
         every_paw: "Where every paw finds a home"
@@ -411,6 +407,12 @@ en:
         login: "Log in"
         important_info: "Important Information"
     staff:
+      group_managements:
+        update:
+          activated: "%{group} group is activated for %{person}."
+          deactivated: "%{group} group is deactivated for %{person}."
+        group_change_error: "Error changing group!"
+        activation_toggle_error: "Error toggling group!"
       form_submissions:
         action: "Action"
         form_submitted: "Form Submitted"
@@ -426,13 +428,6 @@ en:
           success: Fosterer was susccessfully updated
         edit:
           edit_fosterer: Edit %{fosterer} details
-      user_roles:
-        to_admin:
-          success: "Account changed to Admin"
-          error: "Error changing role"
-        to_super_admin:
-          success: "Account changed to Super Admin"
-          error: "Error changing role"
       tasks:
         task:
           recurring: "Recurring"
@@ -812,3 +807,5 @@ en:
     upload_limit_exceeded: "Upload limit exceeded: Only one file allowed."
     attachment_missing: "Please select a file to attach."
     must_be_csv: "File format must be .csv"
+  group_status_component:
+    confirm: "Confirm: Add %{group} group to %{person}?"

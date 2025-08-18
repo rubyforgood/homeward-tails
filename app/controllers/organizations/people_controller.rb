@@ -11,11 +11,16 @@ module Organizations
     def index
       authorize!
 
-      @q = authorized_scope(Person.all).ransack(params[:q])
-      @pagy, @people = pagy(
-        @q.result,
-        limit: 10
+      base_relation = authorized_scope(
+        Person.includes(
+          :user,
+          :person_groups,
+          :groups
+        )
       )
+
+      @q = base_relation.ransack(params[:q])
+      @pagy, @people = pagy(@q.result, limit: 10)
     end
 
     def show

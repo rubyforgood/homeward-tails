@@ -5,7 +5,7 @@
 # This allows calls like `@person.staff_active?` to invoke logic defined here.
 # Only `staff?` is used directly (@person.staff?); all other methods must be called using the prefix.
 
-module GroupRoleManagement
+module GroupManagement
   class Staff < GroupMember
     attr_reader :person
 
@@ -26,7 +26,7 @@ module GroupRoleManagement
     end
 
     def change_group(new_group)
-      raise ArgumentError, "Only :admin or :super_admin are valid groups" unless [:admin, :super_admin].include?(new_group.to_sym)
+      return false unless [:admin, :super_admin].include?(new_group.to_sym)
 
       person.transaction do
         # Remove existing admin/super_admin groups
@@ -36,6 +36,10 @@ module GroupRoleManagement
 
         add_group(new_group)
       end
+
+      person.active_in_group?(new_group)
+    rescue
+      false
     end
   end
 end

@@ -1,10 +1,10 @@
 require "test_helper"
 
-module GroupRoleManagement
+module GroupManagement
   class GroupMemberTest < ActiveSupport::TestCase
     def setup
       @person = create(:person)
-      @group_member = GroupRoleManagement::GroupMember.new(@person)
+      @group_member = GroupManagement::GroupMember.new(@person)
     end
 
     context "#add_group" do

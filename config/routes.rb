@@ -54,8 +54,6 @@ Rails.application.routes.draw do
       resources :staff_invitations, only: %i[new]
       resources :fosterer_invitations, only: %i[new]
       patch "notes", to: "notes#update", as: :note
-      post "user_roles/:id/to_admin", to: "user_roles#to_admin", as: "user_to_admin"
-      post "user_roles/:id/to_super_admin", to: "user_roles#to_super_admin", as: "user_to_super_admin"
 
       resources :pets do
         resources :tasks
@@ -70,6 +68,7 @@ Rails.application.routes.draw do
         end
       end
       resources :people, only: %i[index show], controller: "/organizations/people" do
+        resource :group_management, only: [:create, :update]
         resources :form_submissions, only: [:index]
       end
 

@@ -1,9 +1,9 @@
 require "test_helper"
 
-module GroupRoleManagement
+module GroupManagement
   class StaffTest < ActiveSupport::TestCase
     def setup
-      @staff_management = -> { GroupRoleManagement::Staff.new(@person) }
+      @staff_management = -> { GroupManagement::Staff.new(@person) }
     end
 
     context "#staff?" do
@@ -85,12 +85,10 @@ module GroupRoleManagement
         assert @person.groups.exists?(name: "admin")
       end
 
-      should "raise an error if the group is not admin or super_admin" do
+      should "return false if the group is not admin or super_admin" do
         @person = create(:person, :admin)
 
-        assert_raises(ArgumentError, "Only :admin or :super_admin are valid groups") do
-          @staff_management.call.change_group(:adopter)
-        end
+        assert_equal false, @staff_management.call.change_group(:adopter)
       end
     end
   end

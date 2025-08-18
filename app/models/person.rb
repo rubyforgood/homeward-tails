@@ -55,7 +55,7 @@ class Person < ApplicationRecord
   validates :user_id, uniqueness: {scope: :organization_id}, allow_nil: true
   validates :phone_number, phone: true, if: :phone_number?
 
-  delegate :activate!, :deactivate!, to: :activation
+  delegate :activate, :deactivate, to: :activation
   delegate :add_group, :active_in_group?, :deactivated_in_org?, to: :group_member
   delegate :staff?, to: :staff
   delegate :active?, :current_group, :change_group, to: :staff, prefix: :staff
@@ -104,14 +104,14 @@ class Person < ApplicationRecord
   private
 
   def activation
-    @activation ||= GroupRoleManagement::Activation.new(self)
+    @activation ||= GroupManagement::Activation.new(self)
   end
 
   def group_member
-    @group_member ||= GroupRoleManagement::GroupMember.new(self)
+    @group_member ||= GroupManagement::GroupMember.new(self)
   end
 
   def staff
-    @staff ||= GroupRoleManagement::Staff.new(self)
+    @staff ||= GroupManagement::Staff.new(self)
   end
 end

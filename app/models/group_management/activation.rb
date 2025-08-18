@@ -3,7 +3,7 @@
 # Methods in this class are delegated to the Person model via the `activation` association.
 # This allows calls like `@person.activate!(@group)` to invoke logic defined here.
 #
-module GroupRoleManagement
+module GroupManagement
   class Activation
     attr_reader :person
 
@@ -11,12 +11,16 @@ module GroupRoleManagement
       @person = person
     end
 
-    def activate!(group)
-      person.person_groups.find_by(group: group).update!(deactivated_at: nil)
+    def activate(group)
+      person_group = person.person_groups.find_by(group: group)
+      return false unless person_group
+      person_group.update(deactivated_at: nil)
     end
 
-    def deactivate!(group)
-      person.person_groups.find_by(group: group).update!(deactivated_at: Time.current)
+    def deactivate(group)
+      person_group = person.person_groups.find_by(group: group)
+      return false unless person_group
+      person_group.update(deactivated_at: Time.current)
     end
   end
 end

@@ -103,8 +103,8 @@ class PersonTest < ActiveSupport::TestCase
 
   context "delegate" do
     context "activation" do
-      should delegate_method(:activate!).to(:activation)
-      should delegate_method(:deactivate!).to(:activation)
+      should delegate_method(:activate).to(:activation)
+      should delegate_method(:deactivate).to(:activation)
     end
 
     context "group_member" do
