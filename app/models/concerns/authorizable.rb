@@ -84,16 +84,12 @@ module Authorizable
   # Current.organization are returned. If Acts_as_tenant.current_tenant is
   # not set and Current.organization is present an error will be raised
   # via the Acts_as_tenant initializer.
-  def active_group_names
-    person_groups
+  def permissions
+    @permissions ||= person_groups
       .where(deactivated_at: nil)
       .includes(:group)
-      .map { |pg| pg.group.name }
-  end
-
-  def permissions
-    active_group_names.flat_map do |role_name|
-      PERMISSIONS[role_name.to_sym] || []
-    end.uniq
+      .map { |pg| pg.group.name.to_sym }
+      .flat_map { |group_name| PERMISSIONS[group_name] || [] }
+      .uniq
   end
 end
