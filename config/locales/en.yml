@@ -409,8 +409,10 @@ en:
     staff:
       group_managements:
         update:
-          activated: "%{person} was activated."
-          deactivated: "%{person} was deactivated."
+          activated: "%{group} group is activated for %{person}."
+          deactivated: "%{group} group is deactivated for %{person}."
+        group_change_error: "Error changing group!"
+        activation_toggle_error: "Error toggling group!"
       form_submissions:
         action: "Action"
         form_submitted: "Form Submitted"
@@ -426,13 +428,6 @@ en:
           success: Fosterer was susccessfully updated
         edit:
           edit_fosterer: Edit %{fosterer} details
-      user_roles:
-        to_admin:
-          success: "Account changed to Admin"
-          error: "Error changing role"
-        to_super_admin:
-          success: "Account changed to Super Admin"
-          error: "Error changing role"
       tasks:
         task:
           recurring: "Recurring"

@@ -56,19 +56,19 @@ module Organizations
 
       def handle_activation
         if deactivate == true
-          [true, t(".deactivated", person: @person.full_name)] if @person.deactivate(@group)
+          [true, t(".deactivated", person: @person.full_name, group: @group.name.titleize)] if @person.deactivate(@group)
         elsif deactivate == false
-          [true, t(".activated", person: @person.full_name)] if @person.activate(@group)
+          [true, t(".activated", person: @person.full_name, group: @group.name.titleize)] if @person.activate(@group)
         else
-          [false, "Error toggling activation!"]
+          [false, t(".activation_toggle_error")]
         end
       end
 
       def handle_group_change
         if @person.staff_change_group(@group)
-          [true, t(".activated", person: @person.full_name)]
+          [true, t(".activated", person: @person.full_name, group: @group.name.titleize)]
         else
-          [false, "Unable to change group"]
+          [false, t(".group_change_error")]
         end
       end
 
