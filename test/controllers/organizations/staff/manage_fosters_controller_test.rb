@@ -4,6 +4,7 @@ require "action_policy/test_helper"
 class Organizations::Staff::ManageFostersControllerTest < ActionDispatch::IntegrationTest
   context "authorization" do
     include ActionPolicy::TestHelper
+
     context "context only action" do
       setup do
         @adopter = create(:person, :adopter).user

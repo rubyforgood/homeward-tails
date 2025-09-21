@@ -38,7 +38,7 @@ class PetOverviewTest < ApplicationSystemTestCase
 
       visit staff_pet_path(@pet)
       assert has_current_path?(staff_pet_path(@pet))
-      (@all_overview_columns - (%w[Placement_Type Application_Status Publish_Status].map { |word| word.tr("_", " ") })).each do |column|
+      (@all_overview_columns - %w[Placement_Type Application_Status Publish_Status].map { |word| word.tr("_", " ") }).each do |column|
         assert_text(column)
       end
     end
