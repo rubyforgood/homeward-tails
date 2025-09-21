@@ -1,5 +1,6 @@
 class Contact
   include ActiveModel::Model
+
   attr_accessor :name, :email, :message
 
   validates :name, :email, presence: true

@@ -3,9 +3,11 @@ require "test_helper"
 class PhoneableTest < ActiveSupport::TestCase
   class DummyPhoneable
     extend ActiveModel::Callbacks
+
     define_model_callbacks :save
 
     include Phoneable
+
     attr_accessor :phone_number
 
     def save
