@@ -1,5 +1,6 @@
 module ApplicationHelper
   include ::Pagy::Frontend
+
   #
   # Returns the path to the home page of the organization.
   #

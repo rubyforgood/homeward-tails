@@ -1,6 +1,7 @@
 class OrganizationAccountRequest
   include ActiveModel::Model
   include ActiveModel::Validations::Callbacks
+
   attr_accessor :name, :email, :requester_name, :phone_number, :city_town, :country, :province_state
 
   before_validation :normalize_phone

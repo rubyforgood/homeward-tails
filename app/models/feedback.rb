@@ -1,5 +1,6 @@
 class Feedback
   include ActiveModel::Model
+
   attr_accessor :name, :email, :message, :subject
 
   validates :name, :email, :message, :subject, presence: true

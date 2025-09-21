@@ -2,6 +2,7 @@ module Organizations
   module Staff
     class ExternalFormUploadController < Organizations::BaseController
       include AttachmentManageable
+
       layout "dashboard"
 
       before_action :allow_only_one_csv_attachment, only: [:create]
