@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Renders a card component
 class CardComponent < ApplicationComponent
   option :card_options,

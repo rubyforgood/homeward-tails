@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DashboardPageComponent < ViewComponent::Base
   attr_reader :crumb, :crumb_options
 

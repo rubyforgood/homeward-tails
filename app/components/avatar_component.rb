@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Renders a User's avatar as image or user's initials
 class AvatarComponent < ApplicationComponent
   param :person, Types::Instance(Person)

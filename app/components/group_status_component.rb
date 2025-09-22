@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class GroupStatusComponent < ApplicationComponent
   def initialize(person:, group_names:)
     @person = person

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class DataCardComponent < ViewComponent::Base
   attr_reader :title_size, :icon_color
 

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Renders a Pet's image and the Heart like button
 class PetAvatarComponent < ApplicationComponent
   param :pet, Types::Instance(Pet)
