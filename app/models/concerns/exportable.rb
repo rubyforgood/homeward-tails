@@ -1,5 +1,3 @@
-require "csv"
-
 module Exportable
   extend ActiveSupport::Concern
 

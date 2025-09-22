@@ -1,5 +1,3 @@
-require "csv"
-
 module Organizations
   module Importers
     class CsvImportService
