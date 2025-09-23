@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "authentication_failure_app"
 
 # Assuming you have not yet modified this file, each configuration option below

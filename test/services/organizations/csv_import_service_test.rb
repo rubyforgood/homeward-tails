@@ -1,5 +1,4 @@
 require "test_helper"
-require "csv"
 
 module Organizations
   class CsvImportServiceTest < ActiveSupport::TestCase

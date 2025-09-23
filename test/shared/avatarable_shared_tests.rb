@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module AvatarableSharedTests
   def self.included spec
     spec.class_eval do
