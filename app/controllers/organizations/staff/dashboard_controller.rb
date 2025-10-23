@@ -1,5 +1,6 @@
 class Organizations::Staff::DashboardController < Organizations::BaseController
   include DashboardContextable
+
   before_action -> { session[:dashboard_context] = "dashboard" }
   before_action :context_authorize!, only: %i[index pets_with_incomplete_tasks pets_with_overdue_tasks]
   before_action :set_pets_with_overdue_tasks, only: %i[index pets_with_overdue_tasks]

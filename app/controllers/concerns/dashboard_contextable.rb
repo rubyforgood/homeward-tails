@@ -10,7 +10,6 @@ module DashboardContextable
 
   private
 
-
   # Called on every request to ensure the session knows which dashboard
   # the person is currently viewing.
   def set_dashboard_context

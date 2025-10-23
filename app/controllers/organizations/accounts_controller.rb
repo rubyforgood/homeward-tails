@@ -1,6 +1,7 @@
 module Organizations
   class AccountsController < Organizations::BaseController
     include DashboardContextable
+
     before_action :set_person, only: %i[show]
 
     def show
