@@ -1,5 +1,6 @@
 class Organizations::AdopterFosterer::DashboardController < Organizations::BaseController
-  before_action :set_adopter_fosterer_context
+  include DashboardContextable
+  before_action -> { session[:dashboard_context] = "adopter_foster_dashboard" }
   layout "adopter_foster_dashboard"
 
   def index
@@ -9,11 +10,5 @@ class Organizations::AdopterFosterer::DashboardController < Organizations::BaseC
     @adoptable_unique_species = Pet.adoptable_unique_species
 
     authorize! :adopter_foster_dashboard
-  end
-
-  private
-
-  def set_adopter_fosterer_context
-    session[:dashboard_context] = "adopter_foster_dashboard"
   end
 end
