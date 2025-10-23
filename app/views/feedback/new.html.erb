@@ -1,7 +1,7 @@
 <% if Current.person.nil? %>
   <%= render "feedback" %>
 <% else %>
-  <% admin = Current.person.active_in_group?(:adopter) ? false : true %>
+  <% admin = Current.person.active_in_group?(:super_admin, :admin) %>
   <%= render DashboardPageComponent.new(crumb: admin ? :new_feedback : nil) do |c| %>
     <% c.with_header_title { t("feedback.new.header") } %>
     <% c.with_body do %>
