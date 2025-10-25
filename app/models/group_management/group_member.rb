@@ -24,9 +24,9 @@ module GroupManagement
       end
     end
 
-    def active_in_group?(name)
+    def active_in_group?(*names)
       person.person_groups.joins(:group)
-        .where(deactivated_at: nil, groups: {name: name})
+        .where(deactivated_at: nil, groups: {name: names})
         .exists?
     end
 

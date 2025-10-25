@@ -1,9 +1,9 @@
 class FeedbackController < ApplicationController
   include OrganizationScopable
+  include DashboardContextable
 
   skip_before_action :authenticate_user!
   skip_verify_authorized only: %i[new create]
-  layout :set_layout, only: %i[new]
 
   def new
     @feedback = Feedback.new
@@ -15,7 +15,7 @@ class FeedbackController < ApplicationController
 
     if @feedback.valid?
       FeedbackMailer.with(feedback_params).send_feedback.deliver_later
-      redirect_to path, notice: I18n.t("contacts.create.success")
+      redirect_to dashboard_redirect_path, notice: I18n.t("contacts.create.success")
     else
       render :new, status: :unprocessable_entity
     end
@@ -25,25 +25,5 @@ class FeedbackController < ApplicationController
 
   def feedback_params
     params.require(:feedback).permit(:name, :email, :message, :subject)
-  end
-
-  def set_layout
-    if Current.person.nil?
-      "application"
-    elsif Current.person.active_in_group?(:adopter)
-      "adopter_foster_dashboard"
-    else
-      "dashboard"
-    end
-  end
-
-  def path
-    if Current.person.nil?
-      root_path
-    elsif Current.person.active_in_group?(:adopter)
-      adopter_fosterer_dashboard_index_path
-    else
-      staff_dashboard_index_path
-    end
   end
 end
