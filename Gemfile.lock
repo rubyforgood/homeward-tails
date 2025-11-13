@@ -111,9 +111,9 @@ GEM
       msgpack (~> 1.2)
     bootstrap (5.3.5)
       popper_js (>= 2.11.8, < 3)
-    bootstrap_form (5.4.0)
-      actionpack (>= 6.1)
-      activemodel (>= 6.1)
+    bootstrap_form (5.5.0)
+      actionpack (>= 7.2)
+      activemodel (>= 7.2)
     brakeman (7.1.0)
       racc
     bugsnag (6.28.0)
@@ -662,7 +662,7 @@ DEPENDENCIES
   better_errors (~> 2.9, >= 2.9.1)
   bootsnap
   bootstrap
-  bootstrap_form (~> 5.4)
+  bootstrap_form (~> 5.5)
   brakeman
   bugsnag (~> 6.28)
   capybara
