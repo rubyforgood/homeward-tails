@@ -114,7 +114,7 @@ GEM
     bootstrap_form (5.5.0)
       actionpack (>= 7.2)
       activemodel (>= 7.2)
-    brakeman (7.1.0)
+    brakeman (7.1.1)
       racc
     bugsnag (6.28.0)
       concurrent-ruby (~> 1.0)
