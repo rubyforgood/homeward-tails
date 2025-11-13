@@ -14,7 +14,7 @@ Let's get your machine setup to start up the application!
 ### Clone the codebase
 
 ```sh
-git clone git@github.com:rubyforgood/pet-rescue.git
+git clone git@github.com:rubyforgood/homeward-tails.git
 ```
 
 ### Docker
@@ -32,6 +32,26 @@ Navigate to the project directory and run:
 If you need to run migrations at all: `docker-compose run --rm app bin/rails db:migrate`
 
 Visit `localhost:3000` in your browser.
+
+#### Docker Database
+
+This application can be run locally while using a docker database. Review the docker compose file. You will need to start three databases:
+
+```sh
+docker compose up -d postgres
+docker compose up -d cable
+docker compose up -d queue
+```
+
+You may need to set the correct ports - review the environment variable instructions.
+
+Example:
+
+```sh
+DATABASE_PORT: "54320"
+CABLE_PORT: "54321"
+QUEUE_PORT: "54322"
+```
 
 #### Debugging in Docker
 
