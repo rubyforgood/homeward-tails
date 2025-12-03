@@ -422,7 +422,7 @@ GEM
     pg (1.6.2-x86_64-darwin)
     pg (1.6.2-x86_64-linux)
     pg (1.6.2-x86_64-linux-musl)
-    phonelib (0.10.13)
+    phonelib (0.10.14)
     popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
