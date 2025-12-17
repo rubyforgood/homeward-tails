@@ -3,6 +3,6 @@ class SignUpMailer < ApplicationMailer
     @person = params[:person]
     @organization = @person.organization
 
-    mail(to: @person.email, subject: "No Reply: Welcome to #{@organization.name}")
+    mail(to: @person.email, subject: "No Reply: Welcome to Homeward Tails")
   end
 end
