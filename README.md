@@ -1,6 +1,6 @@
 # Homeward Tails Adoption Application
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-78-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-79-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 The Homeward Tails app is derived from the [Baja Pet Rescue Dog Adoption Application](https://github.com/kasugaijin/baja-pet-rescue/tree/main) created by @kasugaijin who wanted to give back to the grassroots organization from where he adopted his dog in Mexico by building them a web application. Homeward Tails is an application that makes it easy to connect shelters with people who are looking to adopt or foster pets.
@@ -377,6 +377,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://crespire.dev/"><img src="https://avatars.githubusercontent.com/u/36272822?v=4?s=100" width="100px;" alt="Simmon Li"/><br /><sub><b>Simmon Li</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=crespire" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/shubhIam-dev"><img src="https://avatars.githubusercontent.com/u/219621089?v=4?s=100" width="100px;" alt="shubhIam-dev"/><br /><sub><b>shubhIam-dev</b></sub></a><br /><a href="https://github.com/rubyforgood/homeward-tails/commits?author=shubhIam-dev" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
