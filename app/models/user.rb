@@ -78,6 +78,16 @@ class User < ApplicationRecord
     provider == "google_oauth2" && uid.present?
   end
 
+  def generate_token(attempts = 10)
+    retries = 0
+    update!(token: SecureRandom.urlsafe_base64(nil, false))
+    self.token
+  rescue ActiveRecord::RecordNotUnique
+    raise if (retries += 1) > attempts
+    Rails.logger.warn("random token, unlikely collision number #{retries}")
+    retry
+  end
+
   # Generally we want person data to stay scoped within its associated organization
   # This is a rare exception where we want to reduce friction for a user when they
   # join a new organization by prefilling the name values in the form.

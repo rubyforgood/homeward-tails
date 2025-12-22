@@ -10,21 +10,9 @@
       You can access your site at: <%= link_to "#{root_url}#{@organization.slug}", home_index_url(script_name: "/#{@organization.slug}"), target: "_blank" %>
     </p>
 
-    <p>
-      username: <%= @user.email %> 
-    </p>
+    <p>Please proceed to creating your password by clicking the link below. Once complete, you will be taken to the staff dashboard</p>
 
-    <p>
-      Password: <%= @user.password %> 
-    </p>
-
-    <p>
-      Please change your password after logging in.
-    </p>
-
-    <p>
-      <%= link_to "Log-in", new_user_session_url(script_name: "/#{@organization.slug}"), target: "_blank" %>
-    </p>
+    <p><%= link_to 'Create my password', edit_password_url(@user, reset_password_token: @token) %></p>
 
     <strong>Homeward Tails Team</strong>
   </body>
