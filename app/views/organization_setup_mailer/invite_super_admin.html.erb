@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Homeward Tails, <%= @user.first_name || 'friend' %>!</h1>
+    
+    <p>Thank you for registering <%= @organization.name %>.</p>
+    
+    <p>
+      You can access your organization's site at: <%= link_to "#{root_url}#{@organization.slug}", "#{root_url}#{@organization.slug}", target: "_blank" %>
+    </p>
+
+    <p>To get started, please create your password by clicking the link below. Once complete, you will be taken to the staff dashboard.</p>
+
+    <p><%= link_to 'Create my password', accept_invitation_url(@user, invitation_token: @token, script_name: "/#{@organization.slug}") %></p>
+
+    <p>If you have any questions, feel free to reach out.</p>
+
+    <p><strong>Homeward Tails Team</strong></p>
+  </body>
+</html>
