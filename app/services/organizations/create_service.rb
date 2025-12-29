@@ -87,11 +87,11 @@ class Organizations::CreateService
   end
 
   def send_email
-    OrganizationMailer.with(
+    OrganizationSetupMailer.with(
       user: @user,
       organization: @organization
     )
-      .create_new_org_and_admin.deliver_later
+      .invite_super_admin.deliver_now
   end
 
   def create_custom_page

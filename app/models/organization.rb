@@ -24,6 +24,7 @@ class Organization < ApplicationRecord
   include Avatarable
   include Phoneable
 
+  has_many :people, dependent: :destroy
   has_many :users, through: :people, dependent: :destroy
   has_many :pets, dependent: :destroy
   has_many :default_pet_tasks, dependent: :destroy
@@ -31,7 +32,6 @@ class Organization < ApplicationRecord
   has_many :faqs, dependent: :destroy
 
   has_many :form_answers, dependent: :destroy
-  has_many :people, dependent: :destroy
   has_one :form_submission, dependent: :destroy
   has_one :custom_page, dependent: :destroy
 
